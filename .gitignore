@@ -1,0 +1,65 @@
+# Local environments and machine-specific settings
+venv/
+.venv/
+env/
+.idea/
+.vscode/
+.local/
+.DS_Store
+Thumbs.db
+
+# Python caches, packaging, coverage and tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage*
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Secrets and local configuration; only the template is public
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+
+# Recordings, annotations, runtime state and experimental output stay local
+/data/*
+!/data/.gitkeep
+/datasets/*
+!/datasets/README.md
+/runs/
+/state/
+*.sqlite*
+*.db
+*.db-*
+*.log
+*.tmp
+*.bak
+*.zip
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.npz
+
+# Keep only reproducible inference assets and their provenance
+/models/*
+!/models/README.md
+!/models/cpu_models.json
+!/models/person_reid.json
+!/models/yolo26n.onnx
+!/models/person_reid.onnx
+!/models/person_reid.torchscript
+!/models/candidates/
+/models/candidates/*
+!/models/candidates/README.md
+!/models/candidates/person_manual_v1.onnx
+!/models/candidates/person_manual_v1.json

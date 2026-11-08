@@ -1,0 +1,14 @@
+{
+  "detector_source": "yolo26n.pt",
+  "detector_source_sha256": "9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef",
+  "detector_onnx_sha256": "cd81184de1a8dedfc9b9043a7ec875ea35190c6897002f2d40f774a55315740d",
+  "reid_source_sha256": "a5686192c14a8493fe632e381bc5992e043803725f3fb4e923340e04bfc109f3",
+  "reid_onnx_sha256": "38b3dd2c2acb0bd191d27eff6707dc5428de63fc7395a6f4ae0cb6392ef2acfa",
+  "reid_tested_batches": [
+    1,
+    2,
+    3
+  ],
+  "reid_minimum_cosine_similarity": 0.999999,
+  "precision": "FP32"
+}

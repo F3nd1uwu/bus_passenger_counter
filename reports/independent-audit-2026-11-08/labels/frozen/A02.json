@@ -1,0 +1,35 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "OUT",
+      "time_s": 17.0,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Bald man in dark coat exits. Present inside before movement, so no initial IN."
+    }
+  ],
+  "review": "All four 1 FPS pages inspected. One exit, otherwise doorway remains empty/open.",
+  "in": 0,
+  "out": 1,
+  "refine": [],
+  "episode": {
+    "id": "A02",
+    "start": 55550,
+    "end": 56900,
+    "type": "motion_stratum",
+    "proposal_frame": 55950,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A02.mp4",
+    "pages": [
+      "manual_review\\A02_01.jpg",
+      "manual_review\\A02_02.jpg",
+      "manual_review\\A02_03.jpg",
+      "manual_review\\A02_04.jpg"
+    ]
+  },
+  "frozen_utc": "2026-11-08T04:50:46.821450+00:00",
+  "clean_clip_sha256": "dd8bc987b1c4b24b523a25310c7ec8337b3ee6dacf5a1d31aac1c7a4de70941d",
+  "status": "manual_frozen_before_prediction"
+}

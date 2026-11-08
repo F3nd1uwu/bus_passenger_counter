@@ -1,0 +1,93 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "IN",
+      "time_s": 8.6,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Curly-haired person in dark jacket with white sleeve stripes."
+    },
+    {
+      "person": "B",
+      "direction": "IN",
+      "time_s": 10.4,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Straight dark bob, brown coat, navy trousers."
+    },
+    {
+      "person": "C",
+      "direction": "IN",
+      "time_s": 12.8,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Silver-haired person in fur-trimmed dark jacket with orange/pink hood and phone."
+    },
+    {
+      "person": "D",
+      "direction": "IN",
+      "time_s": 16.2,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Dark-haired person in light puffer carrying bright green box; stands inside."
+    },
+    {
+      "person": "E",
+      "direction": "OUT",
+      "time_s": 30.3,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Person in brown coat exits; possible relation to B, identity not resolved; first OUT either way.",
+      "possible_same_person": "B",
+      "identity_certainty": "unresolved"
+    },
+    {
+      "person": "F",
+      "direction": "OUT",
+      "time_s": 46.6,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Short-haired person in plain dark puffer exits; not curly-haired A."
+    },
+    {
+      "person": "C",
+      "direction": "OUT",
+      "time_s": 48.4,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Same silver hair, orange/pink hood, fur trim and phone as earlier C."
+    },
+    {
+      "person": "D",
+      "direction": "OUT",
+      "time_s": 49.7,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Same bright green box, grey puffer and gloves as earlier D."
+    }
+  ],
+  "review": "All coarse pages and entry/exit groups at 4 FPS inspected. Four entries, four exits. C/D confirmed repeated identities in opposite directions; first OUT remains counted. E/B identity unresolved but does not change count expectation. No same-direction repeated crossing.",
+  "in": 4,
+  "out": 4,
+  "refine": [],
+  "episode": {
+    "id": "A12",
+    "start": 465750,
+    "end": 467100,
+    "type": "motion_stratum",
+    "proposal_frame": 466150,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A12.mp4",
+    "pages": [
+      "manual_review\\A12_01.jpg",
+      "manual_review\\A12_02.jpg",
+      "manual_review\\A12_03.jpg",
+      "manual_review\\A12_04.jpg"
+    ]
+  },
+  "frozen_utc": "2026-11-08T04:58:24.805184+00:00",
+  "clean_clip_sha256": "097a9a48f05c2e0ba190f27ccb2cde4035252d0b89e286c72bc771f88ea14d82",
+  "status": "manual_frozen_before_prediction"
+}

@@ -1,0 +1,121 @@
+{
+  "profile": {
+    "model": "models/candidates/person_manual_v1.onnx",
+    "confidence": 0.35,
+    "association_similarity": 0.7
+  },
+  "totals": {
+    "manual_in": 20,
+    "manual_out": 11,
+    "before_in": 17,
+    "before_out": 11,
+    "after_in": 20,
+    "after_out": 11,
+    "frames": 9156,
+    "elapsed_seconds": 417.3594442002941,
+    "processing_fps": 21.937924556958063
+  },
+  "clips": [
+    {
+      "clip_id": "01",
+      "manual_in": 1,
+      "manual_out": 0,
+      "before_in": 1,
+      "before_out": 0,
+      "after_in": 1,
+      "after_out": 0,
+      "frames": 1601,
+      "after_suppressed": 0,
+      "processing_fps": 21.27771421941333,
+      "elapsed_seconds": 75.24304460012354,
+      "raw_replay_equals_full_inference": true
+    },
+    {
+      "clip_id": "02",
+      "manual_in": 1,
+      "manual_out": 5,
+      "before_in": 1,
+      "before_out": 5,
+      "after_in": 1,
+      "after_out": 5,
+      "frames": 1401,
+      "after_suppressed": 0,
+      "processing_fps": 23.02598944413014,
+      "elapsed_seconds": 60.84429090004414,
+      "raw_replay_equals_full_inference": true
+    },
+    {
+      "clip_id": "03",
+      "manual_in": 0,
+      "manual_out": 4,
+      "before_in": 0,
+      "before_out": 4,
+      "after_in": 0,
+      "after_out": 4,
+      "frames": 1601,
+      "after_suppressed": 0,
+      "processing_fps": 22.30736613654584,
+      "elapsed_seconds": 71.77001490001567,
+      "raw_replay_equals_full_inference": true
+    },
+    {
+      "clip_id": "04",
+      "manual_in": 3,
+      "manual_out": 2,
+      "before_in": 2,
+      "before_out": 2,
+      "after_in": 3,
+      "after_out": 2,
+      "frames": 1601,
+      "after_suppressed": 0,
+      "processing_fps": 21.703492072474823,
+      "elapsed_seconds": 73.76693090004846,
+      "raw_replay_equals_full_inference": true
+    },
+    {
+      "clip_id": "05",
+      "manual_in": 8,
+      "manual_out": 0,
+      "before_in": 7,
+      "before_out": 0,
+      "after_in": 8,
+      "after_out": 0,
+      "frames": 1501,
+      "after_suppressed": 0,
+      "processing_fps": 21.81868575040499,
+      "elapsed_seconds": 68.79424439999275,
+      "raw_replay_equals_full_inference": true
+    },
+    {
+      "clip_id": "06",
+      "manual_in": 7,
+      "manual_out": 0,
+      "before_in": 6,
+      "before_out": 0,
+      "after_in": 7,
+      "after_out": 0,
+      "frames": 1451,
+      "after_suppressed": 0,
+      "processing_fps": 21.675830456352237,
+      "elapsed_seconds": 66.94091850006953,
+      "raw_replay_equals_full_inference": true
+    }
+  ],
+  "model_weights_changed": false,
+  "counter_rules_changed": false,
+  "database_modified": false,
+  "limitations": [
+    "These manually labeled episodes were used to develop the tracker fix and are regression cases, not a blind test.",
+    "Hourly repeat regression replays the same real detections with fresh tracker IDs; it does not prove recognition after a real hour or a change of clothing/pose.",
+    "Staff filter remains disabled; the driver is included to match the reference labels."
+  ],
+  "tests": {
+    "windows_unit_passed": 71,
+    "windows_cached_regression_test_passed": 1,
+    "cached_intervals_checked": 9,
+    "windows_original_profile_video_tests_passed": 3,
+    "windows_total_passed": 75,
+    "postgres_integration_not_run": 8,
+    "linux_docker_tracker_tests_passed": 15
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "created_utc": "2026-11-08T04:41:24.485386+00:00",
+  "source": "test.mp4 (local recording; not versioned)",
+  "source_size": 954582817,
+  "source_mtime_ns": 1793971010361600700,
+  "source_frames": 488568,
+  "fps": 24.97549185375445,
+  "guard_frames": 2500,
+  "excluded": [
+    {
+      "start": 71500,
+      "end": 72500,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 179500,
+      "end": 180500,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 383500,
+      "end": 384500,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 239500,
+      "end": 240500,
+      "reason": "dataset_val"
+    },
+    {
+      "start": 323500,
+      "end": 324500,
+      "reason": "dataset_val"
+    },
+    {
+      "start": 225450,
+      "end": 226250,
+      "reason": "dataset_test"
+    },
+    {
+      "start": 109900,
+      "end": 110100,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 159900,
+      "end": 160100,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 204900,
+      "end": 205100,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 214900,
+      "end": 215100,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 219900,
+      "end": 220100,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 249900,
+      "end": 250100,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 329900,
+      "end": 330100,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 339900,
+      "end": 340100,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 344900,
+      "end": 345100,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 364900,
+      "end": 365100,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 374900,
+      "end": 375100,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 379900,
+      "end": 380100,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 5000,
+      "end": 5000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 15000,
+      "end": 15000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 30000,
+      "end": 30000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 45000,
+      "end": 45000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 65000,
+      "end": 65000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 85000,
+      "end": 85000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 95000,
+      "end": 95000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 115000,
+      "end": 115000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 150000,
+      "end": 150000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 190000,
+      "end": 190000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 200000,
+      "end": 200000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 260000,
+      "end": 260000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 280000,
+      "end": 280000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 300000,
+      "end": 300000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 355000,
+      "end": 355000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 390000,
+      "end": 390000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 410000,
+      "end": 410000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 430000,
+      "end": 430000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 460000,
+      "end": 460000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 480000,
+      "end": 480000,
+      "reason": "dataset_train"
+    },
+    {
+      "start": 26150,
+      "end": 27750,
+      "reason": "tracker_development"
+    },
+    {
+      "start": 85750,
+      "end": 87150,
+      "reason": "tracker_development"
+    },
+    {
+      "start": 164150,
+      "end": 165750,
+      "reason": "tracker_development"
+    },
+    {
+      "start": 216150,
+      "end": 217750,
+      "reason": "tracker_development"
+    },
+    {
+      "start": 318550,
+      "end": 320050,
+      "reason": "tracker_development"
+    },
+    {
+      "start": 430950,
+      "end": 432400,
+      "reason": "tracker_development"
+    },
+    {
+      "start": 35950,
+      "end": 36099,
+      "reason": "old_empty_regression"
+    },
+    {
+      "start": 225350,
+      "end": 226350,
+      "reason": "old_boarding_regression"
+    },
+    {
+      "start": 323700,
+      "end": 324299,
+      "reason": "old_exit_regression"
+    }
+  ],
+  "selection_method": "12 chronological strata; motion-only proposals, no person detector; visual choice for scenario coverage. Additional fixed-seed random controls. Not a population-random accuracy estimate.",
+  "frozen_model_profile": {
+    "model": "models/candidates/person_manual_v1.onnx",
+    "confidence": 0.35,
+    "association_similarity": 0.7,
+    "image_size": 640,
+    "cpu_threads": 4,
+    "staff_mode": "disabled"
+  },
+  "sha256": {
+    "core\\appearance_tracker.py": "6f26943876fbcc5c86abbf59036e1103342ea33912ac0de3a556c621c603d729",
+    "core\\cli.py": "f0eddddeceebcff630319a32c1aed7ff9fded374ce1ee9b838b5f0d20af325d1",
+    "core\\counter_engine.py": "bb50e98ba01dec8b7eca1142dc0684cb384a66780effa89a8eb15ac518a0523f",
+    "core\\detector.py": "544df14cf27bf15fe113ce876cfd0752a1dbfcedfc93d945ac5a93b9bb2e77eb",
+    "core\\door_sensor.py": "718ca5208919036c5eec2650b3f6591a0479d214c5aaaf6807ff7d9a529f8863",
+    "core\\onnx_runtime.py": "cd584343ef384416ff19e70a8bf9e359309af51eec3035b7538f4758c80aa984",
+    "core\\person_detections.py": "6692ef5ad5ed99db07db72ff563f3a7c1d85a5c2bc7e437c4d9a6a0bf4fe55f2",
+    "core\\preview_player.py": "da397946c26a69325da3721767ce9ebd8c235b63235c5af91b79b2490a1dc3bf",
+    "core\\reid.py": "55b519eda16eea9f85ec5a8f122b2decc185de057a8f84b86934f36369eb32da",
+    "core\\service.py": "5826d9b5ae0f2c6579d5b7e157f0203c885e1bdb50d591c4a34d3591e01780a4",
+    "core\\staff_manager.py": "6e3ac1d25392feb248431c0026ab0221d435882484164a5d6a19e284d5dce72a",
+    "core\\types.py": "2924b5e86fe8e9361b9b0396b0447d061cb8df7b509a11f1858a8ebd1298fd5d",
+    "core\\vest_classifier.py": "a8008a411b2c0be93e1f981822289811dccfac543c982a3583ddffcac59a9d5b",
+    "core\\video_source.py": "5dcf91d692c333816821b56c5e4fd01bf089685c65977fc8c52f0671b58aa294",
+    "core\\visualization.py": "26fa7ac25e1176161f25b2a2951bcb6760e4fdae417c590854c2efdf3abc5dd1",
+    "core\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "config\\settings.py": "93d5825bfc03a685a6234e21aa635fd396de10f477af70e8f69f719d2e1765d1",
+    "models\\candidates\\person_manual_v1.onnx": "35c0908597936bd9c0ec42386aedfd566562bd144ec599c5d971961f863980f0",
+    "models\\person_reid.onnx": "38b3dd2c2acb0bd191d27eff6707dc5428de63fc7395a6f4ae0cb6392ef2acfa",
+    "botsort_reid.yaml": "b9feabb2b69700f4995ff8ac39db935d4db7f295850301d43232d939cb545e43"
+  },
+  "manual_labeling": "Per episode: raw-frame manual annotation frozen before that episode is inferred. Model outputs are stored without inspection until every episode manual annotation is frozen. No model/code/threshold changes during audit."
+}

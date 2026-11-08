@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux:
+    name: Linux / Python 3.12 / PostgreSQL
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: bus_analytics
+          POSTGRES_USER: bus_counter
+          POSTGRES_PASSWORD: test-local-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U bus_counter -d bus_analytics"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 15
+    env:
+      TEST_DB_PORT: "5432"
+      YOLO_AUTOINSTALL: "false"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --no-deps --index-url https://download.pytorch.org/whl/cpu torch==2.15.0 torchvision==0.29.2
+          python -m pip install -r requirements.txt
+      - name: Check dependencies and public files
+        run: |
+          python -m pip check
+          python -m tools.check_repository
+      - name: Unit, model and isolated PostgreSQL tests
+        run: python -m unittest discover -v
+      - name: Validate Compose configuration
+        run: |
+          python -m tools.setup_env
+          docker compose config --quiet
+          docker compose -f docker-compose.yml -f docker-compose.local.yml config --quiet
+
+  windows:
+    name: Windows / Python 3.14
+    runs-on: windows-latest
+    timeout-minutes: 30
+    env:
+      PYTHONUTF8: "1"
+      YOLO_AUTOINSTALL: "false"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.14"
+          cache: pip
+      - name: Install CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --no-deps --index-url https://download.pytorch.org/whl/cpu torch==2.15.0 torchvision==0.29.2
+          python -m pip install -r requirements.txt
+      - name: Check dependencies and public files
+        run: |
+          python -m pip check
+          python -m tools.check_repository
+      - name: Unit and model tests
+        run: python -m unittest discover -v

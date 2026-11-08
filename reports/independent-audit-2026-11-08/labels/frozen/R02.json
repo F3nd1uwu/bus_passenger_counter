@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "person": "B",
+      "direction": "OUT",
+      "time_s": 26.6,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Person in long dark coat and light knit hat exits."
+    }
+  ],
+  "review": "Both fixed-seed random-window pages inspected. Person with magenta backpack already inside at start is not a new entry; one later exit.",
+  "in": 0,
+  "out": 1,
+  "refine": [],
+  "episode": {
+    "id": "R02",
+    "start": 156344,
+    "end": 157094,
+    "type": "fixed_seed_random",
+    "frames": 751,
+    "duration_seconds": 30.069477886462753,
+    "clean_file": "clean_clips\\R02.mp4",
+    "pages": [
+      "manual_review\\R02_01.jpg",
+      "manual_review\\R02_02.jpg"
+    ]
+  },
+  "frozen_utc": "2026-11-08T05:00:03.092115+00:00",
+  "clean_clip_sha256": "03e2b45a4d10a2f7fdf766bd186d892858a1bd1568b26cd05cd281d392e47d8b",
+  "status": "manual_frozen_before_prediction"
+}

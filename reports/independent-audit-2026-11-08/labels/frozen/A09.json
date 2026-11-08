@@ -1,0 +1,102 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "OUT",
+      "time_s": 9.8,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Dark-haired person in black jacket with white hood exits; origin retained by prefix."
+    },
+    {
+      "person": "B",
+      "direction": "OUT",
+      "time_s": 25.5,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Beige knitted hat, taupe puffer and magenta scarf; bags."
+    },
+    {
+      "person": "C",
+      "direction": "OUT",
+      "time_s": 27.2,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Blue-grey knit hat, green puffer, white hood, shopping bags."
+    },
+    {
+      "person": "D",
+      "direction": "OUT",
+      "time_s": 28.7,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Dark ponytail, pale jacket and dark trousers."
+    },
+    {
+      "person": "E",
+      "direction": "IN",
+      "time_s": 30.1,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Young person in bright yellow/black jacket with backpack enters against outgoing stream."
+    },
+    {
+      "person": "F",
+      "direction": "OUT",
+      "time_s": 46.5,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Pale beret and light diamond-quilted puffer, patterned neck layer."
+    },
+    {
+      "person": "G",
+      "direction": "OUT",
+      "time_s": 48.1,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Long light-brown hair, dark jacket, light trousers."
+    },
+    {
+      "person": "H",
+      "direction": "OUT",
+      "time_s": 64.4,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Pink cable-knit hat with raised motifs, mint horizontal-quilted puffer with thick black/white fur collar; distinct from F by hat/collar/quilt pattern."
+    }
+  ],
+  "review": "All original coarse pages plus extended prefix/tail inspected. Dense mixed flow and late exits reviewed at 4 FPS. F/H distinguished by construction and pattern, not color under IR switch. New times include +10s prefix.",
+  "in": 1,
+  "out": 7,
+  "refine": [],
+  "episode": {
+    "id": "A09",
+    "start": 350000,
+    "end": 351725,
+    "type": "motion_stratum",
+    "proposal_frame": 350650,
+    "frames": 1726,
+    "duration_seconds": 69.10774811189708,
+    "clean_file": "clean_clips\\A09.mp4",
+    "pages": [
+      "manual_review\\A09_01.jpg",
+      "manual_review\\A09_02.jpg",
+      "manual_review\\A09_03.jpg",
+      "manual_review\\A09_04.jpg"
+    ],
+    "boundary_extension": {
+      "original_start": 350250,
+      "original_end": 351600,
+      "reason": "Initial partial exit and final passage: add origin and completion context before freezing labels."
+    },
+    "extension_pixel_checks": [
+      1.4209320545196533,
+      1.107640027999878,
+      0.45009440183639526,
+      0.25822481513023376
+    ]
+  },
+  "frozen_utc": "2026-11-08T04:58:24.664885+00:00",
+  "clean_clip_sha256": "cd29d89863e06910bb2a657073e73dd67da2d0aaaa117ad64b7b166c94d1277b",
+  "status": "manual_frozen_before_prediction"
+}

@@ -1,0 +1,281 @@
+[
+  {
+    "id": "A01",
+    "start": 38850,
+    "end": 40450,
+    "type": "motion_stratum",
+    "proposal_frame": 39500,
+    "frames": 1601,
+    "duration_seconds": 64.10284167273883,
+    "clean_file": "clean_clips\\A01.mp4",
+    "pages": [
+      "manual_review\\A01_01.jpg",
+      "manual_review\\A01_02.jpg",
+      "manual_review\\A01_03.jpg",
+      "manual_review\\A01_04.jpg"
+    ],
+    "boundary_extension": {
+      "original_start": 39100,
+      "reason": "First visible passage at start; extend raw context before manual labels and predictions."
+    }
+  },
+  {
+    "id": "A02",
+    "start": 55550,
+    "end": 56900,
+    "type": "motion_stratum",
+    "proposal_frame": 55950,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A02.mp4",
+    "pages": [
+      "manual_review\\A02_01.jpg",
+      "manual_review\\A02_02.jpg",
+      "manual_review\\A02_03.jpg",
+      "manual_review\\A02_04.jpg"
+    ]
+  },
+  {
+    "id": "A03",
+    "start": 101400,
+    "end": 102750,
+    "type": "motion_stratum",
+    "proposal_frame": 101800,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A03.mp4",
+    "pages": [
+      "manual_review\\A03_01.jpg",
+      "manual_review\\A03_02.jpg",
+      "manual_review\\A03_03.jpg",
+      "manual_review\\A03_04.jpg"
+    ]
+  },
+  {
+    "id": "A04",
+    "start": 135700,
+    "end": 137050,
+    "type": "motion_stratum",
+    "proposal_frame": 136100,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A04.mp4",
+    "pages": [
+      "manual_review\\A04_01.jpg",
+      "manual_review\\A04_02.jpg",
+      "manual_review\\A04_03.jpg",
+      "manual_review\\A04_04.jpg"
+    ]
+  },
+  {
+    "id": "A05",
+    "start": 174550,
+    "end": 175900,
+    "type": "motion_stratum",
+    "proposal_frame": 174950,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A05.mp4",
+    "pages": [
+      "manual_review\\A05_01.jpg",
+      "manual_review\\A05_02.jpg",
+      "manual_review\\A05_03.jpg",
+      "manual_review\\A05_04.jpg"
+    ]
+  },
+  {
+    "id": "A06",
+    "start": 243250,
+    "end": 244975,
+    "type": "motion_stratum",
+    "proposal_frame": 243900,
+    "frames": 1726,
+    "duration_seconds": 69.10774811189708,
+    "clean_file": "clean_clips\\A06.mp4",
+    "pages": [
+      "manual_review\\A06_01.jpg",
+      "manual_review\\A06_02.jpg",
+      "manual_review\\A06_03.jpg",
+      "manual_review\\A06_04.jpg"
+    ],
+    "boundary_extension": {
+      "original_start": 243500,
+      "original_end": 244850,
+      "reason": "Retain context before initial entrant and after final exit before model evaluation."
+    },
+    "extension_pixel_checks": [
+      1.2286121845245361,
+      0.7366840243339539,
+      0.6131727695465088,
+      0.3912890553474426,
+      0.8773057460784912
+    ]
+  },
+  {
+    "id": "A07",
+    "start": 269050,
+    "end": 270400,
+    "type": "motion_stratum",
+    "proposal_frame": 269450,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A07.mp4",
+    "pages": [
+      "manual_review\\A07_01.jpg",
+      "manual_review\\A07_02.jpg",
+      "manual_review\\A07_03.jpg",
+      "manual_review\\A07_04.jpg"
+    ]
+  },
+  {
+    "id": "A08",
+    "start": 296000,
+    "end": 297350,
+    "type": "motion_stratum",
+    "proposal_frame": 296400,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A08.mp4",
+    "pages": [
+      "manual_review\\A08_01.jpg",
+      "manual_review\\A08_02.jpg",
+      "manual_review\\A08_03.jpg",
+      "manual_review\\A08_04.jpg"
+    ]
+  },
+  {
+    "id": "A09",
+    "start": 350000,
+    "end": 351725,
+    "type": "motion_stratum",
+    "proposal_frame": 350650,
+    "frames": 1726,
+    "duration_seconds": 69.10774811189708,
+    "clean_file": "clean_clips\\A09.mp4",
+    "pages": [
+      "manual_review\\A09_01.jpg",
+      "manual_review\\A09_02.jpg",
+      "manual_review\\A09_03.jpg",
+      "manual_review\\A09_04.jpg"
+    ],
+    "boundary_extension": {
+      "original_start": 350250,
+      "original_end": 351600,
+      "reason": "Initial partial exit and final passage: add origin and completion context before freezing labels."
+    },
+    "extension_pixel_checks": [
+      1.4209320545196533,
+      1.107640027999878,
+      0.45009440183639526,
+      0.25822481513023376
+    ]
+  },
+  {
+    "id": "A10",
+    "start": 397850,
+    "end": 399200,
+    "type": "motion_stratum",
+    "proposal_frame": 398250,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A10.mp4",
+    "pages": [
+      "manual_review\\A10_01.jpg",
+      "manual_review\\A10_02.jpg",
+      "manual_review\\A10_03.jpg",
+      "manual_review\\A10_04.jpg"
+    ]
+  },
+  {
+    "id": "A11",
+    "start": 419900,
+    "end": 421250,
+    "type": "motion_stratum",
+    "proposal_frame": 420300,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A11.mp4",
+    "pages": [
+      "manual_review\\A11_01.jpg",
+      "manual_review\\A11_02.jpg",
+      "manual_review\\A11_03.jpg",
+      "manual_review\\A11_04.jpg"
+    ]
+  },
+  {
+    "id": "A12",
+    "start": 465750,
+    "end": 467100,
+    "type": "motion_stratum",
+    "proposal_frame": 466150,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A12.mp4",
+    "pages": [
+      "manual_review\\A12_01.jpg",
+      "manual_review\\A12_02.jpg",
+      "manual_review\\A12_03.jpg",
+      "manual_review\\A12_04.jpg"
+    ]
+  },
+  {
+    "id": "A13",
+    "start": 471000,
+    "end": 472600,
+    "type": "additional_IR",
+    "proposal_frame": 471400,
+    "frames": 1601,
+    "duration_seconds": 64.10284167273883,
+    "clean_file": "clean_clips\\A13.mp4",
+    "pages": [
+      "manual_review\\A13_01.jpg",
+      "manual_review\\A13_02.jpg",
+      "manual_review\\A13_03.jpg",
+      "manual_review\\A13_04.jpg"
+    ],
+    "boundary_extension": {
+      "original_start": 471000,
+      "original_end": 472350,
+      "reason": "Retain completion of entrant carrying large bag at original end; extended before frozen labels."
+    }
+  },
+  {
+    "id": "R01",
+    "start": 236229,
+    "end": 236979,
+    "type": "fixed_seed_random",
+    "frames": 751,
+    "duration_seconds": 30.069477886462753,
+    "clean_file": "clean_clips\\R01.mp4",
+    "pages": [
+      "manual_review\\R01_01.jpg",
+      "manual_review\\R01_02.jpg"
+    ]
+  },
+  {
+    "id": "R02",
+    "start": 156344,
+    "end": 157094,
+    "type": "fixed_seed_random",
+    "frames": 751,
+    "duration_seconds": 30.069477886462753,
+    "clean_file": "clean_clips\\R02.mp4",
+    "pages": [
+      "manual_review\\R02_01.jpg",
+      "manual_review\\R02_02.jpg"
+    ]
+  },
+  {
+    "id": "R03",
+    "start": 290646,
+    "end": 291396,
+    "type": "fixed_seed_random",
+    "frames": 751,
+    "duration_seconds": 30.069477886462753,
+    "clean_file": "clean_clips\\R03.mp4",
+    "pages": [
+      "manual_review\\R03_01.jpg",
+      "manual_review\\R03_02.jpg"
+    ]
+  }
+]

@@ -1,0 +1,91 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "OUT",
+      "time_s": 9.5,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "White-haired woman in mauve puffer exits."
+    },
+    {
+      "person": "B",
+      "direction": "OUT",
+      "time_s": 11.5,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Young woman with ponytail, dark coat and plaid scarf exits."
+    },
+    {
+      "person": "C",
+      "direction": "IN",
+      "time_s": 13.7,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Woman in beige/light taupe coat carries purple bags."
+    },
+    {
+      "person": "D",
+      "direction": "IN",
+      "time_s": 15.7,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Man in dark knit cap and light puffer carries a small box."
+    },
+    {
+      "person": "E",
+      "direction": "IN",
+      "time_s": 32.8,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Person with dark hair tied back, dark coat and white shoes enters first in later group."
+    },
+    {
+      "person": "F",
+      "direction": "IN",
+      "time_s": 34.5,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Woman with ponytail in dark coat follows E."
+    },
+    {
+      "person": "G",
+      "direction": "IN",
+      "time_s": 36.0,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Person in large light headphones and white hood enters, then stands inside."
+    },
+    {
+      "person": "H",
+      "direction": "OUT",
+      "time_s": 52.8,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Dark-haired person in black quilted coat exits near clip end."
+    }
+  ],
+  "review": "All four coarse pages inspected. Two early exits followed by two entries, three close entries later, one final exit. Refine crowded group and last exit. Later group and last exit verified at 4 FPS. H has dark footwear, unlike E white shoes; distinct people.",
+  "in": 5,
+  "out": 3,
+  "refine": [],
+  "episode": {
+    "id": "A04",
+    "start": 135700,
+    "end": 137050,
+    "type": "motion_stratum",
+    "proposal_frame": 136100,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A04.mp4",
+    "pages": [
+      "manual_review\\A04_01.jpg",
+      "manual_review\\A04_02.jpg",
+      "manual_review\\A04_03.jpg",
+      "manual_review\\A04_04.jpg"
+    ]
+  },
+  "frozen_utc": "2026-11-08T04:51:53.776513+00:00",
+  "clean_clip_sha256": "c7e03018b85e400c91f477eb2574679f2aa54cc862d20055e2f54f2cd50e7b9c",
+  "status": "manual_frozen_before_prediction"
+}

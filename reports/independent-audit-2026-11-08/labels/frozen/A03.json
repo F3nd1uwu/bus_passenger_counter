@@ -1,0 +1,59 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "IN",
+      "time_s": 15.0,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Woman in knitted hat and light mauve coat, black handbag."
+    },
+    {
+      "person": "B",
+      "direction": "IN",
+      "time_s": 32.0,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Woman with mauve brim hat and dark fur-collared coat."
+    },
+    {
+      "person": "C",
+      "direction": "IN",
+      "time_s": 34.0,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Young brown-haired man, dark jacket, follows B closely."
+    },
+    {
+      "person": "D",
+      "direction": "IN",
+      "time_s": 51.0,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Woman in brown coat, dark hair in bun."
+    }
+  ],
+  "review": "All 1 FPS pages inspected. Four distinct entrants; body already visible inside at start is not counted. Close sequence B/C to refine. Close entries verified at 4 FPS: B and C are two people.",
+  "in": 4,
+  "out": 0,
+  "refine": [],
+  "episode": {
+    "id": "A03",
+    "start": 101400,
+    "end": 102750,
+    "type": "motion_stratum",
+    "proposal_frame": 101800,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A03.mp4",
+    "pages": [
+      "manual_review\\A03_01.jpg",
+      "manual_review\\A03_02.jpg",
+      "manual_review\\A03_03.jpg",
+      "manual_review\\A03_04.jpg"
+    ]
+  },
+  "frozen_utc": "2026-11-08T04:51:53.679121+00:00",
+  "clean_clip_sha256": "bda3f545a3c6e5c4779d33229ae9a7a4f990bd0556f7c2a640643f51b8ae4733",
+  "status": "manual_frozen_before_prediction"
+}

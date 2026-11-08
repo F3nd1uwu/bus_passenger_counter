@@ -1,0 +1,48 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "IN",
+      "time_s": 1.0,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Plaid coat and knitted hat; origin visible on street at clip start, enters with handbag."
+    },
+    {
+      "person": "B",
+      "direction": "IN",
+      "time_s": 3.1,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Light hood and two-tone white/dark jacket enters behind A."
+    },
+    {
+      "person": "C",
+      "direction": "IN",
+      "time_s": 19.6,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Person in colorful cartoon-print jacket and pink trousers enters and remains inside; age not assumed from clothing."
+    }
+  ],
+  "review": "Both fixed-seed random-window coarse pages inspected. Three entries, no exits. Window not extended or selected for activity. First pair and printed-jacket entrant verified at 4 FPS.",
+  "in": 3,
+  "out": 0,
+  "refine": [],
+  "episode": {
+    "id": "R01",
+    "start": 236229,
+    "end": 236979,
+    "type": "fixed_seed_random",
+    "frames": 751,
+    "duration_seconds": 30.069477886462753,
+    "clean_file": "clean_clips\\R01.mp4",
+    "pages": [
+      "manual_review\\R01_01.jpg",
+      "manual_review\\R01_02.jpg"
+    ]
+  },
+  "frozen_utc": "2026-11-08T05:02:07.553661+00:00",
+  "clean_clip_sha256": "df66d0d2a71211bb33550596b7eec5ba5d5d5af1162d8e8ebefb2ec8fde3ee8c",
+  "status": "manual_frozen_before_prediction"
+}

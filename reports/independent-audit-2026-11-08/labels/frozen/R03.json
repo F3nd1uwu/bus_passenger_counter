@@ -1,0 +1,23 @@
+{
+  "events": [],
+  "review": "Both fixed-seed random-window coarse pages inspected. Empty doorway throughout, no crossings.",
+  "in": 0,
+  "out": 0,
+  "refine": [],
+  "episode": {
+    "id": "R03",
+    "start": 290646,
+    "end": 291396,
+    "type": "fixed_seed_random",
+    "frames": 751,
+    "duration_seconds": 30.069477886462753,
+    "clean_file": "clean_clips\\R03.mp4",
+    "pages": [
+      "manual_review\\R03_01.jpg",
+      "manual_review\\R03_02.jpg"
+    ]
+  },
+  "frozen_utc": "2026-11-08T05:00:19.912647+00:00",
+  "clean_clip_sha256": "ea4cc8987c95b0d89653bb762ce6b28823b20befc5583ab69da4bc4e774dabe8",
+  "status": "manual_frozen_before_prediction"
+}

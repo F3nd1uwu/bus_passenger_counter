@@ -1,0 +1,35 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "OUT",
+      "time_s": 15.0,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Man in black long-sleeve top was already inside; handles an object near closed door then exits when it opens."
+    }
+  ],
+  "review": "All four coarse pages inspected. Closed-door movements are not passages; one clear exit. IR/night.",
+  "in": 0,
+  "out": 1,
+  "refine": [],
+  "episode": {
+    "id": "A10",
+    "start": 397850,
+    "end": 399200,
+    "type": "motion_stratum",
+    "proposal_frame": 398250,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A10.mp4",
+    "pages": [
+      "manual_review\\A10_01.jpg",
+      "manual_review\\A10_02.jpg",
+      "manual_review\\A10_03.jpg",
+      "manual_review\\A10_04.jpg"
+    ]
+  },
+  "frozen_utc": "2026-11-08T04:54:46.719313+00:00",
+  "clean_clip_sha256": "1dd2ca49c840977f82aea7a6a9687175fc97a434192e5feb8b546f0892bc6462",
+  "status": "manual_frozen_before_prediction"
+}

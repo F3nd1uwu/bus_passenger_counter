@@ -1,0 +1,35 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "IN",
+      "time_s": 20.8,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Man in light grey short-sleeve shirt initially leans into doorway while standing outside, then enters fully and remains inside. No completed OUT."
+    }
+  ],
+  "review": "All four coarse pages inspected. One IN; leaning/reaching before entry is not counted as separate crossing. Lean and completed entry verified at 4 FPS.",
+  "in": 1,
+  "out": 0,
+  "refine": [],
+  "episode": {
+    "id": "A05",
+    "start": 174550,
+    "end": 175900,
+    "type": "motion_stratum",
+    "proposal_frame": 174950,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A05.mp4",
+    "pages": [
+      "manual_review\\A05_01.jpg",
+      "manual_review\\A05_02.jpg",
+      "manual_review\\A05_03.jpg",
+      "manual_review\\A05_04.jpg"
+    ]
+  },
+  "frozen_utc": "2026-11-08T04:51:53.870259+00:00",
+  "clean_clip_sha256": "13c1e840e4849d025e735221b9d3eed2af149f9148eb5e70f55396eec63c5790",
+  "status": "manual_frozen_before_prediction"
+}

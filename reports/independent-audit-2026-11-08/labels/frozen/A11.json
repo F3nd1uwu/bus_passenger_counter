@@ -1,0 +1,51 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "OUT",
+      "time_s": 15.4,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Long-haired person in dark coat, light trousers, bag exits."
+    },
+    {
+      "person": "B",
+      "direction": "OUT",
+      "time_s": 17.6,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Person in blue jacket and baseball cap with black backpack exits."
+    },
+    {
+      "person": "C",
+      "direction": "OUT",
+      "time_s": 49.0,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Bald man in black long-sleeve top exits and remains outside."
+    }
+  ],
+  "review": "All four coarse pages inspected. Three exits; person already outside at first frame is not counted as a crossing.",
+  "in": 0,
+  "out": 3,
+  "refine": [],
+  "episode": {
+    "id": "A11",
+    "start": 419900,
+    "end": 421250,
+    "type": "motion_stratum",
+    "proposal_frame": 420300,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A11.mp4",
+    "pages": [
+      "manual_review\\A11_01.jpg",
+      "manual_review\\A11_02.jpg",
+      "manual_review\\A11_03.jpg",
+      "manual_review\\A11_04.jpg"
+    ]
+  },
+  "frozen_utc": "2026-11-08T04:55:15.560232+00:00",
+  "clean_clip_sha256": "6f4709f78496814e1587411a46dc72df1c31b1da63df3279047b2e06cc17695c",
+  "status": "manual_frozen_before_prediction"
+}

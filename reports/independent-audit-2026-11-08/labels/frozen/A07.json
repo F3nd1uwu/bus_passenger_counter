@@ -1,0 +1,35 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "IN",
+      "time_s": 16.7,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Bald man in plaid shirt enters. Later stands on bus floor reaching outside/turning, but feet stay inside: not an OUT and not another IN."
+    }
+  ],
+  "review": "All coarse pages and 24-32 s at 4 FPS inspected. One entry, later reaching/turning without full exit.",
+  "in": 1,
+  "out": 0,
+  "refine": [],
+  "episode": {
+    "id": "A07",
+    "start": 269050,
+    "end": 270400,
+    "type": "motion_stratum",
+    "proposal_frame": 269450,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A07.mp4",
+    "pages": [
+      "manual_review\\A07_01.jpg",
+      "manual_review\\A07_02.jpg",
+      "manual_review\\A07_03.jpg",
+      "manual_review\\A07_04.jpg"
+    ]
+  },
+  "frozen_utc": "2026-11-08T04:53:01.931730+00:00",
+  "clean_clip_sha256": "ef613c6ba507eaf3025fcf975634f2b940ba9acbc562a982b6ddfb2c3d4a9177",
+  "status": "manual_frozen_before_prediction"
+}

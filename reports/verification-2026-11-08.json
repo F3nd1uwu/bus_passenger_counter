@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-08",
+  "purpose": "Repository publication verification; separate from ML quality metrics",
+  "windows_python_3_14_full_local_suite": {
+    "discovered": 85,
+    "passed": 85,
+    "skipped": 0,
+    "elapsed_seconds": 136.248,
+    "postgres": "isolated disposable PostgreSQL 16, removed after verification",
+    "private_video_regressions_enabled": true,
+    "private_cached_regressions_enabled": true
+  },
+  "windows_python_3_14_clean_repository_snapshot": {
+    "discovered": 85,
+    "passed": 81,
+    "skipped": 4,
+    "elapsed_seconds": 17.483,
+    "skipped_reason": "Three private-video tests and one private-cache test are opt-in",
+    "postgres_integration": "passed",
+    "repository_checker": "passed"
+  },
+  "linux_python_3_12_docker_clean_repository_snapshot": {
+    "image_build": "passed",
+    "discovered": 85,
+    "passed": 81,
+    "skipped": 4,
+    "elapsed_seconds": 9.742,
+    "postgres_integration": "passed",
+    "user": "unprivileged counter user",
+    "models": "only the four repository inference assets"
+  },
+  "clean_repository_candidate_cli_smoke": {
+    "source": "generated empty synthetic video, not passenger data",
+    "frames_in": 12,
+    "frames_out": 12,
+    "in": 0,
+    "out": 0,
+    "state_database_created": false,
+    "result": "passed"
+  },
+  "additional_checks": {
+    "pip_check": "passed",
+    "base_and_local_override_compose_config": "passed",
+    "public_credentials_scan": "passed",
+    "four_model_sha256": "passed",
+    "frozen_manual_label_sha256": "passed",
+    "audit_event_reconciliation": "passed",
+    "relative_documentation_links": "passed",
+    "git_staged_whitespace_check": "passed"
+  },
+  "production_database_modified": false,
+  "existing_private_env_modified": false,
+  "ml_weights_modified": false,
+  "note": "Passing software tests does not establish real-world hourly ReID accuracy; see docs/QUALITY.md. Test durations include differing load and are not performance benchmarks."
+}

@@ -1,0 +1,95 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "IN",
+      "time_s": 11.0,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Woman in white puffer and brown bob, two shopping bags."
+    },
+    {
+      "person": "B",
+      "direction": "OUT",
+      "time_s": 26.4,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Man in light baseball cap and khaki jacket carries a cardboard box."
+    },
+    {
+      "person": "C",
+      "direction": "OUT",
+      "time_s": 28.6,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Dark-haired woman in shiny taupe puffer follows B. Appearance change under light is the same person, verified at 4 FPS."
+    },
+    {
+      "person": "D",
+      "direction": "OUT",
+      "time_s": 44.9,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Person in light flat cap and grey/mauve coat exits."
+    },
+    {
+      "person": "E",
+      "direction": "OUT",
+      "time_s": 47.3,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Person in dark round cap, blond hair, plain olive jacket and blue neck layer."
+    },
+    {
+      "person": "F",
+      "direction": "OUT",
+      "time_s": 63.5,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Different person in dark cap, silver hair, mauve jacket with striped standing collar; distinguished from E on full-resolution comparison."
+    },
+    {
+      "person": "G",
+      "direction": "IN",
+      "time_s": 65.7,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Young woman in black leather jacket and white trousers enters after F."
+    }
+  ],
+  "review": "All original coarse pages inspected; +10s prefix and +5s tail inspected. Original/new overlap checked pixel-wise. Exit group reviewed at 4 FPS, E/F compared at full resolution: distinct hair/collar/jackets.",
+  "in": 2,
+  "out": 5,
+  "refine": [],
+  "episode": {
+    "id": "A06",
+    "start": 243250,
+    "end": 244975,
+    "type": "motion_stratum",
+    "proposal_frame": 243900,
+    "frames": 1726,
+    "duration_seconds": 69.10774811189708,
+    "clean_file": "clean_clips\\A06.mp4",
+    "pages": [
+      "manual_review\\A06_01.jpg",
+      "manual_review\\A06_02.jpg",
+      "manual_review\\A06_03.jpg",
+      "manual_review\\A06_04.jpg"
+    ],
+    "boundary_extension": {
+      "original_start": 243500,
+      "original_end": 244850,
+      "reason": "Retain context before initial entrant and after final exit before model evaluation."
+    },
+    "extension_pixel_checks": [
+      1.2286121845245361,
+      0.7366840243339539,
+      0.6131727695465088,
+      0.3912890553474426,
+      0.8773057460784912
+    ]
+  },
+  "frozen_utc": "2026-11-08T04:51:53.975659+00:00",
+  "clean_clip_sha256": "4c36d3af0a198dbdd0b0dd8cd9e5e8b9c04437003d8b9d4f8c58d66d5e9e430c",
+  "status": "manual_frozen_before_prediction"
+}

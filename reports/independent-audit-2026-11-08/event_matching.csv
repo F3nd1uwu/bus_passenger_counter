@@ -1,0 +1,54 @@
+﻿episode;person;direction;manual_time_s;expected_counted;result;model_frame;model_time_s;model_track_id;model_identity_id;manual_description
+A01;A;IN;10.5;True;FN;;;;;"Dark-clothed person enters from street; initial interval extended before annotation to retain clear origin."
+A02;A;OUT;17.0;True;FN;;;;;Bald man in dark coat exits. Present inside before movement, so no initial IN.
+A03;A;IN;15.0;True;TP;101796;15.8555;4;9d1d71bc-964f-4e4b-9d84-b3b2fb1ef98a;Woman in knitted hat and light mauve coat, black handbag.
+A03;B;IN;32.0;True;TP;102214;32.592;9;921cf2f4-e8a1-45b8-9622-bce3eded92dd;Woman with mauve brim hat and dark fur-collared coat.
+A03;C;IN;34.0;True;TP;102253;34.1535;10;274f87fb-98a6-4706-b05c-4f961b1be3a6;Young brown-haired man, dark jacket, follows B closely.
+A03;D;IN;51.0;True;TP;102678;51.1702;20;3afb066f-380f-489c-8893-d0afc47e07e7;Woman in brown coat, dark hair in bun.
+A04;A;OUT;9.5;True;TP;135949;9.9698;3;41db9f63-0178-434b-8521-4a088da8bcda;White-haired woman in mauve puffer exits.
+A04;B;OUT;11.5;True;TP;135991;11.6514;7;83677e9e-7bc6-471f-b6a9-8996b504eed5;Young woman with ponytail, dark coat and plaid scarf exits.
+A04;C;IN;13.7;True;TP;136062;14.4942;13;1268a824-2f5a-4f4b-977d-ccd520663488;Woman in beige/light taupe coat carries purple bags.
+A04;D;IN;15.7;True;TP;136118;16.7364;23;c710c1a4-145c-4275-bddf-5fa2bf1091f7;Man in dark knit cap and light puffer carries a small box.
+A04;E;IN;32.8;True;TP;136536;33.4728;34;5b9856bc-7baa-4689-98be-20872a4fd32f;Person with dark hair tied back, dark coat and white shoes enters first in later group.
+A04;F;IN;34.5;True;TP;136568;34.7541;38;11490425-ead8-409a-bbcc-e619f531d350;Woman with ponytail in dark coat follows E.
+A04;G;IN;36.0;True;TP;136605;36.2355;40;5bfe3c29-8458-4be0-bf4d-e52329985d01;Person in large light headphones and white hood enters, then stands inside.
+A04;H;OUT;52.8;True;TP;137027;53.1321;43;1be1da46-88f7-4052-9ecf-0d4ccb6e77c1;Dark-haired person in black quilted coat exits near clip end.
+A05;A;IN;20.8;True;TP;175067;20.7003;2;1252b7ea-9f7a-4ba9-98d3-a58e398a5bc6;Man in light grey short-sleeve shirt initially leans into doorway while standing outside, then enters fully and remains inside. No completed OUT.
+A06;A;IN;11.0;True;TP;243548;11.9317;2;4612efd8-cb98-4f90-9508-463c7ec8ee65;Woman in white puffer and brown bob, two shopping bags.
+A06;B;OUT;26.4;True;TP;243919;26.7863;8;3bee78d6-aa64-43df-a053-1a26d27fdb13;Man in light baseball cap and khaki jacket carries a cardboard box.
+A06;C;OUT;28.6;True;TP;243970;28.8283;13;6733be52-2095-42bb-a905-5e90fa08de8e;Dark-haired woman in shiny taupe puffer follows B. Appearance change under light is the same person, verified at 4 FPS.
+A06;D;OUT;44.9;True;TP;244387;45.5246;22;c3c156bf-6d58-451f-a59a-01e2ac90c8e4;Person in light flat cap and grey/mauve coat exits.
+A06;E;OUT;47.3;True;TP;244432;47.3264;26;a0bf6341-cc7f-42e8-8f42-f47ea1aedb87;Person in dark round cap, blond hair, plain olive jacket and blue neck layer.
+A06;F;OUT;63.5;True;TP;244831;63.3021;34;298dc57b-436f-401b-86c1-6f388eb6f0d5;"Different person in dark cap, silver hair, mauve jacket with striped standing collar; distinguished from E on full-resolution comparison."
+A06;G;IN;65.7;True;TP;244902;66.1448;39;5bb35e85-5fbe-45ad-b4ea-57e11a2879b8;Young woman in black leather jacket and white trousers enters after F.
+A07;A;IN;16.7;True;TP;269467;16.6964;1;2292565f-1d17-49cb-9613-56d6dee9c91a;Bald man in plaid shirt enters. Later stands on bus floor reaching outside/turning, but feet stay inside: not an OUT and not another IN.
+A08;A;OUT;15.3;True;TP;296376;15.0548;2;44675ddb-d806-462d-84ec-5b131de8ded0;"Man in plaid shirt exits completely; no entry within this episode."
+A09;A;OUT;9.8;True;TP;350250;10.0098;1;7e9b710f-77da-47ac-83da-23b2aeea7ccd;"Dark-haired person in black jacket with white hood exits; origin retained by prefix."
+A09;B;OUT;25.5;True;TP;350656;26.2657;6;db098bf8-7850-457e-90b5-00f92604a95b;"Beige knitted hat, taupe puffer and magenta scarf; bags."
+A09;C;OUT;27.2;True;TP;350689;27.587;7;11423fcb-9faf-4ca3-893f-4dc2ba68b7a1;Blue-grey knit hat, green puffer, white hood, shopping bags.
+A09;D;OUT;28.7;True;TP;350715;28.6281;10;3a0a4423-fc5e-46f0-9a41-0f0996cb2add;Dark ponytail, pale jacket and dark trousers.
+A09;E;IN;30.1;True;TP;350759;30.3898;10;3a0a4423-fc5e-46f0-9a41-0f0996cb2add;Young person in bright yellow/black jacket with backpack enters against outgoing stream.
+A09;F;OUT;46.5;True;TP;351169;46.8059;18;3af0fd71-ec97-4b4e-ac98-4e816cfbb0f4;Pale beret and light diamond-quilted puffer, patterned neck layer.
+A09;G;OUT;48.1;True;TP;351204;48.2073;19;4ec055bb-ddde-4587-afcc-5b538d06feea;Long light-brown hair, dark jacket, light trousers.
+A09;H;OUT;64.4;True;TP;351617;64.7435;30;a9067ae3-1dc3-448b-bfe0-cda507fbcb49;"Pink cable-knit hat with raised motifs, mint horizontal-quilted puffer with thick black/white fur collar; distinct from F by hat/collar/quilt pattern."
+A10;A;OUT;15.0;True;TP;398225;15.0147;1;0e89327b-a30f-41f6-8b72-59f8f56e5c24;"Man in black long-sleeve top was already inside; handles an object near closed door then exits when it opens."
+A11;A;OUT;15.4;True;TP;420292;15.6954;1;9ca2f6b4-defb-4c19-bb79-c96fcfef22b8;Long-haired person in dark coat, light trousers, bag exits.
+A11;B;OUT;17.6;True;TP;420353;18.1378;2;79cc68fa-3846-4d74-a484-4d56daa00c9a;Person in blue jacket and baseball cap with black backpack exits.
+A11;C;OUT;49.0;True;TP;421127;49.1282;11;2b355efa-96a3-4a35-b5cd-78bbaedeb092;Bald man in black long-sleeve top exits and remains outside.
+A12;A;IN;8.6;True;FN;;;;;Curly-haired person in dark jacket with white sleeve stripes.
+A12;B;IN;10.4;True;FN;;;;;Straight dark bob, brown coat, navy trousers.
+A12;C;IN;12.8;True;TP;466125;15.0147;9;e8a4a094-fa9e-4f71-a654-80f7b32aec99;Silver-haired person in fur-trimmed dark jacket with orange/pink hood and phone.
+A12;D;IN;16.2;True;FN;;;;;"Dark-haired person in light puffer carrying bright green box; stands inside."
+A12;E;OUT;30.3;True;FN;;;;;"Person in brown coat exits; possible relation to B, identity not resolved; first OUT either way."
+A12;F;OUT;46.6;True;TP;466929;47.2063;34;193b479f-74f1-44f8-8383-f2a9b71659c2;"Short-haired person in plain dark puffer exits; not curly-haired A."
+A12;C;OUT;48.4;True;TP;466963;48.5676;35;c1d6d6c2-3587-46a6-a5ff-215c08fef78f;Same silver hair, orange/pink hood, fur trim and phone as earlier C.
+A12;D;OUT;49.7;True;TP;466989;49.6086;42;21882ce3-0747-46eb-b989-1403c58ff3f1;Same bright green box, grey puffer and gloves as earlier D.
+A13;A;OUT;17.6;True;TP;471457;18.2979;13;76472cc4-ec48-4b9d-9cef-03804d87990f;Person in light knitted hat and pale blue/grey coat exits.
+A13;B;OUT;32.0;True;TP;471804;32.1916;14;cf983288-a333-4e00-89e8-2ddba9360a6c;Grey-haired person in dark quilted coat with dark handbag exits.
+A13;C;OUT;33.4;True;TP;471839;33.5929;18;565e2442-0db3-4d4d-ba8b-2bcd194f202f;Light-brown-haired person with large fur-trimmed hood follows B.
+A13;D;IN;51.5;True;TP;472300;52.051;20;81d566bb-94a4-4fb0-956b-626107fe53fe;Hooded person in dark leather-like jacket enters with small white patterned bag.
+A13;E;IN;54.1;True;TP;472368;54.7737;23;0c5118dd-16dc-4e0b-8142-3e7fd0dc9ce6;"Person in magenta/black jacket enters carrying a very large yellow bag/box; completes by 55 s."
+R01;A;IN;1.0;True;TP;236272;1.7217;1;f4e24272-c464-49a6-8957-4c7d0d38cd9c;"Plaid coat and knitted hat; origin visible on street at clip start, enters with handbag."
+R01;B;IN;3.1;True;TP;236320;3.6436;3;47894c49-5354-408a-acd7-4c8faf45ea49;Light hood and two-tone white/dark jacket enters behind A.
+R01;C;IN;19.6;True;TP;236724;19.8194;12;f9d63951-b3c3-41b6-89de-0221521128f6;"Person in colorful cartoon-print jacket and pink trousers enters and remains inside; age not assumed from clothing."
+R02;B;OUT;26.6;True;TP;157012;26.7462;10;f870f897-b1b1-4b24-8668-2fbb467e4721;Person in long dark coat and light knit hat exits.

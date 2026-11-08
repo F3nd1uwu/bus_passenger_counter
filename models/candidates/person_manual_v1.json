@@ -1,0 +1,153 @@
+{
+  "source_sha256": "7031c038dd77146a162bbac046931b9ca0d117d9a2e50584eab5605448d58109",
+  "onnx_sha256": "35c0908597936bd9c0ec42386aedfd566562bd144ec599c5d971961f863980f0",
+  "precision": "FP32",
+  "image_size": 640,
+  "classes": {
+    "0": "person"
+  },
+  "tested_shapes": [
+    [
+      1,
+      3,
+      480,
+      640
+    ],
+    [
+      1,
+      3,
+      640,
+      640
+    ]
+  ],
+  "output_shapes": [
+    [
+      1,
+      5,
+      6300
+    ],
+    [
+      1,
+      5,
+      8400
+    ]
+  ],
+  "reid_changed": false,
+  "activated": false,
+  "recommended_settings": {
+    "CONFIDENCE": 0.35,
+    "TRACKER_IDENTITY_MIN_SIMILARITY": 0.7,
+    "IMAGE_SIZE": 640,
+    "CPU_THREADS": 4
+  },
+  "training": {
+    "epochs_completed": 23,
+    "best_epoch": 15,
+    "pretrained_weights": "models/yolo26n.pt",
+    "freeze": 10,
+    "batch": 4,
+    "learning_rate": 0.0003,
+    "seed": 42,
+    "device": "cpu",
+    "annotation_sha256": "b5164f5f284afe3b6c98c5ae26e53f883faa69598e958a73ae48393edeb4cf6a",
+    "images": 350,
+    "boxes": 341
+  },
+  "calibration": {
+    "confidence_selected_on": "val only",
+    "association_selected_on": "known boarding regression; not an independent test",
+    "hourly_reid_threshold": 0.85
+  },
+  "validation": {
+    "detection": {
+      "baseline": {
+        "val": {
+          "images": 82,
+          "tp": 35,
+          "fp": 11,
+          "fn": 29,
+          "precision": 0.7608695652173914,
+          "recall": 0.546875,
+          "f1": 0.6363636363636365,
+          "empty_images": 27,
+          "false_alarm_empty_images": 0
+        },
+        "test": {
+          "images": 81,
+          "tp": 64,
+          "fp": 27,
+          "fn": 47,
+          "precision": 0.7032967032967034,
+          "recall": 0.5765765765765766,
+          "f1": 0.6336633663366337,
+          "empty_images": 5,
+          "false_alarm_empty_images": 0
+        }
+      },
+      "trained": {
+        "val": {
+          "images": 82,
+          "tp": 58,
+          "fp": 4,
+          "fn": 6,
+          "precision": 0.9354838709677419,
+          "recall": 0.90625,
+          "f1": 0.9206349206349206,
+          "empty_images": 27,
+          "false_alarm_empty_images": 0
+        },
+        "test": {
+          "images": 81,
+          "tp": 78,
+          "fp": 15,
+          "fn": 33,
+          "precision": 0.8387096774193549,
+          "recall": 0.7027027027027027,
+          "f1": 0.7647058823529411,
+          "empty_images": 5,
+          "false_alarm_empty_images": 0
+        }
+      }
+    },
+    "video_regressions": {
+      "boardings": {
+        "frames": 1001,
+        "in": 6,
+        "out": 0,
+        "processing_fps": 21.447881608063437,
+        "confidence": 0.35,
+        "association_similarity": 0.7
+      },
+      "exit": {
+        "frames": 600,
+        "in": 0,
+        "out": 1,
+        "processing_fps": 23.23600471908733,
+        "confidence": 0.35,
+        "association_similarity": 0.7
+      },
+      "empty": {
+        "frames": 150,
+        "in": 0,
+        "out": 0,
+        "processing_fps": 19.322257145477558,
+        "confidence": 0.35,
+        "association_similarity": 0.7
+      }
+    },
+    "same_hour_repeat_in": 0,
+    "same_hour_repeat_out": 0,
+    "platform_checks": {
+      "windows_cli": {
+        "frames": 351,
+        "in": 2,
+        "out": 0
+      },
+      "linux_docker_cli": {
+        "frames": 1001,
+        "in": 6,
+        "out": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "OUT",
+      "time_s": 15.3,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Man in plaid shirt exits completely; no entry within this episode."
+    }
+  ],
+  "review": "All four 1 FPS pages inspected. One exit, otherwise empty doorway.",
+  "in": 0,
+  "out": 1,
+  "refine": [],
+  "episode": {
+    "id": "A08",
+    "start": 296000,
+    "end": 297350,
+    "type": "motion_stratum",
+    "proposal_frame": 296400,
+    "frames": 1351,
+    "duration_seconds": 54.09302879442234,
+    "clean_file": "clean_clips\\A08.mp4",
+    "pages": [
+      "manual_review\\A08_01.jpg",
+      "manual_review\\A08_02.jpg",
+      "manual_review\\A08_03.jpg",
+      "manual_review\\A08_04.jpg"
+    ]
+  },
+  "frozen_utc": "2026-11-08T04:53:23.744740+00:00",
+  "clean_clip_sha256": "7fb10f6425d6249b12d3bc26de13b278209f45cd288b1eae572cede63e0d2bf7",
+  "status": "manual_frozen_before_prediction"
+}

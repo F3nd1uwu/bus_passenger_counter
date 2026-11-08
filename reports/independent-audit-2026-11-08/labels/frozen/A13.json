@@ -1,0 +1,72 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "OUT",
+      "time_s": 17.6,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Person in light knitted hat and pale blue/grey coat exits."
+    },
+    {
+      "person": "B",
+      "direction": "OUT",
+      "time_s": 32.0,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Grey-haired person in dark quilted coat with dark handbag exits."
+    },
+    {
+      "person": "C",
+      "direction": "OUT",
+      "time_s": 33.4,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Light-brown-haired person with large fur-trimmed hood follows B."
+    },
+    {
+      "person": "D",
+      "direction": "IN",
+      "time_s": 51.5,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Hooded person in dark leather-like jacket enters with small white patterned bag."
+    },
+    {
+      "person": "E",
+      "direction": "IN",
+      "time_s": 54.1,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Person in magenta/black jacket enters carrying a very large yellow bag/box; completes by 55 s."
+    }
+  ],
+  "review": "All coarse pages plus extended tail and 30-35 s at 4 FPS inspected. Three exits and two later entries. Closed-door movement after entry is not a crossing.",
+  "in": 2,
+  "out": 3,
+  "refine": [],
+  "episode": {
+    "id": "A13",
+    "start": 471000,
+    "end": 472600,
+    "type": "additional_IR",
+    "proposal_frame": 471400,
+    "frames": 1601,
+    "duration_seconds": 64.10284167273883,
+    "clean_file": "clean_clips\\A13.mp4",
+    "pages": [
+      "manual_review\\A13_01.jpg",
+      "manual_review\\A13_02.jpg",
+      "manual_review\\A13_03.jpg",
+      "manual_review\\A13_04.jpg"
+    ],
+    "boundary_extension": {
+      "original_start": 471000,
+      "original_end": 472350,
+      "reason": "Retain completion of entrant carrying large bag at original end; extended before frozen labels."
+    }
+  },
+  "frozen_utc": "2026-11-08T05:02:07.490073+00:00",
+  "clean_clip_sha256": "3181ac611a291fd453d0ea0ece1a7fb1d30bff8a30928c2658fdd5f0fa2b9401",
+  "status": "manual_frozen_before_prediction"
+}

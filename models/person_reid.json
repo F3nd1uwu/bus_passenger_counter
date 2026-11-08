@@ -1,0 +1,10 @@
+{
+  "model": "OSNet x0.25, MSMT17 person-ReID",
+  "weights_url": "https://huggingface.co/kaiyangzhou/osnet/resolve/a5c5cc037c24235cda3b21085b93ad77c9616224/osnet_x0_25_msmt17_combineall_256x128_amsgrad_ep150_stp60_lr0.0015_b64_fb10_softmax_labelsmooth_flip_jitter.pth",
+  "weights_sha256": "cf55163d78fc44c62c82f85ab62d39f10438679b5abe8c698ae08cfa84aa6e18",
+  "export_sha256": "a5686192c14a8493fe632e381bc5992e043803725f3fb4e923340e04bfc109f3",
+  "input": "RGB float32 NCHW 256x128, ImageNet mean/std",
+  "output": "512-dimensional features, L2-normalised by core/reid.py",
+  "torch_version": "2.15.0+cpu",
+  "camera_calibration": "not yet evaluated on labelled bus video"
+}

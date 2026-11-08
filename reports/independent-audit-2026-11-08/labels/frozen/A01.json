@@ -1,0 +1,39 @@
+{
+  "events": [
+    {
+      "person": "A",
+      "direction": "IN",
+      "time_s": 10.5,
+      "counted_expected": true,
+      "certainty": "high",
+      "notes": "Dark-clothed person enters from street; initial interval extended before annotation to retain clear origin."
+    }
+  ],
+  "review": "Entire raw interval inspected on 1 FPS sheets; one entry, otherwise empty. IR and exposure changes.",
+  "in": 1,
+  "out": 0,
+  "refine": [],
+  "episode": {
+    "id": "A01",
+    "start": 38850,
+    "end": 40450,
+    "type": "motion_stratum",
+    "proposal_frame": 39500,
+    "frames": 1601,
+    "duration_seconds": 64.10284167273883,
+    "clean_file": "clean_clips\\A01.mp4",
+    "pages": [
+      "manual_review\\A01_01.jpg",
+      "manual_review\\A01_02.jpg",
+      "manual_review\\A01_03.jpg",
+      "manual_review\\A01_04.jpg"
+    ],
+    "boundary_extension": {
+      "original_start": 39100,
+      "reason": "First visible passage at start; extend raw context before manual labels and predictions."
+    }
+  },
+  "frozen_utc": "2026-11-08T04:50:46.748084+00:00",
+  "clean_clip_sha256": "5c3d42a72bc8f5d085f4eda23decfcad393b05605587a1bfa23ed6640135d926",
+  "status": "manual_frozen_before_prediction"
+}
