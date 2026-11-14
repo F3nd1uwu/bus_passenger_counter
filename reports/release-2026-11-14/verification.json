@@ -2,7 +2,7 @@
   "date": "2026-11-14",
   "timezone": "Europe/Saratov",
   "python": "3.14.7",
-  "status": "source_validated_server_validation_pending",
+  "status": "validated_for_controlled_field_test",
   "tests": {
     "discovered": 168,
     "passed": 168,
@@ -27,5 +27,50 @@
     "total": 4,
     "failed": 0
   },
-  "production_database_touched": false
+  "production_database_touched": false,
+  "clean_clone": {
+    "tests_discovered": 168,
+    "passed": 153,
+    "skipped": 15,
+    "failed": 0,
+    "reason_for_skips": "Private video/caches and opt-in PostgreSQL are absent from a clean clone",
+    "repository_check": "passed"
+  },
+  "server": {
+    "branch_commit": "e43d093eb367c3a9cacf3bdbbfe0bc78b2371152",
+    "source_commit": "c40e3ffef8557d3421708aadbe276d5149000a74",
+    "file_count": 53,
+    "payload_bytes": 20884931,
+    "model_count": 3,
+    "manifest_sha256": "1c53b72f6e016a31fd89860c67436aa2a61e6ffc7f98d0ce9822c3abdfcbccff",
+    "host_manifest_verification": "passed",
+    "host_model_inference": "passed",
+    "docker_build": "passed",
+    "docker_image_id": "sha256:8eee54f0246529703cefd4adaa32250d0ef3dcb420cd99c0a5253ac3244c3c77",
+    "docker_cpu_model_inference": "passed",
+    "docker_dependency_check": "passed",
+    "compose_config": "passed",
+    "docker_user": "counter (uid 10001)",
+    "docker_startup": {
+      "synthetic_frames": 5,
+      "counted_in": 0,
+      "counted_out": 0,
+      "postgres_checkpoint_next_frame": 5,
+      "postgres_checkpoint_completed": true
+    },
+    "initial_history": "standalone root commit; no research archives"
+  },
+  "publication_content_review": {
+    "status": "passed",
+    "public_text_files": 202,
+    "onnx_metadata_files": 9,
+    "commit_metadata": "passed",
+    "filenames": "passed",
+    "binary_export_text_metadata": "passed"
+  },
+  "cleanup": {
+    "generated_caches": "excluded; left on local disk",
+    "private_data": "preserved locally and excluded",
+    "server_payload": "explicit allowlist"
+  }
 }

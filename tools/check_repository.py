@@ -274,6 +274,31 @@ def check_child_report():
             raise ValueError('Child report model checksum differs')
 
 
+def check_release_report():
+    result = read_json('reports/release-2026-11-14/verification.json')
+    manifest_path = ROOT/'reports/release-2026-11-14/server_manifest.json'
+    manifest = read_json('reports/release-2026-11-14/server_manifest.json')
+    server = result['server']
+    if (manifest.get('format') != 'server_distribution_v1' or manifest.get('profile') != 'test2'
+            or manifest['source_commit'] != server['source_commit']
+            or sha256(manifest_path) != server['manifest_sha256']
+            or len(manifest['files']) + 1 != server['file_count']
+            or sum(row['bytes'] for row in manifest['files'].values()) != server['payload_bytes']):
+        raise ValueError('Server release manifest and verification differ')
+    models = {name for name in manifest['files'] if name.endswith('.onnx')}
+    if models != {'models/person_reid.onnx', 'models/candidates/person_test2_v2.onnx',
+                  'models/candidates/work_vest_v3.onnx'}:
+        raise ValueError('Unexpected deployed model set')
+    for name in models:
+        if sha256(ROOT/name) != manifest['files'][name]['sha256']:
+            raise ValueError('Release report model differs from the active weights')
+    for key in ['tests', 'clean_clone']:
+        row = result[key]
+        discovered = row.get('discovered', row.get('tests_discovered'))
+        if row['failed'] or row['passed'] + row['skipped'] != discovered:
+            raise ValueError('Release test totals do not reconcile')
+
+
 def check_links(files):
     for name in files:
         if not name.endswith(".md"):
@@ -300,6 +325,7 @@ def main():
     check_countpeople_report()
     check_identity_report()
     check_child_report()
+    check_release_report()
     check_links(files)
     print(f"Repository checks passed: {len(files)} files, {len(PUBLIC_MODELS)} model checksums, audit reconciliation, documentation links.")
 
