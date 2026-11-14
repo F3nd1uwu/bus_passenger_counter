@@ -58,11 +58,12 @@
       "postgres_checkpoint_next_frame": 5,
       "postgres_checkpoint_completed": true
     },
-    "initial_history": "standalone root commit; no research archives"
+    "initial_history": "standalone root commit; no research archives",
+    "docker_python": "3.12.16"
   },
   "publication_content_review": {
     "status": "passed",
-    "public_text_files": 202,
+    "public_text_files": 203,
     "onnx_metadata_files": 9,
     "commit_metadata": "passed",
     "filenames": "passed",
