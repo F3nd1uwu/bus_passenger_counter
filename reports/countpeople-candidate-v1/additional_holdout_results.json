@@ -1,0 +1,413 @@
+{
+  "method": "Manual labels and improved profile frozen before prediction. 7 passenger crossings on P04/P05 plus stationary-worker S01. Not a full-day test.",
+  "episodes": [
+    {
+      "id": "P04",
+      "start": 356000,
+      "end": 357400,
+      "manual_in": 1,
+      "manual_out": 4,
+      "note": "IR/color edits; the partially visible person at the opening is already inside. Three people exit after the cut at 357095.",
+      "models": {
+        "original": {
+          "in": 0,
+          "out": 3,
+          "events": [
+            {
+              "event_id": "297e5968-482b-449b-bd82-2bf40b3dc2ab",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:58:06.724011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 11,
+              "identity_id": "7c059eaf-d451-4966-b562-7dd5954f0bd0",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 356799,
+              "crossing_frame": 356731
+            },
+            {
+              "event_id": "c493b1af-729c-4284-bba8-40527f07c5af",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:58:22.444011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 20,
+              "identity_id": "b2726e4b-c928-4336-bb55-c2cc222d932e",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 357177,
+              "crossing_frame": 357124
+            },
+            {
+              "event_id": "681cea4a-0dbf-4ac5-b190-d0c3f6e20e93",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:58:23.604011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 18,
+              "identity_id": "a001439a-d89f-4780-9d22-c0f1685f040c",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 357215,
+              "crossing_frame": 357153
+            }
+          ],
+          "tracker_ids": 13,
+          "hourly_ids": 13
+        },
+        "tracker_only": {
+          "in": 0,
+          "out": 3,
+          "events": [
+            {
+              "event_id": "326059e2-b6af-4bbd-9186-f98d0a01fda9",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:58:06.724011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 11,
+              "identity_id": "7fee56a1-9784-4281-8e39-7481fe102d6d",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 356799,
+              "crossing_frame": 356731
+            },
+            {
+              "event_id": "13a07a30-2170-43e6-8b75-2a5e0f71afd1",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:58:22.444011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 20,
+              "identity_id": "027fc231-cc9e-40af-9345-c5c1a8f246e8",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 357177,
+              "crossing_frame": 357124
+            },
+            {
+              "event_id": "298d8f70-5e60-4ddb-b482-bc77340540a4",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:58:23.604011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 18,
+              "identity_id": "c9b112fe-d365-47ee-9609-e0049b35c9c7",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 357215,
+              "crossing_frame": 357153
+            }
+          ],
+          "tracker_ids": 13,
+          "hourly_ids": 13
+        },
+        "improved": {
+          "in": 0,
+          "out": 3,
+          "events": [
+            {
+              "event_id": "6ba424e0-4294-4735-8dba-c386c454a420",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:58:06.724011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 11,
+              "identity_id": "a13ae966-8c0d-4e08-bda9-96facdff2d68",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 356799,
+              "crossing_frame": 356731
+            },
+            {
+              "event_id": "8677665c-fbdf-4563-82ae-146a6d634f83",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:58:22.444011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 20,
+              "identity_id": "7aab1505-20cd-4959-9dcd-af09cfc47443",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 357177,
+              "crossing_frame": 357124
+            },
+            {
+              "event_id": "b136f078-374a-4662-8e5a-f79623d8f05a",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:58:23.604011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 18,
+              "identity_id": "47e373db-32db-4074-bfce-2b2904476fa7",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 357215,
+              "crossing_frame": 357153
+            }
+          ],
+          "tracker_ids": 13,
+          "hourly_ids": 13
+        }
+      }
+    },
+    {
+      "id": "P05",
+      "start": 375700,
+      "end": 376350,
+      "manual_in": 1,
+      "manual_out": 1,
+      "note": "Initial people remain in cabin; no crossing inferred from disappearing at a source edit.",
+      "models": {
+        "original": {
+          "in": 1,
+          "out": 1,
+          "events": [
+            {
+              "event_id": "dbe8957c-95db-4e87-a448-b758879c3036",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T04:10:57.701011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 13,
+              "identity_id": "1c420581-ae26-4dec-a591-fde8dbd402e9",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 376065,
+              "crossing_frame": 375982
+            },
+            {
+              "event_id": "b08e04e3-f247-4147-a874-0f3908e6719e",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T04:11:00.901011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 14,
+              "identity_id": "eed651a8-6b59-422e-963e-3efbb3042584",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 376123,
+              "crossing_frame": 376062
+            }
+          ],
+          "tracker_ids": 11,
+          "hourly_ids": 9
+        },
+        "tracker_only": {
+          "in": 1,
+          "out": 1,
+          "events": [
+            {
+              "event_id": "9907fc23-9eca-4787-9d79-fa0ef6de13ce",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T04:10:57.701011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 13,
+              "identity_id": "9e61a573-1d62-466a-a6a5-f4971858f57e",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 376065,
+              "crossing_frame": 375982
+            },
+            {
+              "event_id": "9c670878-8813-4391-b92c-a2dcd1b02871",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T04:11:00.901011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 14,
+              "identity_id": "69bd97a7-117f-4a6a-8943-7dce88b47d7f",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 376123,
+              "crossing_frame": 376062
+            }
+          ],
+          "tracker_ids": 11,
+          "hourly_ids": 9
+        },
+        "improved": {
+          "in": 1,
+          "out": 1,
+          "events": [
+            {
+              "event_id": "cc28a006-34fb-408b-9a30-69e8ab4d9d72",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T04:10:57.701011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 13,
+              "identity_id": "9a0a48bc-95ec-4c2f-a053-0adbd157d272",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 376065,
+              "crossing_frame": 375982
+            },
+            {
+              "event_id": "303aaaad-c9e9-46ca-ac51-6acda82c6eb1",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T04:11:00.901011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 14,
+              "identity_id": "b7747c69-b068-4175-8657-f3b09e03f63b",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 376123,
+              "crossing_frame": 376062
+            }
+          ],
+          "tracker_ids": 11,
+          "hourly_ids": 9
+        }
+      }
+    },
+    {
+      "id": "S01",
+      "start": 334450,
+      "end": 335650,
+      "manual_in": 0,
+      "manual_out": 0,
+      "driver_in": 0,
+      "driver_out": 0,
+      "person": "S01_driver",
+      "same_person_visible_vest_frames": [
+        334500,
+        334600,
+        334750,
+        334775,
+        334975,
+        335000,
+        335025,
+        335050
+      ],
+      "models": {
+        "original": {
+          "in": 0,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "efb475a9-9af2-459a-9737-5554c1ff8aa0",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:43:38.221011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 17,
+              "identity_id": "176a0d3c-44d5-4d31-9f7f-6816b1dba5b6",
+              "counted": false,
+              "reason": "STAFF",
+              "frame": 335045,
+              "crossing_frame": 335045
+            },
+            {
+              "event_id": "b84d4d5b-2f1b-4187-87b3-a5cd6e59b01f",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:43:38.741011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 17,
+              "identity_id": "176a0d3c-44d5-4d31-9f7f-6816b1dba5b6",
+              "counted": false,
+              "reason": "STAFF",
+              "frame": 335058,
+              "crossing_frame": 335058
+            }
+          ],
+          "tracker_ids": 12,
+          "hourly_ids": 10
+        },
+        "tracker_only": {
+          "in": 0,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "414fee88-ecab-406e-b0be-ac9599980c8d",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:43:38.221011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 17,
+              "identity_id": "aaeed014-7af2-4d0e-9fa2-496cde3e9866",
+              "counted": false,
+              "reason": "STAFF",
+              "frame": 335045,
+              "crossing_frame": 335045
+            },
+            {
+              "event_id": "90dc23c5-4953-4cdb-b695-342234383965",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:43:38.741011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 17,
+              "identity_id": "aaeed014-7af2-4d0e-9fa2-496cde3e9866",
+              "counted": false,
+              "reason": "STAFF",
+              "frame": 335058,
+              "crossing_frame": 335058
+            }
+          ],
+          "tracker_ids": 12,
+          "hourly_ids": 10
+        },
+        "improved": {
+          "in": 0,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "23a7d716-2842-4326-bf79-b22a4a3dfd97",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:43:38.221011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 17,
+              "identity_id": "24145be7-e60d-4b7c-8dba-68d9e9f869ba",
+              "counted": false,
+              "reason": "STAFF",
+              "frame": 335045,
+              "crossing_frame": 335045
+            },
+            {
+              "event_id": "a2a07863-a86e-4727-b23e-554c2cd518c8",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:43:38.741011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 17,
+              "identity_id": "24145be7-e60d-4b7c-8dba-68d9e9f869ba",
+              "counted": false,
+              "reason": "STAFF",
+              "frame": 335058,
+              "crossing_frame": 335058
+            }
+          ],
+          "tracker_ids": 12,
+          "hourly_ids": 10
+        }
+      }
+    }
+  ]
+}

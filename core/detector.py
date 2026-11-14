@@ -30,9 +30,14 @@ class PersonDetector:
             if cfg.STAFF_MODE == "model":
                 if not cfg.VEST_MODEL_PATH:
                     raise ValueError("STAFF_MODE=model requires VEST_MODEL_PATH")
-                self.vest = VestClassifier(cfg.path(cfg.VEST_MODEL_PATH), cfg.DEVICE)
+                self.vest = VestClassifier(cfg.path(cfg.VEST_MODEL_PATH), cfg.DEVICE, cfg.CPU_THREADS)
         self.ages = {}
         self.features = {}
+        self.child_observer = None
+        self.child_observations = []
+        if not detection_only and cfg.CHILD_MODE == "model":
+            from core.child_filter import ChildClassifier, ChildObserver
+            self.child_observer = ChildObserver(ChildClassifier(cfg.path(cfg.CHILD_MODEL_PATH)))
         self._configured_backend = None
         if cfg.DEVICE == "cpu" and path.suffix == ".onnx":
             self.model.add_callback("on_predict_start", self._configure_onnx_cpu)
@@ -44,7 +49,9 @@ class PersonDetector:
             if args.get("tracker_type") != "botsort" or args.get("model") != "auto":
                 raise ValueError("Appearance mode requires botsort with model=auto; OSNet features are reused")
             args["with_reid"] = self.reid is not None
-            self.appearance_tracker = AppearanceTracker(SimpleNamespace(**args), cfg.TRACKER_IDENTITY_MIN_SIMILARITY)
+            self.appearance_tracker = AppearanceTracker(SimpleNamespace(**args), cfg.TRACKER_IDENTITY_MIN_SIMILARITY,
+                                                        cfg.TRACKER_DRIFT_THRESHOLD)
+            self.appearance_tracker.set_detection_threshold(cfg.CONFIDENCE)
 
     def _configure_onnx_cpu(self, predictor):
         backend = predictor.model.backend
@@ -65,10 +72,26 @@ class PersonDetector:
             tracker.reset()
         self.ages.clear()
         self.features.clear()
+        self.child_observations = []
+        if self.child_observer is not None:
+            self.child_observer.reset()
         if self.appearance_tracker is not None:
             self.appearance_tracker.reset()
 
+    def finish_children(self):
+        return self.child_observer.finish() if self.child_observer is not None else []
+
+    def close(self):
+        if self.child_observer is not None:
+            self.child_observer.close()
+
     def detect(self, frame):
+        detections = self._detect_people(frame)
+        self.child_observations = (self.child_observer.update(frame, detections, self.cfg.CONFIDENCE)
+                                   if self.child_observer is not None else [])
+        return detections
+
+    def _detect_people(self, frame):
         if self.appearance_tracker is not None:
             return self._detect_appearance(frame)
         results = self.model.track(frame, persist=True, tracker=str(self.cfg.path(self.cfg.TRACKER_PATH)),
@@ -108,7 +131,7 @@ class PersonDetector:
         return detections
 
     def _detect_appearance(self, frame):
-        result = self.model.predict(frame, classes=[self.cfg.PERSON_CLASS_ID], conf=self.cfg.CONFIDENCE,
+        result = self.model.predict(frame, classes=[self.cfg.PERSON_CLASS_ID], conf=self.appearance_tracker.detection_floor,
                                     imgsz=self.cfg.IMAGE_SIZE, device=self.cfg.DEVICE, verbose=False)[0]
         boxes = result.boxes.cpu().numpy()
         all_embeddings = self.reid.encode_many(frame, boxes.xyxy) if self.reid is not None else [None] * len(boxes)
@@ -134,7 +157,8 @@ class PersonDetector:
             bbox = tuple(boxes.xyxy[original_index].tolist())
             age = self.ages.get(tid, 0)
             probability = None
-            if self.vest is not None and (age < self.cfg.VEST_CONFIRM_FRAMES or age % self.cfg.FEATURE_INTERVAL_FRAMES == 0):
+            if (self.vest is not None and float(boxes.conf[original_index]) >= self.cfg.CONFIDENCE
+                    and (age < self.cfg.VEST_CONFIRM_FRAMES or age % self.cfg.FEATURE_INTERVAL_FRAMES == 0)):
                 probability = self.vest.predict(frame, bbox)
             self.ages[tid] = age + 1
             anchor, required = None, self.model.task == "pose" and self.cfg.POSE_ANCHOR == "head"
@@ -146,7 +170,8 @@ class PersonDetector:
                 if valid.any():
                     anchor = tuple(np.median(points[valid], axis=0).tolist())
             detections.append(Detection(tid, bbox, float(boxes.conf[original_index]),
-                                        embeddings[index], probability, anchor, required))
+                                        embeddings[index], probability, anchor, required,
+                                        self.appearance_tracker.identity_separations.get(tid, ())))
         active = {d.track_id for d in detections}
         self.ages = {tid: age for tid, age in self.ages.items() if tid in active}
         return detections

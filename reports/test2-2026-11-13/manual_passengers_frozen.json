@@ -1,0 +1,236 @@
+{
+  "review": "visual review of clean clips at 12-frame intervals, before viewing event predictions; timings approximate. Boundary crossings excluded explicitly.",
+  "events": [
+    {
+      "episode": "P01",
+      "person": "P01_OUT_1",
+      "direction": "OUT",
+      "frame": 256180,
+      "description": "brown bob, grey coat",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_OUT_2",
+      "direction": "OUT",
+      "frame": 256220,
+      "description": "white cap grey puffer",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_OUT_3",
+      "direction": "OUT",
+      "frame": 256260,
+      "description": "long brown hair tan coat",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_OUT_4",
+      "direction": "OUT",
+      "frame": 256305,
+      "description": "beige cap grey coat",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_OUT_5",
+      "direction": "OUT",
+      "frame": 256345,
+      "description": "ponytail pale green coat",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_OUT_6",
+      "direction": "OUT",
+      "frame": 256385,
+      "description": "bob, white collar grey coat",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_OUT_7",
+      "direction": "OUT",
+      "frame": 256425,
+      "description": "grey cap plaid coat",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_OUT_8",
+      "direction": "OUT",
+      "frame": 256465,
+      "description": "brown cap lilac jacket",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_OUT_9",
+      "direction": "OUT",
+      "frame": 256490,
+      "description": "tan hood",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_OUT_10",
+      "direction": "OUT",
+      "frame": 256530,
+      "description": "bob light puffer",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_OUT_11",
+      "direction": "OUT",
+      "frame": 256565,
+      "description": "white jacket black shoulder bag",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_IN_1",
+      "direction": "IN",
+      "frame": 256640,
+      "description": "pink hood",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_IN_2",
+      "direction": "IN",
+      "frame": 256675,
+      "description": "black-white headscarf",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P01",
+      "person": "P01_IN_3",
+      "direction": "IN",
+      "frame": 256725,
+      "description": "black cap blue sleeves",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P02",
+      "person": "P02_IN_1",
+      "direction": "IN",
+      "frame": 262200,
+      "description": "boy dark hair grey puffer",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P02",
+      "person": "P02_IN_2",
+      "direction": "IN",
+      "frame": 262270,
+      "description": "black hair white fur collar",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P02",
+      "person": "P02_IN_3",
+      "direction": "IN",
+      "frame": 262655,
+      "description": "light hair tan coat first",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P02",
+      "person": "P02_IN_4",
+      "direction": "IN",
+      "frame": 262700,
+      "description": "white cap grey puffer black bag",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P02",
+      "person": "P02_IN_5",
+      "direction": "IN",
+      "frame": 262750,
+      "description": "light hair tan coat second",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P02",
+      "person": "P02_IN_6",
+      "direction": "IN",
+      "frame": 262790,
+      "description": "green/grey puffer",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P02",
+      "person": "P02_IN_7",
+      "direction": "IN",
+      "frame": 262880,
+      "description": "white cap checked coat",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P02",
+      "person": "P02_IN_8",
+      "direction": "IN",
+      "frame": 262965,
+      "description": "lavender headscarf white coat",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P02",
+      "person": "P02_IN_9",
+      "direction": "IN",
+      "frame": 263075,
+      "description": "brown ponytail tan coat",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P02",
+      "person": "P02_IN_10",
+      "direction": "IN",
+      "frame": 263155,
+      "description": "green puffer at end",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P03",
+      "person": "P03_OUT_1",
+      "direction": "OUT",
+      "frame": 269555,
+      "description": "dark grey hood",
+      "tolerance_frames": 40
+    },
+    {
+      "episode": "P03",
+      "person": "P03_OUT_2",
+      "direction": "OUT",
+      "frame": 270045,
+      "description": "white cap purple puffer",
+      "tolerance_frames": 40
+    }
+  ],
+  "boundary_exclusions": {
+    "P01": [
+      "last woman entering at end: passage completes after frame 256800"
+    ],
+    "P02": [
+      "white hood already inside at interval start"
+    ],
+    "P03": []
+  },
+  "counts": {
+    "P01": {
+      "in": 3,
+      "out": 11
+    },
+    "P02": {
+      "in": 10,
+      "out": 0
+    },
+    "P03": {
+      "in": 0,
+      "out": 2
+    }
+  }
+}

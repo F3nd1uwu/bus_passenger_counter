@@ -1,0 +1,68 @@
+{
+  "scope": "Additional video holdout, clean frames reviewed before any predictions on these intervals. No training or parameter selection from these results. Not a full-day accuracy estimate. Source has cuts and clock jumps.",
+  "frozen_at_utc": "2026-11-13T20:19:03.424022+00:00",
+  "source": "data/test2.mp4",
+  "source_sha256": "1b4db7870b8f79138890199cb15f16e67f63f5d5e5ca6a3799331f1b1bd687e4",
+  "episodes": [
+    {
+      "id": "P04",
+      "start": 356000,
+      "end": 357400,
+      "manual_in": 1,
+      "manual_out": 4,
+      "note": "IR/color edits; the partially visible person at the opening is already inside. Three people exit after the cut at 357095."
+    },
+    {
+      "id": "P05",
+      "start": 375700,
+      "end": 376350,
+      "manual_in": 1,
+      "manual_out": 1,
+      "note": "Initial people remain in cabin; no crossing inferred from disappearing at a source edit."
+    }
+  ],
+  "events": [
+    {
+      "episode": "P04",
+      "direction": "IN",
+      "frame": 356335,
+      "description": "dark cap, grey/lilac puffer, entering from street"
+    },
+    {
+      "episode": "P04",
+      "direction": "OUT",
+      "frame": 356735,
+      "description": "pink/lilac coat, brown hair in ponytail"
+    },
+    {
+      "episode": "P04",
+      "direction": "OUT",
+      "frame": 357111,
+      "description": "dark cap and fur-trimmed dark puffer, first after edit"
+    },
+    {
+      "episode": "P04",
+      "direction": "OUT",
+      "frame": 357126,
+      "description": "dark hair, black coat, second after edit"
+    },
+    {
+      "episode": "P04",
+      "direction": "OUT",
+      "frame": 357145,
+      "description": "blue coat, navy beanie, checked beige backpack"
+    },
+    {
+      "episode": "P05",
+      "direction": "OUT",
+      "frame": 375975,
+      "description": "bright pink puffer, pale beanie"
+    },
+    {
+      "episode": "P05",
+      "direction": "IN",
+      "frame": 376055,
+      "description": "cream coat, white beanie, blue striped duffel"
+    }
+  ]
+}

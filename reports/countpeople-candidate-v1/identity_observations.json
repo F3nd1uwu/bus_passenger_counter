@@ -1,0 +1,41 @@
+{
+  "scope": "A few visually verified correspondences; not a complete identity annotation, IDF1 or HOTA. Spurious/partial detections also create records.",
+  "same_passenger_entry_exit_pairs": [
+    {
+      "episode": "old_A12",
+      "description": "silver hair / fur collar / orange hood",
+      "entry_frame": 466123,
+      "exit_frame": 466962,
+      "entry_tracker": 14,
+      "exit_tracker": 36,
+      "entry_identity": "d1ba41b1-c64d-4685-b449-52a058c1fe8e",
+      "exit_identity": "0af645c0-2208-439c-8f95-5d64017a8dab",
+      "same_identity": false
+    },
+    {
+      "episode": "old_A12",
+      "description": "grey puffer / green box",
+      "entry_frame": 466167,
+      "exit_frame": 466988,
+      "entry_tracker": 17,
+      "exit_tracker": 40,
+      "entry_identity": "0146ba5b-b15e-4461-a668-45f5b3cedd5a",
+      "exit_identity": "ce5b3842-b666-49f8-8955-0e05e90ecce0",
+      "same_identity": false
+    }
+  ],
+  "same_driver_before_after_bend": [
+    {
+      "frame": 334500,
+      "tracker": 1,
+      "identity": "69a52570-0624-4714-85d9-c3870015084b",
+      "staff_confirmed": true
+    },
+    {
+      "frame": 335025,
+      "tracker": 17,
+      "identity": "24145be7-e60d-4b7c-8dba-68d9e9f869ba",
+      "staff_confirmed": false
+    }
+  ]
+}

@@ -14,6 +14,16 @@ class Detection:
     staff_probability: float | None = None
     anchor: tuple[float, float] | None = None
     anchor_required: bool = False
+    # Tracker explicitly rejected these trajectories as an appearance handoff.
+    separated_from: tuple[int, ...] = ()
+
+
+@dataclass(frozen=True)
+class ChildObservation:
+    track_id: int
+    verdict: str
+    sample_id: str
+    embedding: np.ndarray
 
 
 @dataclass(frozen=True)

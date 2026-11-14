@@ -71,6 +71,67 @@ class PreviewPlayerTests(unittest.TestCase):
 
 
 class PreviewSeekIntegrationTests(unittest.TestCase):
+    def test_delayed_passage_is_finalized_at_eof_and_preview_limit(self):
+        class DetectorStub:
+            def __init__(self, *args, **kwargs):
+                pass
+
+            def reset(self):
+                pass
+
+            def detect(self, frame):
+                y = round(float(frame.mean()) / 10) * 10
+                return [Detection(1, (40, y-10, 60, y+10), 1, np.array([1, 0]), .1)]
+
+        class PlayerStub:
+            paused = False
+            seek_request = None
+            ended = False
+
+            def __init__(self, *args, **kwargs):
+                pass
+
+            def take_seek(self):
+                return None
+
+            def poll(self):
+                return self.ended
+
+            def mark_end(self):
+                self.ended = True
+                self.paused = True
+
+            def present(self, *args):
+                pass
+
+        with tempfile.TemporaryDirectory() as folder, ExitStack() as mocks:
+            path = Path(folder)/'pending.avi'
+            writer = cv2.VideoWriter(str(path), cv2.VideoWriter_fourcc(*'MJPG'), 10, (100, 100))
+            self.assertTrue(writer.isOpened())
+            for y in [20, 20, 50, 80, 80, 80]:
+                writer.write(np.full((100, 100, 3), y, np.uint8))
+            writer.release()
+            mocks.enter_context(patch('core.service.PersonDetector', DetectorStub))
+            mocks.enter_context(patch('core.service.PreviewPlayer', PlayerStub))
+            mocks.enter_context(patch('core.service.DatabaseClient', side_effect=AssertionError('Preview opened database')))
+            mocks.enter_context(patch('cv2.destroyAllWindows'))
+            shown = []
+
+            def draw(frame, detections, cfg, engine, *args, **kwargs):
+                shown.append(engine.total_in)
+                return frame
+
+            mocks.enter_context(patch('core.service.draw_preview', side_effect=draw))
+            cfg = replace(Settings(), VIDEO_SOURCE=str(path), STAFF_MODE='model',
+                          VEST_CONFIRM_FRAMES=2, STAFF_DECISION_DELAY_SEC=10.)
+            for show, limit in [(False, None), (True, None), (False, 5)]:
+                with self.subTest(show=show, max_frames=limit):
+                    shown.clear()
+                    result = run(cfg, preview=True, show=show, max_frames=limit)
+                    self.assertEqual((result['in'], result['out']), (1, 0))
+                    if show:
+                        self.assertEqual(shown[-1], 1, 'EOF must redraw the final GUI totals')
+
     def test_backward_seek_resets_preview_counts_and_does_not_reject_time(self):
         class DetectorStub:
             def __init__(self, *args, **kwargs):

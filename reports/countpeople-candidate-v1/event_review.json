@@ -1,0 +1,68 @@
+{
+  "method": "Visual comparison with frozen manual descriptions. Passenger-event accuracy only reviewed on 8 selected test2 calibration scenes, not all 25 old cases.",
+  "observations": [
+    {
+      "episode": "P01",
+      "frame": 256248,
+      "result": "FP",
+      "cause": "Same white-cap grey-puffer passenger already exited at 256222. New track 8/new hourly identity causes a duplicate OUT.",
+      "original_identity": "e9dda2cb-b1ce-40a0-aee1-4148684120a7",
+      "duplicate_identity": "78627dc1-69dd-41f2-b7f4-d40273aa7e27"
+    },
+    {
+      "episode": "P01",
+      "frame": 256787,
+      "result": "FP",
+      "cause": "Track 50 counts IN at 256742 for the man with blue sleeves, then follows the next incoming woman and creates an unobserved OUT."
+    },
+    {
+      "episode": "P01",
+      "frame": 256490,
+      "result": "FN",
+      "description": "Tan hood, actual exit absent from candidate events."
+    },
+    {
+      "episode": "P02",
+      "result": "8 visually distinct true entries, boy and last green-puffer passenger still missed",
+      "manual": 10
+    },
+    {
+      "episode": "P03",
+      "result": "Dark-hood passenger exit recovered; white-cap purple-puffer exit remains missed",
+      "manual": 2
+    },
+    {
+      "episode": "V02",
+      "result": "Man without vest still missed in both directions",
+      "manual": 2
+    },
+    {
+      "episode": "V03",
+      "result": "Candidate person crops cause driver OUT to be counted; this remains with garment v3"
+    },
+    {
+      "episode": "V05",
+      "result": "Candidate person crops cause driver IN to be counted; this remains with garment v3"
+    }
+  ],
+  "eight_calibration_episode_metrics": {
+    "released": {
+      "manual_passenger_events": 28,
+      "TP": 20,
+      "FN": 8,
+      "FP": 0,
+      "precision": 1.0,
+      "recall": 0.7142857142857143,
+      "f1": 0.8333333333333334
+    },
+    "candidate": {
+      "manual_passenger_events": 28,
+      "TP": 22,
+      "FN": 6,
+      "FP": 4,
+      "precision": 0.8461538461538461,
+      "recall": 0.7857142857142857,
+      "f1": 0.8148148148148148
+    }
+  }
+}

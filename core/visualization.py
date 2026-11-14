@@ -14,21 +14,31 @@ def draw_preview(frame, detections, cfg, engine=None, events=(), *, metrics=None
         cv2.putText(result, label, (left + 4, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 210, 255), 1)
     for detection in detections:
         x1, y1, x2, y2 = map(int, detection.bbox)
-        status, color = "PERSON", (0, 220, 0)
+        status, color, person = "PERSON", (0, 220, 0), ""
         if engine:
             track = engine.tracks.get(detection.track_id)
             identity = engine.identities.get(track.identity_id) if track else None
-            if identity and identity.staff:
+            if identity:
+                person = f" P:{identity.identity_id[:6]}"
+            if track and cfg.STAFF_MODE == "model" and track.staff.confirmed:
                 status, color = "STAFF", (0, 140, 255)
             elif track:
                 status = "PENDING" if track.pending else (track.zone or "TRANSIT").upper()
+            if track and cfg.CHILD_MODE == 'model' and not (cfg.STAFF_MODE == 'model' and track.staff.confirmed):
+                if track.child.confirmed:
+                    status, color = 'CHILD' + ('/PENDING' if track.pending else ''), (255, 150, 0)
+                elif not track.child.adult_seen:
+                    status += '/AGE?'
+        if detection.confidence < cfg.CONFIDENCE:
+            status += "/WEAK"
+            color = (150, 150, 150)
         cv2.rectangle(result, (x1, y1), (x2, y2), color, 2)
         anchor = detection.anchor
         if anchor is None and not detection.anchor_required:
             anchor = ((x1 + x2) / 2, y1 + (y2 - y1) * cfg.ANCHOR_Y)
         if anchor is not None:
             cv2.circle(result, tuple(map(int, anchor)), 3, color, -1)
-        cv2.putText(result, f"ID {detection.track_id} {detection.confidence:.2f} {status}",
+        cv2.putText(result, f"ID {detection.track_id}{person} {detection.confidence:.2f} {status}",
                     (max(0, x1), max(55, y1 - 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
     text = (f"IN {engine.total_in}  OUT {engine.total_out}  SUPPRESSED {engine.total_suppressed}"
             if engine else "DETECTION ONLY - counting disabled")

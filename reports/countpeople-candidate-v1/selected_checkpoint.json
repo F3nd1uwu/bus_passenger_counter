@@ -1,0 +1,6 @@
+{
+  "best_epoch": 3,
+  "completed_epochs": 8,
+  "criterion": "validation mAP50-95, no test selection",
+  "weights_sha256": "717cab0dfed716bed7acb311f3063cd2f66f749447d94cb64d4ae90eb60a5b43"
+}

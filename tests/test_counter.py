@@ -12,7 +12,7 @@ from core.types import Detection
 
 class CounterTests(unittest.TestCase):
     def setUp(self):
-        self.cfg = Settings(STAFF_MODE="model")
+        self.cfg = Settings(STAFF_MODE="model", STAFF_DECISION_DELAY_SEC=0)
         self.engine = PassengerCounterEngine(self.cfg)
         self.frame = np.zeros((100, 100, 3), np.uint8)
         self.start = datetime(2026, 11, 6, 12, tzinfo=timezone.utc)
@@ -67,6 +67,33 @@ class CounterTests(unittest.TestCase):
         self.assertEqual(first.identity_id, again.identity_id)
         self.assertFalse(again.counted)
 
+    def test_rejected_handoff_cannot_reuse_the_parent_identity_or_origin(self):
+        self.feed(20)
+        self.feed(20)
+        old_pid = self.engine.tracks[1].identity_id
+        detection = Detection(2, (40, 70, 60, 90), .9, np.array([1, 0, 0]), 0, separated_from=(1,))
+        events = self.engine.update(self.frame, [detection], self.start + timedelta(seconds=.3))
+        self.assertNotEqual(self.engine.tracks[2].identity_id, old_pid)
+        self.assertEqual(events, [])
+        self.assertIsNone(self.engine.tracks[2].zone)
+
+    def test_rejected_handoff_is_also_respected_after_a_checkpoint(self):
+        self.feed(20)
+        self.feed(20)
+        old_pid = self.engine.tracks[1].identity_id
+        engine = PassengerCounterEngine(self.cfg, self.engine.snapshot())
+        detection = Detection(2, (40, 70, 60, 90), .9, np.array([1, 0, 0]), 0, separated_from=(1,))
+        engine.update(self.frame, [detection], self.start + timedelta(seconds=.3))
+        self.assertNotEqual(engine.tracks[2].identity_id, old_pid)
+
+    def test_separation_still_allows_reid_to_another_known_person(self):
+        self.cross(embedding=(1, 0, 0))
+        self.cross(tid=3, embedding=(0, 1, 0))
+        expected = self.engine.tracks[3].identity_id
+        detection = Detection(20, (40, 70, 60, 90), .9, np.array([0, 1, 0]), 0, separated_from=(1,))
+        self.engine.update(self.frame, [detection], self.start + timedelta(seconds=1.1))
+        self.assertEqual(self.engine.tracks[20].identity_id, expected)
+
     def test_distinct_people_close_in_time_are_both_counted(self):
         self.cross()
         self.assertTrue(self.cross(tid=2, embedding=(0, 1, 0))[0].counted)
@@ -105,6 +132,70 @@ class CounterTests(unittest.TestCase):
         self.assertEqual(events[0].reason, "STAFF")
         self.assertFalse(events[0].counted)
 
+    def test_vest_seen_just_after_crossing_prevents_early_count(self):
+        self.cfg = replace(self.cfg, STAFF_DECISION_DELAY_SEC=1)
+        self.engine = PassengerCounterEngine(self.cfg)
+        self.assertEqual(self.cross(), [])
+        events = []
+        for _ in range(3):
+            events += self.feed(80, probability=.99)
+        self.assertEqual([e.reason for e in events], ["STAFF"])
+        self.assertEqual(self.engine.total_in, 0)
+
+    def test_delayed_passenger_is_counted_at_eof_once(self):
+        self.cfg = replace(self.cfg, STAFF_DECISION_DELAY_SEC=1)
+        self.engine = PassengerCounterEngine(self.cfg)
+        self.assertEqual(self.cross(), [])
+        events = self.engine.finish()
+        self.assertEqual([e.reason for e in events], ["COUNTED"])
+        self.assertEqual(self.engine.total_in, 1)
+        self.assertEqual(self.engine.finish(), [])
+
+    def test_delayed_passenger_is_counted_after_track_expires(self):
+        self.cfg = replace(self.cfg, STAFF_DECISION_DELAY_SEC=1)
+        self.engine = PassengerCounterEngine(self.cfg)
+        self.assertEqual(self.cross(), [])
+        events = self.engine.update(self.frame, [], self.start + timedelta(seconds=4))
+        self.assertEqual([e.reason for e in events], ["COUNTED"])
+        self.assertEqual(self.engine.finish(), [])
+
+    def test_ready_pending_event_survives_restart_directly_at_eof(self):
+        self.cfg = replace(self.cfg, STAFF_DECISION_DELAY_SEC=1)
+        self.engine = PassengerCounterEngine(self.cfg)
+        self.assertEqual(self.cross(), [])
+        self.engine = PassengerCounterEngine(self.cfg, json.loads(json.dumps(self.engine.snapshot())))
+        self.assertEqual([e.reason for e in self.engine.finish()], ["COUNTED"])
+        self.assertEqual(self.engine.finish(), [])
+
+    def test_resume_warmup_does_not_consume_saved_pending_event(self):
+        self.cfg = replace(self.cfg, STAFF_DECISION_DELAY_SEC=1)
+        self.engine = PassengerCounterEngine(self.cfg)
+        self.assertEqual(self.cross(), [])
+        self.engine = PassengerCounterEngine(self.cfg, json.loads(json.dumps(self.engine.snapshot())))
+        for i in range(5):
+            detection = Detection(90, (40, 70, 60, 90), .9, np.array([1, 0, 0]), 0)
+            events = self.engine.update(self.frame, [detection], self.start + timedelta(seconds=i/10), warmup=True)
+            self.assertEqual(events, [])
+        self.assertEqual(self.feed(80, tid=90, at=.6), [])
+        self.assertEqual([e.reason for e in self.engine.finish()], ["COUNTED"])
+
+    def test_delayed_crossing_keeps_its_actual_date(self):
+        self.cfg = replace(self.cfg, STAFF_DECISION_DELAY_SEC=1)
+        self.engine = PassengerCounterEngine(self.cfg)
+        self.start = datetime(2026, 11, 6, 19, 59, 59, tzinfo=timezone.utc)
+        self.assertEqual(self.cross(), [])
+        events = self.feed(80, at=2)
+        self.assertEqual([e.reason for e in events], ["COUNTED"])
+        self.assertEqual(self.engine.total_in, 0)
+        self.assertEqual(events[0].traffic_date, "2026-11-06")
+
+    def test_hourly_identity_match_does_not_inherit_vest_without_evidence(self):
+        staff = self.cross(probability=.99)[0]
+        self.time = 10
+        passenger = self.cross(tid=2, probability=0)[0]
+        self.assertEqual(staff.identity_id, passenger.identity_id)
+        self.assertTrue(passenger.counted)
+
     def test_one_bad_staff_prediction_does_not_exclude_passenger(self):
         self.feed(20, probability=0.99)
         self.feed(20)
@@ -118,6 +209,46 @@ class CounterTests(unittest.TestCase):
 
     def test_missing_features_never_fall_back_to_colour_or_tracker_id(self):
         self.assertEqual(self.cross(embedding=None), [])
+
+    def test_weak_box_continues_track_without_poisoning_hourly_gallery(self):
+        self.cfg = replace(self.cfg, CONFIDENCE=.35, STAFF_MODE="disabled")
+        self.engine = PassengerCounterEngine(self.cfg)
+        self.feed(20)
+        identity = next(iter(self.engine.identities.values()))
+        initial = json.loads(json.dumps(identity.gallery))
+        weak = Detection(1, (40, 70, 60, 90), .2, np.array([0, 1, 0]))
+        self.engine.update(self.frame, [weak], self.start + timedelta(seconds=.2))
+        self.assertEqual(identity.gallery, initial)
+        np.testing.assert_array_equal(identity.embedding, [1, 0, 0])
+
+    def test_weak_box_cannot_create_an_hourly_identity(self):
+        self.cfg = replace(self.cfg, CONFIDENCE=.35, STAFF_MODE="disabled")
+        self.engine = PassengerCounterEngine(self.cfg)
+        weak = Detection(1, (40, 10, 60, 30), .2, np.array([1, 0, 0]))
+        self.engine.update(self.frame, [weak], self.start)
+        self.assertEqual(self.engine.identities, {})
+
+    def test_weak_fragment_does_not_confirm_a_crossing(self):
+        self.cfg = replace(self.cfg, CONFIDENCE=.35, STAFF_MODE="disabled")
+        self.engine = PassengerCounterEngine(self.cfg)
+        self.feed(20)
+        self.feed(20)
+        for i in range(3, 7):
+            weak = Detection(1, (40, 70, 60, 90), .2, np.array([1, 0, 0]))
+            self.assertEqual(self.engine.update(self.frame, [weak], self.start + timedelta(seconds=i/10)), [])
+        self.assertEqual(self.engine.tracks[1].zone, "street")
+        self.assertEqual(self.feed(80, at=.7), [])
+        events = self.feed(80, at=.8)
+        self.assertEqual([e.reason for e in events], ["COUNTED"])
+
+    def test_weak_garment_predictions_cannot_mark_person_as_staff(self):
+        self.cfg = replace(self.cfg, CONFIDENCE=.35)
+        self.engine = PassengerCounterEngine(self.cfg)
+        self.feed(20)
+        for i in range(2, 6):
+            weak = Detection(1, (40, 10, 60, 30), .2, np.array([1, 0, 0]), .99)
+            self.engine.update(self.frame, [weak], self.start + timedelta(seconds=i/10))
+        self.assertFalse(self.engine.tracks[1].staff.confirmed)
 
     def test_checkpoint_preserves_cooldowns(self):
         self.cross()

@@ -1,0 +1,5752 @@
+{
+  "decision": "Keep active test2 unchanged; no retraining or production-state/database writes",
+  "active_zones": {
+    "Y_STREET": 0.38,
+    "Y_LINE": 0.5,
+    "Y_CABIN": 0.6
+  },
+  "active_profile_sha256": "d76de99f840e3cd6a9b9076eb2ab6514630d6d54b3f5fb14947437b9fe330cd5",
+  "manual_holdout_sha256": "29b3c1e7c2c08835977366e136d6b511cd1d981ff7e717e0dc57e6eba9f6e19f",
+  "protocol": {
+    "grid_mode": "raw person/ReID inference caches, then real tracker/counter replay; no DB",
+    "source_and_model_hashes": "adjacent private raw-cache metadata; current model hashes recorded below",
+    "scope": "Local camera calibration. Old scenes are not independent; five new events are not full-day accuracy.",
+    "fresh_holdout": "P06/P07 labels and .57 snapshot frozen before predictions; .58 follow-up reuses those scenes, not another independent test.",
+    "timing": "Only frame indices/file presentation time; source clock edits not recovered."
+  },
+  "model_sha256": {
+    "models/candidates/person_test2_v2.onnx": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+    "models/person_reid.onnx": "38b3dd2c2acb0bd191d27eff6707dc5428de63fc7395a6f4ae0cb6392ef2acfa",
+    "models/candidates/work_vest_v3.onnx": "a26aaf018050308298469d40aca831df602251ca6b14a87562d7f6ffdbf90671"
+  },
+  "screening": [
+    {
+      "street": 0.35,
+      "cabin": 0.5,
+      "line": 0.425,
+      "results": [
+        {
+          "id": "control_clip_06",
+          "in": 6,
+          "out": 0,
+          "suppressed": 0
+        }
+      ],
+      "old_ok": false,
+      "staff_mode": "disabled",
+      "stopped_on_first_old_regression": true
+    },
+    {
+      "street": 0.35,
+      "cabin": 0.52,
+      "line": 0.435,
+      "results": [
+        {
+          "id": "control_clip_06",
+          "in": 6,
+          "out": 0,
+          "suppressed": 0
+        }
+      ],
+      "old_ok": false,
+      "staff_mode": "disabled",
+      "stopped_on_first_old_regression": true
+    },
+    {
+      "street": 0.35,
+      "cabin": 0.55,
+      "line": 0.45,
+      "results": [
+        {
+          "id": "control_clip_06",
+          "in": 6,
+          "out": 0,
+          "suppressed": 0
+        }
+      ],
+      "old_ok": false,
+      "staff_mode": "disabled",
+      "stopped_on_first_old_regression": true
+    },
+    {
+      "street": 0.35,
+      "cabin": 0.6,
+      "line": 0.475,
+      "results": [
+        {
+          "id": "control_clip_06",
+          "in": 6,
+          "out": 0,
+          "suppressed": 0
+        }
+      ],
+      "old_ok": false,
+      "staff_mode": "disabled",
+      "stopped_on_first_old_regression": true
+    },
+    {
+      "street": 0.38,
+      "cabin": 0.5,
+      "line": 0.44,
+      "results": [
+        {
+          "id": "control_clip_06",
+          "in": 7,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A12",
+          "in": 4,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_03",
+          "in": 0,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_boardings",
+          "in": 6,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A04",
+          "in": 5,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A06",
+          "in": 2,
+          "out": 5,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A01",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A02",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A03",
+          "in": 4,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A05",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A07",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A08",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A09",
+          "in": 1,
+          "out": 7,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A10",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A11",
+          "in": 0,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A13",
+          "in": 2,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_R01",
+          "in": 3,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_R02",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_R03",
+          "in": 0,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_01",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_02",
+          "in": 1,
+          "out": 5,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_04",
+          "in": 3,
+          "out": 2,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_05",
+          "in": 8,
+          "out": 1,
+          "suppressed": 1
+        }
+      ],
+      "old_ok": false,
+      "staff_mode": "disabled",
+      "stopped_on_first_old_regression": true
+    },
+    {
+      "street": 0.38,
+      "cabin": 0.52,
+      "line": 0.45,
+      "results": [
+        {
+          "id": "control_clip_06",
+          "in": 7,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A12",
+          "in": 4,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_03",
+          "in": 0,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_boardings",
+          "in": 6,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A04",
+          "in": 5,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A06",
+          "in": 2,
+          "out": 5,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A01",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A02",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A03",
+          "in": 4,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A05",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A07",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A08",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A09",
+          "in": 1,
+          "out": 7,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A10",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A11",
+          "in": 0,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A13",
+          "in": 2,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_R01",
+          "in": 3,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_R02",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_R03",
+          "in": 0,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_01",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_02",
+          "in": 1,
+          "out": 5,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_04",
+          "in": 3,
+          "out": 2,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_05",
+          "in": 8,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_empty",
+          "in": 0,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_exit",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "V01",
+          "in": 1,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "bbc65d80-65f3-4f00-a87a-94c9fbba093b",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T00:16:56.986011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 1,
+              "identity_id": "b4a4c7f4-d8c8-4d28-b4dc-35e3af30f3cd",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 25394,
+              "crossing_frame": 25394
+            }
+          ]
+        },
+        {
+          "id": "V02",
+          "in": 1,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "3402ddcd-84cc-46e8-b6ed-d42163c5d071",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T00:42:06.026011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 28,
+              "identity_id": "db8b9174-d297-4f0d-8480-1770dcb8e457",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 63074,
+              "crossing_frame": 63074
+            }
+          ]
+        },
+        {
+          "id": "V03",
+          "in": 0,
+          "out": 1,
+          "events": [
+            {
+              "event_id": "78d92143-ed00-4109-82ba-5e3309d0b313",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T01:37:57.909011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 1,
+              "identity_id": "e9434650-2425-4db0-99a2-21c5b81a1993",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 146768,
+              "crossing_frame": 146768
+            }
+          ]
+        },
+        {
+          "id": "V04",
+          "in": 1,
+          "out": 1,
+          "events": [
+            {
+              "event_id": "2023ff71-0a99-4b07-bfb5-a1fc1b2c2453",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:08:35.731011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 1,
+              "identity_id": "3fec8b54-85a5-4093-9aa6-75b53441fefe",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 282547,
+              "crossing_frame": 282547
+            },
+            {
+              "event_id": "3fea32d5-1b87-42c6-896c-8e341741a4d0",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:08:46.331011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 1,
+              "identity_id": "3fec8b54-85a5-4093-9aa6-75b53441fefe",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 282812,
+              "crossing_frame": 282812
+            }
+          ]
+        },
+        {
+          "id": "V05",
+          "in": 1,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "78db39af-1449-433c-948a-e66a53ecf1dc",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T04:23:46.800011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 2,
+              "identity_id": "782aaf42-09f8-4b5a-b1d3-a09be55e0223",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 395185,
+              "crossing_frame": 395185
+            }
+          ]
+        },
+        {
+          "id": "P01",
+          "in": 3,
+          "out": 11,
+          "events": [
+            {
+              "event_id": "86f5eead-2bc1-479b-a9e0-d7c88890fbb4",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:50:59.939011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 3,
+              "identity_id": "33ac23f8-d087-4d9b-ac63-0e22e7d12846",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256184,
+              "crossing_frame": 256184
+            },
+            {
+              "event_id": "5fee1b16-1264-4761-ad02-1125feba5cd2",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:01.459011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 4,
+              "identity_id": "4e9fd66d-7676-4c67-9264-e4edc38f94d6",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256222,
+              "crossing_frame": 256222
+            },
+            {
+              "event_id": "326942d7-8b25-449e-8305-1eef7ea3d4d6",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:02.899011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 7,
+              "identity_id": "00470246-c8d1-4a3c-bf3c-1d461c5d0c7e",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256258,
+              "crossing_frame": 256258
+            },
+            {
+              "event_id": "c2173700-25f1-42d7-92bf-4932c51c0fe4",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:04.579011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 12,
+              "identity_id": "cd18b4ea-23a7-4276-8562-ad4b2e4dd583",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256300,
+              "crossing_frame": 256300
+            },
+            {
+              "event_id": "1a75ed01-f1e4-4189-844e-e1992b430083",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:06.339011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 21,
+              "identity_id": "3ca770d3-4765-402f-b922-9f71e18c8f1f",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256344,
+              "crossing_frame": 256344
+            },
+            {
+              "event_id": "3b628bdd-9532-47ac-9c41-f43b62554de7",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:07.979011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 25,
+              "identity_id": "b0d81eed-5a92-467d-be61-0088b99638d6",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256385,
+              "crossing_frame": 256385
+            },
+            {
+              "event_id": "0036a5c5-4d4b-4df3-897b-0b12076346bd",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:09.739011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 31,
+              "identity_id": "c0d95cc8-54ec-4aa5-87d6-79d583d86de8",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256429,
+              "crossing_frame": 256429
+            },
+            {
+              "event_id": "4818f27b-7876-47e7-bdba-0c45fd6a0339",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:10.939011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 41,
+              "identity_id": "88659601-11de-4952-8ed7-931e99b59f92",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256459,
+              "crossing_frame": 256459
+            },
+            {
+              "event_id": "baadf17f-c0c7-4fd3-a6bc-95cebb5b5889",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:12.219011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 44,
+              "identity_id": "dcc33577-fc8a-4cd9-b159-dcba08aaa006",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256491,
+              "crossing_frame": 256491
+            },
+            {
+              "event_id": "5621e08d-5396-4a97-8d1a-c869ef39d35f",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:13.379011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 51,
+              "identity_id": "472ff1fe-a74b-4964-8901-abb23ba41c01",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256520,
+              "crossing_frame": 256520
+            },
+            {
+              "event_id": "933e3f79-acd4-44bd-913b-0fee8ec43218",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:14.859011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 54,
+              "identity_id": "4546893a-da9b-4c2d-b676-4460e41340df",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256557,
+              "crossing_frame": 256557
+            },
+            {
+              "event_id": "fc3fab69-7a27-4ccd-a304-68e6215e7c08",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:18.219011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 59,
+              "identity_id": "f9a33be7-187c-4ff9-b6f3-fbe026f28312",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256641,
+              "crossing_frame": 256641
+            },
+            {
+              "event_id": "9b4fc1b7-28e0-4704-adbc-18df2814f786",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:19.620011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 66,
+              "identity_id": "d54bafb0-8aab-4b4d-9d23-c5bf4e6247b6",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256676,
+              "crossing_frame": 256676
+            },
+            {
+              "event_id": "5a3bf003-71c5-40d4-a5f2-faf6800c0548",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:22.380011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 70,
+              "identity_id": "1e43adcb-f49f-4e57-b55f-83ad11fc2bd2",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256745,
+              "crossing_frame": 256745
+            }
+          ]
+        },
+        {
+          "id": "P02",
+          "in": 7,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "ca090874-ba6a-4e46-a801-5185374da49d",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:02.226011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 4,
+              "identity_id": "0810a901-b457-4043-bf7f-a11b13196e5b",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262234,
+              "crossing_frame": 262234
+            },
+            {
+              "event_id": "252d65ca-f00d-438c-8367-17e9dcf8a3a3",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:19.467011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 30,
+              "identity_id": "d90ede5c-c2d9-4a81-925c-f54bae6312c6",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262665,
+              "crossing_frame": 262665
+            },
+            {
+              "event_id": "8515ca4a-8aea-4175-adae-d7456bacc610",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:20.987011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 37,
+              "identity_id": "fc7225b2-6f63-4576-9aa2-2201a4b4858f",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262703,
+              "crossing_frame": 262703
+            },
+            {
+              "event_id": "c90f43bd-9fc5-4a86-8235-591c3550e060",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:22.907011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 40,
+              "identity_id": "45075bc3-b3b6-40b6-ba57-0b0d5abbc2d3",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262751,
+              "crossing_frame": 262751
+            },
+            {
+              "event_id": "234aee6c-8704-427a-a656-0aa5c08e6a93",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:25.947011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 48,
+              "identity_id": "b15caef6-4877-4e8d-923c-fb1ccb558225",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262827,
+              "crossing_frame": 262827
+            },
+            {
+              "event_id": "8ba7848e-0cf0-46d2-a59d-9c39103a1f65",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:32.947011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 55,
+              "identity_id": "d4f326b0-e279-4b69-bcb0-7be7ffed4448",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 263002,
+              "crossing_frame": 263002
+            },
+            {
+              "event_id": "68dbe63b-01a8-4ede-b870-8bfe3a77b4f0",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:37.108011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 61,
+              "identity_id": "ae172e05-227f-46af-b84d-d02520ee6856",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 263106,
+              "crossing_frame": 263106
+            }
+          ]
+        },
+        {
+          "id": "P03",
+          "in": 0,
+          "out": 0,
+          "events": []
+        }
+      ],
+      "old_ok": true,
+      "staff_mode": "disabled",
+      "stopped_on_first_old_regression": false
+    },
+    {
+      "street": 0.38,
+      "cabin": 0.55,
+      "line": 0.465,
+      "results": [
+        {
+          "id": "control_clip_06",
+          "in": 7,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A12",
+          "in": 4,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_03",
+          "in": 0,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_boardings",
+          "in": 6,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A04",
+          "in": 5,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A06",
+          "in": 2,
+          "out": 5,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A01",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A02",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A03",
+          "in": 4,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A05",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A07",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A08",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A09",
+          "in": 1,
+          "out": 7,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A10",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A11",
+          "in": 0,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A13",
+          "in": 2,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_R01",
+          "in": 3,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_R02",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_R03",
+          "in": 0,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_01",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_02",
+          "in": 1,
+          "out": 5,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_04",
+          "in": 3,
+          "out": 2,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_05",
+          "in": 8,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_empty",
+          "in": 0,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_exit",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "V01",
+          "in": 1,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "2a2555fb-3c17-497e-adbf-4e9f881fe273",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T00:16:57.026011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 1,
+              "identity_id": "75da9d20-6fb9-4a18-be24-67af30b32797",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 25395,
+              "crossing_frame": 25395
+            }
+          ]
+        },
+        {
+          "id": "V02",
+          "in": 1,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "63a9302b-bcbd-4fa9-9f04-a7d666173edc",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T00:42:06.066011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 28,
+              "identity_id": "d4772457-81f0-4e68-875d-ec7312b6af3d",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 63075,
+              "crossing_frame": 63075
+            }
+          ]
+        },
+        {
+          "id": "V03",
+          "in": 0,
+          "out": 1,
+          "events": [
+            {
+              "event_id": "fc10d385-725e-4b79-ba39-86d1e3425345",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T01:37:57.909011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 1,
+              "identity_id": "da9150eb-6a98-4bb1-9c52-db93fcd30322",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 146768,
+              "crossing_frame": 146768
+            }
+          ]
+        },
+        {
+          "id": "V04",
+          "in": 1,
+          "out": 1,
+          "events": [
+            {
+              "event_id": "aeec131f-d263-4658-a5d1-55278ee28a76",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:08:35.971011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 1,
+              "identity_id": "da1fe632-ade8-425a-b9b7-636752ca8cf9",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 282553,
+              "crossing_frame": 282553
+            },
+            {
+              "event_id": "b2acc13b-a8e9-4539-8359-ded167eb15ac",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T03:08:46.331011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 1,
+              "identity_id": "da1fe632-ade8-425a-b9b7-636752ca8cf9",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 282812,
+              "crossing_frame": 282812
+            }
+          ]
+        },
+        {
+          "id": "V05",
+          "in": 1,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "d336dc60-8027-4c08-8d00-4db20b5d97c7",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T04:23:46.800011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 2,
+              "identity_id": "5a3a66aa-077c-4643-877f-36ba6d9f8a5d",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 395185,
+              "crossing_frame": 395185
+            }
+          ]
+        },
+        {
+          "id": "P01",
+          "in": 3,
+          "out": 11,
+          "events": [
+            {
+              "event_id": "530f5280-6d70-4c5b-9d82-f38bdc413bbc",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:50:59.939011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 3,
+              "identity_id": "3bf0ffd6-c20a-4826-813d-d290967c6aee",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256184,
+              "crossing_frame": 256184
+            },
+            {
+              "event_id": "6c08f5c7-cb4a-4583-8c41-0d1c207da117",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:01.459011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 4,
+              "identity_id": "06285639-0b8d-43b0-b858-8bb586326db8",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256222,
+              "crossing_frame": 256222
+            },
+            {
+              "event_id": "c0debb20-65f5-4b59-8531-5c36dc714d5a",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:02.899011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 7,
+              "identity_id": "920aecb7-e9ba-477f-bb0e-93033860fbf8",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256258,
+              "crossing_frame": 256258
+            },
+            {
+              "event_id": "6ea10e55-a2a8-4f7c-837d-17b15a41a172",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:04.579011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 12,
+              "identity_id": "665a9ed8-204d-4510-b386-42227e602949",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256300,
+              "crossing_frame": 256300
+            },
+            {
+              "event_id": "2685dd15-fec0-405d-aad2-08ed744c7120",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:06.339011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 21,
+              "identity_id": "07d90450-7ff6-464d-9478-ce9bbcaf817a",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256344,
+              "crossing_frame": 256344
+            },
+            {
+              "event_id": "87f38176-c6d1-44c5-8082-d83bc64cf833",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:07.979011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 25,
+              "identity_id": "5fd7e328-932f-4c8f-b5be-7352991fb2fd",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256385,
+              "crossing_frame": 256385
+            },
+            {
+              "event_id": "634ee305-221d-4273-b2c5-486f04f1eb5b",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:09.739011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 31,
+              "identity_id": "a75c1d6c-d10a-49bc-8d86-c6f9e0a32c41",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256429,
+              "crossing_frame": 256429
+            },
+            {
+              "event_id": "e71d2212-6cdb-4115-a42e-2fdf49fe4b69",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:10.939011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 41,
+              "identity_id": "9c544eb4-3491-40e0-a7aa-81295eab91a2",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256459,
+              "crossing_frame": 256459
+            },
+            {
+              "event_id": "275ed48c-32bd-49a4-922b-55ba0f0f1f9c",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:12.219011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 44,
+              "identity_id": "66df0caa-0e31-4bc9-aa98-939520157a27",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256491,
+              "crossing_frame": 256491
+            },
+            {
+              "event_id": "223d0fd3-d916-4953-897a-af5d7bc89d18",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:13.379011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 51,
+              "identity_id": "83347a43-16e4-46ce-8b0d-7a281260f5c7",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256520,
+              "crossing_frame": 256520
+            },
+            {
+              "event_id": "5f8acc62-1fb4-422c-a180-99fea3737a10",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:14.859011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 54,
+              "identity_id": "f3b62d01-e8ec-4365-a388-7bdb268f5461",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256557,
+              "crossing_frame": 256557
+            },
+            {
+              "event_id": "c0b4c477-b997-44c6-b58f-4adb04b44f86",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:18.219011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 59,
+              "identity_id": "1b07cf64-94de-4790-86b1-c01846f22848",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256641,
+              "crossing_frame": 256641
+            },
+            {
+              "event_id": "b089f140-4bda-4aca-a06f-5e781d315af4",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:19.660011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 66,
+              "identity_id": "b4b45a25-1e93-4529-a82c-48e99e6f3e18",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256677,
+              "crossing_frame": 256677
+            },
+            {
+              "event_id": "76122515-fa1e-4e6d-9e4c-4ae071508317",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:22.540011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 70,
+              "identity_id": "37a6f8b4-f9f0-4039-9eda-480b7471b534",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256749,
+              "crossing_frame": 256749
+            }
+          ]
+        },
+        {
+          "id": "P02",
+          "in": 7,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "a86e5cd4-790e-4578-905d-2b32afb2c797",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:02.266011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 4,
+              "identity_id": "a879175f-d95f-49df-a09e-e6b91a7a1bb5",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262235,
+              "crossing_frame": 262235
+            },
+            {
+              "event_id": "091f3d2e-e2fa-4d18-ba52-3003d1009328",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:19.507011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 30,
+              "identity_id": "292be25f-8684-46d2-8fa5-c6880db2e6ef",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262666,
+              "crossing_frame": 262666
+            },
+            {
+              "event_id": "e6f03453-3338-43dd-a7e7-ea1de2067ba3",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:21.027011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 37,
+              "identity_id": "10e3b244-25e8-4f40-a5c0-af4c977c25a1",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262704,
+              "crossing_frame": 262704
+            },
+            {
+              "event_id": "f2c9b428-ee0c-4c5f-9560-e98aa549d697",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:22.947011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 40,
+              "identity_id": "1a4d83de-1f19-4f5e-8f5e-5be8c9b0c1b6",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262752,
+              "crossing_frame": 262752
+            },
+            {
+              "event_id": "582e69b7-e5ac-437c-a3da-d2e3a85b40ba",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:25.947011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 48,
+              "identity_id": "dfda831e-479a-4a9f-9411-91c6df7fa6b1",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262827,
+              "crossing_frame": 262827
+            },
+            {
+              "event_id": "ed538686-49f9-4ac1-b6ed-4c31358d861b",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:33.107011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 55,
+              "identity_id": "633add02-ffe2-4da9-991e-532a3a86e768",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 263006,
+              "crossing_frame": 263006
+            },
+            {
+              "event_id": "20bf2721-f755-48c5-8af4-517323f6f4bd",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:37.508011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 61,
+              "identity_id": "27ecef69-7d2a-4890-bb29-b92a73f5d62f",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 263116,
+              "crossing_frame": 263116
+            }
+          ]
+        },
+        {
+          "id": "P03",
+          "in": 0,
+          "out": 0,
+          "events": []
+        }
+      ],
+      "old_ok": true,
+      "staff_mode": "disabled",
+      "stopped_on_first_old_regression": false
+    },
+    {
+      "street": 0.38,
+      "cabin": 0.6,
+      "line": 0.49,
+      "results": [
+        {
+          "id": "control_clip_06",
+          "in": 7,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A12",
+          "in": 4,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_03",
+          "in": 0,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_boardings",
+          "in": 6,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A04",
+          "in": 5,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A06",
+          "in": 2,
+          "out": 5,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A01",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A02",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A03",
+          "in": 4,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A05",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A07",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A08",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A09",
+          "in": 1,
+          "out": 7,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A10",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A11",
+          "in": 0,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A13",
+          "in": 2,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_R01",
+          "in": 3,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_R02",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_R03",
+          "in": 0,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_01",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_02",
+          "in": 1,
+          "out": 5,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_04",
+          "in": 3,
+          "out": 2,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_05",
+          "in": 8,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_empty",
+          "in": 0,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "control_exit",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "V01",
+          "in": 1,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "a9256414-c1b9-4804-a1a9-667adc35ed19",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T00:16:57.546011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 1,
+              "identity_id": "6d2e7383-9cb4-483e-9d94-8c98f2ccb883",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 25408,
+              "crossing_frame": 25408
+            }
+          ]
+        },
+        {
+          "id": "V02",
+          "in": 0,
+          "out": 0,
+          "events": []
+        },
+        {
+          "id": "V03",
+          "in": 0,
+          "out": 1,
+          "events": [
+            {
+              "event_id": "b78b32e5-9968-4473-a318-9d4307e18441",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T01:37:57.909011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 1,
+              "identity_id": "d35d6281-9202-4c41-817f-244cd86f9ac8",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 146768,
+              "crossing_frame": 146768
+            }
+          ]
+        },
+        {
+          "id": "V04",
+          "in": 0,
+          "out": 0,
+          "events": []
+        },
+        {
+          "id": "V05",
+          "in": 1,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "797c9348-7765-4d25-bb20-dce0213dd96f",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T04:23:47.840011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 2,
+              "identity_id": "3873339d-d951-42a1-aa55-660c02b71544",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 395211,
+              "crossing_frame": 395211
+            }
+          ]
+        },
+        {
+          "id": "P01",
+          "in": 3,
+          "out": 11,
+          "events": [
+            {
+              "event_id": "2903ada4-1fd9-444f-8917-aeeb212c424d",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:50:59.939011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 3,
+              "identity_id": "41794e5b-c1f8-4f7e-adf7-cb7198e27373",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256184,
+              "crossing_frame": 256184
+            },
+            {
+              "event_id": "aa0b7c75-915f-45b4-b318-7a592d9af8d1",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:01.459011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 4,
+              "identity_id": "b2591c16-dc9c-471f-ae77-c6fdd113d22a",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256222,
+              "crossing_frame": 256222
+            },
+            {
+              "event_id": "009709e2-dc57-4cb3-8135-b025fd42c5a7",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:02.899011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 7,
+              "identity_id": "197edd29-8d6a-4aad-9697-1bdbce262388",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256258,
+              "crossing_frame": 256258
+            },
+            {
+              "event_id": "71f6aa76-054f-47b9-b68e-e0fb5a7dd1ab",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:04.579011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 12,
+              "identity_id": "a2f46d23-165c-4034-99da-8c8e57e7daa4",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256300,
+              "crossing_frame": 256300
+            },
+            {
+              "event_id": "485e824a-96ab-40ec-8982-dfbe8ffb82cc",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:06.339011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 21,
+              "identity_id": "32c37267-53b1-4436-884d-593632b6ba97",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256344,
+              "crossing_frame": 256344
+            },
+            {
+              "event_id": "ecea08c8-2e44-46d8-bcd6-d730240f1e36",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:07.979011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 25,
+              "identity_id": "186708f8-53d6-433a-bcc8-6f043b7e39b3",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256385,
+              "crossing_frame": 256385
+            },
+            {
+              "event_id": "45fa2616-2088-4293-91eb-a7ac3d38e557",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:09.739011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 31,
+              "identity_id": "716f4385-3f7b-430e-8e63-bda931f81c35",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256429,
+              "crossing_frame": 256429
+            },
+            {
+              "event_id": "00342f62-cbd9-4bdc-984d-c7562ef2656e",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:10.939011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 41,
+              "identity_id": "3c8a0754-b01d-4a3f-8886-f11c6011d3bc",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256459,
+              "crossing_frame": 256459
+            },
+            {
+              "event_id": "c66b8990-0ce7-47ae-99ed-e8527740224f",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:12.219011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 44,
+              "identity_id": "c416cba3-f304-45d9-8079-bb6cb02735a2",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256491,
+              "crossing_frame": 256491
+            },
+            {
+              "event_id": "15df1cd0-14da-4afa-aaed-ac35ffcce96b",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:13.379011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 51,
+              "identity_id": "6f098f5c-7c14-4d34-b60b-990977ed713b",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256520,
+              "crossing_frame": 256520
+            },
+            {
+              "event_id": "4b5591ae-b0a2-4c32-a876-cfc0db8fc415",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:14.859011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "OUT",
+              "track_id": 54,
+              "identity_id": "84b9f2e1-f835-4735-b910-c518c612a405",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256557,
+              "crossing_frame": 256557
+            },
+            {
+              "event_id": "a9db799f-8d28-4964-855b-d4d181d7ac92",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:18.299011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 59,
+              "identity_id": "6b32ce63-ac71-4376-9f50-b8ec47e2f5ba",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256643,
+              "crossing_frame": 256643
+            },
+            {
+              "event_id": "4991f4c4-c833-4136-9180-9e06ceb7fca2",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:19.780011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 66,
+              "identity_id": "d3a35244-7a62-45a9-a92e-70ea2c48469a",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256680,
+              "crossing_frame": 256680
+            },
+            {
+              "event_id": "28555fe0-f4f2-45bb-a68b-4e42cec37c6f",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:51:22.780011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 70,
+              "identity_id": "db1e771d-6bd9-4314-bc8e-875d4c281c3b",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 256755,
+              "crossing_frame": 256755
+            }
+          ]
+        },
+        {
+          "id": "P02",
+          "in": 6,
+          "out": 0,
+          "events": [
+            {
+              "event_id": "c6b059a5-d6ca-42b2-bead-62caa2a5dfa2",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:19.587011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 30,
+              "identity_id": "dfd06c70-adec-4b93-b3ba-921c0d90aca3",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262668,
+              "crossing_frame": 262668
+            },
+            {
+              "event_id": "c7e2477e-b774-453d-adad-a59efc31fa7d",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:21.227011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 37,
+              "identity_id": "f8e67c7a-abea-4d2b-9b5d-6f531f492ab4",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262709,
+              "crossing_frame": 262709
+            },
+            {
+              "event_id": "3f10906e-8a80-40b9-835b-ce69d1d3bea9",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:23.027011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 40,
+              "identity_id": "ee880136-cfc7-4674-9543-5af32c5fa3b8",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262754,
+              "crossing_frame": 262754
+            },
+            {
+              "event_id": "5831990a-2923-4118-a7bb-c2627b1a786a",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:29.387011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 48,
+              "identity_id": "8cf39a0a-4133-40ec-9e6f-1386c532b7cd",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 262913,
+              "crossing_frame": 262913
+            },
+            {
+              "event_id": "24d19cc2-731c-4ca5-b4e9-c5d561d385a4",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:33.587011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 55,
+              "identity_id": "99dece0b-e420-41c4-b02a-068cc0b216cb",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 263018,
+              "crossing_frame": 263018
+            },
+            {
+              "event_id": "cd4ab72f-45ee-4e78-ad39-51a3fbdbc66d",
+              "bus_id": "BUS_01",
+              "camera_id": "CAM_DOOR_01",
+              "detected_at": "2026-11-09T02:55:37.588011+00:00",
+              "traffic_date": "2026-11-09",
+              "event_type": "IN",
+              "track_id": 61,
+              "identity_id": "d58f6f59-7e78-4d65-9949-0ebd1e93d309",
+              "counted": true,
+              "reason": "COUNTED",
+              "frame": 263118,
+              "crossing_frame": 263118
+            }
+          ]
+        },
+        {
+          "id": "P03",
+          "in": 0,
+          "out": 0,
+          "events": []
+        }
+      ],
+      "old_ok": true,
+      "staff_mode": "disabled",
+      "stopped_on_first_old_regression": false
+    },
+    {
+      "street": 0.42,
+      "cabin": 0.5,
+      "line": 0.45999999999999996,
+      "results": [
+        {
+          "id": "control_clip_06",
+          "in": 7,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A12",
+          "in": 4,
+          "out": 5,
+          "suppressed": 1
+        }
+      ],
+      "old_ok": false,
+      "staff_mode": "disabled",
+      "stopped_on_first_old_regression": true
+    },
+    {
+      "street": 0.42,
+      "cabin": 0.52,
+      "line": 0.47,
+      "results": [
+        {
+          "id": "control_clip_06",
+          "in": 7,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A12",
+          "in": 4,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_03",
+          "in": 0,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_boardings",
+          "in": 6,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A04",
+          "in": 5,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A06",
+          "in": 2,
+          "out": 5,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A01",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A02",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A03",
+          "in": 4,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A05",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A07",
+          "in": 2,
+          "out": 1,
+          "suppressed": 0
+        }
+      ],
+      "old_ok": false,
+      "staff_mode": "disabled",
+      "stopped_on_first_old_regression": true
+    },
+    {
+      "street": 0.42,
+      "cabin": 0.55,
+      "line": 0.485,
+      "results": [
+        {
+          "id": "control_clip_06",
+          "in": 7,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A12",
+          "in": 4,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_03",
+          "in": 0,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_boardings",
+          "in": 6,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A04",
+          "in": 5,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A06",
+          "in": 2,
+          "out": 5,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A01",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A02",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A03",
+          "in": 4,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A05",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A07",
+          "in": 2,
+          "out": 1,
+          "suppressed": 0
+        }
+      ],
+      "old_ok": false,
+      "staff_mode": "disabled",
+      "stopped_on_first_old_regression": true
+    },
+    {
+      "street": 0.42,
+      "cabin": 0.6,
+      "line": 0.51,
+      "results": [
+        {
+          "id": "control_clip_06",
+          "in": 7,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A12",
+          "in": 4,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_clip_03",
+          "in": 0,
+          "out": 4,
+          "suppressed": 0
+        },
+        {
+          "id": "control_boardings",
+          "in": 6,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A04",
+          "in": 5,
+          "out": 3,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A06",
+          "in": 2,
+          "out": 5,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A01",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A02",
+          "in": 0,
+          "out": 1,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A03",
+          "in": 4,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A05",
+          "in": 1,
+          "out": 0,
+          "suppressed": 0
+        },
+        {
+          "id": "old_A07",
+          "in": 2,
+          "out": 1,
+          "suppressed": 0
+        }
+      ],
+      "old_ok": false,
+      "staff_mode": "disabled",
+      "stopped_on_first_old_regression": true
+    }
+  ],
+  "refinements": [
+    {
+      "Y_CABIN": 0.57,
+      "Y_STREET": 0.38,
+      "Y_LINE": 0.5,
+      "staff_mode": "model",
+      "old_exact_count_episodes": 25,
+      "old_tested_episodes": 25,
+      "scope": "Old25, selected new8, previous additional P04/P05/S01",
+      "results": [
+        {
+          "in": 6,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 225600,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 225665,
+              "event_type": "IN",
+              "track_id": 27,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 225758,
+              "event_type": "IN",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 225794,
+              "event_type": "IN",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 226108,
+              "event_type": "IN",
+              "track_id": 41,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 226171,
+              "event_type": "IN",
+              "track_id": 49,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "5cacff3d802ca8a5d45cd93f491e43f37a5f7f737d96fe85408d55077818e90f",
+          "id": "control_boardings"
+        },
+        {
+          "in": 1,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 26536,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "1935c7ebc4929c8e4697585682ebf37f61a2697260d395e397fe1853d1abb5dd",
+          "id": "control_clip_01"
+        },
+        {
+          "in": 1,
+          "out": 5,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 86010,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86080,
+              "event_type": "IN",
+              "track_id": 13,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86437,
+              "event_type": "OUT",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86470,
+              "event_type": "OUT",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86514,
+              "event_type": "OUT",
+              "track_id": 27,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86954,
+              "event_type": "OUT",
+              "track_id": 32,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "1e3a312a9c5342e6d39414cab2cfd81b8a2142a52b45d7b4a69b497a2859479f",
+          "id": "control_clip_02"
+        },
+        {
+          "in": 0,
+          "out": 4,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 164390,
+              "event_type": "OUT",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 164785,
+              "event_type": "OUT",
+              "track_id": 8,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 164824,
+              "event_type": "OUT",
+              "track_id": 19,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 165251,
+              "event_type": "OUT",
+              "track_id": 34,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "064986384e47ae761482b488793e7e2e58f6947f791cd185941c4a313a4d5367",
+          "id": "control_clip_03"
+        },
+        {
+          "in": 3,
+          "out": 2,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 216333,
+              "event_type": "IN",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 216770,
+              "event_type": "OUT",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 216865,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 217232,
+              "event_type": "OUT",
+              "track_id": 28,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 217666,
+              "event_type": "IN",
+              "track_id": 33,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "390c3d14d22410b04e16cee415ef191e4755f2991c717b294180d7096128d453",
+          "id": "control_clip_04"
+        },
+        {
+          "in": 8,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 318941,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319046,
+              "event_type": "IN",
+              "track_id": 15,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 318988,
+              "event_type": "IN",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319092,
+              "event_type": "IN",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319140,
+              "event_type": "IN",
+              "track_id": 23,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319228,
+              "event_type": "IN",
+              "track_id": 30,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319614,
+              "event_type": "IN",
+              "track_id": 44,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319798,
+              "event_type": "IN",
+              "track_id": 49,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "ec9d58d16b1fb6a165ad1078f6b5b83c01dfb965c3492c3cae1cc788bdbdd17a",
+          "id": "control_clip_05"
+        },
+        {
+          "in": 7,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 431122,
+              "event_type": "IN",
+              "track_id": 7,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431525,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431555,
+              "event_type": "IN",
+              "track_id": 15,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431590,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431666,
+              "event_type": "IN",
+              "track_id": 32,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431626,
+              "event_type": "IN",
+              "track_id": 22,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 432152,
+              "event_type": "IN",
+              "track_id": 56,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "f429344cd50b987ec0b64ccec75086ff467fabcca38f568dc7ebbc3819d05065",
+          "id": "control_clip_06"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 0,
+          "events": [],
+          "private_trace_sha256": "cb065974afc9318c22318a1b2bc9da47565f906acf2bdf3305bb1180f86358d6",
+          "id": "control_empty"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 324054,
+              "event_type": "OUT",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "5f045da6dd299565ec1a835887f342edba3e3abc1de4ece0b5aa76a980b307a7",
+          "id": "control_exit"
+        },
+        {
+          "in": 1,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 39128,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "4c0da376c9cd9d030c5f06f36ed06bf55e2fe080eac7dd75d43c381a406ea8aa",
+          "id": "old_A01"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 55971,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "a829ccbd8dd87a4ca19126108b989b426e19a62f35d9aec998ad6c369466db24",
+          "id": "old_A02"
+        },
+        {
+          "in": 4,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 101797,
+              "event_type": "IN",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 102213,
+              "event_type": "IN",
+              "track_id": 8,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 102252,
+              "event_type": "IN",
+              "track_id": 15,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 102678,
+              "event_type": "IN",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "a7a30fc857ea9c5bd2c387e9edb5bb45cfa86e70b46d7196be6241582132b182",
+          "id": "old_A03"
+        },
+        {
+          "in": 5,
+          "out": 3,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 135946,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 135989,
+              "event_type": "OUT",
+              "track_id": 5,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136061,
+              "event_type": "IN",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136114,
+              "event_type": "IN",
+              "track_id": 19,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136535,
+              "event_type": "IN",
+              "track_id": 34,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136567,
+              "event_type": "IN",
+              "track_id": 38,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136602,
+              "event_type": "IN",
+              "track_id": 40,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 137027,
+              "event_type": "OUT",
+              "track_id": 42,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "e8a08ea8648865dadfd37c72945f0723e84aca236741fa29d775ff8a867869e7",
+          "id": "old_A04"
+        },
+        {
+          "in": 1,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 175063,
+              "event_type": "IN",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "d3cedcac3054cce9603dc62e63a8e896849b994e429a73c2f010b3bcd373b2ce",
+          "id": "old_A05"
+        },
+        {
+          "in": 2,
+          "out": 5,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 243546,
+              "event_type": "IN",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 243919,
+              "event_type": "OUT",
+              "track_id": 4,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 243969,
+              "event_type": "OUT",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 244385,
+              "event_type": "OUT",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 244435,
+              "event_type": "OUT",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 244831,
+              "event_type": "OUT",
+              "track_id": 29,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 244900,
+              "event_type": "IN",
+              "track_id": 38,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "607e538d547d1a7dacd9a38cb9f5a9e9ec590d414497cc1abf4d2e34bb4c8dc2",
+          "id": "old_A06"
+        },
+        {
+          "in": 1,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 269467,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "2b22b8e41943dd1d7576fbd5472f0e687e7cde25fbfe7ef333dcf2e1e24aa30d",
+          "id": "old_A07"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 296376,
+              "event_type": "OUT",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "5c2f14dff8dcaaa6a09c4cdbd566c30dbd00e53124990e7502adce0ffb23aec0",
+          "id": "old_A08"
+        },
+        {
+          "in": 1,
+          "out": 7,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 350251,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 350655,
+              "event_type": "OUT",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 350689,
+              "event_type": "OUT",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 350715,
+              "event_type": "OUT",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 350758,
+              "event_type": "IN",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 351169,
+              "event_type": "OUT",
+              "track_id": 25,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 351204,
+              "event_type": "OUT",
+              "track_id": 27,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 351615,
+              "event_type": "OUT",
+              "track_id": 36,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "1d61a4dc9bf029b5d89cdaa4b695e5fadf7f15112417165e7d603db9f9e92d64",
+          "id": "old_A09"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 398221,
+              "event_type": "OUT",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "f84ee8200dc30f0fcd5922bed1f3c205253e87170a0d10424635d66c6f51aaf5",
+          "id": "old_A10"
+        },
+        {
+          "in": 0,
+          "out": 3,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 420291,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 420356,
+              "event_type": "OUT",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 421127,
+              "event_type": "OUT",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "de7e65912143c9bbb3db00c769aa60f4bfbdc50abc122e3dd4d766b85cbebf28",
+          "id": "old_A11"
+        },
+        {
+          "in": 4,
+          "out": 4,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 465964,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466025,
+              "event_type": "IN",
+              "track_id": 7,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466106,
+              "event_type": "IN",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466166,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466498,
+              "event_type": "OUT",
+              "track_id": 26,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466927,
+              "event_type": "OUT",
+              "track_id": 35,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466962,
+              "event_type": "OUT",
+              "track_id": 36,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466988,
+              "event_type": "OUT",
+              "track_id": 40,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "6aef62aeee8d3e80176d9fee49547c7258c5410e5c5511d780f85677cf25ddd4",
+          "id": "old_A12"
+        },
+        {
+          "in": 2,
+          "out": 3,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 471457,
+              "event_type": "OUT",
+              "track_id": 15,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 471803,
+              "event_type": "OUT",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 471836,
+              "event_type": "OUT",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 472296,
+              "event_type": "IN",
+              "track_id": 25,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 472367,
+              "event_type": "IN",
+              "track_id": 32,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "d39ff6ca5df950baef875971e93c3ee8d60c61d246c48e32df86e228d43cb862",
+          "id": "old_A13"
+        },
+        {
+          "in": 3,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 236271,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 236320,
+              "event_type": "IN",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 236724,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "1b2c8bc3acb0cef3becafb49e91b2ff4473a7c557c9d97cf19d8ba0cdcab8b63",
+          "id": "old_R01"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 157012,
+              "event_type": "OUT",
+              "track_id": 10,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "25217e44181895669d94983f631f2b72bb66ed360006250f7f2d667b3f4b1041",
+          "id": "old_R02"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 0,
+          "events": [],
+          "private_trace_sha256": "1b98edf117f2271a405df5049f22048fa7aa2c3d8e58a074d042f2db699c9c70",
+          "id": "old_R03"
+        },
+        {
+          "in": 3,
+          "out": 11,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 256184,
+              "event_type": "OUT",
+              "track_id": 3,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256222,
+              "event_type": "OUT",
+              "track_id": 4,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256258,
+              "event_type": "OUT",
+              "track_id": 7,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256344,
+              "event_type": "OUT",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256300,
+              "event_type": "OUT",
+              "track_id": 12,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256385,
+              "event_type": "OUT",
+              "track_id": 25,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256429,
+              "event_type": "OUT",
+              "track_id": 31,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256459,
+              "event_type": "OUT",
+              "track_id": 41,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256491,
+              "event_type": "OUT",
+              "track_id": 44,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256520,
+              "event_type": "OUT",
+              "track_id": 51,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256557,
+              "event_type": "OUT",
+              "track_id": 54,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256642,
+              "event_type": "IN",
+              "track_id": 59,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256678,
+              "event_type": "IN",
+              "track_id": 66,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256751,
+              "event_type": "IN",
+              "track_id": 70,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "9a4395cb9ee520c18109c9ab0278886a21593e13ce89010a3ac0c055b58f6291",
+          "id": "P01"
+        },
+        {
+          "in": 7,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 262252,
+              "event_type": "IN",
+              "track_id": 4,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 262666,
+              "event_type": "IN",
+              "track_id": 30,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 262706,
+              "event_type": "IN",
+              "track_id": 37,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 262753,
+              "event_type": "IN",
+              "track_id": 40,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 262830,
+              "event_type": "IN",
+              "track_id": 48,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 263010,
+              "event_type": "IN",
+              "track_id": 55,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 263116,
+              "event_type": "IN",
+              "track_id": 61,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "632014157c25e7a161af63bb61586b4085c4db8f77300b0b6c3dd4cf43e74085",
+          "id": "P02"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 0,
+          "events": [],
+          "private_trace_sha256": "a10812c981a4e0d275b4f30461ad4dc8d69e76d26f2cdf1efd8d72344f347223",
+          "id": "P03"
+        },
+        {
+          "in": 1,
+          "out": 3,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 356339,
+              "event_type": "IN",
+              "track_id": 8,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 356731,
+              "event_type": "OUT",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 357124,
+              "event_type": "OUT",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 357153,
+              "event_type": "OUT",
+              "track_id": 18,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "060e78fb78c98f85c066164ac7b07c11b62f9e5054d6fa1552d65f56fe560622",
+          "id": "P04"
+        },
+        {
+          "in": 1,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 375982,
+              "event_type": "OUT",
+              "track_id": 13,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 376061,
+              "event_type": "IN",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "8dfb9edfa170852962a7f874e742bc2e391c6ddf5acb968888f4fe604b4889c3",
+          "id": "P05"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 2,
+          "events": [
+            {
+              "crossing_frame": 335045,
+              "event_type": "OUT",
+              "track_id": 17,
+              "counted": false,
+              "reason": "STAFF"
+            },
+            {
+              "crossing_frame": 335058,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": false,
+              "reason": "STAFF"
+            }
+          ],
+          "private_trace_sha256": "e2872db46a651485fae8204ff1d33225f489c5b65471ac7320921975e8ecbd3e",
+          "id": "S01"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 1,
+          "events": [
+            {
+              "crossing_frame": 25395,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": false,
+              "reason": "STAFF"
+            }
+          ],
+          "private_trace_sha256": "0030f8a41d638fdf96e876d485779f0688a682c7a341789b7b761d8c99e4a68c",
+          "id": "V01"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 0,
+          "events": [],
+          "private_trace_sha256": "41940bff5dbc9264a2ff8a65d6563693d1f36b1b02ab89ab03fac6ac4d952b70",
+          "id": "V02"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 1,
+          "events": [
+            {
+              "crossing_frame": 146768,
+              "event_type": "OUT",
+              "track_id": 1,
+              "counted": false,
+              "reason": "STAFF"
+            }
+          ],
+          "private_trace_sha256": "d38ac702dce3e6e5d54a2b2eb4c6eaa5c87a9623111ed5cecf9376c4412e9fe6",
+          "id": "V03"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 0,
+          "events": [],
+          "private_trace_sha256": "9695dca51f244a5b7c28192ddb689609f1a6cb92f346b50a562a3ca6fb43992b",
+          "id": "V04"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 1,
+          "events": [
+            {
+              "crossing_frame": 395187,
+              "event_type": "IN",
+              "track_id": 2,
+              "counted": false,
+              "reason": "STAFF"
+            }
+          ],
+          "private_trace_sha256": "337907424c6d950f5d03d666e4d6b59b078791aae63cdddc836685d5b41c34ca",
+          "id": "V05"
+        }
+      ]
+    },
+    {
+      "Y_CABIN": 0.58,
+      "Y_STREET": 0.38,
+      "Y_LINE": 0.5,
+      "staff_mode": "model",
+      "old_exact_count_episodes": 25,
+      "old_tested_episodes": 25,
+      "scope": "P06/P07 follow-up on already evaluated holdout",
+      "results": [
+        {
+          "in": 6,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 225600,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 225670,
+              "event_type": "IN",
+              "track_id": 27,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 225758,
+              "event_type": "IN",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 225794,
+              "event_type": "IN",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 226108,
+              "event_type": "IN",
+              "track_id": 41,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 226172,
+              "event_type": "IN",
+              "track_id": 49,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "ceddf38a4fdc856b1e7e0cc79ac68badf09c1029e4eaa7d0ff2925222f79f12d",
+          "id": "control_boardings"
+        },
+        {
+          "in": 1,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 26536,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "baf322f08d2204f8f1083f72a320804d512da24267934bb859a8eec18f1ef3ed",
+          "id": "control_clip_01"
+        },
+        {
+          "in": 1,
+          "out": 5,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 86010,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86081,
+              "event_type": "IN",
+              "track_id": 13,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86437,
+              "event_type": "OUT",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86470,
+              "event_type": "OUT",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86514,
+              "event_type": "OUT",
+              "track_id": 27,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86954,
+              "event_type": "OUT",
+              "track_id": 32,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "a422dc420c793b608b1388dd3c035cda9b06e4370d08b768076e9c9a2540deb0",
+          "id": "control_clip_02"
+        },
+        {
+          "in": 0,
+          "out": 4,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 164390,
+              "event_type": "OUT",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 164785,
+              "event_type": "OUT",
+              "track_id": 8,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 164824,
+              "event_type": "OUT",
+              "track_id": 19,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 165251,
+              "event_type": "OUT",
+              "track_id": 34,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "521858f3cd0b4db8c9c64736ee0e6124d3d8570047d9150344f90239402dcb8b",
+          "id": "control_clip_03"
+        },
+        {
+          "in": 3,
+          "out": 2,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 216334,
+              "event_type": "IN",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 216770,
+              "event_type": "OUT",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 216866,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 217232,
+              "event_type": "OUT",
+              "track_id": 28,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 217666,
+              "event_type": "IN",
+              "track_id": 33,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "db5c58aa60530c8b76e94244ade3fb020c29cd1a54a47420b914e3e139a5fdef",
+          "id": "control_clip_04"
+        },
+        {
+          "in": 8,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 318941,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319046,
+              "event_type": "IN",
+              "track_id": 15,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 318989,
+              "event_type": "IN",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319093,
+              "event_type": "IN",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319140,
+              "event_type": "IN",
+              "track_id": 23,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319229,
+              "event_type": "IN",
+              "track_id": 30,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319615,
+              "event_type": "IN",
+              "track_id": 44,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319798,
+              "event_type": "IN",
+              "track_id": 49,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "010fac94b472a13e9cd5ff5c0ee7d82a19c80219b1636437b3bc806b13d3d30f",
+          "id": "control_clip_05"
+        },
+        {
+          "in": 7,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 431122,
+              "event_type": "IN",
+              "track_id": 7,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431525,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431555,
+              "event_type": "IN",
+              "track_id": 15,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431590,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431666,
+              "event_type": "IN",
+              "track_id": 32,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431626,
+              "event_type": "IN",
+              "track_id": 22,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 432155,
+              "event_type": "IN",
+              "track_id": 56,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "477d04fe0f025aa372066c5e1c2e47e5a2a95b1413f7e94438c7f675560f23fb",
+          "id": "control_clip_06"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 0,
+          "events": [],
+          "private_trace_sha256": "cb065974afc9318c22318a1b2bc9da47565f906acf2bdf3305bb1180f86358d6",
+          "id": "control_empty"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 324054,
+              "event_type": "OUT",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "f0db5faf00a63869dc175ef0693014ad23b42b64748633c7225164fe19b04688",
+          "id": "control_exit"
+        },
+        {
+          "in": 1,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 39128,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "5de3e8b8c1cf2634a5efa29eb4f755f8392f6ecdec9f2ef5a8303e87324cdf1e",
+          "id": "old_A01"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 55971,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "d007d6679af256cef7cf8cab4e027e6eedb44bda9e158e312ea5461c1139f80e",
+          "id": "old_A02"
+        },
+        {
+          "in": 4,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 101797,
+              "event_type": "IN",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 102214,
+              "event_type": "IN",
+              "track_id": 8,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 102253,
+              "event_type": "IN",
+              "track_id": 15,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 102679,
+              "event_type": "IN",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "7a6af4c90d725f001ed7f537543015debcdc0e2ce1497921853ba41f35e2d55d",
+          "id": "old_A03"
+        },
+        {
+          "in": 5,
+          "out": 3,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 135946,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 135989,
+              "event_type": "OUT",
+              "track_id": 5,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136062,
+              "event_type": "IN",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136115,
+              "event_type": "IN",
+              "track_id": 19,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136535,
+              "event_type": "IN",
+              "track_id": 34,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136568,
+              "event_type": "IN",
+              "track_id": 38,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136602,
+              "event_type": "IN",
+              "track_id": 40,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 137027,
+              "event_type": "OUT",
+              "track_id": 42,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "a13f36a5a3675c89a3dd6e49f4f141b97bbe1a02603fe6906b8265a19eaae9d1",
+          "id": "old_A04"
+        },
+        {
+          "in": 1,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 175063,
+              "event_type": "IN",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "06dffbe03757bf29d6683297a4eae7e3883d2b95bdfd380e8090ce1e0e64aaf9",
+          "id": "old_A05"
+        },
+        {
+          "in": 2,
+          "out": 5,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 243548,
+              "event_type": "IN",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 243919,
+              "event_type": "OUT",
+              "track_id": 4,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 243969,
+              "event_type": "OUT",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 244385,
+              "event_type": "OUT",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 244435,
+              "event_type": "OUT",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 244831,
+              "event_type": "OUT",
+              "track_id": 29,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 244900,
+              "event_type": "IN",
+              "track_id": 38,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "fbcae390d758aea7374b4a24c61e7e4e66649f496a3c4994bde116691bd74041",
+          "id": "old_A06"
+        },
+        {
+          "in": 1,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 269467,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "dee32675f4b352da34336b747fe2c9d86b79aa42de18e03136d9f9f81a0b66a0",
+          "id": "old_A07"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 296376,
+              "event_type": "OUT",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "ee90a5272ad6afdd9261fae38f2228766744a4bb8edad4058c78b52a7c088b1f",
+          "id": "old_A08"
+        },
+        {
+          "in": 1,
+          "out": 7,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 350251,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 350655,
+              "event_type": "OUT",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 350689,
+              "event_type": "OUT",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 350715,
+              "event_type": "OUT",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 350758,
+              "event_type": "IN",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 351169,
+              "event_type": "OUT",
+              "track_id": 25,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 351204,
+              "event_type": "OUT",
+              "track_id": 27,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 351615,
+              "event_type": "OUT",
+              "track_id": 36,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "45569d9cb29acdf3f647f68331161154f8f7b7000a04c98df0539d25857f97e9",
+          "id": "old_A09"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 398221,
+              "event_type": "OUT",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "6d0c6468dd8c8c20cbe41417bfef3060dfb5e66372b1041d6c89b5105c25ad8e",
+          "id": "old_A10"
+        },
+        {
+          "in": 0,
+          "out": 3,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 420291,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 420356,
+              "event_type": "OUT",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 421127,
+              "event_type": "OUT",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "9e8747a999c615bae4d3d7fe506c4047b058d6d38fd69c1c82553d2087ac691e",
+          "id": "old_A11"
+        },
+        {
+          "in": 4,
+          "out": 4,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 465966,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466025,
+              "event_type": "IN",
+              "track_id": 7,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466107,
+              "event_type": "IN",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466166,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466498,
+              "event_type": "OUT",
+              "track_id": 26,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466927,
+              "event_type": "OUT",
+              "track_id": 35,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466962,
+              "event_type": "OUT",
+              "track_id": 36,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466988,
+              "event_type": "OUT",
+              "track_id": 40,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "d40ecadca8c2a10f85f059a79a63bf066342762c956f38b469223c85fd819582",
+          "id": "old_A12"
+        },
+        {
+          "in": 2,
+          "out": 3,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 471457,
+              "event_type": "OUT",
+              "track_id": 15,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 471803,
+              "event_type": "OUT",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 471836,
+              "event_type": "OUT",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 472299,
+              "event_type": "IN",
+              "track_id": 25,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 472367,
+              "event_type": "IN",
+              "track_id": 32,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "77f18f80e70176ad98f465a7875520b94636834b19be022f4b435018f535e3f0",
+          "id": "old_A13"
+        },
+        {
+          "in": 3,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 236272,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 236320,
+              "event_type": "IN",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 236724,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "0a665f0b012a033a9df5451df5a158747f8b54692ec91baf8b4255741656187f",
+          "id": "old_R01"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 157012,
+              "event_type": "OUT",
+              "track_id": 10,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "75800f59ab029d7618c0d986b6fb92812bbe3f601664f4fecff25f2d52453e30",
+          "id": "old_R02"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 0,
+          "events": [],
+          "private_trace_sha256": "1b98edf117f2271a405df5049f22048fa7aa2c3d8e58a074d042f2db699c9c70",
+          "id": "old_R03"
+        },
+        {
+          "in": 3,
+          "out": 11,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 256184,
+              "event_type": "OUT",
+              "track_id": 3,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256222,
+              "event_type": "OUT",
+              "track_id": 4,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256258,
+              "event_type": "OUT",
+              "track_id": 7,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256344,
+              "event_type": "OUT",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256300,
+              "event_type": "OUT",
+              "track_id": 12,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256385,
+              "event_type": "OUT",
+              "track_id": 25,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256429,
+              "event_type": "OUT",
+              "track_id": 31,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256459,
+              "event_type": "OUT",
+              "track_id": 41,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256491,
+              "event_type": "OUT",
+              "track_id": 44,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256520,
+              "event_type": "OUT",
+              "track_id": 51,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256557,
+              "event_type": "OUT",
+              "track_id": 54,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256643,
+              "event_type": "IN",
+              "track_id": 59,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256678,
+              "event_type": "IN",
+              "track_id": 66,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 256751,
+              "event_type": "IN",
+              "track_id": 70,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "11a2f0975362dc1e903a915fafc16c3be255260b9bd0eeda47c7bff940cec2fe",
+          "id": "P01"
+        },
+        {
+          "in": 6,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 262667,
+              "event_type": "IN",
+              "track_id": 30,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 262709,
+              "event_type": "IN",
+              "track_id": 37,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 262753,
+              "event_type": "IN",
+              "track_id": 40,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 262833,
+              "event_type": "IN",
+              "track_id": 48,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 263014,
+              "event_type": "IN",
+              "track_id": 55,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 263116,
+              "event_type": "IN",
+              "track_id": 61,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "3d4789eb914474d944db8b5eb77ba57b3cf5188ca36741c058fe57df23f2aefb",
+          "id": "P02"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 0,
+          "events": [],
+          "private_trace_sha256": "d0e37ce7bc6b9cede6b7b358c3aa54837bb6aa6554d25dfd7586f0207e90bfca",
+          "id": "P03"
+        },
+        {
+          "in": 1,
+          "out": 3,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 356339,
+              "event_type": "IN",
+              "track_id": 8,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 356731,
+              "event_type": "OUT",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 357124,
+              "event_type": "OUT",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 357153,
+              "event_type": "OUT",
+              "track_id": 18,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "10ab68f6beb24bac5f54c403a7debe333ec37de08c5229c7e9fbe4565688ef19",
+          "id": "P04"
+        },
+        {
+          "in": 1,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 375982,
+              "event_type": "OUT",
+              "track_id": 13,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 376061,
+              "event_type": "IN",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "8ebdda2da9ac9ae1514f77e59dadad9f763836aa1c36a95ba3dbaaccc605809f",
+          "id": "P05"
+        },
+        {
+          "in": 3,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 302642,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 302672,
+              "event_type": "IN",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 302720,
+              "event_type": "IN",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "3ac99cd103b88dbbd3e4def75a229e792cda6f4317bacab96b0dc91194ecc9a8",
+          "id": "P06"
+        },
+        {
+          "in": 1,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 307120,
+              "event_type": "OUT",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 307180,
+              "event_type": "IN",
+              "track_id": 7,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "20f0bf081c9ee8f7da75d44831bd790f64962e5b684977291007a5d588189911",
+          "id": "P07"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 2,
+          "events": [
+            {
+              "crossing_frame": 335045,
+              "event_type": "OUT",
+              "track_id": 17,
+              "counted": false,
+              "reason": "STAFF"
+            },
+            {
+              "crossing_frame": 335058,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": false,
+              "reason": "STAFF"
+            }
+          ],
+          "private_trace_sha256": "cee6abe08eb2be28c57842b9cf0c2417559a162091aac430ee1189fb0562fec3",
+          "id": "S01"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 1,
+          "events": [
+            {
+              "crossing_frame": 25395,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": false,
+              "reason": "STAFF"
+            }
+          ],
+          "private_trace_sha256": "c9603c564932a9f5cbffd93af7a9637cdc3e70c1a5c3e1edad31f3b19c250b82",
+          "id": "V01"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 0,
+          "events": [],
+          "private_trace_sha256": "8e0a460d12f47510c0f9fb1ef9a1f913dadff75c4db07de2af81ce7f0afd261c",
+          "id": "V02"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 1,
+          "events": [
+            {
+              "crossing_frame": 146768,
+              "event_type": "OUT",
+              "track_id": 1,
+              "counted": false,
+              "reason": "STAFF"
+            }
+          ],
+          "private_trace_sha256": "b5ad1c57996c02beffac8f262bb163d043cdcc0a707356e9703a967e63d9de92",
+          "id": "V03"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 0,
+          "events": [],
+          "private_trace_sha256": "b420e3cf06b37300273d1ceea66481bcca6edd1cc0f8aa73b938fecf64d970e2",
+          "id": "V04"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 1,
+          "events": [
+            {
+              "crossing_frame": 395191,
+              "event_type": "IN",
+              "track_id": 2,
+              "counted": false,
+              "reason": "STAFF"
+            }
+          ],
+          "private_trace_sha256": "d00facf4fd71b58f293195ca5d89cc849511c760f994b3b390bf3f15a8cd23db",
+          "id": "V05"
+        }
+      ]
+    },
+    {
+      "Y_CABIN": 0.59,
+      "Y_STREET": 0.38,
+      "Y_LINE": 0.5,
+      "staff_mode": "model",
+      "old_exact_count_episodes": 25,
+      "old_tested_episodes": 25,
+      "scope": "Only old25 and targeted P02/P04; remaining new episodes not run",
+      "results": [
+        {
+          "in": 6,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 225600,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 225673,
+              "event_type": "IN",
+              "track_id": 27,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 225758,
+              "event_type": "IN",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 225796,
+              "event_type": "IN",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 226108,
+              "event_type": "IN",
+              "track_id": 41,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 226173,
+              "event_type": "IN",
+              "track_id": 49,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "d2045dd3207b6bd256b1278f31f0e40a6e7314327bba2defdf2c4f7f66d22b95",
+          "id": "control_boardings"
+        },
+        {
+          "in": 1,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 26537,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "7ae139627c206df593f98b547c695eed58cf7011ea88d1aeb0243b0c0b681ddc",
+          "id": "control_clip_01"
+        },
+        {
+          "in": 1,
+          "out": 5,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 86010,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86081,
+              "event_type": "IN",
+              "track_id": 13,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86437,
+              "event_type": "OUT",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86470,
+              "event_type": "OUT",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86514,
+              "event_type": "OUT",
+              "track_id": 27,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 86954,
+              "event_type": "OUT",
+              "track_id": 32,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "a12cb5e28e7b085693cd9b3db77a0664b28a9ae70dc145f9e5761a967a2b74e5",
+          "id": "control_clip_02"
+        },
+        {
+          "in": 0,
+          "out": 4,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 164390,
+              "event_type": "OUT",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 164785,
+              "event_type": "OUT",
+              "track_id": 8,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 164824,
+              "event_type": "OUT",
+              "track_id": 19,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 165251,
+              "event_type": "OUT",
+              "track_id": 34,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "6bd36ba09afd7c9ad71cc64168615b44bbaf424b8249c55d2a27ada0cc132215",
+          "id": "control_clip_03"
+        },
+        {
+          "in": 3,
+          "out": 2,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 216335,
+              "event_type": "IN",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 216770,
+              "event_type": "OUT",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 216867,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 217232,
+              "event_type": "OUT",
+              "track_id": 28,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 217667,
+              "event_type": "IN",
+              "track_id": 33,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "810e5dc946df41c124977683d120f3b70c6c3c1ae8f30e3746b9d40e894df388",
+          "id": "control_clip_04"
+        },
+        {
+          "in": 8,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 318941,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319047,
+              "event_type": "IN",
+              "track_id": 15,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 318989,
+              "event_type": "IN",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319094,
+              "event_type": "IN",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319141,
+              "event_type": "IN",
+              "track_id": 23,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319230,
+              "event_type": "IN",
+              "track_id": 30,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319616,
+              "event_type": "IN",
+              "track_id": 44,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 319798,
+              "event_type": "IN",
+              "track_id": 49,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "fdd36737eb3b74bac90c358ea04e55c905b1b054f948bbc108c1e7e44cda5d2e",
+          "id": "control_clip_05"
+        },
+        {
+          "in": 7,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 431123,
+              "event_type": "IN",
+              "track_id": 7,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431526,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431555,
+              "event_type": "IN",
+              "track_id": 15,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431592,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431667,
+              "event_type": "IN",
+              "track_id": 32,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 431630,
+              "event_type": "IN",
+              "track_id": 22,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 432155,
+              "event_type": "IN",
+              "track_id": 56,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "d8dbc915e435a5d8e6a6135eb58ddb164a0623cabe03b0afd1386f0f3c99cc34",
+          "id": "control_clip_06"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 0,
+          "events": [],
+          "private_trace_sha256": "cb065974afc9318c22318a1b2bc9da47565f906acf2bdf3305bb1180f86358d6",
+          "id": "control_empty"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 324054,
+              "event_type": "OUT",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "4384bd68dd40f6afeddd996474bf3b0d86e8caae5944fc78b8ab8b87220be9ee",
+          "id": "control_exit"
+        },
+        {
+          "in": 1,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 39137,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "e308266e93713ea33f77e5303e63a9e5fc264fadcb13c8b567e73d4c2188a0ad",
+          "id": "old_A01"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 55971,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "a5320d70ec081e3e89248fcd3293c91d70d4c9b443a64c77d51b0b7f8b55c9cb",
+          "id": "old_A02"
+        },
+        {
+          "in": 4,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 101797,
+              "event_type": "IN",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 102214,
+              "event_type": "IN",
+              "track_id": 8,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 102253,
+              "event_type": "IN",
+              "track_id": 15,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 102679,
+              "event_type": "IN",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "9e41b44d7de121a88c172690c78e5f3823dcfa946fbe874bdaca4e36292af3ce",
+          "id": "old_A03"
+        },
+        {
+          "in": 5,
+          "out": 3,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 135946,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 135989,
+              "event_type": "OUT",
+              "track_id": 5,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136062,
+              "event_type": "IN",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136118,
+              "event_type": "IN",
+              "track_id": 19,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136536,
+              "event_type": "IN",
+              "track_id": 34,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136568,
+              "event_type": "IN",
+              "track_id": 38,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 136604,
+              "event_type": "IN",
+              "track_id": 40,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 137027,
+              "event_type": "OUT",
+              "track_id": 42,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "6398ff9029765debf75b452a2acddbd45a94e2e812240da1a99313b995b28919",
+          "id": "old_A04"
+        },
+        {
+          "in": 1,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 175064,
+              "event_type": "IN",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "bcfb6977b79d5d393f7f6e03c89a5a4d9d3b73f6700621cafe5b9abd813a553a",
+          "id": "old_A05"
+        },
+        {
+          "in": 2,
+          "out": 5,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 243548,
+              "event_type": "IN",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 243919,
+              "event_type": "OUT",
+              "track_id": 4,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 243969,
+              "event_type": "OUT",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 244385,
+              "event_type": "OUT",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 244435,
+              "event_type": "OUT",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 244831,
+              "event_type": "OUT",
+              "track_id": 29,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 244900,
+              "event_type": "IN",
+              "track_id": 38,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "bc9ba0b744ae6141b21456173fcfd4c126c2852ffe0baea0d6ffa77f292678a6",
+          "id": "old_A06"
+        },
+        {
+          "in": 1,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 269468,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "da22eddb68bc354e6ca755d4145182052fd7ebe8f1b8d7b8e8a9c7b6a4e472ae",
+          "id": "old_A07"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 296376,
+              "event_type": "OUT",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "193486ff50846d56fd964808512c3ac8fece8d67b4f4a2e443c30441558e225f",
+          "id": "old_A08"
+        },
+        {
+          "in": 1,
+          "out": 7,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 350251,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 350655,
+              "event_type": "OUT",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 350689,
+              "event_type": "OUT",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 350715,
+              "event_type": "OUT",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 350759,
+              "event_type": "IN",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 351169,
+              "event_type": "OUT",
+              "track_id": 25,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 351204,
+              "event_type": "OUT",
+              "track_id": 27,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 351615,
+              "event_type": "OUT",
+              "track_id": 36,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "ac8d21cad4db44142fbb78d3fe3b715b25f55326073f3637f7e7968d95eca325",
+          "id": "old_A09"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 398221,
+              "event_type": "OUT",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "33b54a1f5d9745a093c4ca71c0d4b7fabef5a475e27cf48a6c5ef22043c69d6c",
+          "id": "old_A10"
+        },
+        {
+          "in": 0,
+          "out": 3,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 420291,
+              "event_type": "OUT",
+              "track_id": 2,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 420356,
+              "event_type": "OUT",
+              "track_id": 6,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 421127,
+              "event_type": "OUT",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "d046e499a456869a47b2c61b1d8eaa97a7ae7fc5aed7b57ed25251182c63520f",
+          "id": "old_A11"
+        },
+        {
+          "in": 4,
+          "out": 4,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 465966,
+              "event_type": "IN",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466034,
+              "event_type": "IN",
+              "track_id": 7,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466110,
+              "event_type": "IN",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466166,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466498,
+              "event_type": "OUT",
+              "track_id": 26,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466927,
+              "event_type": "OUT",
+              "track_id": 35,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466962,
+              "event_type": "OUT",
+              "track_id": 36,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 466988,
+              "event_type": "OUT",
+              "track_id": 40,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "a284da5dff219602da048c619e0b6f378efc0f5e5780688221172b72771a6605",
+          "id": "old_A12"
+        },
+        {
+          "in": 2,
+          "out": 3,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 471457,
+              "event_type": "OUT",
+              "track_id": 15,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 471803,
+              "event_type": "OUT",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 471836,
+              "event_type": "OUT",
+              "track_id": 21,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 472300,
+              "event_type": "IN",
+              "track_id": 25,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 472370,
+              "event_type": "IN",
+              "track_id": 32,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "1a2060f60ae92c4a37598800a581465e2df76eaada6203d95c054bd4b58bf30c",
+          "id": "old_A13"
+        },
+        {
+          "in": 3,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 236272,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 236320,
+              "event_type": "IN",
+              "track_id": 14,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 236724,
+              "event_type": "IN",
+              "track_id": 17,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "9eab52d0a4127283042659ccaf09d9e66440587fd6076e4e219afad19f2b79ae",
+          "id": "old_R01"
+        },
+        {
+          "in": 0,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 157012,
+              "event_type": "OUT",
+              "track_id": 10,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "62f814d844ee14856fbeaa379c12aad2f7e3fcc6d7d954589f83112993186344",
+          "id": "old_R02"
+        },
+        {
+          "in": 0,
+          "out": 0,
+          "suppressed": 0,
+          "events": [],
+          "private_trace_sha256": "1b98edf117f2271a405df5049f22048fa7aa2c3d8e58a074d042f2db699c9c70",
+          "id": "old_R03"
+        },
+        {
+          "in": 6,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 262668,
+              "event_type": "IN",
+              "track_id": 30,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 262709,
+              "event_type": "IN",
+              "track_id": 37,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 262753,
+              "event_type": "IN",
+              "track_id": 40,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 262913,
+              "event_type": "IN",
+              "track_id": 48,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 263015,
+              "event_type": "IN",
+              "track_id": 55,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 263117,
+              "event_type": "IN",
+              "track_id": 61,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "25dd09fd169d4bb5a4be02be5a66f9fffda8c59f10c4193f0a4bbe96866181db",
+          "id": "P02"
+        },
+        {
+          "in": 0,
+          "out": 3,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 356731,
+              "event_type": "OUT",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 357124,
+              "event_type": "OUT",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 357153,
+              "event_type": "OUT",
+              "track_id": 18,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "57813947482b0f9b826d3a9b1a3dc67df8d4544a991e640c9304e0a2f575b5dd",
+          "id": "P04"
+        }
+      ]
+    }
+  ],
+  "fresh_holdout": [
+    {
+      "id": "P06",
+      "manual_in": 3,
+      "manual_out": 0,
+      "baseline_cabin": 0.6,
+      "candidate_cabin": 0.57,
+      "results": {
+        "baseline": {
+          "in": 3,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 302642,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 302672,
+              "event_type": "IN",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 302720,
+              "event_type": "IN",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "2cf3ab24c0a6c593ff9e71a05b947963f7d29dc703b93020f90659dc17cffca1"
+        },
+        "candidate": {
+          "in": 3,
+          "out": 0,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 302642,
+              "event_type": "IN",
+              "track_id": 9,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 302669,
+              "event_type": "IN",
+              "track_id": 11,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 302719,
+              "event_type": "IN",
+              "track_id": 20,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "1d15ff8bbd68a5e2d09be79ace7cc8ae94bb2b3d1a7ea2b92dc0ea922b19bd79"
+        }
+      }
+    },
+    {
+      "id": "P07",
+      "manual_in": 1,
+      "manual_out": 1,
+      "baseline_cabin": 0.6,
+      "candidate_cabin": 0.57,
+      "results": {
+        "baseline": {
+          "in": 1,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 307120,
+              "event_type": "OUT",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 307181,
+              "event_type": "IN",
+              "track_id": 7,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "c4d0f68b5c4b53224983b7c8de20ee7c1f383f4b83d6466731b68d211b224991"
+        },
+        "candidate": {
+          "in": 1,
+          "out": 1,
+          "suppressed": 0,
+          "events": [
+            {
+              "crossing_frame": 307120,
+              "event_type": "OUT",
+              "track_id": 1,
+              "counted": true,
+              "reason": "COUNTED"
+            },
+            {
+              "crossing_frame": 307180,
+              "event_type": "IN",
+              "track_id": 7,
+              "counted": true,
+              "reason": "COUNTED"
+            }
+          ],
+          "private_trace_sha256": "f78c3606bd2187b5419213803ea10e84477a591d6758fec6202f28220c778382"
+        }
+      }
+    }
+  ],
+  "visual_findings": [
+    {
+      "episode": "P02",
+      "candidate_cabin": 0.57,
+      "frame": 262252,
+      "track_id": 4,
+      "finding": "CORRECTED after dense clean-frame review: the large fur-lined hood is the same entering boy seen from behind while bending. The IN at 262252 is a real passage. This sample must preserve one identity."
+    },
+    {
+      "episode": "P02",
+      "candidate_cabin": 0.58,
+      "track_id": 48,
+      "frames": [
+        262830,
+        262913
+      ],
+      "finding": "The same track follows the green puffer then the next checked coat. Candidate counts on green puffer, baseline on checked coat. Both totals are 6; identity continuity remains wrong."
+    },
+    {
+      "episode": "P04",
+      "candidate_cabin": 0.58,
+      "frame": 356339,
+      "track_id": 8,
+      "finding": "A real entering person, dark cap and gray/lilac puffer; baseline misses it. Minimum anchor in the best adjacent strong-frame pair is 0.5816079616546631; .59 misses again. Narrow threshold gain, insufficient evidence to change the active profile."
+    },
+    {
+      "episode": "V04",
+      "candidate_cabin": 0.55,
+      "frames": [
+        282553,
+        282812
+      ],
+      "finding": "Staff-disabled screening adds IN/OUT while driver bends/cleans without a physical door passage. .57/.58 refinements have no such events."
+    }
+  ],
+  "interpretation_correction": {
+    "reason": "Dense review of 262180..262240 resolves previously misinterpreted pose change.",
+    "superseded_by": "reports/id-continuity-2026-11-14/results.json",
+    "frozen_manual_labels_unchanged": true,
+    "original_active_profile_is_historical": true
+  }
+}

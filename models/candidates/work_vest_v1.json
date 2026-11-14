@@ -1,0 +1,24 @@
+{
+  "format": "grayscale_garment_detection_v1",
+  "image_size": 320,
+  "source_sha256": "40623029c0363f146ce6f5b9e3f9041ab9e591c808a40e2dd3a7f0aa8daeea90",
+  "onnx_sha256": "83c1e5ee829ec93022a027ad416d25a8b98d2517d157f2fd8f1552930ec61dca",
+  "input": "grayscale, square letterbox 114, three equal channels, float32 /255",
+  "classes": {
+    "0": "staff_vest"
+  },
+  "activated": false,
+  "status": "ensemble_component_not_recommended_alone",
+  "training": {
+    "epochs_completed": 18,
+    "annotations_sha256": "d7adc1b8cc0a862d91bb6e5cdde5bf656d0ce92f4b56e73e0c9cdbe5d2f2e1dc",
+    "initial_weights_sha256": "9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef",
+    "seed": 42,
+    "image_size": 320
+  },
+  "limitations": [
+    "Single driver and one garment",
+    "Alone can confuse an ordinary light jacket with a vest",
+    "Used only with joint confirmation in work_vest_ensemble.json"
+  ]
+}

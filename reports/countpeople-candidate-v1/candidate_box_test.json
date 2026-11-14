@@ -1,0 +1,62 @@
+{
+  "all": {
+    "weights_sha256": "717cab0dfed716bed7acb311f3063cd2f66f749447d94cb64d4ae90eb60a5b43",
+    "dataset_annotations_sha256": "62d51152d4e650fa45a754d2a22e38d77d61cb0207779329b19b4b34283fb21b",
+    "split": "test",
+    "domain": "all",
+    "images": 165,
+    "metrics": {
+      "metrics/precision(B)": 0.9324016968857977,
+      "metrics/recall(B)": 0.8395923792282306,
+      "metrics/mAP50(B)": 0.9086320400009757,
+      "metrics/mAP50-95(B)": 0.5990963895260215,
+      "fitness": 0.5990963895260215
+    },
+    "speed": {
+      "preprocess": 1.1488551515812464,
+      "inference": 55.829869696952464,
+      "loss": 0.00044424238942817533,
+      "postprocess": 0.5055842424829307
+    }
+  },
+  "own": {
+    "weights_sha256": "717cab0dfed716bed7acb311f3063cd2f66f749447d94cb64d4ae90eb60a5b43",
+    "dataset_annotations_sha256": "62d51152d4e650fa45a754d2a22e38d77d61cb0207779329b19b4b34283fb21b",
+    "split": "test",
+    "domain": "own",
+    "images": 101,
+    "metrics": {
+      "metrics/precision(B)": 0.9266666602264667,
+      "metrics/recall(B)": 0.7953068402162845,
+      "metrics/mAP50(B)": 0.8612560942954604,
+      "metrics/mAP50-95(B)": 0.48806921632575007,
+      "fitness": 0.48806921632575007
+    },
+    "speed": {
+      "preprocess": 1.1514970297002496,
+      "inference": 55.82853366343776,
+      "loss": 0.0003346534561720852,
+      "postprocess": 0.38722772289547003
+    }
+  },
+  "countpeople": {
+    "weights_sha256": "717cab0dfed716bed7acb311f3063cd2f66f749447d94cb64d4ae90eb60a5b43",
+    "dataset_annotations_sha256": "62d51152d4e650fa45a754d2a22e38d77d61cb0207779329b19b4b34283fb21b",
+    "split": "test",
+    "domain": "countpeople",
+    "images": 64,
+    "metrics": {
+      "metrics/precision(B)": 0.9633809159977682,
+      "metrics/recall(B)": 0.9195402298850575,
+      "metrics/mAP50(B)": 0.9781999611412273,
+      "metrics/mAP50-95(B)": 0.820560148739677,
+      "fitness": 0.820560148739677
+    },
+    "speed": {
+      "preprocess": 1.3647890626771186,
+      "inference": 59.588956250024694,
+      "loss": 0.0004078123652107024,
+      "postprocess": 0.42198437500928776
+    }
+  }
+}

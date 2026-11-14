@@ -17,6 +17,10 @@ from config.settings import ROOT
 PUBLIC_MODELS = {
     "models/yolo26n.onnx", "models/person_reid.onnx", "models/person_reid.torchscript",
     "models/candidates/person_manual_v1.onnx",
+    "models/candidates/person_test2_v2.onnx", "models/candidates/work_vest_v2.onnx",
+    "models/candidates/work_vest_v1.onnx",
+    "models/candidates/work_vest_v3.onnx",
+    "models/candidates/child_age_v1.onnx", "models/candidates/child_vision_v1.onnx",
 }
 SECRET_PATTERNS = [
     re.compile(r"\bgh[pousr]_[A-Za-z0-9]{30,}\b"),
@@ -104,6 +108,32 @@ def check_models():
         "models/person_reid.torchscript": reid["export_sha256"],
         "models/candidates/person_manual_v1.onnx": candidate["onnx_sha256"],
     }
+    for stem in ("person_test2_v2", "work_vest_v1", "work_vest_v2", "work_vest_v3"):
+        metadata = read_json(f"models/candidates/{stem}.json")
+        expected[f"models/candidates/{stem}.onnx"] = metadata["onnx_sha256"]
+    child = read_json('models/candidates/child_filter_v1.json')
+    if child.get('format') != 'approx_child_ensemble_v1' or child.get('status') != 'experimental':
+        raise ValueError('Unexpected child ensemble contract')
+    if child['maximum_child_age'] != 7 or child['minimum_child_margin'] < .005:
+        raise ValueError('Invalid conservative child policy')
+    for name, filename in [('age', 'child_age_v1.onnx'), ('vision', 'child_vision_v1.onnx')]:
+        if child[name]['file'] != filename:
+            raise ValueError('Unexpected child model filename')
+        expected['models/candidates/'+filename] = child[name]['sha256']
+    for asset in child['source_assets']:
+        if asset['file'].startswith('LICENSE.') and sha256(ROOT/'models/candidates'/asset['file']) != asset['sha256']:
+            raise ValueError('Child model license checksum differs')
+    for filename, version, fusion in [("work_vest_ensemble", 1, "min"), ("work_vest_spatial", 2, "spatial_min")]:
+        bundle = read_json(f"models/candidates/{filename}.json")
+        if bundle.get("format") != f"grayscale_garment_ensemble_v{version}" or bundle.get("fusion") != fusion:
+            raise ValueError("Unexpected garment ensemble contract")
+        if version == 2 and not 0 < bundle.get("minimum_iou", 0) <= 1:
+            raise ValueError("Invalid garment spatial consensus threshold")
+        if len(bundle["members"]) != 2 or {m["path"] for m in bundle["members"]} != {"work_vest_v1.onnx", "work_vest_v2.onnx"}:
+            raise ValueError("Unexpected garment ensemble members")
+        for member in bundle["members"]:
+            if member["sha256"] != expected["models/candidates/" + member["path"]]:
+                raise ValueError("Garment ensemble member checksum mismatch")
     for name, digest in expected.items():
         if sha256(ROOT / name) != digest:
             raise ValueError(f"Model checksum mismatch: {name}")
@@ -141,9 +171,116 @@ def check_audit():
         raise ValueError("Exact episode count mismatch")
 
 
+def check_countpeople_report():
+    root = ROOT / "reports/countpeople-candidate-v1"
+    for stem in ("manual_holdout", "manual_staff_holdout"):
+        expected = (root / f"{stem}.sha256").read_text(encoding="utf-8").split()[0]
+        if sha256(root / f"{stem}.json") != expected:
+            raise ValueError("Frozen additional video annotation changed")
+    result = read_json("reports/countpeople-candidate-v1/video_comparison.json")
+    episodes = result["episodes"]
+    if len(episodes) != 33 or len({row["id"] for row in episodes}) != 33:
+        raise ValueError("CountPeople video comparison size changed")
+    old = [row for row in episodes if row["id"].startswith(("old_", "control_"))]
+    new = [row for row in episodes if row not in old]
+    if len(old) != 25 or sum(r["manual_in"] + r["manual_out"] for r in new) != 28:
+        raise ValueError("CountPeople manual event totals changed")
+    for label, summary in result["summary"].items():
+        exact = sum((row["models"][label]["in"], row["models"][label]["out"])
+                    == (row["manual_in"], row["manual_out"]) for row in old)
+        counted = sum(row["models"][label]["in"] + row["models"][label]["out"] for row in new)
+        if exact != summary["old_exact_episode_totals"] or counted != summary["new_counted_events"]:
+            raise ValueError("CountPeople comparison totals disagree with episodes")
+    review = read_json("reports/countpeople-candidate-v1/event_review.json")
+    for label, metric in review["eight_calibration_episode_metrics"].items():
+        tp, fn, fp = (metric[key] for key in ("TP", "FN", "FP"))
+        if tp + fn != 28 or tp + fp != result["summary"][label]["new_counted_events"]:
+            raise ValueError("Reviewed CountPeople events do not reconcile")
+        if abs(metric["f1"] - 2 * tp / (2 * tp + fn + fp)) > 1e-9:
+            raise ValueError("Reviewed CountPeople F1 does not reconcile")
+    for csv_name, epochs in (("person_training.csv", 8), ("garment_training.csv", 9)):
+        with (root / csv_name).open(encoding="utf-8", newline="") as stream:
+            rows = list(csv.DictReader(stream))
+        if len(rows) != epochs or int(rows[-1]["epoch"]) != epochs:
+            raise ValueError("Training epoch count includes a non-training validation row")
+    frozen = read_json("reports/test2-2026-11-13/results.json")["profile_sha256"]
+    if sha256(ROOT / "reports/test2-2026-11-13/profile_snapshot.json") != frozen["config/profiles/test2.json"]:
+        raise ValueError("Historical test2 profile snapshot differs from its reported hash")
+
+
+def check_identity_report():
+    root = ROOT / 'reports/id-continuity-2026-11-14'
+    result = read_json('reports/id-continuity-2026-11-14/results.json')
+    labels = read_json('reports/id-continuity-2026-11-14/identity_pairs.json')
+    if sha256(root/'identity_pairs.json') != result['identity_labels_sha256']:
+        raise ValueError('Identity pair labels differ from their reported hash')
+    if sha256(root/'profile.json') != result['profile_sha256']:
+        raise ValueError('ID report profile snapshot hash differs')
+    if len(labels['pairs']) != 5 or sum(p['same_person'] for p in labels['pairs']) != 4:
+        raise ValueError('Expected four continuity pairs and one distinct-person pair')
+    episodes = result['episodes']
+    if len(episodes) != 38 or len({e['id'] for e in episodes}) != 38:
+        raise ValueError('Expected 38 unique ID/zone regression episodes')
+    controls = [e for e in episodes if e['scope'] == 'known_regression']
+    if len(controls) != 25:
+        raise ValueError('Expected 25 historical controls')
+    for episode in episodes:
+        for tag in ['baseline', 'released']:
+            row = episode[tag]
+            counted = [e for e in row['events'] if e['counted']]
+            if (row['in'], row['out']) != tuple(sum(e['event_type'] == d for e in counted) for d in ['IN', 'OUT']):
+                raise ValueError('Reported totals do not reconcile with saved crossing events')
+        if episode in controls and (episode['released']['in'], episode['released']['out']) != (episode['manual_in'], episode['manual_out']):
+            raise ValueError('An old control regressed in the ID report')
+    for tag in ['baseline', 'released']:
+        pairs = result['identity_pairs'][tag]['pairs']
+        if [{k: p[k] for k in ['left', 'right', 'same_person']} for p in pairs] != labels['pairs']:
+            raise ValueError('Reported identity pairs differ from manual pair definitions')
+        for label in ['tracker', 'identity']:
+            totals = {s: sum(p[label] == s for p in pairs) for s in ['correct', 'incorrect', 'unresolved']}
+            expected = {'correct': 5, 'incorrect': 0, 'unresolved': 0} if tag == 'released' else {'correct': 4, 'incorrect': 1, 'unresolved': 0}
+            if totals != expected or totals != result['identity_pairs'][tag]['summary'][label]:
+                raise ValueError('Identity pair summaries do not reconcile')
+    for name, digest in result['models_sha256'].items():
+        if sha256(ROOT/name) != digest:
+            raise ValueError('Identity report model checksum differs')
+
+
+def check_child_report():
+    result = read_json('reports/child-filter-2026-11-14/results.json')
+    if result['status'] != 'experimental_not_validated_for_child_exclusion':
+        raise ValueError('Child report must describe its experimental validation status')
+    counted, excluded = 0, 0
+    stats = {key: 0 for key in result['summary']['age_jobs']}
+    for row in result['episodes']:
+        events = row['events']
+        totals = tuple(sum(e['counted'] and e['event_type'] == d for e in events) for d in ['IN', 'OUT'])
+        if totals != (row['in'], row['out']) or totals != (row['baseline_in'], row['baseline_out']):
+            raise ValueError('Child report counts differ from events or preserved baseline')
+        counted += sum(totals)
+        excluded += sum(e['reason'] == 'CHILD' for e in events)
+        if any(e['counted'] for e in events if e['reason'] == 'CHILD'):
+            raise ValueError('Child exclusions cannot increase passenger totals')
+        for key, value in row['child_analysis'].items():
+            stats[key] += value
+    summary = result['summary']
+    if (counted != summary['counted_passages'] or excluded != summary['child_excluded_events']
+            or stats != summary['age_jobs'] or not summary['all_baseline_totals_preserved']):
+        raise ValueError('Child report summary does not reconcile')
+    if summary['child_precision'] is not None or summary['child_recall'] is not None:
+        raise ValueError('Child accuracy cannot be reported without verified labels')
+    for name, digest in result['models_sha256'].items():
+        if sha256(ROOT/name) != digest:
+            raise ValueError('Child report model checksum differs')
+
+
 def check_links(files):
     for name in files:
         if not name.endswith(".md"):
+            continue
+        if name.startswith('deployment/server/'):
+            # Template links are relative to the generated distribution root.
+            # tools.verify_release validates them after packaging.
             continue
         path = ROOT / name
         text = path.read_text(encoding="utf-8")
@@ -160,8 +297,11 @@ def main():
     check_files(files)
     check_models()
     check_audit()
+    check_countpeople_report()
+    check_identity_report()
+    check_child_report()
     check_links(files)
-    print(f"Repository checks passed: {len(files)} files, four model checksums, audit reconciliation, documentation links.")
+    print(f"Repository checks passed: {len(files)} files, {len(PUBLIC_MODELS)} model checksums, audit reconciliation, documentation links.")
 
 
 if __name__ == "__main__":

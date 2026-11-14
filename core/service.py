@@ -33,14 +33,24 @@ def configuration_key(cfg):
     if cfg.TRACKING_MODE == "iou":
         values.pop("TRACKING_MODE", None)
         values.pop("TRACKER_IDENTITY_MIN_SIMILARITY", None)
+    if cfg.TRACKING_MODE == "iou" or cfg.TRACKER_DRIFT_THRESHOLD == 0:
+        # Disabled guard preserves fingerprints of existing installations.
+        values.pop("TRACKER_DRIFT_THRESHOLD", None)
+    if cfg.CHILD_MODE == "disabled":
+        for key in list(values):
+            if key.startswith('CHILD_'):
+                values.pop(key)
     if cfg.POSE_ANCHOR == "bbox":
         values.pop("POSE_ANCHOR", None)
         values.pop("POSE_ANCHOR_CONFIDENCE", None)
     model_names = ["MODEL_PATH", "REID_MODEL_PATH", "TRACKER_PATH"]
+    if cfg.CHILD_MODE == "model":
+        model_names.append('CHILD_MODEL_PATH')
     if cfg.STAFF_MODE == "model":
         model_names.append("VEST_MODEL_PATH")
     else:
         values.pop("VEST_MODEL_PATH", None)
+        values.pop("STAFF_DECISION_DELAY_SEC", None)
     for name in model_names:
         path = cfg.path(getattr(cfg, name))
         with path.open("rb") as stream:
@@ -84,6 +94,8 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
     detector = PersonDetector(cfg, detection_only=detection_only)
     if not detection_only and cfg.STAFF_MODE == "disabled":
         log.warning("STAFF_MODE=disabled: staff are counted as passengers until the vest model is configured")
+    if not detection_only and cfg.CHILD_MODE == "model":
+        log.warning("Experimental child filter enabled: visual age is approximate; unknown passengers count")
     engine = None if detection_only else PassengerCounterEngine(cfg)
     store = db = reader = writer = None
     stop = Event()
@@ -96,6 +108,7 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
     source_key = None
     ready_to_sync = False
     player = None
+    preview_packet = None
     segment_start = start_frame
     frame_times = deque(maxlen=30)
     try:
@@ -159,6 +172,16 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
             packet = reader.read()
             if packet is None:
                 if reader.eof:
+                    if preview and engine:
+                        engine.observe_children(getattr(detector, 'finish_children', lambda: [])())
+                        final_events = engine.finish()
+                        for event in final_events:
+                            log.info("%s track=%s counted=%s reason=%s (preview EOF)",
+                                     event.event_type, event.track_id, event.counted, event.reason)
+                        if player and preview_packet is not None:
+                            image = draw_preview(preview_packet.image, detections, cfg, engine,
+                                                 final_events, metrics=metrics)
+                            player.present(image, preview_packet.index)
                     if player and kind == "file":
                         player.mark_end()
                         continue
@@ -180,7 +203,8 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
             warmup = kind == "file" and not preview and packet.index < next_frame
             if warmup:
                 continue
-            events = reset_events + (engine.update(packet.image, detections, packet.timestamp) if engine else [])
+            events = reset_events + (engine.update(packet.image, detections, packet.timestamp,
+                                     child_observations=getattr(detector, 'child_observations', ())) if engine else [])
             next_frame = packet.index + 1
             if store and (events or packet.timestamp.timestamp() - last_checkpoint >= cfg.CHECKPOINT_INTERVAL_SEC):
                 store.save(source_key, {"bus_id": cfg.BUS_ID, "camera_id": cfg.CAMERA_ID,
@@ -191,6 +215,7 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
                 log.info("%s track=%s counted=%s reason=%s", event.event_type, event.track_id,
                          event.counted, event.reason)
             if preview:
+                preview_packet = packet
                 elapsed = sum(frame_times)
                 metrics = {"processing_fps": len(frame_times) / elapsed if elapsed else None,
                            "source_fps": reader.fps, "frame_index": packet.index,
@@ -215,17 +240,26 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
                          engine.total_in if engine else "disabled", engine.total_out if engine else "disabled")
             if max_frames is not None and processed >= max_frames:
                 break
+        if engine:
+            engine.observe_children(getattr(detector, 'finish_children', lambda: [])())
         if store:
             unresolved = engine.finish() if completed else []
             store.save(source_key, {"bus_id": cfg.BUS_ID, "camera_id": cfg.CAMERA_ID,
                                     "engine": engine.snapshot(), "next_frame": next_frame,
                                     "completed": completed}, unresolved)
+        elif preview and engine:
+            # A preview stopped by max-frames/Q has no persistent checkpoint.
+            # Resolve ready delayed crossings before returning its final totals.
+            for event in engine.finish():
+                log.info("%s track=%s counted=%s reason=%s (preview end)",
+                         event.event_type, event.track_id, event.counted, event.reason)
         return {"frames": processed, "in": engine.total_in if engine else None,
                 "out": engine.total_out if engine else None}
     finally:
         # Never persist mutated in-memory state here: an earlier failed local commit
         # must leave the last consistent checkpoint + events intact.
         try:
+            getattr(detector, 'close', lambda: None)()
             if reader:
                 reader.close()
             if writer:

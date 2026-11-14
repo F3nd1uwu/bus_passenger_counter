@@ -1,0 +1,205 @@
+{
+  "scope": "Known regression/calibration scenes; not an independent test",
+  "episodes": [
+    {
+      "id": "old_A01",
+      "source": "test.mp4",
+      "start": 38850,
+      "end": 40450,
+      "manual_in": 1,
+      "manual_out": 0
+    },
+    {
+      "id": "old_A02",
+      "source": "test.mp4",
+      "start": 55550,
+      "end": 56900,
+      "manual_in": 0,
+      "manual_out": 1
+    },
+    {
+      "id": "old_A03",
+      "source": "test.mp4",
+      "start": 101400,
+      "end": 102750,
+      "manual_in": 4,
+      "manual_out": 0
+    },
+    {
+      "id": "old_A04",
+      "source": "test.mp4",
+      "start": 135700,
+      "end": 137050,
+      "manual_in": 5,
+      "manual_out": 3
+    },
+    {
+      "id": "old_A05",
+      "source": "test.mp4",
+      "start": 174550,
+      "end": 175900,
+      "manual_in": 1,
+      "manual_out": 0
+    },
+    {
+      "id": "old_A06",
+      "source": "test.mp4",
+      "start": 243250,
+      "end": 244975,
+      "manual_in": 2,
+      "manual_out": 5
+    },
+    {
+      "id": "old_A07",
+      "source": "test.mp4",
+      "start": 269050,
+      "end": 270400,
+      "manual_in": 1,
+      "manual_out": 0
+    },
+    {
+      "id": "old_A08",
+      "source": "test.mp4",
+      "start": 296000,
+      "end": 297350,
+      "manual_in": 0,
+      "manual_out": 1
+    },
+    {
+      "id": "old_A09",
+      "source": "test.mp4",
+      "start": 350000,
+      "end": 351725,
+      "manual_in": 1,
+      "manual_out": 7
+    },
+    {
+      "id": "old_A10",
+      "source": "test.mp4",
+      "start": 397850,
+      "end": 399200,
+      "manual_in": 0,
+      "manual_out": 1
+    },
+    {
+      "id": "old_A11",
+      "source": "test.mp4",
+      "start": 419900,
+      "end": 421250,
+      "manual_in": 0,
+      "manual_out": 3
+    },
+    {
+      "id": "old_A12",
+      "source": "test.mp4",
+      "start": 465750,
+      "end": 467100,
+      "manual_in": 4,
+      "manual_out": 4
+    },
+    {
+      "id": "old_A13",
+      "source": "test.mp4",
+      "start": 471000,
+      "end": 472600,
+      "manual_in": 2,
+      "manual_out": 3
+    },
+    {
+      "id": "old_R01",
+      "source": "test.mp4",
+      "start": 236229,
+      "end": 236979,
+      "manual_in": 3,
+      "manual_out": 0
+    },
+    {
+      "id": "old_R02",
+      "source": "test.mp4",
+      "start": 156344,
+      "end": 157094,
+      "manual_in": 0,
+      "manual_out": 1
+    },
+    {
+      "id": "old_R03",
+      "source": "test.mp4",
+      "start": 290646,
+      "end": 291396,
+      "manual_in": 0,
+      "manual_out": 0
+    },
+    {
+      "id": "control_boardings",
+      "source": "test.mp4",
+      "start": 225350,
+      "end": 226350,
+      "manual_in": 6,
+      "manual_out": 0
+    },
+    {
+      "id": "control_clip_01",
+      "source": "test.mp4",
+      "start": 26150,
+      "end": 27750,
+      "manual_in": 1,
+      "manual_out": 0
+    },
+    {
+      "id": "control_clip_02",
+      "source": "test.mp4",
+      "start": 85750,
+      "end": 87150,
+      "manual_in": 1,
+      "manual_out": 5
+    },
+    {
+      "id": "control_clip_03",
+      "source": "test.mp4",
+      "start": 164150,
+      "end": 165750,
+      "manual_in": 0,
+      "manual_out": 4
+    },
+    {
+      "id": "control_clip_04",
+      "source": "test.mp4",
+      "start": 216150,
+      "end": 217750,
+      "manual_in": 3,
+      "manual_out": 2
+    },
+    {
+      "id": "control_clip_05",
+      "source": "test.mp4",
+      "start": 318550,
+      "end": 320050,
+      "manual_in": 8,
+      "manual_out": 0
+    },
+    {
+      "id": "control_clip_06",
+      "source": "test.mp4",
+      "start": 430950,
+      "end": 432400,
+      "manual_in": 7,
+      "manual_out": 0
+    },
+    {
+      "id": "control_empty",
+      "source": "test.mp4",
+      "start": 35950,
+      "end": 36099,
+      "manual_in": 0,
+      "manual_out": 0
+    },
+    {
+      "id": "control_exit",
+      "source": "test.mp4",
+      "start": 323700,
+      "end": 324299,
+      "manual_in": 0,
+      "manual_out": 1
+    }
+  ]
+}

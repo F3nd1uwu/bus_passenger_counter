@@ -1,0 +1,593 @@
+{
+  "status": "experimental_not_validated_for_child_exclusion",
+  "source": "data/test2.mp4",
+  "source_sha256": "1b4db7870b8f79138890199cb15f16e67f63f5d5e5ca6a3799331f1b1bd687e4",
+  "frame_indexing": "zero-based inclusive; timestamp uses file presentation time, not edited burned-in clock",
+  "profile": "test2",
+  "child_mode": "model",
+  "cpu_threads": 4,
+  "hardware": "AMD Ryzen 7 5700U; CPUExecutionProvider; no GPU",
+  "models_sha256": {
+    "models/candidates/child_filter_v1.json": "539ab516d2ace506bd4045638e1a2d71a36fb030837aa28e6a2642f400d2a89e",
+    "models/candidates/child_vision_v1.onnx": "bbf8426b0e548881dcfd9257030dd6139fceeeb4808994968b882ecc3ada291f",
+    "models/candidates/child_age_v1.onnx": "d71349eb882278ed4d16f9a851f3d4b699a5257f9c93eee370de8025df765c7b",
+    "models/candidates/person_test2_v2.onnx": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+    "models/person_reid.onnx": "38b3dd2c2acb0bd191d27eff6707dc5428de63fc7395a6f4ae0cb6392ef2acfa",
+    "models/candidates/work_vest_v3.onnx": "a26aaf018050308298469d40aca831df602251ca6b14a87562d7f6ffdbf90671"
+  },
+  "episodes": [
+    {
+      "start_frame": 256000,
+      "end_frame": 256800,
+      "frames": 801,
+      "elapsed_sec": 58.93504440000106,
+      "processing_fps": 13.591234352238574,
+      "in": 3,
+      "out": 11,
+      "suppressed": 0,
+      "child_analysis": {
+        "submitted": 65,
+        "completed": 65,
+        "child": 0,
+        "adult": 0,
+        "unknown": 65,
+        "errors": 0,
+        "timed_out": 0
+      },
+      "episode": "P01",
+      "baseline_in": 3,
+      "baseline_out": 11,
+      "private_raw_sha256": "f644b0a182cd8bd40487a7197a1548c602a2d65811293029a27805836710ca02",
+      "events": [
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256457,
+          "crossing_frame": 256184,
+          "track_id": 3
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256506,
+          "crossing_frame": 256222,
+          "track_id": 4
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256541,
+          "crossing_frame": 256258,
+          "track_id": 7
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256604,
+          "crossing_frame": 256344,
+          "track_id": 21
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256615,
+          "crossing_frame": 256300,
+          "track_id": 12
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256662,
+          "crossing_frame": 256385,
+          "track_id": 25
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256698,
+          "crossing_frame": 256429,
+          "track_id": 31
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256727,
+          "crossing_frame": 256459,
+          "track_id": 41
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256761,
+          "crossing_frame": 256491,
+          "track_id": 44
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256800,
+          "crossing_frame": 256520,
+          "track_id": 51
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256800,
+          "crossing_frame": 256557,
+          "track_id": 54
+        },
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256800,
+          "crossing_frame": 256642,
+          "track_id": 59
+        },
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256800,
+          "crossing_frame": 256678,
+          "track_id": 66
+        },
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 256800,
+          "crossing_frame": 256751,
+          "track_id": 70
+        }
+      ]
+    },
+    {
+      "start_frame": 262000,
+      "end_frame": 263200,
+      "frames": 1201,
+      "elapsed_sec": 94.65909670000838,
+      "processing_fps": 12.6876342778358,
+      "in": 7,
+      "out": 0,
+      "suppressed": 0,
+      "child_analysis": {
+        "submitted": 69,
+        "completed": 69,
+        "child": 0,
+        "adult": 2,
+        "unknown": 67,
+        "errors": 0,
+        "timed_out": 0
+      },
+      "episode": "P02",
+      "baseline_in": 7,
+      "baseline_out": 0,
+      "private_raw_sha256": "872fe5bd0d021588bbde5853e779134d10eda78dbe4d1f37c99e14c445f00d6c",
+      "events": [
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 262528,
+          "crossing_frame": 262252,
+          "track_id": 4
+        },
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 262950,
+          "crossing_frame": 262666,
+          "track_id": 30
+        },
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 262989,
+          "crossing_frame": 262706,
+          "track_id": 37
+        },
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 263052,
+          "crossing_frame": 262753,
+          "track_id": 40
+        },
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 263166,
+          "crossing_frame": 262830,
+          "track_id": 48
+        },
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 263200,
+          "crossing_frame": 263010,
+          "track_id": 55
+        },
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 263200,
+          "crossing_frame": 263116,
+          "track_id": 62
+        }
+      ]
+    },
+    {
+      "start_frame": 356000,
+      "end_frame": 357400,
+      "frames": 1401,
+      "elapsed_sec": 76.4924183000112,
+      "processing_fps": 18.31554069195633,
+      "in": 1,
+      "out": 3,
+      "suppressed": 0,
+      "child_analysis": {
+        "submitted": 22,
+        "completed": 22,
+        "child": 0,
+        "adult": 0,
+        "unknown": 22,
+        "errors": 0,
+        "timed_out": 0
+      },
+      "episode": "P04",
+      "baseline_in": 1,
+      "baseline_out": 3,
+      "private_raw_sha256": "e40f2320ff3416555508023f57344b745599af3b63af16e7be66c93a2e11fff3",
+      "events": [
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 356593,
+          "crossing_frame": 356339,
+          "track_id": 8
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 356999,
+          "crossing_frame": 356731,
+          "track_id": 11
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 357377,
+          "crossing_frame": 357124,
+          "track_id": 20
+        },
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 357400,
+          "crossing_frame": 357153,
+          "track_id": 18
+        }
+      ]
+    },
+    {
+      "start_frame": 302200,
+      "end_frame": 303100,
+      "frames": 901,
+      "elapsed_sec": 60.25015619999613,
+      "processing_fps": 14.954318076938993,
+      "in": 3,
+      "out": 0,
+      "suppressed": 0,
+      "child_analysis": {
+        "submitted": 35,
+        "completed": 35,
+        "child": 0,
+        "adult": 3,
+        "unknown": 32,
+        "errors": 0,
+        "timed_out": 0
+      },
+      "episode": "P06",
+      "baseline_in": 3,
+      "baseline_out": 0,
+      "private_raw_sha256": "7849037bba9e8595535a4c270315cbb5bed3db3db0f97d9e470a397845c38bcb",
+      "events": [
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 302907,
+          "crossing_frame": 302642,
+          "track_id": 9
+        },
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 302943,
+          "crossing_frame": 302669,
+          "track_id": 11
+        },
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 303016,
+          "crossing_frame": 302719,
+          "track_id": 20
+        }
+      ]
+    },
+    {
+      "start_frame": 306800,
+      "end_frame": 307500,
+      "frames": 701,
+      "elapsed_sec": 39.648801100003766,
+      "processing_fps": 17.68023195031573,
+      "in": 1,
+      "out": 1,
+      "suppressed": 0,
+      "child_analysis": {
+        "submitted": 6,
+        "completed": 6,
+        "child": 0,
+        "adult": 0,
+        "unknown": 6,
+        "errors": 0,
+        "timed_out": 0
+      },
+      "episode": "P07",
+      "baseline_in": 1,
+      "baseline_out": 1,
+      "private_raw_sha256": "76d13dcd34cb892eb214898465fbbeb8031d4e6938821222928c473805550c88",
+      "events": [
+        {
+          "event_type": "OUT",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 307389,
+          "crossing_frame": 307120,
+          "track_id": 1
+        },
+        {
+          "event_type": "IN",
+          "counted": true,
+          "reason": "COUNTED",
+          "frame": 307436,
+          "crossing_frame": 307180,
+          "track_id": 7
+        }
+      ]
+    },
+    {
+      "start_frame": 282100,
+      "end_frame": 282950,
+      "frames": 851,
+      "elapsed_sec": 54.83006029999524,
+      "processing_fps": 15.520683277455266,
+      "in": 0,
+      "out": 0,
+      "suppressed": 0,
+      "child_analysis": {
+        "submitted": 10,
+        "completed": 10,
+        "child": 0,
+        "adult": 0,
+        "unknown": 10,
+        "errors": 0,
+        "timed_out": 0
+      },
+      "episode": "V04",
+      "baseline_in": 0,
+      "baseline_out": 0,
+      "private_raw_sha256": "bcac4e6c690b2f8db637be8907dd2894f126fe82a34671e84c3bd774b353b519",
+      "events": []
+    }
+  ],
+  "summary": {
+    "counted_passages": 30,
+    "child_excluded_events": 0,
+    "all_baseline_totals_preserved": true,
+    "age_jobs": {
+      "submitted": 207,
+      "completed": 207,
+      "child": 0,
+      "adult": 5,
+      "unknown": 202,
+      "errors": 0,
+      "timed_out": 0
+    },
+    "child_precision": null,
+    "child_recall": null,
+    "limitations": "No verified ages. Zero confirmed child exclusions. Count preservation is not evidence of child detection accuracy."
+  },
+  "selected_still_probes": [
+    {
+      "rank": 0,
+      "image_sha256": "1bc1cd568b706871775d7f7dcc376759d2d4f9a1018439ea2b3481e6822c806b",
+      "verdict": "unknown"
+    },
+    {
+      "rank": 1,
+      "image_sha256": "1a86dcf8b48cb02e230c5f1173f31a06d7bc8aadbbea0784d777d0c285224bfb",
+      "verdict": "adult"
+    },
+    {
+      "rank": 2,
+      "image_sha256": "683381f287c878b4793917a0b784199fa356dff4a67771f861d1f76bba762edb",
+      "verdict": "child"
+    },
+    {
+      "rank": 5,
+      "image_sha256": "8338d030f38e30a4195c8cafc9584dd7ac31e0d201e6c52ad1c4b97794e8d8fd",
+      "verdict": "adult"
+    },
+    {
+      "rank": 13,
+      "image_sha256": "4387fff73d7c027d08eb330a34b07a1a657da33d7773547564e63dfb4db156f8",
+      "verdict": "adult"
+    },
+    {
+      "rank": 14,
+      "image_sha256": "41b3dad7979487fcd2bc84f9eff3cc851ca60d434558545615e86bf781a18a72",
+      "verdict": "child"
+    },
+    {
+      "rank": 19,
+      "image_sha256": "159e6a6617277728b0a7a2e51dd89f12d52bb60a43e918402a36c7416503c6ea",
+      "verdict": "adult"
+    }
+  ],
+  "sparse_sequence_probes": {
+    "carried_child": {
+      "note": "Visual small-child example; chronological age not known; calibration frames, not independent accuracy test.",
+      "samples": [
+        {
+          "image": "images/train/countpeople_04946c62aef43d4d9004.jpg",
+          "image_sha256": "04946c62aef43d4d900407d702845a1fb5cf7e4944c2914c9b988d74669818b1",
+          "box": [
+            64.785,
+            1.0050000000000026,
+            152.39499999999998,
+            78.335
+          ],
+          "verdict": "unknown"
+        },
+        {
+          "image": "images/train/countpeople_16f49c870d6278802cb4.jpg",
+          "image_sha256": "16f49c870d6278802cb45d967fe600458110d30c89e4f222523231d1d1a8ac91",
+          "box": [
+            107.465,
+            15.994999999999997,
+            175.395,
+            123.665
+          ],
+          "verdict": "unknown"
+        },
+        {
+          "image": "images/train/countpeople_41b3dad7979487fcd2bc.jpg",
+          "image_sha256": "41b3dad7979487fcd2bc84f9eff3cc851ca60d434558545615e86bf781a18a72",
+          "box": [
+            122.125,
+            32.66499999999999,
+            178.055,
+            150.33499999999998
+          ],
+          "verdict": "child"
+        }
+      ],
+      "confirmed": false
+    },
+    "walking_children": {
+      "red": {
+        "samples": [
+          {
+            "file": "2016_04_11_12_09_59FrontColor_mp4-2_jpg.rf.0fa87b4fce9d0bcccc54463a1ed54b7c.jpg",
+            "box": [
+              142,
+              34,
+              196,
+              110
+            ],
+            "verdict": "unknown"
+          },
+          {
+            "file": "2016_04_11_12_09_59FrontColor_mp4-3_jpg.rf.f931dc74d9ad0185955e71e656bf2250.jpg",
+            "box": [
+              132,
+              45,
+              216,
+              218
+            ],
+            "verdict": "unknown"
+          },
+          {
+            "file": "2016_04_11_12_09_59FrontColor_mp4-4_jpg.rf.6b67759e9619b5067797817dfdd87428.jpg",
+            "box": [
+              91,
+              110,
+              219,
+              214
+            ],
+            "verdict": "child"
+          }
+        ],
+        "confirmed": false
+      },
+      "green": {
+        "samples": [
+          {
+            "file": "2016_04_11_12_09_59FrontColor_mp4-1_jpg.rf.bca9a7527bdc2025dc16f1d8e5ab6af5.jpg",
+            "box": [
+              128,
+              20,
+              190,
+              150
+            ],
+            "verdict": "adult"
+          },
+          {
+            "file": "2016_04_11_12_09_59FrontColor_mp4-2_jpg.rf.0fa87b4fce9d0bcccc54463a1ed54b7c.jpg",
+            "box": [
+              121,
+              99,
+              194,
+              177
+            ],
+            "verdict": "unknown"
+          },
+          {
+            "file": "2016_04_11_12_09_59FrontColor_mp4-3_jpg.rf.f931dc74d9ad0185955e71e656bf2250.jpg",
+            "box": [
+              0,
+              122,
+              151,
+              240
+            ],
+            "verdict": "unknown"
+          }
+        ],
+        "confirmed": false
+      }
+    },
+    "limitations": "Visually child-like, age unknown. Selected from external training data; neither independent nor a full video test. None reaches three positive confirmations."
+  },
+  "age_storage_parity": {
+    "crops": 34,
+    "max_absolute_difference_years": 0.059558868408203125,
+    "interpretation": "Numerical parity of exported weights only; not age prediction accuracy."
+  },
+  "p02_speed_context": {
+    "previous_without_child_fps": 15.413520498903054,
+    "with_child_fps": 12.6876342778358,
+    "limitations": "Separate CPU runs with annotated output; not a controlled speed benchmark."
+  },
+  "tests": {
+    "discovered": 164,
+    "passed": 153,
+    "skipped": 11,
+    "failed": 0
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "MODEL_PATH": "models/candidates/person_test2_v2.onnx",
+  "REID_MODEL_PATH": "models/person_reid.onnx",
+  "VEST_MODEL_PATH": "models/candidates/work_vest_v3.onnx",
+  "STAFF_MODE": "model",
+  "CONFIDENCE": 0.3,
+  "IMAGE_SIZE": 640,
+  "CPU_THREADS": 2,
+  "Y_STREET": 0.38,
+  "Y_LINE": 0.5,
+  "Y_CABIN": 0.57,
+  "ANCHOR_Y": 0.5,
+  "ZONE_CONFIRM_FRAMES": 2,
+  "TRACKING_MODE": "appearance",
+  "TRACKER_PATH": "botsort_reid.yaml",
+  "TRACKER_IDENTITY_MIN_SIMILARITY": 0.7,
+  "VEST_THRESHOLD": 0.2,
+  "VEST_CONFIRM_FRAMES": 2,
+  "STAFF_DECISION_DELAY_SEC": 10.0,
+  "frozen_at_utc": "2026-11-13T23:02:12.822727+00:00"
+}

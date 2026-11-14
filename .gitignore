@@ -5,6 +5,7 @@ env/
 .idea/
 .vscode/
 .local/
+.worktrees/
 .DS_Store
 Thumbs.db
 
@@ -28,6 +29,8 @@ dist/
 *.key
 *.p12
 *.pfx
+*.crt
+*.cer
 credentials*.json
 
 # Recordings, annotations, runtime state and experimental output stay local
@@ -49,6 +52,12 @@ credentials*.json
 *.mov
 *.mkv
 *.npz
+*.7z
+*.tar
+*.tar.gz
+*.onnx.data
+*.pth
+*.pt
 
 # Keep only reproducible inference assets and their provenance
 /models/*
@@ -63,3 +72,18 @@ credentials*.json
 !/models/candidates/README.md
 !/models/candidates/person_manual_v1.onnx
 !/models/candidates/person_manual_v1.json
+!/models/candidates/person_test2_v2.onnx
+!/models/candidates/person_test2_v2.json
+!/models/candidates/work_vest_v2.onnx
+!/models/candidates/work_vest_v2.json
+!/models/candidates/work_vest_v1.onnx
+!/models/candidates/work_vest_v1.json
+!/models/candidates/work_vest_ensemble.json
+!/models/candidates/work_vest_spatial.json
+!/models/candidates/work_vest_v3.onnx
+!/models/candidates/work_vest_v3.json
+!/models/candidates/child_age_v1.onnx
+!/models/candidates/child_vision_v1.onnx
+!/models/candidates/child_filter_v1.json
+!/models/candidates/LICENSE.child_age.txt
+!/models/candidates/LICENSE.child_vision.txt

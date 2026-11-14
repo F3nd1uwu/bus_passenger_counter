@@ -1,0 +1,42 @@
+{
+  "format": "grayscale_garment_detection_v1",
+  "image_size": 320,
+  "source_sha256": "d8dbc70ee7656d56d01fb947f19059995511daa803977b3f387be01f0efd2871",
+  "onnx_sha256": "a26aaf018050308298469d40aca831df602251ca6b14a87562d7f6ffdbf90671",
+  "input": "grayscale, square letterbox 114, three equal channels, float32 /255",
+  "classes": {
+    "0": "staff_vest"
+  },
+  "activated": true,
+  "training": {
+    "epochs_completed": 9,
+    "best_epoch": 4,
+    "annotations_sha256": "5317c6cf6f5cb3e3c951568867cc3a9e62b927ea7777e9d5c5fa0ad7eb83af60",
+    "initial_weights_sha256": "428734f113c899e6b2b7ad007424a6cb4ee9ae2f83713e0081c40024c90d6214",
+    "added_hard_negative_crops": 10,
+    "excluded_P02_region_test_images": 13
+  },
+  "status": "experimental_camera_specific",
+  "activation_scope": "Explicit test2 profile only; existing .env/default staff-disabled installation is not changed",
+  "recommended_threshold": 0.2,
+  "confirm_frames": 2,
+  "decision_delay_seconds": 10,
+  "validation": {
+    "positive": 4,
+    "negative": 77,
+    "true_positive": 2,
+    "false_positive": 0
+  },
+  "filtered_garment_test": {
+    "positive": 21,
+    "negative": 129,
+    "true_positive": 9,
+    "false_positive": 0
+  },
+  "limitations": [
+    "One driver/garment/camera; raw detection confidence is not a calibrated probability",
+    "P02 foreground puffer is training/calibration; 13 P02-region negatives were excluded from garment test",
+    "Temporal count regressions preserve all 25 old totals and 3 driver exclusions; this is not an independent full-day test",
+    "Hour-long identity continuity remains unreliable"
+  ]
+}

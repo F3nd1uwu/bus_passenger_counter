@@ -1,0 +1,35 @@
+{
+  "selection": "Selected using garment val and known 33 calibration/regression scenes, before predictions on P04/P05/S01. No settings or weight selection from these holdout results.",
+  "settings": {
+    "ANCHOR_Y": 0.5,
+    "CONFIDENCE": 0.3,
+    "CPU_THREADS": 4,
+    "DUPLICATE_INTERVAL_SEC": 3600.0,
+    "IMAGE_SIZE": 640,
+    "MODEL_PATH": "models/candidates/person_test2_v2.onnx",
+    "REID_GALLERY_SIZE": 8,
+    "REID_MARGIN": 0.06,
+    "REID_MODEL_PATH": "models/person_reid.onnx",
+    "REID_THRESHOLD": 0.85,
+    "STAFF_DECISION_DELAY_SEC": 10.0,
+    "STAFF_MODE": "model",
+    "TRACKER_IDENTITY_MIN_SIMILARITY": 0.7,
+    "TRACKER_PATH": "botsort_reid.yaml",
+    "TRACKING_MODE": "appearance",
+    "TRACK_TTL_SEC": 2.0,
+    "VEST_CONFIRM_FRAMES": 2,
+    "VEST_MODEL_PATH": "models/candidates/work_vest_v3.onnx",
+    "VEST_THRESHOLD": 0.2,
+    "Y_CABIN": 0.6,
+    "Y_STREET": 0.38,
+    "ZONE_CONFIRM_FRAMES": 2
+  },
+  "sha256": {
+    "core/appearance_tracker.py": "10af24beb3ab85f964dfdca53132984b6c2ac485a3cdcb87317fba3925761220",
+    "core/counter_engine.py": "62bc1cb8e400b55057bec1d52aa0fc70e9aa3977042a3bf2ca8e561c364b8c28",
+    "core/vest_classifier.py": "8200c97439610b9b95f4d8271093b08a3566f57c17aad2762f1ff23c5113dcdb",
+    "models/candidates/person_test2_v2.onnx": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+    "models/person_reid.onnx": "38b3dd2c2acb0bd191d27eff6707dc5428de63fc7395a6f4ae0cb6392ef2acfa",
+    "models/candidates/work_vest_v3.onnx": "a26aaf018050308298469d40aca831df602251ca6b14a87562d7f6ffdbf90671"
+  }
+}

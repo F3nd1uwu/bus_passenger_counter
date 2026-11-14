@@ -1,0 +1,24 @@
+{
+  "scope": "Known P02 calibration scene, manually reviewed on dense clean frame sequences. Not an independent identity or hourly-return benchmark.",
+  "source": "data/test2.mp4",
+  "source_sha256": "1b4db7870b8f79138890199cb15f16e67f63f5d5e5ca6a3799331f1b1bd687e4",
+  "episode": "P02",
+  "minimum_confidence": 0.3,
+  "box_semantics": "Coarse manual rectangles around the visible person; pair resolution requires unique IoU match, minimum 0.5 and runner-up margin 0.1.",
+  "samples": [
+    {"id": "boy_140", "frame": 262140, "bbox": [0, 0, 340, 310]},
+    {"id": "boy_200", "frame": 262200, "bbox": [0, 0, 410, 440]},
+    {"id": "boy_252", "frame": 262252, "bbox": [0, 65, 640, 480]},
+    {"id": "green_800", "frame": 262800, "bbox": [0, 0, 380, 470]},
+    {"id": "green_830", "frame": 262830, "bbox": [0, 60, 390, 480]},
+    {"id": "checked_913", "frame": 262913, "bbox": [0, 110, 640, 480]},
+    {"id": "checked_920", "frame": 262920, "bbox": [0, 120, 640, 480]}
+  ],
+  "pairs": [
+    {"left": "boy_140", "right": "boy_200", "same_person": true},
+    {"left": "boy_200", "right": "boy_252", "same_person": true},
+    {"left": "green_800", "right": "green_830", "same_person": true},
+    {"left": "checked_913", "right": "checked_920", "same_person": true},
+    {"left": "green_830", "right": "checked_920", "same_person": false}
+  ]
+}

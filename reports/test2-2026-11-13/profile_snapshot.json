@@ -1,0 +1,15 @@
+{
+  "MODEL_PATH": "models/candidates/person_test2_v2.onnx",
+  "REID_MODEL_PATH": "models/person_reid.onnx",
+  "CONFIDENCE": 0.3,
+  "IMAGE_SIZE": 640,
+  "TRACKING_MODE": "appearance",
+  "TRACKER_PATH": "botsort_reid.yaml",
+  "TRACKER_IDENTITY_MIN_SIMILARITY": 0.7,
+  "CPU_THREADS": 4,
+  "STAFF_MODE": "model",
+  "VEST_MODEL_PATH": "models/candidates/work_vest_ensemble.json",
+  "VEST_THRESHOLD": 0.5,
+  "VEST_CONFIRM_FRAMES": 2,
+  "STAFF_DECISION_DELAY_SEC": 10.0
+}

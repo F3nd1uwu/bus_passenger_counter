@@ -26,9 +26,14 @@ class Settings:
     REID_MODEL_PATH: str = "models/person_reid.onnx"
     VEST_MODEL_PATH: str = ""
     STAFF_MODE: str = "disabled"
+    CHILD_MODE: str = "disabled"
+    CHILD_MODEL_PATH: str = "models/candidates/child_filter_v1.json"
+    CHILD_CONFIRM_SAMPLES: int = 3
+    CHILD_DECISION_DELAY_SEC: float = 10.0
     TRACKER_PATH: str = "botsort_reid.yaml"
     TRACKING_MODE: str = "appearance"
     TRACKER_IDENTITY_MIN_SIMILARITY: float = 0.5
+    TRACKER_DRIFT_THRESHOLD: float = 0.0
     STATE_PATH: str = "data/runtime.sqlite3"
     DEVICE: str = "cpu"
     CPU_THREADS: int = 4
@@ -55,6 +60,7 @@ class Settings:
     MAX_IDENTITIES: int = 10000
     VEST_THRESHOLD: float = 0.90
     VEST_CONFIRM_FRAMES: int = 3
+    STAFF_DECISION_DELAY_SEC: float = 10.0
     FEATURE_INTERVAL_FRAMES: int = 5
     RECONNECT_DELAY_SEC: float = 2.0
     OPEN_TIMEOUT_MS: int = 5000
@@ -95,6 +101,14 @@ class Settings:
                 raise ValueError(f"{name} must be in (0, 1]")
         if not 0 <= self.ANCHOR_Y <= 1 or not 0 <= self.REID_MARGIN < 1:
             raise ValueError("Invalid ANCHOR_Y or REID_MARGIN")
+        if not 0 <= self.TRACKER_DRIFT_THRESHOLD <= 1:
+            raise ValueError("TRACKER_DRIFT_THRESHOLD must be in [0, 1]")
+        if self.STAFF_DECISION_DELAY_SEC < 0:
+            raise ValueError("STAFF_DECISION_DELAY_SEC must be nonnegative")
+        if self.CHILD_MODE not in {"disabled", "model"}:
+            raise ValueError("CHILD_MODE must be disabled or model")
+        if self.CHILD_CONFIRM_SAMPLES < 3 or self.CHILD_DECISION_DELAY_SEC < 0:
+            raise ValueError("Child filter requires at least three samples and a nonnegative delay")
         for name in ("DB_PORT", "IMAGE_SIZE", "ZONE_CONFIRM_FRAMES", "MIN_TRACK_FRAMES",
                      "TRACK_TTL_SEC", "DUPLICATE_INTERVAL_SEC", "MAX_IDENTITIES",
                      "REID_GALLERY_SIZE",

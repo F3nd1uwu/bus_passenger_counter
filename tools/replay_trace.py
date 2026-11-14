@@ -12,6 +12,8 @@ from core.types import Detection
 
 
 def replay(report_path, cfg, repeats=2):
+    if cfg.CHILD_MODE != 'disabled':
+        raise ValueError('Trace replay has no child-model observations; use tools.evaluate_clip')
     report_path = Path(report_path)
     report = json.loads(report_path.read_text(encoding="utf-8"))
     features = np.load(report_path.with_suffix(".features.npz"))["features"]
@@ -26,7 +28,8 @@ def replay(report_path, cfg, repeats=2):
         for index, row in enumerate(report["trace"]):
             detections = [Detection(d["id"] + repeat * 100000, tuple(d["bbox"]), d["conf"],
                                     features[d["feature"]] if d["feature"] is not None else None,
-                                    anchor=d.get("anchor"), anchor_required=d.get("anchor_required", False))
+                                    anchor=d.get("anchor"), anchor_required=d.get("anchor_required", False),
+                                    separated_from=tuple(tid + repeat * 100000 for tid in d.get("separated_from", ())))
                           for d in row["detections"]]
             events.extend(engine.update(frame, detections, start + timedelta(seconds=(repeat * (len(report["trace"]) + 25) + index) / 25)))
         summary = {"pass": repeat + 1, "new_in": engine.total_in - before[0], "new_out": engine.total_out - before[1],

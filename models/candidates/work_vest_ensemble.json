@@ -1,0 +1,19 @@
+{
+  "format": "grayscale_garment_ensemble_v1",
+  "fusion": "min",
+  "members": [
+    {
+      "path": "work_vest_v1.onnx",
+      "sha256": "83c1e5ee829ec93022a027ad416d25a8b98d2517d157f2fd8f1552930ec61dca"
+    },
+    {
+      "path": "work_vest_v2.onnx",
+      "sha256": "90d1666817abc31ae2deac0c8e1047c8ebb73dfd223d7b1eb511be77369c8f40"
+    }
+  ],
+  "recommended_threshold": 0.5,
+  "confirm_frames": 2,
+  "decision_delay_seconds": 10,
+  "status": "experimental_camera_specific",
+  "calibration": "Intersection of two grayscale garment detectors; second detector includes reviewed ordinary striped jacket negatives. Two consecutive joint detections required. Not a calibrated probability; no hue threshold."
+}

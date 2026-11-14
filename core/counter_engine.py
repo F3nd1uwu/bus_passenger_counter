@@ -10,6 +10,7 @@ import numpy as np
 from config.settings import Settings
 from core.reid import normalise_embedding
 from core.staff_manager import StaffEvidence
+from core.child_filter import ChildEvidence
 from core.types import CrossingEvent
 
 log = logging.getLogger(__name__)
@@ -36,7 +37,9 @@ class Track:
     frames: int = 0
     embedding: np.ndarray | None = None
     staff: StaffEvidence = field(default_factory=StaffEvidence)
+    child: ChildEvidence = field(default_factory=ChildEvidence)
     pending: list = field(default_factory=list)
+    restored: bool = False
 
 
 class PassengerCounterEngine:
@@ -51,6 +54,7 @@ class PassengerCounterEngine:
         self.last_timestamp = None
         self.continuity = {}
         self.orphaned_pending = []
+        self.deferred = []
         if state:
             if state.get("version") != 1:
                 raise ValueError("Unsupported counter checkpoint version")
@@ -65,15 +69,20 @@ class PassengerCounterEngine:
             self.last_timestamp = state["last_timestamp"]
             self.continuity = state.get("continuity", {})
             self.orphaned_pending = state.get("orphaned_pending", [])
+            self.deferred = state.get("deferred", [])
 
     def snapshot(self):
         continuity = dict(self.continuity)
-        for tid, track in self.tracks.items():
+        deferred = [saved for saved in self.deferred if saved.get('pending')]
+        for tid, track in sorted(self.tracks.items(), key=lambda item: item[1].last_seen):
             if track.identity_id is not None:
+                previous = continuity.get(track.identity_id)
+                if previous and previous.get('pending'):
+                    deferred.append(dict(previous, identity_id=track.identity_id))
                 continuity[track.identity_id] = {
                     "track_id": tid, "last_seen": track.last_seen, "zone": track.zone,
                     "candidate": track.candidate, "candidate_frames": track.candidate_frames,
-                    "frames": track.frames, "staff": asdict(track.staff),
+                    "frames": track.frames, "staff": asdict(track.staff), "child": asdict(track.child),
                     "pending": [(direction, when.isoformat()) for direction, when in track.pending]}
         orphaned_pending = list(self.orphaned_pending)
         for tid, track in self.tracks.items():
@@ -83,7 +92,7 @@ class PassengerCounterEngine:
         return {"version": 1, "identities": {key: asdict(value) for key, value in self.identities.items()},
                 "day": self.day, "total_in": self.total_in, "total_out": self.total_out,
                 "total_suppressed": self.total_suppressed, "last_timestamp": self.last_timestamp,
-                "continuity": continuity, "orphaned_pending": orphaned_pending}
+                "continuity": continuity, "orphaned_pending": orphaned_pending, "deferred": deferred}
 
     def reset_tracking(self):
         # Tracker IDs can be reused after reconnect; person identities survive.
@@ -93,14 +102,19 @@ class PassengerCounterEngine:
         return unresolved
 
     def _restore_track(self, track, identity, now):
-        saved = self.continuity.pop(identity.identity_id, None)
+        saved = self.continuity.get(identity.identity_id)
+        if saved and 0 <= now - saved['last_seen'] <= self.cfg.TRACK_TTL_SEC:
+            self.continuity.pop(identity.identity_id)
+        else:
+            saved = None
         # Also repair a ByteTrack ID switch while the process is running.
         if saved is None:
             for tid, old in list(self.tracks.items()):
-                if old is not track and old.identity_id == identity.identity_id:
+                if (old is not track and old.identity_id == identity.identity_id
+                        and 0 <= now - old.last_seen <= self.cfg.TRACK_TTL_SEC):
                     saved = {"last_seen": old.last_seen, "zone": old.zone,
                              "candidate": old.candidate, "candidate_frames": old.candidate_frames,
-                             "frames": old.frames, "staff": asdict(old.staff),
+                             "frames": old.frames, "staff": asdict(old.staff), "child": asdict(old.child),
                              "pending": [(d, t.isoformat()) for d, t in old.pending]}
                     del self.tracks[tid]
                     break
@@ -110,16 +124,21 @@ class PassengerCounterEngine:
             track.frames = saved["frames"]
             # The current frame's evidence is observed after restoring the prior state.
             track.staff = StaffEvidence(**saved["staff"])
+            track.child = ChildEvidence(**saved.get("child", {}))
             track.pending = [(d, datetime.fromisoformat(t)) for d, t in saved["pending"]]
 
-    def _identity(self, track, now, claimed):
+    def _identity(self, track, now, claimed, *, restore=True, excluded=()):
         if track.identity_id in self.identities:
-            return self.identities[track.identity_id]
+            identity = self.identities[track.identity_id]
+            if restore and not track.restored:
+                self._restore_track(track, identity, now)
+                track.restored = True
+            return identity
         if track.embedding is None:
             return None
         candidates = []
         for identity in self.identities.values():
-            if identity.identity_id in claimed:
+            if identity.identity_id in claimed or identity.identity_id in excluded:
                 continue
             vectors = np.asarray([identity.embedding, *identity.gallery], dtype=np.float32)
             if vectors.shape[1:] != track.embedding.shape:
@@ -136,7 +155,9 @@ class PassengerCounterEngine:
             identity = Identity(str(uuid4()), track.embedding.tolist(), now)
             self.identities[identity.identity_id] = identity
         track.identity_id = identity.identity_id
-        self._restore_track(track, identity, now)
+        if restore:
+            self._restore_track(track, identity, now)
+            track.restored = True
         return identity
 
     def _remember_appearance(self, identity, embedding):
@@ -172,10 +193,61 @@ class PassengerCounterEngine:
 
     def finish(self):
         """Retain uncertain completed crossings in the audit log at file EOF."""
-        events = [event for tid, track in self.tracks.items() for event in self._unresolved(tid, track)]
+        events = self._finish_deferred()
+        for tid, track in self.tracks.items():
+            events.extend(self._decide_pending(tid, track, self.last_timestamp, final=True))
+            events.extend(self._unresolved(tid, track))
         for identity_id, saved in self.continuity.items():
-            events.extend(self._unresolved_saved(identity_id, saved))
+            events.extend(self._finish_saved(identity_id, saved))
         events.extend(self._flush_orphaned())
+        return events
+
+    def _finish_deferred(self):
+        # Multiple trajectories can share an hourly identity while an old age
+        # decision is pending. Preserve the older event across checkpoints.
+        events = []
+        for saved in self.deferred:
+            events.extend(self._finish_saved(saved['identity_id'], saved))
+        self.deferred.clear()
+        return events
+
+    def _decide_pending(self, tid, track, timestamp, *, final=False):
+        identity = self.identities.get(track.identity_id)
+        model = self.cfg.STAFF_MODE == "model"
+        child_confirmed = self.cfg.CHILD_MODE == 'model' and track.child.confirmed
+        if identity is None or (model and not track.staff.ready(self.cfg.VEST_CONFIRM_FRAMES) and not child_confirmed):
+            return []
+        events, pending = [], []
+        for direction, crossed_at in track.pending:
+            if (self.cfg.CHILD_MODE == "model" and not final and not track.child.adult_seen
+                    and timestamp - crossed_at.timestamp() < self.cfg.CHILD_DECISION_DELAY_SEC):
+                pending.append((direction, crossed_at))
+                continue
+            if (model and not final and not track.staff.confirmed
+                    and timestamp - crossed_at.timestamp() < self.cfg.STAFF_DECISION_DELAY_SEC):
+                pending.append((direction, crossed_at))
+                continue
+            field_name = "last_in" if direction == "IN" else "last_out"
+            last = getattr(identity, field_name)
+            # A long-term ReID match alone must not turn a similar passenger
+            # into staff. Short track handovers explicitly restore evidence.
+            staff = model and track.staff.confirmed
+            child = self.cfg.CHILD_MODE == "model" and track.child.confirmed
+            counted = not staff and not child and (last is None or crossed_at.timestamp() - last >= self.cfg.DUPLICATE_INTERVAL_SEC)
+            reason = "STAFF" if staff else "CHILD" if child else "COUNTED" if counted else "REPEAT_WITHIN_HOUR"
+            same_day = crossed_at.astimezone(ZoneInfo(self.cfg.TIMEZONE)).date().isoformat() == self.day
+            if counted:
+                setattr(identity, field_name, crossed_at.timestamp())
+                if same_day:
+                    if direction == "IN":
+                        self.total_in += 1
+                    else:
+                        self.total_out += 1
+            elif same_day:
+                self.total_suppressed += 1
+            events.append(CrossingEvent.create(self.cfg, crossed_at, direction, tid,
+                                              identity.identity_id, counted, reason))
+        track.pending = pending
         return events
 
     def _flush_orphaned(self):
@@ -192,7 +264,37 @@ class PassengerCounterEngine:
         saved["pending"] = []
         return events
 
-    def update(self, frame, detections, now: datetime, *, warmup=False):
+    def _finish_saved(self, identity_id, saved):
+        """Resolve a ready delayed event even when EOF follows a restart."""
+        track = Track(saved["last_seen"], identity_id=identity_id,
+                      staff=StaffEvidence(**saved["staff"]),
+                      child=ChildEvidence(**saved.get("child", {})),
+                      pending=[(d, datetime.fromisoformat(t)) for d, t in saved["pending"]])
+        tid = saved.get("track_id", 0)
+        events = self._decide_pending(tid, track, self.last_timestamp, final=True)
+        events.extend(self._unresolved(tid, track))
+        saved["pending"] = []
+        return events
+
+    def observe_children(self, observations):
+        if self.cfg.CHILD_MODE != "model":
+            return
+        for observation in observations:
+            track = self.tracks.get(observation.track_id)
+            if track is None:
+                continue
+            source = normalise_embedding(observation.embedding)
+            compatible = (source is not None and track.embedding is not None
+                          and source.shape == track.embedding.shape and float(source @ track.embedding) >= .85)
+            track.child.observe(observation.verdict if compatible else 'unknown', observation.sample_id,
+                                self.cfg.CHILD_CONFIRM_SAMPLES)
+
+    def _pending_ttl(self, pending, child):
+        if self.cfg.CHILD_MODE == "model" and pending and not child.adult_seen:
+            return max(self.cfg.TRACK_TTL_SEC, self.cfg.CHILD_DECISION_DELAY_SEC)
+        return self.cfg.TRACK_TTL_SEC
+
+    def update(self, frame, detections, now: datetime, *, warmup=False, child_observations=()):
         if now.tzinfo is None or now.utcoffset() is None:
             raise ValueError("Frame time must be timezone-aware")
         timestamp = now.timestamp()
@@ -201,6 +303,8 @@ class PassengerCounterEngine:
             raise ValueError("Frame timestamps must be monotonic")
         if not warmup:
             self.last_timestamp = timestamp
+            self.observe_children(child_observations)
+            events.extend(self._finish_deferred())
             day = now.astimezone(ZoneInfo(self.cfg.TIMEZONE)).date().isoformat()
             if self.day != day:
                 self.day = day
@@ -214,10 +318,15 @@ class PassengerCounterEngine:
                 if saved:
                     events.extend(self._unresolved_saved(key, saved))
             for key in list(self.continuity):
-                if timestamp - self.continuity[key]["last_seen"] > self.cfg.TRACK_TTL_SEC:
-                    events.extend(self._unresolved_saved(key, self.continuity.pop(key)))
+                saved = self.continuity[key]
+                ttl = self._pending_ttl(saved['pending'], ChildEvidence(**saved.get('child', {})))
+                if timestamp - saved["last_seen"] > ttl:
+                    events.extend(self._finish_saved(key, self.continuity.pop(key)))
         for tid in list(self.tracks):
-            if timestamp - self.tracks[tid].last_seen > self.cfg.TRACK_TTL_SEC:
+            track = self.tracks[tid]
+            if timestamp - track.last_seen > self._pending_ttl(track.pending, track.child):
+                if not warmup:
+                    events.extend(self._decide_pending(tid, self.tracks[tid], timestamp, final=True))
                 if self.tracks[tid].pending:
                     log.warning("Unresolved crossing on track %s: insufficient model evidence", tid)
                     events.extend(self._unresolved(tid, self.tracks[tid]))
@@ -233,30 +342,49 @@ class PassengerCounterEngine:
             x1, y1, x2, y2 = detection.bbox
             if not np.isfinite(detection.bbox).all() or x2 <= x1 or y2 <= y1:
                 continue
+            if not np.isfinite(detection.confidence) or not 0 <= detection.confidence <= 1:
+                continue
             cx = (x1 + x2) / (2 * width)
             if not self.cfg.DOOR_X_MIN <= cx <= self.cfg.DOOR_X_MAX:
                 old = self.tracks.pop(detection.track_id, None)
                 if old:
+                    if not warmup:
+                        events.extend(self._decide_pending(detection.track_id, old, timestamp, final=True))
                     events.extend(self._unresolved(detection.track_id, old))
                 continue
             track = self.tracks.setdefault(detection.track_id, Track(timestamp))
             track.last_seen = timestamp
-            if detection.embedding is not None:
+            reliable_appearance = (detection.embedding is not None and
+                                   detection.confidence >= self.cfg.CONFIDENCE)
+            if reliable_appearance:
                 track.embedding = normalise_embedding(detection.embedding)
-            identity = self._identity(track, timestamp, claimed)
+            # A newly split body must not immediately regain the rejected
+            # person's identity through its recently contaminated ReID gallery.
+            excluded = {self.tracks[tid].identity_id for tid in detection.separated_from
+                        if tid in self.tracks and tid != detection.track_id}
+            excluded.update(pid for pid, saved in self.continuity.items()
+                            if saved.get("track_id") in detection.separated_from)
+            identity = self._identity(track, timestamp, claimed, restore=not warmup, excluded=excluded)
             track.frames += 1
-            if self.cfg.STAFF_MODE == "model":
+            if self.cfg.STAFF_MODE == "model" and detection.confidence >= self.cfg.CONFIDENCE:
                 track.staff.observe(detection.staff_probability, self.cfg.VEST_THRESHOLD,
                                     self.cfg.VEST_CONFIRM_FRAMES)
             if identity is not None:
                 claimed.add(identity.identity_id)
                 if not warmup:
                     identity.last_seen = timestamp
-                    if detection.embedding is not None:
+                    if reliable_appearance:
                         self._remember_appearance(identity, track.embedding)
                         identity.embedding = normalise_embedding(
                             0.9 * np.asarray(identity.embedding) + 0.1 * track.embedding).tolist()
                     identity.staff = identity.staff or track.staff.confirmed
+            if detection.confidence < self.cfg.CONFIDENCE:
+                # Weak body/fragment boxes bridge tracking gaps, but a bag or
+                # clipped limb must not establish a new side of the doorway.
+                track.candidate, track.candidate_frames = None, 0
+                if not warmup:
+                    events.extend(self._decide_pending(detection.track_id, track, timestamp))
+                continue
             if detection.anchor_required and detection.anchor is None:
                 track.candidate, track.candidate_frames = None, 0
                 continue
@@ -281,25 +409,5 @@ class PassengerCounterEngine:
             if warmup:
                 track.pending.clear()
                 continue
-            if identity is None or (self.cfg.STAFF_MODE == "model" and
-                                    not track.staff.ready(self.cfg.VEST_CONFIRM_FRAMES)):
-                continue
-            for direction, crossed_at in track.pending:
-                field_name = "last_in" if direction == "IN" else "last_out"
-                last = getattr(identity, field_name)
-                staff = self.cfg.STAFF_MODE == "model" and (identity.staff or track.staff.confirmed)
-                counted = not staff and (last is None or crossed_at.timestamp() - last >= self.cfg.DUPLICATE_INTERVAL_SEC)
-                reason = "STAFF" if staff else "COUNTED" if counted else "REPEAT_WITHIN_HOUR"
-                if counted:
-                    setattr(identity, field_name, crossed_at.timestamp())
-                    if crossed_at.astimezone(ZoneInfo(self.cfg.TIMEZONE)).date().isoformat() == self.day:
-                        if direction == "IN":
-                            self.total_in += 1
-                        else:
-                            self.total_out += 1
-                else:
-                    self.total_suppressed += 1
-                events.append(CrossingEvent.create(self.cfg, crossed_at, direction, detection.track_id,
-                                                  identity.identity_id, counted, reason))
-            track.pending.clear()
+            events.extend(self._decide_pending(detection.track_id, track, timestamp))
         return events

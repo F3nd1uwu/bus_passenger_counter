@@ -1,0 +1,41 @@
+{
+  "method": "One sequential, database-free file benchmark on P01 frames 256000..256800; 4 CPU threads, 640px, no GUI or output encoding, no other Python jobs. Not a live-stream/60 FPS test.",
+  "runs": {
+    "baseline": {
+      "model": "models/candidates/person_test2_v2.onnx",
+      "vest_model": "models/candidates/work_vest_ensemble.json",
+      "vest_threshold": 0.5,
+      "cpu_threads": 4,
+      "frames": 801,
+      "in": 3,
+      "out": 11,
+      "elapsed_sec": 51.567578900001536,
+      "processing_fps": 15.533015454405522,
+      "mean_ms": {
+        "read": 0.6678153557494921,
+        "detector": 63.067587515650715,
+        "yolo": 42.354064169669385,
+        "reid": 8.767757677719402,
+        "counter": 0.5863530586180643
+      }
+    },
+    "released": {
+      "model": "models/candidates/person_test2_v2.onnx",
+      "vest_model": "models/candidates/work_vest_v3.onnx",
+      "vest_threshold": 0.2,
+      "cpu_threads": 4,
+      "frames": 801,
+      "in": 3,
+      "out": 11,
+      "elapsed_sec": 45.13469189999887,
+      "processing_fps": 17.74688086438494,
+      "mean_ms": {
+        "read": 0.6711799002634176,
+        "detector": 55.03419950063711,
+        "yolo": 39.57607865148579,
+        "reid": 8.797009987480468,
+        "counter": 0.5859127340591385
+      }
+    }
+  }
+}

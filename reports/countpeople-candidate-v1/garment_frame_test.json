@@ -1,0 +1,21 @@
+{
+  "scope": "Same filtered test for both models. 13 P02-region negatives removed after the episode became training/calibration. Remaining 21 positive and 129 negative frames. Frame-level results are not passage accuracy.",
+  "results": {
+    "baseline": {
+      "threshold": 0.5,
+      "TP": 5,
+      "FP": 0,
+      "FN": 16,
+      "TN": 129,
+      "unknown": 0
+    },
+    "v3": {
+      "threshold": 0.2,
+      "TP": 9,
+      "FP": 0,
+      "FN": 12,
+      "TN": 129,
+      "unknown": 0
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-14",
+  "timezone": "Europe/Saratov",
+  "python": "3.14.7",
+  "status": "source_validated_server_validation_pending",
+  "tests": {
+    "discovered": 168,
+    "passed": 168,
+    "skipped": 0,
+    "failed": 0,
+    "elapsed_seconds": 159.939,
+    "flags": [
+      "RUN_VIDEO_REGRESSION",
+      "RUN_CACHED_VIDEO_REGRESSION",
+      "RUN_TEST2_REGRESSION"
+    ],
+    "postgres": "disposable PostgreSQL 16",
+    "private_log_sha256": "22090f94ccc3a70e4af298e21570f90f6e0dda1eea0f0a6804684fcdb39819b6"
+  },
+  "dependency_check": "passed",
+  "repository_check": "passed",
+  "separate_infrastructure_tests": {
+    "total": 18,
+    "failed": 0
+  },
+  "server_package_tests": {
+    "total": 4,
+    "failed": 0
+  },
+  "production_database_touched": false
+}

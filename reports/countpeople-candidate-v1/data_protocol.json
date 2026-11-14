@@ -1,0 +1,55 @@
+{
+  "person_dataset": {
+    "counts": {
+      "train": {
+        "images": 1692,
+        "boxes": 1968,
+        "negative": 213,
+        "augmented": 1128
+      },
+      "val": {
+        "images": 162,
+        "boxes": 164,
+        "negative": 31,
+        "augmented": 0
+      },
+      "test": {
+        "images": 165,
+        "boxes": 230,
+        "negative": 6,
+        "augmented": 0
+      }
+    },
+    "excluded_external": 265,
+    "base_images": 891,
+    "added_negative_frames": 42,
+    "originals_by_origin_split": {
+      "train": {
+        "countpeople": 301,
+        "own": 221,
+        "new_negative": 42
+      },
+      "val": {
+        "countpeople": 64,
+        "own": 98
+      },
+      "test": {
+        "countpeople": 64,
+        "own": 101
+      }
+    }
+  },
+  "person_annotation_sha256": "62d51152d4e650fa45a754d2a22e38d77d61cb0207779329b19b4b34283fb21b",
+  "person_recipe_sha256": "bf6293a0a2f67012c5877dbd9947815a88e21bc78627c9509e8f8ab24653fb53",
+  "garment_annotation_sha256": "5317c6cf6f5cb3e3c951568867cc3a9e62b927ea7777e9d5c5fa0ad7eb83af60",
+  "garment_train_images": 287,
+  "garment_train_boxes": 52,
+  "garment_val_images": 81,
+  "garment_test_images": 150,
+  "new_manual_negative_crops": 10,
+  "excluded_garment_test_region": [
+    260000,
+    265500
+  ],
+  "excluded_garment_test_images": 13
+}

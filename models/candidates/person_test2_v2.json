@@ -1,0 +1,70 @@
+{
+  "source_sha256": "12746e380bc91d4cecff452e082a821fd947b65d9ff16ea8dd3e527a14afcb23",
+  "onnx_sha256": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+  "precision": "FP32",
+  "image_size": 640,
+  "classes": {
+    "0": "person"
+  },
+  "tested_shapes": [
+    [
+      1,
+      3,
+      480,
+      640
+    ],
+    [
+      1,
+      3,
+      640,
+      640
+    ]
+  ],
+  "output_shapes": [
+    [
+      1,
+      5,
+      6300
+    ],
+    [
+      1,
+      5,
+      8400
+    ]
+  ],
+  "reid_changed": false,
+  "activated": false,
+  "status": "camera_specific_candidate",
+  "recommended_profile": "test2",
+  "recommended_settings": {
+    "CONFIDENCE": 0.3,
+    "TRACKER_IDENTITY_MIN_SIMILARITY": 0.7,
+    "IMAGE_SIZE": 640,
+    "CPU_THREADS": 4
+  },
+  "training": {
+    "initial_weights": "person_manual_v1.pt",
+    "epochs_completed": 14,
+    "best_epoch": 8,
+    "freeze": 10,
+    "learning_rate": 0.00015,
+    "batch": 4,
+    "seed": 42,
+    "dataset_images": 427,
+    "annotations_sha256": "61a8bc6b5058b52ec58074f0cb112b81aab5cb0012962016082416a76bb00b0a",
+    "split_images": {
+      "train": 228,
+      "val": 98,
+      "test": 101
+    }
+  },
+  "calibration": {
+    "confidence_selected_on": "known old boarding/control episodes; these are regression/calibration, not an independent test",
+    "hourly_reid_threshold": 0.85
+  },
+  "limitations": [
+    "Camera-specific",
+    "Hourly identity continuity remains unproven on real returns",
+    "Dense crowd and full-height box crossings still missed"
+  ]
+}

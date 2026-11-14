@@ -1,0 +1,62 @@
+{
+  "scope": "Clean contact sheets reviewed before predictions on P06/P07. Same video/camera, new intervals; not an independent camera or full-day accuracy estimate. Frames are file frame indices, not recovered wall-clock time.",
+  "frozen_at_utc": "2026-11-13T23:02:12.798832+00:00",
+  "source": "data/test2.mp4",
+  "source_sha256": "1b4db7870b8f79138890199cb15f16e67f63f5d5e5ca6a3799331f1b1bd687e4",
+  "candidate_selected_before_predictions": {
+    "Y_STREET": 0.38,
+    "Y_LINE": 0.5,
+    "Y_CABIN": 0.57
+  },
+  "episodes": [
+    {
+      "id": "P06",
+      "start": 302200,
+      "end": 303100,
+      "manual_in": 3,
+      "manual_out": 0,
+      "note": "Opening partial brown-haired person already in cabin, no crossing inferred. Source edits near 302740 and 303060; remaining light coat stays inside."
+    },
+    {
+      "id": "P07",
+      "start": 306800,
+      "end": 307500,
+      "manual_in": 1,
+      "manual_out": 1,
+      "note": "Source edit before 307064; count only visible complete passages."
+    }
+  ],
+  "events": [
+    {
+      "episode": "P06",
+      "direction": "IN",
+      "frame": 302610,
+      "description": "blue puffer, black beanie"
+    },
+    {
+      "episode": "P06",
+      "direction": "IN",
+      "frame": 302664,
+      "description": "gray puffer, white hat, dark bag"
+    },
+    {
+      "episode": "P06",
+      "direction": "IN",
+      "frame": 302704,
+      "description": "light beige coat, white hat, patterned bag"
+    },
+    {
+      "episode": "P07",
+      "direction": "OUT",
+      "frame": 307120,
+      "description": "light green quilted coat, white hat"
+    },
+    {
+      "episode": "P07",
+      "direction": "IN",
+      "frame": 307178,
+      "description": "dark coat, short gray hair"
+    }
+  ],
+  "manual_frame_semantics": "Approximate passage frames for visual identification; compare person and direction, not exact-frame equality."
+}

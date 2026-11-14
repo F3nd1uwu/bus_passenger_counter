@@ -1,0 +1,2844 @@
+{
+  "scope": "Camera-specific calibration, not a full-day or independent hourly-return accuracy estimate.",
+  "baseline": {
+    "Y_STREET": 0.38,
+    "Y_LINE": 0.5,
+    "Y_CABIN": 0.6,
+    "TRACKER_DRIFT_THRESHOLD": 0.0
+  },
+  "released": {
+    "Y_STREET": 0.38,
+    "Y_LINE": 0.5,
+    "Y_CABIN": 0.57,
+    "TRACKER_DRIFT_THRESHOLD": 0.6
+  },
+  "profile_sha256": "fbfa7ec60bb97a077c760f9be420389af5e3aa1199f0c60401958aa36b2ed249",
+  "identity_labels_sha256": "6e313d3a1d2b7e90d7e49366ac95a5012642d3ee92883f9f54a79f3018f9b266",
+  "models_sha256": {
+    "models/candidates/person_test2_v2.onnx": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+    "models/person_reid.onnx": "38b3dd2c2acb0bd191d27eff6707dc5428de63fc7395a6f4ae0cb6392ef2acfa",
+    "models/candidates/work_vest_v3.onnx": "a26aaf018050308298469d40aca831df602251ca6b14a87562d7f6ffdbf90671"
+  },
+  "episodes": [
+    {
+      "id": "old_A01",
+      "scope": "known_regression",
+      "manual_in": 1,
+      "manual_out": 0,
+      "baseline": {
+        "in": 1,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 39137,
+            "event_type": "IN",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "0ebaef00e26dcf58294d7dabc2526751a9eec6ac7fc170fd94681d392e01f1ca"
+      },
+      "released": {
+        "in": 1,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 39128,
+            "event_type": "IN",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "eb827cb52db4d897513dee7ae723d88cca154ae9e16431280dc4bb888995e874"
+      }
+    },
+    {
+      "id": "old_A02",
+      "scope": "known_regression",
+      "manual_in": 0,
+      "manual_out": 1,
+      "baseline": {
+        "in": 0,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 55971,
+            "event_type": "OUT",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "dc82c6c1eb3d1af23217b893dcc28e5a8732f47a6028fd08e18d018ee2036388"
+      },
+      "released": {
+        "in": 0,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 55971,
+            "event_type": "OUT",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "c84bef14d210eb95cba0297caf35f2e910a9167740c98521e69b01732662bec3"
+      }
+    },
+    {
+      "id": "old_A03",
+      "scope": "known_regression",
+      "manual_in": 4,
+      "manual_out": 0,
+      "baseline": {
+        "in": 4,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 101798,
+            "event_type": "IN",
+            "track_id": 6,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 102215,
+            "event_type": "IN",
+            "track_id": 8,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 102254,
+            "event_type": "IN",
+            "track_id": 15,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 102680,
+            "event_type": "IN",
+            "track_id": 21,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "47d9db13cf2dd8416a825e6e34b9793afe1dc19bb13b32361246925b96a6bf87"
+      },
+      "released": {
+        "in": 4,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 101797,
+            "event_type": "IN",
+            "track_id": 6,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 102213,
+            "event_type": "IN",
+            "track_id": 8,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 102252,
+            "event_type": "IN",
+            "track_id": 15,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 102678,
+            "event_type": "IN",
+            "track_id": 21,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "1492569903f9b0547aee2c3fd1fc471feba1021fd3bfd535826b7e4e5d06600e"
+      }
+    },
+    {
+      "id": "old_A04",
+      "scope": "known_regression",
+      "manual_in": 5,
+      "manual_out": 3,
+      "baseline": {
+        "in": 5,
+        "out": 3,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 135946,
+            "event_type": "OUT",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 135989,
+            "event_type": "OUT",
+            "track_id": 5,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 136063,
+            "event_type": "IN",
+            "track_id": 14,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 136118,
+            "event_type": "IN",
+            "track_id": 19,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 136536,
+            "event_type": "IN",
+            "track_id": 34,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 136568,
+            "event_type": "IN",
+            "track_id": 38,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 136607,
+            "event_type": "IN",
+            "track_id": 40,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 137027,
+            "event_type": "OUT",
+            "track_id": 42,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "8df783fa1ed3696678fa3d43a87a6ffece94ad3cc44279f1f31b85c37905ee3d"
+      },
+      "released": {
+        "in": 5,
+        "out": 3,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 135946,
+            "event_type": "OUT",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 135989,
+            "event_type": "OUT",
+            "track_id": 5,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 136061,
+            "event_type": "IN",
+            "track_id": 14,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 136114,
+            "event_type": "IN",
+            "track_id": 19,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 136535,
+            "event_type": "IN",
+            "track_id": 34,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 136567,
+            "event_type": "IN",
+            "track_id": 38,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 136602,
+            "event_type": "IN",
+            "track_id": 40,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 137027,
+            "event_type": "OUT",
+            "track_id": 42,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "7f2f44f82f3cce7bbdc96ea1016bd785da0240002a29d4def059fa94b8cdcb3e"
+      }
+    },
+    {
+      "id": "old_A05",
+      "scope": "known_regression",
+      "manual_in": 1,
+      "manual_out": 0,
+      "baseline": {
+        "in": 1,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 175066,
+            "event_type": "IN",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "eb2bb964cb5df45d384c6666a16f4cb0d78c7c37d6bee15dd6b2f717f05d36f8"
+      },
+      "released": {
+        "in": 1,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 175063,
+            "event_type": "IN",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "058d4bd17636a197a2b4737ba839b4b2161102d94a093b77713f22fcb8c02881"
+      }
+    },
+    {
+      "id": "old_A06",
+      "scope": "known_regression",
+      "manual_in": 2,
+      "manual_out": 5,
+      "baseline": {
+        "in": 2,
+        "out": 5,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 243548,
+            "event_type": "IN",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 243919,
+            "event_type": "OUT",
+            "track_id": 4,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 243969,
+            "event_type": "OUT",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 244385,
+            "event_type": "OUT",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 244435,
+            "event_type": "OUT",
+            "track_id": 20,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 244831,
+            "event_type": "OUT",
+            "track_id": 29,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 244901,
+            "event_type": "IN",
+            "track_id": 38,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "47a05ccb7fe28c2715b29dd1ffd6dacd1ae58ebfcd45ea05f97262f6d8824cd7"
+      },
+      "released": {
+        "in": 2,
+        "out": 5,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 243546,
+            "event_type": "IN",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 243919,
+            "event_type": "OUT",
+            "track_id": 4,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 243969,
+            "event_type": "OUT",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 244385,
+            "event_type": "OUT",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 244435,
+            "event_type": "OUT",
+            "track_id": 20,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 244831,
+            "event_type": "OUT",
+            "track_id": 29,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 244900,
+            "event_type": "IN",
+            "track_id": 38,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "619d0b8a2299d36fe63b64db2d8cdd4cd6ebdc093fc6c8c7baa7b180f3d762cf"
+      }
+    },
+    {
+      "id": "old_A07",
+      "scope": "known_regression",
+      "manual_in": 1,
+      "manual_out": 0,
+      "baseline": {
+        "in": 1,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 269468,
+            "event_type": "IN",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "7dc2432e6a5083cacb30a12685dad568f1ff55a5d6a7c88db87296122c67773b"
+      },
+      "released": {
+        "in": 1,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 269467,
+            "event_type": "IN",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "c951e1f1b24871e6eb6711545652aca00ad434deb9a8df77a473108fec2c94e3"
+      }
+    },
+    {
+      "id": "old_A08",
+      "scope": "known_regression",
+      "manual_in": 0,
+      "manual_out": 1,
+      "baseline": {
+        "in": 0,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 296376,
+            "event_type": "OUT",
+            "track_id": 6,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "174bca87861f5fe997b14a3022b7cda9e0fff7e46da6aa47aa5d8444b293cf9b"
+      },
+      "released": {
+        "in": 0,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 296376,
+            "event_type": "OUT",
+            "track_id": 6,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "8242d9db6c0acaeba524800f37ba82b3e21b2dc602fa32d15a7447b262156ec3"
+      }
+    },
+    {
+      "id": "old_A09",
+      "scope": "known_regression",
+      "manual_in": 1,
+      "manual_out": 7,
+      "baseline": {
+        "in": 1,
+        "out": 7,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 350251,
+            "event_type": "OUT",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 350655,
+            "event_type": "OUT",
+            "track_id": 6,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 350689,
+            "event_type": "OUT",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 350715,
+            "event_type": "OUT",
+            "track_id": 11,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 350759,
+            "event_type": "IN",
+            "track_id": 11,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 351169,
+            "event_type": "OUT",
+            "track_id": 25,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 351204,
+            "event_type": "OUT",
+            "track_id": 27,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 351615,
+            "event_type": "OUT",
+            "track_id": 36,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "ac914c084940d1dad113e3a828148abfcb1aea181e36aa8ba3399987096f21cc"
+      },
+      "released": {
+        "in": 1,
+        "out": 7,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 350251,
+            "event_type": "OUT",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 350655,
+            "event_type": "OUT",
+            "track_id": 6,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 350689,
+            "event_type": "OUT",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 350715,
+            "event_type": "OUT",
+            "track_id": 11,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 350758,
+            "event_type": "IN",
+            "track_id": 11,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 351169,
+            "event_type": "OUT",
+            "track_id": 25,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 351204,
+            "event_type": "OUT",
+            "track_id": 27,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 351615,
+            "event_type": "OUT",
+            "track_id": 36,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "02870cb3e5c3af914269aa9b81b9d26c4d540bcd12b2196443d0d36371573212"
+      }
+    },
+    {
+      "id": "old_A10",
+      "scope": "known_regression",
+      "manual_in": 0,
+      "manual_out": 1,
+      "baseline": {
+        "in": 0,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 398221,
+            "event_type": "OUT",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "f7e560ed93a0dc58dccae69eb1794fe71d0306517169d5c02127969e42bdf959"
+      },
+      "released": {
+        "in": 0,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 398221,
+            "event_type": "OUT",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "2ed64e75f1b879709272290fc368dd2c67367bf239be3df58ddb063b75dd3d49"
+      }
+    },
+    {
+      "id": "old_A11",
+      "scope": "known_regression",
+      "manual_in": 0,
+      "manual_out": 3,
+      "baseline": {
+        "in": 0,
+        "out": 3,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 420291,
+            "event_type": "OUT",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 420356,
+            "event_type": "OUT",
+            "track_id": 6,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 421127,
+            "event_type": "OUT",
+            "track_id": 14,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "8847a782728273c8e51e0351b0633998c8cf6445b041c33ecabc82bb58a58023"
+      },
+      "released": {
+        "in": 0,
+        "out": 3,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 420291,
+            "event_type": "OUT",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 420356,
+            "event_type": "OUT",
+            "track_id": 6,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 421127,
+            "event_type": "OUT",
+            "track_id": 14,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "efb1be738fdaebaa3defd260bbfdfd05fd77cfcc134a396829bf7c46cf3f941f"
+      }
+    },
+    {
+      "id": "old_A12",
+      "scope": "known_regression",
+      "manual_in": 4,
+      "manual_out": 4,
+      "baseline": {
+        "in": 4,
+        "out": 4,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 465969,
+            "event_type": "IN",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466034,
+            "event_type": "IN",
+            "track_id": 7,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466123,
+            "event_type": "IN",
+            "track_id": 14,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466167,
+            "event_type": "IN",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466498,
+            "event_type": "OUT",
+            "track_id": 26,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466927,
+            "event_type": "OUT",
+            "track_id": 35,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466962,
+            "event_type": "OUT",
+            "track_id": 36,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466988,
+            "event_type": "OUT",
+            "track_id": 40,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "f374f2cb0cff12b768082299ec6d59e52176e1c4ccad5ce85cb52f21a366c47b"
+      },
+      "released": {
+        "in": 4,
+        "out": 4,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 465964,
+            "event_type": "IN",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466025,
+            "event_type": "IN",
+            "track_id": 7,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466106,
+            "event_type": "IN",
+            "track_id": 14,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466166,
+            "event_type": "IN",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466498,
+            "event_type": "OUT",
+            "track_id": 26,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466927,
+            "event_type": "OUT",
+            "track_id": 35,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466962,
+            "event_type": "OUT",
+            "track_id": 36,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 466988,
+            "event_type": "OUT",
+            "track_id": 40,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "61b06153acaf953ce4f5bacabbd988c9a225d874b02cd3c851bd429058c1b4ef"
+      }
+    },
+    {
+      "id": "old_A13",
+      "scope": "known_regression",
+      "manual_in": 2,
+      "manual_out": 3,
+      "baseline": {
+        "in": 2,
+        "out": 3,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 471457,
+            "event_type": "OUT",
+            "track_id": 15,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 471803,
+            "event_type": "OUT",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 471836,
+            "event_type": "OUT",
+            "track_id": 21,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 472300,
+            "event_type": "IN",
+            "track_id": 25,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 472370,
+            "event_type": "IN",
+            "track_id": 32,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "f2fcda702bf4463c3a3f5cd43c204705299db8d55453617814dd74fdfab2d954"
+      },
+      "released": {
+        "in": 2,
+        "out": 3,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 471457,
+            "event_type": "OUT",
+            "track_id": 15,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 471803,
+            "event_type": "OUT",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 471836,
+            "event_type": "OUT",
+            "track_id": 21,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 472296,
+            "event_type": "IN",
+            "track_id": 25,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 472367,
+            "event_type": "IN",
+            "track_id": 32,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "7b220ba08c7c567381316c6f7392d7a66ada423d4779111fd2687931566a4e53"
+      }
+    },
+    {
+      "id": "old_R01",
+      "scope": "known_regression",
+      "manual_in": 3,
+      "manual_out": 0,
+      "baseline": {
+        "in": 3,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 236272,
+            "event_type": "IN",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 236320,
+            "event_type": "IN",
+            "track_id": 14,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 236725,
+            "event_type": "IN",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "3b2ba9a2b91f102bfacf3ef9db8633194bec16eb779ce2087a8167e7c925636c"
+      },
+      "released": {
+        "in": 3,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 236271,
+            "event_type": "IN",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 236320,
+            "event_type": "IN",
+            "track_id": 14,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 236724,
+            "event_type": "IN",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "31e1aaa6d69e4ef467ec8bde72a8af5570ed97f2a242c171efb5b2db454fde30"
+      }
+    },
+    {
+      "id": "old_R02",
+      "scope": "known_regression",
+      "manual_in": 0,
+      "manual_out": 1,
+      "baseline": {
+        "in": 0,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 157012,
+            "event_type": "OUT",
+            "track_id": 10,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "6f06392a82afe6c3429f72641dacfc4cbfa3cf9ec465afa90410eec644a9358b"
+      },
+      "released": {
+        "in": 0,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 157012,
+            "event_type": "OUT",
+            "track_id": 10,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "30fbf69056ea5db5c7ce94292e6938db5a45b5582a5fa84c96c88366f45cf0ac"
+      }
+    },
+    {
+      "id": "old_R03",
+      "scope": "known_regression",
+      "manual_in": 0,
+      "manual_out": 0,
+      "baseline": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 0,
+        "events": [],
+        "private_trace_sha256": "1b98edf117f2271a405df5049f22048fa7aa2c3d8e58a074d042f2db699c9c70"
+      },
+      "released": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 0,
+        "events": [],
+        "private_trace_sha256": "9de10dfbd837a226628f4e23556bb80bd6b76a0fc45f520bcd39fdb8a7365835"
+      }
+    },
+    {
+      "id": "control_boardings",
+      "scope": "known_regression",
+      "manual_in": 6,
+      "manual_out": 0,
+      "baseline": {
+        "in": 6,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 225601,
+            "event_type": "IN",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 225673,
+            "event_type": "IN",
+            "track_id": 27,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 225762,
+            "event_type": "IN",
+            "track_id": 20,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 225798,
+            "event_type": "IN",
+            "track_id": 21,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 226109,
+            "event_type": "IN",
+            "track_id": 41,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 226175,
+            "event_type": "IN",
+            "track_id": 49,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "47030775df99f579117119da6a844d9d32f5f99cbd4233902fb80aa54bafcb2c"
+      },
+      "released": {
+        "in": 6,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 225600,
+            "event_type": "IN",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 225665,
+            "event_type": "IN",
+            "track_id": 27,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 225758,
+            "event_type": "IN",
+            "track_id": 20,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 225794,
+            "event_type": "IN",
+            "track_id": 21,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 226108,
+            "event_type": "IN",
+            "track_id": 41,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 226171,
+            "event_type": "IN",
+            "track_id": 49,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "26fc1d2625eb5e4dc83bd912c9b0c50d18743c3b22697cd47d9167b90b50403d"
+      }
+    },
+    {
+      "id": "control_clip_01",
+      "scope": "known_regression",
+      "manual_in": 1,
+      "manual_out": 0,
+      "baseline": {
+        "in": 1,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 26538,
+            "event_type": "IN",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "8f3a799c342b6da27591e9bae95a33280b3b8711e042ca227a4108bd60e6d726"
+      },
+      "released": {
+        "in": 1,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 26536,
+            "event_type": "IN",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "82a8cc12a166bbd1b6f183cbce0049893e6646c5562f9fde8dd926225e8bc059"
+      }
+    },
+    {
+      "id": "control_clip_02",
+      "scope": "known_regression",
+      "manual_in": 1,
+      "manual_out": 5,
+      "baseline": {
+        "in": 1,
+        "out": 5,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 86010,
+            "event_type": "OUT",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 86082,
+            "event_type": "IN",
+            "track_id": 13,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 86437,
+            "event_type": "OUT",
+            "track_id": 20,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 86470,
+            "event_type": "OUT",
+            "track_id": 21,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 86514,
+            "event_type": "OUT",
+            "track_id": 27,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 86954,
+            "event_type": "OUT",
+            "track_id": 32,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "eae75b29f4c91f1b595a2c1e93f92a7140c158908c28bba38464ebfe42080620"
+      },
+      "released": {
+        "in": 1,
+        "out": 5,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 86010,
+            "event_type": "OUT",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 86080,
+            "event_type": "IN",
+            "track_id": 13,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 86437,
+            "event_type": "OUT",
+            "track_id": 20,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 86470,
+            "event_type": "OUT",
+            "track_id": 21,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 86514,
+            "event_type": "OUT",
+            "track_id": 27,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 86954,
+            "event_type": "OUT",
+            "track_id": 32,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "aac8d54d47123b3f4f7867571cd1ca85982658d1b081bc2608c45b09b1ada455"
+      }
+    },
+    {
+      "id": "control_clip_03",
+      "scope": "known_regression",
+      "manual_in": 0,
+      "manual_out": 4,
+      "baseline": {
+        "in": 0,
+        "out": 4,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 164390,
+            "event_type": "OUT",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 164785,
+            "event_type": "OUT",
+            "track_id": 8,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 164824,
+            "event_type": "OUT",
+            "track_id": 19,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 165251,
+            "event_type": "OUT",
+            "track_id": 34,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "5cd1a6ef4d22fd0d4dc21f872e285706f14fda83b56750393a60465ac62e8030"
+      },
+      "released": {
+        "in": 0,
+        "out": 4,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 164390,
+            "event_type": "OUT",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 164785,
+            "event_type": "OUT",
+            "track_id": 8,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 164824,
+            "event_type": "OUT",
+            "track_id": 19,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 165251,
+            "event_type": "OUT",
+            "track_id": 34,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "b45e1a65c28200fea64e91d10fdf5b36b5f077a40df23d48831ec5e3f74d09c2"
+      }
+    },
+    {
+      "id": "control_clip_04",
+      "scope": "known_regression",
+      "manual_in": 3,
+      "manual_out": 2,
+      "baseline": {
+        "in": 3,
+        "out": 2,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 216335,
+            "event_type": "IN",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 216770,
+            "event_type": "OUT",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 216870,
+            "event_type": "IN",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 217232,
+            "event_type": "OUT",
+            "track_id": 28,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 217667,
+            "event_type": "IN",
+            "track_id": 33,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "c788e03a604f4ae731d23b6826e58b3746918c079625b000dd916d58e68116bd"
+      },
+      "released": {
+        "in": 3,
+        "out": 2,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 216333,
+            "event_type": "IN",
+            "track_id": 2,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 216770,
+            "event_type": "OUT",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 216865,
+            "event_type": "IN",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 217232,
+            "event_type": "OUT",
+            "track_id": 28,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 217666,
+            "event_type": "IN",
+            "track_id": 33,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "b73152fe77848b448a82e11a14742214abb0172467ff687373463eabb44f4a1c"
+      }
+    },
+    {
+      "id": "control_clip_05",
+      "scope": "known_regression",
+      "manual_in": 8,
+      "manual_out": 0,
+      "baseline": {
+        "in": 8,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 318941,
+            "event_type": "IN",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 319048,
+            "event_type": "IN",
+            "track_id": 15,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 318989,
+            "event_type": "IN",
+            "track_id": 11,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 319097,
+            "event_type": "IN",
+            "track_id": 20,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 319144,
+            "event_type": "IN",
+            "track_id": 23,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 319230,
+            "event_type": "IN",
+            "track_id": 30,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 319618,
+            "event_type": "IN",
+            "track_id": 44,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 319799,
+            "event_type": "IN",
+            "track_id": 49,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "04773aa96da2bacb8c39932c9c0f9f52cdc3a9dc1c8b33a9097518b56afa4fe0"
+      },
+      "released": {
+        "in": 8,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 318941,
+            "event_type": "IN",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 319046,
+            "event_type": "IN",
+            "track_id": 15,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 318988,
+            "event_type": "IN",
+            "track_id": 11,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 319092,
+            "event_type": "IN",
+            "track_id": 20,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 319140,
+            "event_type": "IN",
+            "track_id": 23,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 319228,
+            "event_type": "IN",
+            "track_id": 30,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 319614,
+            "event_type": "IN",
+            "track_id": 44,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 319798,
+            "event_type": "IN",
+            "track_id": 49,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "2473d34b05760f4c1823844197e0b86616b7fe319fe2f1c12514f13cc0526fce"
+      }
+    },
+    {
+      "id": "control_clip_06",
+      "scope": "known_regression",
+      "manual_in": 7,
+      "manual_out": 0,
+      "baseline": {
+        "in": 7,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 431123,
+            "event_type": "IN",
+            "track_id": 7,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 431527,
+            "event_type": "IN",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 431555,
+            "event_type": "IN",
+            "track_id": 15,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 431592,
+            "event_type": "IN",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 431668,
+            "event_type": "IN",
+            "track_id": 32,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 431631,
+            "event_type": "IN",
+            "track_id": 22,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 432155,
+            "event_type": "IN",
+            "track_id": 56,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "207d448440acb8effaf83f22496c0b3bfe308b9cb3d7e0f2841eaf673e133e64"
+      },
+      "released": {
+        "in": 7,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 431122,
+            "event_type": "IN",
+            "track_id": 7,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 431525,
+            "event_type": "IN",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 431555,
+            "event_type": "IN",
+            "track_id": 15,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 431590,
+            "event_type": "IN",
+            "track_id": 17,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 431666,
+            "event_type": "IN",
+            "track_id": 32,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 431626,
+            "event_type": "IN",
+            "track_id": 22,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 432152,
+            "event_type": "IN",
+            "track_id": 56,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "0998b8928c38e0c645a9397e097cee1a9aac09f7de514aa734287a5647734ff1"
+      }
+    },
+    {
+      "id": "control_empty",
+      "scope": "known_regression",
+      "manual_in": 0,
+      "manual_out": 0,
+      "baseline": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 0,
+        "events": [],
+        "private_trace_sha256": "cb065974afc9318c22318a1b2bc9da47565f906acf2bdf3305bb1180f86358d6"
+      },
+      "released": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 0,
+        "events": [],
+        "private_trace_sha256": "d87385deca7a148d16c6b252de77ac81d52623fb2fd64cb592e8f76ff4b0ebc5"
+      }
+    },
+    {
+      "id": "control_exit",
+      "scope": "known_regression",
+      "manual_in": 0,
+      "manual_out": 1,
+      "baseline": {
+        "in": 0,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 324054,
+            "event_type": "OUT",
+            "track_id": 6,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "31185e413dba285a6f81ce4e9d17176f1095d921421fb0a4c347d11789c63349"
+      },
+      "released": {
+        "in": 0,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 324054,
+            "event_type": "OUT",
+            "track_id": 6,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "7bf78613f1ac29c3f337fc24df1ec3cbd2771f557ccff7af695c454c86f0ec29"
+      }
+    },
+    {
+      "id": "V01",
+      "scope": "selected_test2_calibration",
+      "manual_in": 0,
+      "manual_out": 0,
+      "baseline": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 1,
+        "events": [
+          {
+            "crossing_frame": 25408,
+            "event_type": "IN",
+            "track_id": 1,
+            "counted": false,
+            "reason": "STAFF"
+          }
+        ],
+        "private_trace_sha256": "fa10e18180fcbadbb5fc50926ef1e81dc4e96ea7e63c1ab6655c5c4f005df40c"
+      },
+      "released": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 1,
+        "events": [
+          {
+            "crossing_frame": 25395,
+            "event_type": "IN",
+            "track_id": 1,
+            "counted": false,
+            "reason": "STAFF"
+          }
+        ],
+        "private_trace_sha256": "0a3e152dc7d71a1737997b0b87eec759c8e0f224e134c0f390b9113ffb82d6c6"
+      }
+    },
+    {
+      "id": "V02",
+      "scope": "selected_test2_calibration",
+      "manual_in": 1,
+      "manual_out": 1,
+      "baseline": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 0,
+        "events": [],
+        "private_trace_sha256": "da50f8446cb5d00276a669a8f5574eb64847179d0c58690e048cb9895a575d5e"
+      },
+      "released": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 0,
+        "events": [],
+        "private_trace_sha256": "275da912a8c3b2bc2a9caa58ff4c4486e6a3bd37d02046b69182e955c2013903"
+      }
+    },
+    {
+      "id": "V03",
+      "scope": "selected_test2_calibration",
+      "manual_in": 0,
+      "manual_out": 0,
+      "baseline": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 1,
+        "events": [
+          {
+            "crossing_frame": 146768,
+            "event_type": "OUT",
+            "track_id": 1,
+            "counted": false,
+            "reason": "STAFF"
+          }
+        ],
+        "private_trace_sha256": "fd6f63fb2a8c3997d0f9be9b322bf70e0668fdf63383628fa5c4b4d794dc7c8c"
+      },
+      "released": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 1,
+        "events": [
+          {
+            "crossing_frame": 146768,
+            "event_type": "OUT",
+            "track_id": 1,
+            "counted": false,
+            "reason": "STAFF"
+          }
+        ],
+        "private_trace_sha256": "46f266f59684c08fb0014dec667df6238d2471e132355633ad16c55b9cd93c9f"
+      }
+    },
+    {
+      "id": "V04",
+      "scope": "selected_test2_calibration",
+      "manual_in": 0,
+      "manual_out": 0,
+      "baseline": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 0,
+        "events": [],
+        "private_trace_sha256": "655aa8faa80d66f4249374165bb4b9a9e164aba56fdc12c7ea81b3eb4177132f"
+      },
+      "released": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 0,
+        "events": [],
+        "private_trace_sha256": "d6a53405ae6f2738fd1910e04fab0a254b20cdc6fae8f7c6624b2fbb2f8acc84"
+      }
+    },
+    {
+      "id": "V05",
+      "scope": "selected_test2_calibration",
+      "manual_in": 0,
+      "manual_out": 0,
+      "baseline": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 1,
+        "events": [
+          {
+            "crossing_frame": 395211,
+            "event_type": "IN",
+            "track_id": 2,
+            "counted": false,
+            "reason": "STAFF"
+          }
+        ],
+        "private_trace_sha256": "9b0a3c232a8b687e3a538d2dbd3a74d8957bb5721b4c67087b507079660227c2"
+      },
+      "released": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 1,
+        "events": [
+          {
+            "crossing_frame": 395187,
+            "event_type": "IN",
+            "track_id": 2,
+            "counted": false,
+            "reason": "STAFF"
+          }
+        ],
+        "private_trace_sha256": "e53ff2b7e0416c31e745a2ef0da05651080af083014c9d7c1e440d609feb46d5"
+      }
+    },
+    {
+      "id": "P01",
+      "scope": "selected_test2_calibration",
+      "manual_in": 3,
+      "manual_out": 11,
+      "baseline": {
+        "in": 3,
+        "out": 11,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 256184,
+            "event_type": "OUT",
+            "track_id": 3,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256222,
+            "event_type": "OUT",
+            "track_id": 4,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256258,
+            "event_type": "OUT",
+            "track_id": 7,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256344,
+            "event_type": "OUT",
+            "track_id": 21,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256300,
+            "event_type": "OUT",
+            "track_id": 12,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256385,
+            "event_type": "OUT",
+            "track_id": 25,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256429,
+            "event_type": "OUT",
+            "track_id": 31,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256459,
+            "event_type": "OUT",
+            "track_id": 41,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256491,
+            "event_type": "OUT",
+            "track_id": 44,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256520,
+            "event_type": "OUT",
+            "track_id": 51,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256557,
+            "event_type": "OUT",
+            "track_id": 54,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256643,
+            "event_type": "IN",
+            "track_id": 59,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256680,
+            "event_type": "IN",
+            "track_id": 66,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256755,
+            "event_type": "IN",
+            "track_id": 70,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "61f49b8aa0c4a93ffff0f939cc645fbabf167781524dff28f3ba5735e564ad51"
+      },
+      "released": {
+        "in": 3,
+        "out": 11,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 256184,
+            "event_type": "OUT",
+            "track_id": 3,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256222,
+            "event_type": "OUT",
+            "track_id": 4,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256258,
+            "event_type": "OUT",
+            "track_id": 7,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256344,
+            "event_type": "OUT",
+            "track_id": 21,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256300,
+            "event_type": "OUT",
+            "track_id": 12,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256385,
+            "event_type": "OUT",
+            "track_id": 25,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256429,
+            "event_type": "OUT",
+            "track_id": 31,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256459,
+            "event_type": "OUT",
+            "track_id": 41,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256491,
+            "event_type": "OUT",
+            "track_id": 44,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256520,
+            "event_type": "OUT",
+            "track_id": 51,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256557,
+            "event_type": "OUT",
+            "track_id": 54,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256642,
+            "event_type": "IN",
+            "track_id": 59,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256678,
+            "event_type": "IN",
+            "track_id": 66,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 256751,
+            "event_type": "IN",
+            "track_id": 70,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "6389ade8a7efdcd5131f83c74e7f1116b49928c925c0fc492d7a0ce2aadc4e01"
+      }
+    },
+    {
+      "id": "P02",
+      "scope": "selected_test2_calibration",
+      "manual_in": 10,
+      "manual_out": 0,
+      "baseline": {
+        "in": 6,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 262668,
+            "event_type": "IN",
+            "track_id": 30,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 262709,
+            "event_type": "IN",
+            "track_id": 37,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 262754,
+            "event_type": "IN",
+            "track_id": 40,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 262913,
+            "event_type": "IN",
+            "track_id": 48,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 263018,
+            "event_type": "IN",
+            "track_id": 55,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 263118,
+            "event_type": "IN",
+            "track_id": 61,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "6c09e0228565f75413492a8fb049de923f92acec680b981cf599f5105179c9be"
+      },
+      "released": {
+        "in": 7,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 262252,
+            "event_type": "IN",
+            "track_id": 4,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 262666,
+            "event_type": "IN",
+            "track_id": 30,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 262706,
+            "event_type": "IN",
+            "track_id": 37,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 262753,
+            "event_type": "IN",
+            "track_id": 40,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 262830,
+            "event_type": "IN",
+            "track_id": 48,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 263010,
+            "event_type": "IN",
+            "track_id": 55,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 263116,
+            "event_type": "IN",
+            "track_id": 62,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "c4d64169acef01086adf8f7b856f27067857a6cfd894291326287ae5e542b014"
+      }
+    },
+    {
+      "id": "P03",
+      "scope": "selected_test2_calibration",
+      "manual_in": 0,
+      "manual_out": 2,
+      "baseline": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 0,
+        "events": [],
+        "private_trace_sha256": "cb6196ba98c06c2ea6027ba2fec0208c7ba29d65d523aca6aeba74efa3a01993"
+      },
+      "released": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 0,
+        "events": [],
+        "private_trace_sha256": "310d6e0f31d18efbd37d4dfa16408db459754e9c09ad2bf2df405a7c7f0c9dbb"
+      }
+    },
+    {
+      "id": "P04",
+      "scope": "previously_frozen_additional_check",
+      "manual_in": 1,
+      "manual_out": 4,
+      "baseline": {
+        "in": 0,
+        "out": 3,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 356731,
+            "event_type": "OUT",
+            "track_id": 11,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 357124,
+            "event_type": "OUT",
+            "track_id": 20,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 357153,
+            "event_type": "OUT",
+            "track_id": 18,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "f0df47ce8e6d25985fe43712dd01aa94632f88c3b7c019d50e88c42c9b6a57d5"
+      },
+      "released": {
+        "in": 1,
+        "out": 3,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 356339,
+            "event_type": "IN",
+            "track_id": 8,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 356731,
+            "event_type": "OUT",
+            "track_id": 11,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 357124,
+            "event_type": "OUT",
+            "track_id": 20,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 357153,
+            "event_type": "OUT",
+            "track_id": 18,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "47b7276db51ef52f7e56ad2ee41edb6c1543770d828baf65643b51517ff94b01"
+      }
+    },
+    {
+      "id": "P05",
+      "scope": "previously_frozen_additional_check",
+      "manual_in": 1,
+      "manual_out": 1,
+      "baseline": {
+        "in": 1,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 375982,
+            "event_type": "OUT",
+            "track_id": 13,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 376062,
+            "event_type": "IN",
+            "track_id": 14,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "ca21a267f2709745e04657e208d3712a7fafe4d7984764b81a3af66523cf67fd"
+      },
+      "released": {
+        "in": 1,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 375982,
+            "event_type": "OUT",
+            "track_id": 13,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 376061,
+            "event_type": "IN",
+            "track_id": 14,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "39dadf83a8028fce07ce42865d32484b96671fb703328b077b688523d490872c"
+      }
+    },
+    {
+      "id": "S01",
+      "scope": "previously_frozen_additional_check",
+      "manual_in": 0,
+      "manual_out": 0,
+      "baseline": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 2,
+        "events": [
+          {
+            "crossing_frame": 335045,
+            "event_type": "OUT",
+            "track_id": 17,
+            "counted": false,
+            "reason": "STAFF"
+          },
+          {
+            "crossing_frame": 335058,
+            "event_type": "IN",
+            "track_id": 17,
+            "counted": false,
+            "reason": "STAFF"
+          }
+        ],
+        "private_trace_sha256": "a89c4b0fa31eb972cb35817d15fb75c14b05f390da4e7318c2d55f5d3110e52d"
+      },
+      "released": {
+        "in": 0,
+        "out": 0,
+        "suppressed": 2,
+        "events": [
+          {
+            "crossing_frame": 335045,
+            "event_type": "OUT",
+            "track_id": 17,
+            "counted": false,
+            "reason": "STAFF"
+          },
+          {
+            "crossing_frame": 335058,
+            "event_type": "IN",
+            "track_id": 17,
+            "counted": false,
+            "reason": "STAFF"
+          }
+        ],
+        "private_trace_sha256": "e2db3ebd2e01808f464221c3270164349defba12ad0d840212fbb1be85bcc37b"
+      }
+    },
+    {
+      "id": "P06",
+      "scope": "previously_frozen_additional_check",
+      "manual_in": 3,
+      "manual_out": 0,
+      "baseline": {
+        "in": 3,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 302642,
+            "event_type": "IN",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 302672,
+            "event_type": "IN",
+            "track_id": 11,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 302720,
+            "event_type": "IN",
+            "track_id": 20,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "2cf3ab24c0a6c593ff9e71a05b947963f7d29dc703b93020f90659dc17cffca1"
+      },
+      "released": {
+        "in": 3,
+        "out": 0,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 302642,
+            "event_type": "IN",
+            "track_id": 9,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 302669,
+            "event_type": "IN",
+            "track_id": 11,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 302719,
+            "event_type": "IN",
+            "track_id": 20,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "5c25040c7b66172ed3481821437fb32f815e81f727c5d4eadfc103b72597c699"
+      }
+    },
+    {
+      "id": "P07",
+      "scope": "previously_frozen_additional_check",
+      "manual_in": 1,
+      "manual_out": 1,
+      "baseline": {
+        "in": 1,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 307120,
+            "event_type": "OUT",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 307181,
+            "event_type": "IN",
+            "track_id": 7,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "c4d0f68b5c4b53224983b7c8de20ee7c1f383f4b83d6466731b68d211b224991"
+      },
+      "released": {
+        "in": 1,
+        "out": 1,
+        "suppressed": 0,
+        "events": [
+          {
+            "crossing_frame": 307120,
+            "event_type": "OUT",
+            "track_id": 1,
+            "counted": true,
+            "reason": "COUNTED"
+          },
+          {
+            "crossing_frame": 307180,
+            "event_type": "IN",
+            "track_id": 7,
+            "counted": true,
+            "reason": "COUNTED"
+          }
+        ],
+        "private_trace_sha256": "d44fc1717769bdf759fc1543c9c45fa07a969933adc7f128ec82f40e9b93bb00"
+      }
+    }
+  ],
+  "identity_pairs": {
+    "baseline": {
+      "pairs": [
+        {
+          "left": "boy_140",
+          "right": "boy_200",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "boy_200",
+          "right": "boy_252",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "green_800",
+          "right": "green_830",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "checked_913",
+          "right": "checked_920",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "green_830",
+          "right": "checked_920",
+          "same_person": false,
+          "tracker": "incorrect",
+          "identity": "incorrect"
+        }
+      ],
+      "summary": {
+        "tracker": {
+          "correct": 4,
+          "incorrect": 1,
+          "unresolved": 0
+        },
+        "identity": {
+          "correct": 4,
+          "incorrect": 1,
+          "unresolved": 0
+        }
+      }
+    },
+    "released": {
+      "pairs": [
+        {
+          "left": "boy_140",
+          "right": "boy_200",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "boy_200",
+          "right": "boy_252",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "green_800",
+          "right": "green_830",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "checked_913",
+          "right": "checked_920",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "green_830",
+          "right": "checked_920",
+          "same_person": false,
+          "tracker": "correct",
+          "identity": "correct"
+        }
+      ],
+      "summary": {
+        "tracker": {
+          "correct": 5,
+          "incorrect": 0,
+          "unresolved": 0
+        },
+        "identity": {
+          "correct": 5,
+          "incorrect": 0,
+          "unresolved": 0
+        }
+      }
+    }
+  },
+  "actual_pipeline": {
+    "baseline": {
+      "in": 6,
+      "out": 0,
+      "frames": 1201,
+      "processing_fps": 15.076910843506322,
+      "cpu_threads": 4,
+      "staff_mode": "model",
+      "drift_threshold": 0.0,
+      "mean_ms": {
+        "read": 0.8611610324740826,
+        "detector": 61.62500890923676,
+        "yolo": 44.00794138215121,
+        "reid": 10.045362781021018,
+        "counter": 0.7325791839177144
+      },
+      "private_report_sha256": "b9fe6b08d413e05bf758f76e0b86e8a836490ad935399d9f4758ec5c6856e2a1",
+      "pairs": {
+        "tracker": {
+          "correct": 4,
+          "incorrect": 1,
+          "unresolved": 0
+        },
+        "identity": {
+          "correct": 4,
+          "incorrect": 1,
+          "unresolved": 0
+        }
+      }
+    },
+    "released": {
+      "in": 7,
+      "out": 0,
+      "frames": 1201,
+      "processing_fps": 15.413520498903054,
+      "cpu_threads": 4,
+      "staff_mode": "model",
+      "drift_threshold": 0.6,
+      "mean_ms": {
+        "read": 0.8306653620575366,
+        "detector": 60.22648634459076,
+        "yolo": 42.06241681947375,
+        "reid": 10.438719566804446,
+        "counter": 0.7585465446193831
+      },
+      "private_report_sha256": "e8fdb395801c2216bc51df90448c3791ce01ca1721a2333f1cc08cae9184d6fc",
+      "pairs": {
+        "tracker": {
+          "correct": 5,
+          "incorrect": 0,
+          "unresolved": 0
+        },
+        "identity": {
+          "correct": 5,
+          "incorrect": 0,
+          "unresolved": 0
+        }
+      }
+    }
+  },
+  "selected_eight_review": {
+    "manual_passages": 28,
+    "baseline_matched": 20,
+    "released_matched": 21,
+    "released_missed": 7,
+    "released_false_positive": 0,
+    "note": "P01 has the same 14 people/events, IN times shift by 1-4 frames. P02 now counts boy and green puffer; checked coat remains missed. Current seven counted P02 passages visually reviewed."
+  },
+  "additional_review": {
+    "P04_P05_manual": 7,
+    "baseline_matched": 5,
+    "released_matched": 6,
+    "remaining_missed": 1,
+    "P06_P07_manual": 5,
+    "P06_P07_matched": 5
+  },
+  "limits": [
+    "Green-to-checked handoff is detected late; intermediate ambiguous frames can still use the old ID.",
+    "Five pair checks are calibration on one scene, not general identity accuracy.",
+    "Real hourly return reliability is still unproven. Source contains edits/clock jumps.",
+    "Full recording not processed. No new weights or production database/state changes."
+  ],
+  "reviewed_p02_events": [
+    {
+      "crossing_frame": 262252,
+      "person": "boy in gray puffer, same person despite rear view of fur-lined hood"
+    },
+    {
+      "crossing_frame": 262666,
+      "person": "first tan coat"
+    },
+    {
+      "crossing_frame": 262706,
+      "person": "gray coat, white cap"
+    },
+    {
+      "crossing_frame": 262753,
+      "person": "second tan coat"
+    },
+    {
+      "crossing_frame": 262830,
+      "person": "green puffer; checked coat following behind is a different person"
+    },
+    {
+      "crossing_frame": 263010,
+      "person": "lavender/gray hat and coat"
+    },
+    {
+      "crossing_frame": 263116,
+      "person": "ponytail, pale coat"
+    }
+  ]
+}

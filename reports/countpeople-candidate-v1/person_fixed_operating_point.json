@@ -1,0 +1,40 @@
+[
+  {
+    "model": "models/candidates/person_test2_v2.onnx",
+    "confidence": 0.3,
+    "iou": 0.5,
+    "annotation_sha256": "62d51152d4e650fa45a754d2a22e38d77d61cb0207779329b19b4b34283fb21b",
+    "splits": {
+      "test": {
+        "images": 165,
+        "tp": 194,
+        "fp": 56,
+        "fn": 36,
+        "precision": 0.776,
+        "recall": 0.8434782608695652,
+        "f1": 0.8083333333333333,
+        "empty_images": 6,
+        "false_alarm_empty_images": 0
+      }
+    }
+  },
+  {
+    "model": ".local/countpeople_training/final/person.onnx",
+    "confidence": 0.3,
+    "iou": 0.5,
+    "annotation_sha256": "62d51152d4e650fa45a754d2a22e38d77d61cb0207779329b19b4b34283fb21b",
+    "splits": {
+      "test": {
+        "images": 165,
+        "tp": 192,
+        "fp": 30,
+        "fn": 38,
+        "precision": 0.8648648648648649,
+        "recall": 0.8347826086956521,
+        "f1": 0.8495575221238938,
+        "empty_images": 6,
+        "false_alarm_empty_images": 0
+      }
+    }
+  }
+]
