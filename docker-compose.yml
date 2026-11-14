@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-bus_analytics}
+      POSTGRES_USER: ${DB_USER:-bus_counter}
+      POSTGRES_PASSWORD: ${DB_PASS:?Set DB_PASS in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  counter_service:
+    build: .
+    restart: on-failure
+    init: true
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file: ${COUNTER_ENV_FILE:-.env}
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      STATE_PATH: /app/state/runtime.sqlite3
+    volumes:
+      - ./models:/app/models:ro
+      - ./data:/app/data:ro
+      - counter_state:/app/state
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  pgdata:
+  counter_state:

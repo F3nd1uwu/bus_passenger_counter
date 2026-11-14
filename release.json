@@ -1,0 +1,219 @@
+{
+  "format": "server_distribution_v1",
+  "source_commit": "c40e3ffef8557d3421708aadbe276d5149000a74",
+  "source_branch": "diploma",
+  "deployment_branch": "server",
+  "source_repository": "https://github.com/F3nd1uwu/bus_passenger_counter",
+  "profile": "test2",
+  "child_filter": "disabled; experimental model assets omitted",
+  "files": {
+    ".dockerignore": {
+      "sha256": "64384ca96671469dde7e8ae4bed72bc9bf040893c9e92eaffc264e9ec50356d7",
+      "bytes": 143
+    },
+    ".editorconfig": {
+      "sha256": "d2c034664ed4a0c92b58d4a7e4b68eef7c7a76b07012d799138293eab5f752de",
+      "bytes": 213
+    },
+    ".env.example": {
+      "sha256": "452bb3c5f1bd86f410a033c9c8642f3f5c94cede6bff2ce1f421feb443445672",
+      "bytes": 952
+    },
+    ".gitattributes": {
+      "sha256": "6dcacd31b9bf1c4509c241e3c74041a4670bd597fa02b5451403910702d5168c",
+      "bytes": 739
+    },
+    ".github/workflows/ci.yml": {
+      "sha256": "1f30da0d35be7b0c44255174b36f32d2378a1183289abf8dd5b4b5776381f922",
+      "bytes": 1174
+    },
+    ".gitignore": {
+      "sha256": "5b06056e0814daf1abefc5b30a6dd98eef7832bf19d2add69681a9b6edeec4ad",
+      "bytes": 201
+    },
+    "Dockerfile": {
+      "sha256": "72665946e94cca2477d44f23ca71696f7df0bb81c393c74cee377b8099456a4c",
+      "bytes": 848
+    },
+    "README.md": {
+      "sha256": "0746172ee17721f5d1af16ac2cb84732afc1acb879b8c9e1fae04d1fb91c0609",
+      "bytes": 10242
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "sha256": "9e66a3d5f91d5ce4a5de1b926ddc368556031c6f9b68bc908c4b6d273d20443d",
+      "bytes": 1235
+    },
+    "botsort_reid.yaml": {
+      "sha256": "b9feabb2b69700f4995ff8ac39db935d4db7f295850301d43232d939cb545e43",
+      "bytes": 234
+    },
+    "config/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "config/profiles.py": {
+      "sha256": "6fde132b28839d8aa98802a3db5302177f367e7c7966d1bff651df6beda95a3d",
+      "bytes": 1106
+    },
+    "config/profiles/test2.json": {
+      "sha256": "fbfa7ec60bb97a077c760f9be420389af5e3aa1199f0c60401958aa36b2ed249",
+      "bytes": 512
+    },
+    "config/settings.py": {
+      "sha256": "0fc5e2d0e58ca73ce0095af0b3409f1579de66e5fb8ee405eb94087c2ad86567",
+      "bytes": 5884
+    },
+    "core/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "core/appearance_tracker.py": {
+      "sha256": "0e03516752097b189bebb4fc508118f6ec06b0d0230bc4c4a57ab3609af39cfd",
+      "bytes": 12482
+    },
+    "core/child_filter.py": {
+      "sha256": "4d74b05495533dbda2909978344afe847d0f21ad26b8fecf0e2da5692ebe10a1",
+      "bytes": 12596
+    },
+    "core/cli.py": {
+      "sha256": "f455d267e552893b47d9bc2a84dccb5232ed9db8b63805bbf3fc91ec8fcefa43",
+      "bytes": 3850
+    },
+    "core/counter_engine.py": {
+      "sha256": "ca890a952aaf85ccfeaf0c096e93390cf70dabbcddc8e97d2028f77ed6af2b33",
+      "bytes": 21634
+    },
+    "core/detector.py": {
+      "sha256": "879f3d6b3df869961d6c9c89215c7118a453d04b08b575facd214232ab7b1d4d",
+      "bytes": 10055
+    },
+    "core/door_sensor.py": {
+      "sha256": "4ebe17bfe708aad12bf75facdca79c859888d5243cd28c114dc85a8099f2bcc8",
+      "bytes": 376
+    },
+    "core/onnx_runtime.py": {
+      "sha256": "cd584343ef384416ff19e70a8bf9e359309af51eec3035b7538f4758c80aa984",
+      "bytes": 509
+    },
+    "core/person_detections.py": {
+      "sha256": "6692ef5ad5ed99db07db72ff563f3a7c1d85a5c2bc7e437c4d9a6a0bf4fe55f2",
+      "bytes": 1631
+    },
+    "core/preview_player.py": {
+      "sha256": "da397946c26a69325da3721767ce9ebd8c235b63235c5af91b79b2490a1dc3bf",
+      "bytes": 2877
+    },
+    "core/reid.py": {
+      "sha256": "55b519eda16eea9f85ec5a8f122b2decc185de057a8f84b86934f36369eb32da",
+      "bytes": 3748
+    },
+    "core/service.py": {
+      "sha256": "9d62a70e9b8972fe72bdf3c9faf283e4c4e867caa0efac69f8e755d1746d6ef1",
+      "bytes": 14221
+    },
+    "core/staff_manager.py": {
+      "sha256": "ea78b3651a3313351794069880a14311332e0f9ff5640b601f3b3f2284426fa3",
+      "bytes": 748
+    },
+    "core/types.py": {
+      "sha256": "b3a8835ddd81637483f79c8e0bc7097f9fdad3050932ab84e16d3c3e2db1661a",
+      "bytes": 1309
+    },
+    "core/vest_classifier.py": {
+      "sha256": "63c824c4ffe428132fde7bfe1bd1cdd43138f2f9bae94fdf0fc6f5372012cea5",
+      "bytes": 9925
+    },
+    "core/video_source.py": {
+      "sha256": "5dcf91d692c333816821b56c5e4fd01bf089685c65977fc8c52f0671b58aa294",
+      "bytes": 5658
+    },
+    "core/visualization.py": {
+      "sha256": "976c2acec653b30459b7a1fc5460fccf9484a692a1e07e477a24a841a36bcea5",
+      "bytes": 4245
+    },
+    "data/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "database/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "database/db_client.py": {
+      "sha256": "2bc35181ee53080947a8a5828f4bc3695a96da10c3ba71202b5c3f57649fdfbd",
+      "bytes": 5219
+    },
+    "database/local_store.py": {
+      "sha256": "be4673670a597d1de5a5766c92625b31115771e0c4958771d317e673e2807826",
+      "bytes": 3313
+    },
+    "database/schema.sql": {
+      "sha256": "f870ac2cac51d8ab52eea6847c5c8b5d36b73f0e375deec6cacf17f52ce5ccee",
+      "bytes": 2313
+    },
+    "docker-compose.yml": {
+      "sha256": "fc24184a10a2987b4576c5e53c5456ae2db6775b110f117cc435aad857555e0e",
+      "bytes": 1172
+    },
+    "main.py": {
+      "sha256": "d6b7bc164c391e2b69814227902734ca404d89f9afb3c2b1a07b6fe9af18a914",
+      "bytes": 64
+    },
+    "models/README.md": {
+      "sha256": "c7c81a6e772dd580fa9a4999a5669b890a23ade41342a79218583e0053afb100",
+      "bytes": 1436
+    },
+    "models/candidates/person_test2_v2.json": {
+      "sha256": "820206c8cffb1394b58da83be372da65beb1a41ade8206bebeed68e5f350f734",
+      "bytes": 1521
+    },
+    "models/candidates/person_test2_v2.onnx": {
+      "sha256": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+      "bytes": 10097840
+    },
+    "models/candidates/work_vest_v3.json": {
+      "sha256": "4cc87b69af3878326ce7085c91ba05830c271fa71a62021bc15761eb9bafb27c",
+      "bytes": 1617
+    },
+    "models/candidates/work_vest_v3.onnx": {
+      "sha256": "a26aaf018050308298469d40aca831df602251ca6b14a87562d7f6ffdbf90671",
+      "bytes": 9726342
+    },
+    "models/person_reid.json": {
+      "sha256": "56d1a2cbacee9929c8f63719072d9b7d40a1e51f775bc5960855e82a081a9627",
+      "bytes": 675
+    },
+    "models/person_reid.onnx": {
+      "sha256": "38b3dd2c2acb0bd191d27eff6707dc5428de63fc7395a6f4ae0cb6392ef2acfa",
+      "bytes": 873975
+    },
+    "requirements.txt": {
+      "sha256": "0e2713c8de506481bd0d4f2a810c85f0417950e9e8c623f91d761f3d5bb6ecd8",
+      "bytes": 181
+    },
+    "test_local.py": {
+      "sha256": "47ee9143969c2618107cf3b77bd2ab9e82f95b08d8aff84eab3259a4b6041fa8",
+      "bytes": 157
+    },
+    "third_party/OSNET_LICENSE.txt": {
+      "sha256": "3ac8ce2a83d170cb1c7c84152e0c1faca1f187794303514383960d2441716247",
+      "bytes": 1069
+    },
+    "third_party/ULTRALYTICS_LICENSE.txt": {
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "bytes": 34523
+    },
+    "tools/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "tools/setup_env.py": {
+      "sha256": "4b138ce943242e022bea687b19b439b35010035f6c054880cc56e58787ae6eaf",
+      "bytes": 648
+    },
+    "tools/verify_release.py": {
+      "sha256": "33512c85448f853a96973eefda8910970a2cd1388667ac6dce207f88dffce620",
+      "bytes": 3519
+    }
+  }
+}

@@ -1,0 +1,18 @@
+* text=auto eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.sql text eol=lf
+*.txt text eol=lf
+*.csv text eol=lf
+*.onnx binary
+*.torchscript binary
+# Preserve the upstream license verbatim, including its original whitespace.
+models/candidates/LICENSE.child_vision.txt -whitespace
+# Preserve the bytes of evidence whose SHA-256 was frozen before inference.
+reports/independent-audit-2026-11-08/labels/frozen/*.json -text whitespace=cr-at-eol
+reports/test2-2026-11-13/manual_passengers_frozen.json -text whitespace=cr-at-eol
+reports/countpeople-candidate-v1/manual_holdout.json -text whitespace=cr-at-eol
+reports/countpeople-candidate-v1/manual_staff_holdout.json -text whitespace=cr-at-eol
