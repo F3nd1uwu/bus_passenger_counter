@@ -1,0 +1,80 @@
+{
+  "status": "candidate_rejected",
+  "candidate": "spatial consensus of existing garment v2 and v3, IoU >= 0.3",
+  "threshold": 0.2,
+  "confirm_samples": 2,
+  "rows": [
+    {
+      "case": "N01",
+      "review_role": "ordinary_outerwear_negative",
+      "source": "data/test.mp4",
+      "crossing_frame": 81396,
+      "v3_staff_events": 1,
+      "consensus_staff_events": 1,
+      "max_score": 0.4488861560821533,
+      "maximum_consecutive_pair_minimum": 0.3394184410572052,
+      "trace_sha256": "38036952c62488e3df7415e483ac08da31c80fa51b1385b5a6fe1a55bd90c618"
+    },
+    {
+      "case": "N06",
+      "review_role": "ordinary_outerwear_negative",
+      "source": "data/test.mp4",
+      "crossing_frame": 228431,
+      "v3_staff_events": 1,
+      "consensus_staff_events": 1,
+      "max_score": 0.7870281338691711,
+      "maximum_consecutive_pair_minimum": 0.48699435591697693,
+      "trace_sha256": "f9a7a56bcded91e357254dfdbeedd0402ad6bacfba9de1d9ae28f751804a9d33"
+    },
+    {
+      "case": "N10",
+      "review_role": "ordinary_outerwear_negative",
+      "source": "data/test.mp4",
+      "crossing_frame": 342783,
+      "v3_staff_events": 1,
+      "consensus_staff_events": 1,
+      "max_score": 0.5331588983535767,
+      "maximum_consecutive_pair_minimum": 0.33608001470565796,
+      "trace_sha256": "19214595cea1ad08a02c21a59ba4d4d523a843b5293ed6d788ebb4d70e0de43d"
+    },
+    {
+      "case": "V01",
+      "review_role": "known_driver_positive",
+      "source": "data/test2.mp4",
+      "crossing_frame": 25395,
+      "v3_staff_events": 1,
+      "consensus_staff_events": 1,
+      "max_score": 0.8914563655853271,
+      "maximum_consecutive_pair_minimum": 0.8590715527534485,
+      "trace_sha256": "a9ae48ae6164b47127bea49cfb9270c6c77b1d3289c819397c245bd9ff66fc42"
+    },
+    {
+      "case": "V03",
+      "review_role": "known_driver_positive",
+      "source": "data/test2.mp4",
+      "crossing_frame": 146768,
+      "v3_staff_events": 1,
+      "consensus_staff_events": 1,
+      "max_score": 0.41107290983200073,
+      "maximum_consecutive_pair_minimum": 0.2002621293067932,
+      "trace_sha256": "ce9b0f7faed4a611ce4e3f963afc59be660127ec58a49f9357baff368a8be4d7"
+    },
+    {
+      "case": "V05",
+      "review_role": "known_driver_positive",
+      "source": "data/test2.mp4",
+      "crossing_frame": 395187,
+      "v3_staff_events": 1,
+      "consensus_staff_events": 1,
+      "max_score": 0.8997863531112671,
+      "maximum_consecutive_pair_minimum": 0.8590893745422363,
+      "trace_sha256": "51325863249d611d0ecf61fcfb575934701ad10221ef1fc40ee5e6178e8e2c47"
+    }
+  ],
+  "limits": [
+    "Three selected failure cases, not independent random sample or full-video accuracy",
+    "Positive driver controls were used in previous project development",
+    "Frames were replayed through the tracker and counter; inference was cached",
+    "No new weights or thresholds activated"
+  ]
+}
