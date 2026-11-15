@@ -282,3 +282,98 @@ class PostgresTests(unittest.TestCase):
                 day, stamp = cur.fetchone()
             self.assertEqual(day, '2026-11-01')
             self.assertAlmostEqual((stamp - start).total_seconds(), .4, places=2)
+
+    def test_resume_uses_media_cursor_when_decoder_frame_index_is_skewed(self):
+        from datetime import timedelta
+        from core.video_source import VideoFrame
+        from core.service import configuration_key
+
+        class DetectorStub:
+            def __init__(self, *a, **kw):
+                pass
+
+            def reset(self):
+                pass
+
+            def detect(self, frame):
+                y = round(float(frame.mean()) / 10) * 10
+                return [Detection(1, (40, y - 10, 60, y + 10), 1, np.array([1, 0]), 0)]
+
+        class SkewedReader:
+            def __init__(self, cfg, start, resume_frame=0, **kw):
+                self.actual = resume_frame
+                self.index = resume_frame + 2
+                self.start = start
+                self.eof = False
+                self.fps = 10
+
+            def read(self):
+                if self.actual == 6:
+                    self.eof = True
+                    return None
+                y = [20, 20, 50, 80, 80, 80][self.actual]
+                pts = self.actual / 10
+                result = VideoFrame(np.full((100, 100, 3), y, np.uint8),
+                                    self.start + timedelta(seconds=pts), self.index,
+                                    self.actual == 0, pts)
+                self.actual += 1
+                self.index += 1
+                return result
+
+            def close(self):
+                pass
+
+        with tempfile.TemporaryDirectory() as folder, patch('core.service.PersonDetector', DetectorStub):
+            cfg = self._service_config(folder)
+            self.source_key = configuration_key(cfg)
+            self.assertEqual(run(cfg, max_frames=3)['in'], 0)
+            with patch('core.service.VideoSource', SkewedReader):
+                self.assertEqual(run(cfg)['in'], 1)
+            store = LocalStore(cfg.STATE_PATH)
+            try:
+                payload = store.load()['payload']
+                self.assertEqual(payload['next_frame'], 6)
+                self.assertAlmostEqual(payload['last_media_seconds'], .5)
+            finally:
+                store.close()
+            with self.db.get_cursor() as cur:
+                cur.execute('SELECT COUNT(*) FROM raw_passenger_events WHERE bus_id=%s AND counted', (self.bus,))
+                self.assertEqual(cur.fetchone()[0], 1)
+
+    @unittest.skipUnless(os.getenv('RUN_ARCHIVE_REGRESSION') == '1', 'Private MP4 and prepared camera map')
+    def test_real_mp4_resume_near_an_edit_uses_saved_pts(self):
+        from core.camera_clock import ClockMap
+        from core.service import configuration_key
+        from config.settings import ROOT
+
+        class EmptyDetector:
+            def __init__(self, *a, **kw):
+                pass
+
+            def reset(self):
+                pass
+
+            def detect(self, frame):
+                return []
+
+        with tempfile.TemporaryDirectory() as folder, patch('core.service.PersonDetector', EmptyDetector):
+            cfg = replace(self._service_config(folder), VIDEO_SOURCE=str(ROOT / 'data/test.mp4'),
+                          TIME_SOURCE='camera', CLOCK_MAP_PATH=str(ROOT / 'data/test.clock.json'))
+            clock = ClockMap.load(cfg.path(cfg.CLOCK_MAP_PATH), cfg)
+            point = next(row for row in clock.payload['observations'] if row['frame'] == 214875)
+            stamp, _ = clock.at(point['frame'], point['pts'])
+            engine = PassengerCounterEngine(cfg)
+            engine.update(np.zeros((480, 640, 3), np.uint8), [], stamp)
+            self.source_key = configuration_key(cfg)
+            store = LocalStore(cfg.STATE_PATH)
+            store.save(self.source_key, dict(bus_id=self.bus, camera_id=cfg.CAMERA_ID,
+                       engine=engine.snapshot(), next_frame=214876, last_media_seconds=point['pts'], completed=False))
+            store.close()
+            self.assertEqual(run(cfg, max_frames=20)['frames'], 20)
+            store = LocalStore(cfg.STATE_PATH)
+            try:
+                saved = store.load()['payload']
+                self.assertEqual(saved['next_frame'], 214896)
+                self.assertGreater(saved['last_media_seconds'], point['pts'])
+            finally:
+                store.close()

@@ -4,6 +4,7 @@ from collections import deque
 import hashlib
 import json
 import logging
+import math
 import signal
 from threading import Event
 import time
@@ -146,6 +147,8 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
     segment_start = start_frame
     frame_times = deque(maxlen=30)
     buffered_events = []
+    last_media_seconds = resume_media_seconds = None
+    align_resume_cursor = False
     try:
         start = parse_start(cfg.VIDEO_START) if cfg.TIME_SOURCE == "pts" else None
         if not preview:
@@ -176,6 +179,23 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
                     synchronize(store, db)
                     log.info("Recording already completed; pending events delivered")
                     return {"frames": 0, "in": engine.total_in, "out": engine.total_out}
+                resume_media_seconds = saved['payload'].get('last_media_seconds')
+                if resume_media_seconds is None and engine.last_timestamp is not None:
+                    if cfg.TIME_SOURCE == 'pts':
+                        resume_media_seconds = engine.last_timestamp - start.timestamp()
+                    else:
+                        for i, segment in enumerate(clock_map.segments):
+                            media = engine.last_timestamp - segment['offset']
+                            lo = clock_map.pts_starts[i]
+                            hi = clock_map.pts_starts[i + 1] if i + 1 < len(clock_map.segments) else float('inf')
+                            if lo <= media < hi:
+                                resume_media_seconds = media
+                                break
+                if resume_media_seconds is not None:
+                    if not isinstance(resume_media_seconds, (int, float)) or not math.isfinite(resume_media_seconds) or resume_media_seconds < 0:
+                        raise ValueError('Invalid saved media cursor; restore a consistent checkpoint')
+                    last_media_seconds = resume_media_seconds
+                    align_resume_cursor = True
                 log.info("Restored checkpoint revision %s; queued events %s", saved["revision"], store.pending_count())
         resume_at = max(0, next_frame - cfg.REPLAY_FRAMES) if kind == "file" and not preview else next_frame
         reader = VideoSource(cfg, start=start, resume_frame=resume_at, stop=stop, clock_map=clock_map)
@@ -223,7 +243,14 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
                     completed = True
                     break
                 continue
-            warmup = not preview and packet.index < next_frame
+            warmup = not preview and (packet.media_seconds <= resume_media_seconds + 1e-7
+                                      if resume_media_seconds is not None else packet.index < next_frame)
+            if align_resume_cursor and not warmup:
+                # MP4 random seeks may report a frame index a few frames off.
+                # Decode through the saved PTS, then restore the logical cursor.
+                packet.index = next_frame + (-next_frame % cfg.FRAME_STRIDE)
+                reader.index = packet.index + 1
+                align_resume_cursor = False
             reset_events = []
             if packet.discontinuity or packet.time_discontinuity:
                 detector.reset()
@@ -235,12 +262,13 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
             events = reset_events + (engine.update(packet.image, detections, packet.timestamp,
                                      child_observations=getattr(detector, 'child_observations', ())) if engine else [])
             next_frame = packet.index + 1
+            last_media_seconds = packet.media_seconds
             if store:
                 buffered_events.extend(events)
             if store and (time.monotonic() - last_checkpoint >= cfg.CHECKPOINT_INTERVAL_SEC or len(buffered_events) >= 500):
                 store.save(source_key, {"bus_id": cfg.BUS_ID, "camera_id": cfg.CAMERA_ID,
                                         "engine": engine.snapshot(), "next_frame": next_frame,
-                                        "completed": False}, buffered_events)
+                                        "completed": False, "last_media_seconds": last_media_seconds}, buffered_events)
                 buffered_events.clear()
                 last_checkpoint = time.monotonic()
             for event in events:
@@ -280,7 +308,7 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
             unresolved = engine.finish() if completed else []
             store.save(source_key, {"bus_id": cfg.BUS_ID, "camera_id": cfg.CAMERA_ID,
                                     "engine": engine.snapshot(), "next_frame": next_frame,
-                                    "completed": completed}, buffered_events + unresolved)
+                                    "completed": completed, "last_media_seconds": last_media_seconds}, buffered_events + unresolved)
         elif preview and engine:
             # A preview stopped by max-frames/Q has no persistent checkpoint.
             # Resolve ready delayed crossings before returning its final totals.

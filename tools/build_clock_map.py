@@ -5,6 +5,7 @@ import json
 import logging
 import math
 import sqlite3
+import re
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 from pathlib import Path
@@ -13,7 +14,7 @@ import time
 import cv2
 
 from config.settings import Settings
-from core.camera_clock import ClockMap, ClockRecognizer, parse_clock, sha256
+from core.camera_clock import ClockMap, ClockRecognizer, DATE_PATTERN, parse_clock, sha256, write_json_atomic
 from core.video_source import source_kind
 
 log = logging.getLogger(__name__)
@@ -79,8 +80,12 @@ def build(cfg, output, *, interval=5.0, end_frame=None):
                      roi=cfg.CLOCK_ROI, timezone=cfg.TIMEZONE, confidence=cfg.CLOCK_MIN_CONFIDENCE, end_frame=end_frame)
     observations = {}
     if cache_path.is_file():
-        cached = json.loads(cache_path.read_text(encoding="utf-8"))
-        if cached["key"] == cache_key:
+        try:
+            cached = json.loads(cache_path.read_text(encoding="utf-8"))
+        except (ValueError, OSError):
+            log.warning("Incomplete OCR cache; rescanning the source")
+            cached = {}
+        if cached.get("key") == cache_key:
             for stored_row in cached['observations']:
                 row = {key: stored_row[key] for key in ('frame', 'pts', 'text', 'confidence', 'read_frame')}
                 row.update({key: stored_row[key] for key in ('raw_text', 'time_text', 'date_inferred') if key in stored_row})
@@ -160,8 +165,10 @@ def build(cfg, output, *, interval=5.0, end_frame=None):
                     cached_frames = {row[0] for row in crop_db.execute('SELECT frame FROM crops')}
                     log.info('Decoding montage brackets sequentially into disk cache; %s crops already cached', len(cached_frames))
                     # Store cropped clocks on disk, not an unbounded image bank in RAM.
+                    missing_crops = sorted({frame for lo,hi in fine_ranges
+                                            for frame in range(max(0,lo), min(end-1,hi)+1) if frame not in cached_frames})
                     count = 0
-                    for frame, pts, crop in scan_crops(source, fine_ranges, end, fps, roi):
+                    for frame, pts, crop in scan_crops(source, [(i,i) for i in missing_crops], end, fps, roi):
                         if frame in cached_frames:
                             continue
                         packed = cv2.imencode('.png', crop, [cv2.IMWRITE_PNG_COMPRESSION, 1])[1].tobytes()
@@ -193,16 +200,16 @@ def build(cfg, output, *, interval=5.0, end_frame=None):
                 if number % 100 == 0:
                     log.info('Sequential clock scan: %s/%s samples, frame %s', number + 1, len(missing_indices), index)
                     cache_path.parent.mkdir(parents=True, exist_ok=True)
-                    cache_path.write_text(json.dumps(dict(key=cache_key, observations=list(observations.values())), ensure_ascii=False), encoding='utf-8')
+                    write_json_atomic(cache_path, dict(key=cache_key, observations=list(observations.values())))
         anchors = []
         for number, index in enumerate(indices):
             anchors.append(probe(index, strict=False))
             if number % 100 == 0:
                 cache_path.parent.mkdir(parents=True, exist_ok=True)
-                cache_path.write_text(json.dumps(dict(key=cache_key, observations=list(observations.values())), ensure_ascii=False), encoding='utf-8')
+                write_json_atomic(cache_path, dict(key=cache_key, observations=list(observations.values())))
                 log.info('Clock scan: %s/%s samples, frame %s', number + 1, len(indices), index)
         cache_path.parent.mkdir(parents=True, exist_ok=True)
-        cache_path.write_text(json.dumps(dict(key=cache_key, observations=list(observations.values())), ensure_ascii=False), encoding="utf-8")
+        write_json_atomic(cache_path, dict(key=cache_key, observations=list(observations.values())))
         if anchors[0]['timestamp'] is None or anchors[-1]['timestamp'] is None:
             raise ValueError("Start/end camera clock unreadable: review ROI or explicitly exclude verified credits with --end-frame")
         for row in anchors:
@@ -286,12 +293,54 @@ def build(cfg, output, *, interval=5.0, end_frame=None):
             if delta <= 1.5:
                 left = right
                 continue
+            hinted = set()
+
+            def classify_full(index):
+                row = probe(index, strict=False)
+                if row['offset'] is not None:
+                    distances = [abs(row['offset'] - side['offset']) for side in (left, right)]
+                    if min(distances) <= 1.5:
+                        return int(distances[1] < distances[0])
+                return None
+
             def classify(index):
                 row = probe(index, strict=False)
-                if row['offset'] is None:
+                full = classify_full(index)
+                if full is not None:
+                    return full
+                # A partial hint is never a timestamp and cannot confirm an
+                # anchor; weaker text is allowed only with mandatory review.
+                if row['confidence'] < min(cfg.CLOCK_MIN_CONFIDENCE, .70):
                     return None
-                distances = [abs(row['offset'] - side['offset']) for side in (left, right)]
-                return int(distances[1] < distances[0]) if min(distances) <= 1.5 else None
+                # At a known edit, partial clock text can disambiguate two
+                # already verified timelines without inventing a timestamp.
+                # The seconds still come from the verified segment offset.
+                candidates = set()
+                for text in {row.get('raw_text', row['text']), row['text']}:
+                    date = DATE_PATTERN.search(text)
+                    if date is None:
+                        continue
+                    tail = re.sub(r'[:. +\-]+', ':', text[date.end():])
+                    match = re.search(r'(?<!\d)(\d{2}):(\d{2})(?::(\d{2}))?', tail)
+                    if match is None:
+                        continue
+                    hour, minute = map(int, match.groups()[:2])
+                    second = int(match.group(3)) if match.group(3) is not None else None
+                    for side, anchor in enumerate((left, right)):
+                        expected = datetime.fromtimestamp(anchor['offset'] + row['pts'], timezone.utc).astimezone(ZoneInfo(cfg.TIMEZONE))
+                        hhmm = hour == expected.hour and minute == expected.minute
+                        mmss = False
+                        if second is not None and minute < 60 and second < 60:
+                            distance = abs((minute * 60 + second) - (expected.minute * 60 + expected.second + expected.microsecond / 1e6))
+                            mmss = min(distance, 3600 - distance) <= 1.5
+                        if hhmm or mmss:
+                            candidates.add(side)
+                if len(candidates) == 1:
+                    side = candidates.pop()
+                    hinted.add(index)
+                    row['partial_clock_edit_hint'] = 'HH:MM or MM:SS; timestamp from verified anchor'
+                    return side
+                return None
 
             # Scan the entire bracket: an isolated OCR error need not be at the
             # actual cut. Binary search alone can mistake it for a dissolve.
@@ -300,9 +349,9 @@ def build(cfg, output, *, interval=5.0, end_frame=None):
             sides = {index: classify(index) for index in positions}
             old = [i for i in positions if sides[i] == 0]
             new = [i for i in positions if sides[i] == 1]
-            supported = len(new) >= 2
+            supported = sum(classify_full(index) == 1 for index in positions) >= 2
             if not supported:
-                supported = any(classify(index) == 1 for index in
+                supported = any(classify_full(index) == 1 for index in
                                 (right['frame'] + shift for shift in (5, 10, 20, 40, -5, -10))
                                 if 0 <= index < end and index != right['frame'])
             if not supported:
@@ -314,23 +363,41 @@ def build(cfg, output, *, interval=5.0, end_frame=None):
                 continue
             if not old or not new:
                 raise ValueError(f"No readable clocks around montage frame {right['frame']}")
-            # Mixed old/new glyphs inside a dissolve are explicitly reviewed.
-            first_new, last_old = min(new), max(old)
-            if last_old < first_new:
-                lo, hi = last_old, first_new
-                for index in range(lo + 1, hi):
-                    sides[index] = classify(index)
-                old = [i for i, side in sides.items() if side == 0]
-                new = [i for i, side in sides.items() if side == 1]
-                first_new, last_old = min(new), max(old)
-            if last_old < first_new:
-                lo, hi = last_old, first_new
-            else:
-                lo = max((i for i in old if i < first_new), default=left['frame'])
-                hi = min((i for i in new if i > last_old), default=right['frame'])
+            def fit_step(labels):
+                sequence = sorted((frame, side) for frame,side in labels.items() if side is not None)
+                total_old = sum(side == 0 for _,side in sequence)
+                old_before = new_before = 0
+                best = None
+                for split in range(1, len(sequence)):
+                    side = sequence[split - 1][1]
+                    old_before += side == 0
+                    new_before += side == 1
+                    cost = new_before + total_old - old_before
+                    old_candidates = [f for f,s in sequence[:split] if s == 0]
+                    new_candidates = [f for f,s in sequence[split:] if s == 1]
+                    if not old_candidates or not new_candidates:
+                        continue
+                    if best is None or cost < best[0]:
+                        best = (cost, max(old_candidates), min(new_candidates), split)
+                if best is None:
+                    raise ValueError('No consistent chronological clock step')
+                _, before, after, split = best
+                rejected = [f for i,(f,side) in enumerate(sequence) if side != int(i >= split)]
+                return before, after, rejected
+
+            # Find the best chronological step. A single misread minute after
+            # the cut must not stretch the whole transition by several seconds.
+            lo, hi, rejected = fit_step(sides)
+            for index in range(lo + 1, hi):
+                sides[index] = classify(index)
+            lo, hi, rejected = fit_step(sides)
             if hi - lo > round(5 * fps):
-                raise ValueError(f"Montage clock unreadable over 5s near frame {lo}; review manually")
+                raise ValueError(f"Montage clock unreadable over 5s near frames {lo}..{hi}; review manually")
+            for frame in rejected:
+                observations[frame]['rejected_edit_outlier'] = True
             segment = {'frame': hi, 'pts': probe(hi, strict=False)['pts'], 'offset': right['offset']}
+            if rejected or lo in hinted or hi in hinted:
+                segment.update(evidence_review_required=True, reviewed=False)
             if hi - lo > 1:
                 segment.update(excluded_transition_start=lo + 1, excluded_start_pts=probe(lo, strict=False)['pts'] + 1 / fps, reviewed=False)
             segments.append(segment)
@@ -341,15 +408,13 @@ def build(cfg, output, *, interval=5.0, end_frame=None):
                    'model_sha256': sha256(cfg.path(cfg.CLOCK_MODEL_PATH)), 'timezone': cfg.TIMEZONE,
                    'roi': list(map(float, cfg.CLOCK_ROI.split(','))), 'fps': fps, 'total_frames': total,
                    'end_frame': end, 'excluded_tail_frames': total - end, 'sample_interval_seconds': interval,
-                   'uncertainty_seconds': 1.5, 'segments': segments,
+                   'uncertainty_seconds': 1.5, 'partial_hint_min_confidence': .70, 'segments': segments,
                    'observations': sorted(observations.values(), key=lambda row: row['frame'])}
         ClockMap(payload, allow_unreviewed=True)
         output = Path(output)
         output.parent.mkdir(parents=True, exist_ok=True)
-        temporary = output.with_suffix(output.suffix + '.tmp')
-        temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-        temporary.replace(output)
-        log.info('Saved clock map: %s segments, %s observations, %.1fs; %s transitions need visual review', len(segments), len(observations), time.monotonic() - started, sum('excluded_transition_start' in s for s in segments))
+        write_json_atomic(output, payload)
+        log.info('Saved clock map: %s segments, %s observations, %.1fs; %s transitions need visual review', len(segments), len(observations), time.monotonic() - started, sum('excluded_transition_start' in s or s.get('evidence_review_required',False) for s in segments))
         succeeded = True
         return payload
     finally:
@@ -361,7 +426,7 @@ def build(cfg, output, *, interval=5.0, end_frame=None):
             crop_path.unlink()
         if observations:
             cache_path.parent.mkdir(parents=True, exist_ok=True)
-            cache_path.write_text(json.dumps(dict(key=cache_key, observations=list(observations.values())), ensure_ascii=False), encoding='utf-8')
+            write_json_atomic(cache_path, dict(key=cache_key, observations=list(observations.values())))
 
 
 def main():
@@ -377,7 +442,7 @@ def main():
     cfg = replace(Settings(), VIDEO_SOURCE=args.source, TIMEZONE=args.timezone, CLOCK_ROI=args.roi)
     try:
         build(cfg, args.output, interval=args.interval, end_frame=args.end_frame)
-    except (ValueError, RuntimeError) as exc:
+    except (ValueError, RuntimeError, OSError, sqlite3.Error) as exc:
         parser.exit(2, f'Clock map error: {exc}\n')
 
 

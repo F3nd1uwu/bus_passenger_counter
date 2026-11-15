@@ -72,6 +72,7 @@ class CameraClockTests(unittest.TestCase):
                     return f'01-11-2026 Bc {hour}:00:0{i // 10}', .99
 
             output = root / 'clock.json'
+            output.with_suffix('.observations.json').write_text('{incomplete cache', encoding='utf-8')
             with patch('tools.build_clock_map.ClockRecognizer', Recognizer):
                 result = build(cfg, output, interval=1)
             self.assertEqual([r['frame'] for r in result['segments']], [0, 15])
@@ -129,3 +130,31 @@ class CameraClockTests(unittest.TestCase):
                 run(replace(Settings(), VIDEO_SOURCE=str(path)), preview=True)
             detector.assert_not_called()
             database.assert_not_called()
+
+    def test_review_cannot_accept_a_map_changed_after_rendering(self):
+        from tools.review_clock_map import review
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            source = root / 'video.avi'
+            writer = cv2.VideoWriter(str(source), cv2.VideoWriter_fourcc(*'MJPG'), 10, (64, 64))
+            self.assertTrue(writer.isOpened())
+            for i in range(40):
+                writer.write(np.full((64, 64, 3), i, np.uint8))
+            writer.release()
+            payload = dict(format='camera_clock_map_v1', source_sha256=sha256(source),
+                           fps=10, end_frame=40, segments=[dict(frame=0, pts=0., offset=1000),
+                           dict(frame=15, pts=1.5, offset=2000, evidence_review_required=True, reviewed=False)])
+            path, output = root / 'map.json', root / 'review'
+            original = json.dumps(payload)
+            path.write_text(original, encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'Export contact'):
+                review(source, path, output, accept=True, note='test review')
+            review(source, path, output)
+            path.write_text(original + '\n', encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'changed'):
+                review(source, path, output, accept=True, note='test review')
+            path.write_text(original, encoding='utf-8')
+            review(source, path, output, accept=True, note='test review')
+            saved = json.loads(path.read_text(encoding='utf-8'))
+            self.assertTrue(saved['segments'][1]['reviewed'])
+            self.assertIn('manifest_sha256', saved['review_record'])

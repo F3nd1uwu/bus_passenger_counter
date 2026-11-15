@@ -1,0 +1,51 @@
+{
+  "pairs": [
+    {
+      "left": "boy_140",
+      "right": "boy_200",
+      "same_person": true,
+      "tracker": "correct",
+      "identity": "correct"
+    },
+    {
+      "left": "boy_200",
+      "right": "boy_252",
+      "same_person": true,
+      "tracker": "correct",
+      "identity": "correct"
+    },
+    {
+      "left": "green_800",
+      "right": "green_830",
+      "same_person": true,
+      "tracker": "correct",
+      "identity": "correct"
+    },
+    {
+      "left": "checked_913",
+      "right": "checked_920",
+      "same_person": true,
+      "tracker": "correct",
+      "identity": "correct"
+    },
+    {
+      "left": "green_830",
+      "right": "checked_920",
+      "same_person": false,
+      "tracker": "correct",
+      "identity": "correct"
+    }
+  ],
+  "summary": {
+    "tracker": {
+      "correct": 5,
+      "incorrect": 0,
+      "unresolved": 0
+    },
+    "identity": {
+      "correct": 5,
+      "incorrect": 0,
+      "unresolved": 0
+    }
+  }
+}

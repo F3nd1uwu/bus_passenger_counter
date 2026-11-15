@@ -1,0 +1,327 @@
+[
+  {
+    "case": "old_A01",
+    "manual": [
+      1,
+      0
+    ],
+    "camera": [
+      1,
+      0
+    ],
+    "excluded_frames": 0,
+    "cuts": 1
+  },
+  {
+    "case": "old_A02",
+    "manual": [
+      0,
+      1
+    ],
+    "camera": [
+      0,
+      1
+    ],
+    "excluded_frames": 0,
+    "cuts": 0
+  },
+  {
+    "case": "old_A03",
+    "manual": [
+      4,
+      0
+    ],
+    "camera": [
+      4,
+      0
+    ],
+    "excluded_frames": 0,
+    "cuts": 3
+  },
+  {
+    "case": "old_A04",
+    "manual": [
+      5,
+      3
+    ],
+    "camera": [
+      5,
+      3
+    ],
+    "excluded_frames": 0,
+    "cuts": 3
+  },
+  {
+    "case": "old_A05",
+    "manual": [
+      1,
+      0
+    ],
+    "camera": [
+      1,
+      0
+    ],
+    "excluded_frames": 0,
+    "cuts": 0
+  },
+  {
+    "case": "old_A06",
+    "manual": [
+      2,
+      5
+    ],
+    "camera": [
+      2,
+      5
+    ],
+    "excluded_frames": 0,
+    "cuts": 4
+  },
+  {
+    "case": "old_A07",
+    "manual": [
+      1,
+      0
+    ],
+    "camera": [
+      1,
+      0
+    ],
+    "excluded_frames": 0,
+    "cuts": 0
+  },
+  {
+    "case": "old_A08",
+    "manual": [
+      0,
+      1
+    ],
+    "camera": [
+      0,
+      1
+    ],
+    "excluded_frames": 0,
+    "cuts": 0
+  },
+  {
+    "case": "old_A09",
+    "manual": [
+      1,
+      7
+    ],
+    "camera": [
+      1,
+      7
+    ],
+    "excluded_frames": 0,
+    "cuts": 4
+  },
+  {
+    "case": "old_A10",
+    "manual": [
+      0,
+      1
+    ],
+    "camera": [
+      0,
+      1
+    ],
+    "excluded_frames": 0,
+    "cuts": 0
+  },
+  {
+    "case": "old_A11",
+    "manual": [
+      0,
+      3
+    ],
+    "camera": [
+      0,
+      3
+    ],
+    "excluded_frames": 0,
+    "cuts": 1
+  },
+  {
+    "case": "old_A12",
+    "manual": [
+      4,
+      4
+    ],
+    "camera": [
+      4,
+      4
+    ],
+    "excluded_frames": 2,
+    "cuts": 3
+  },
+  {
+    "case": "old_A13",
+    "manual": [
+      2,
+      3
+    ],
+    "camera": [
+      2,
+      3
+    ],
+    "excluded_frames": 0,
+    "cuts": 2
+  },
+  {
+    "case": "old_R01",
+    "manual": [
+      3,
+      0
+    ],
+    "camera": [
+      3,
+      0
+    ],
+    "excluded_frames": 5,
+    "cuts": 1
+  },
+  {
+    "case": "old_R02",
+    "manual": [
+      0,
+      1
+    ],
+    "camera": [
+      0,
+      1
+    ],
+    "excluded_frames": 3,
+    "cuts": 1
+  },
+  {
+    "case": "old_R03",
+    "manual": [
+      0,
+      0
+    ],
+    "camera": [
+      0,
+      0
+    ],
+    "excluded_frames": 0,
+    "cuts": 0
+  },
+  {
+    "case": "control_boardings",
+    "manual": [
+      6,
+      0
+    ],
+    "camera": [
+      6,
+      0
+    ],
+    "excluded_frames": 0,
+    "cuts": 1
+  },
+  {
+    "case": "control_clip_01",
+    "manual": [
+      1,
+      0
+    ],
+    "camera": [
+      1,
+      0
+    ],
+    "excluded_frames": 0,
+    "cuts": 0
+  },
+  {
+    "case": "control_clip_02",
+    "manual": [
+      1,
+      5
+    ],
+    "camera": [
+      1,
+      5
+    ],
+    "excluded_frames": 0,
+    "cuts": 3
+  },
+  {
+    "case": "control_clip_03",
+    "manual": [
+      0,
+      4
+    ],
+    "camera": [
+      0,
+      4
+    ],
+    "excluded_frames": 0,
+    "cuts": 3
+  },
+  {
+    "case": "control_clip_04",
+    "manual": [
+      3,
+      2
+    ],
+    "camera": [
+      3,
+      2
+    ],
+    "excluded_frames": 0,
+    "cuts": 3
+  },
+  {
+    "case": "control_clip_05",
+    "manual": [
+      8,
+      0
+    ],
+    "camera": [
+      8,
+      0
+    ],
+    "excluded_frames": 0,
+    "cuts": 2
+  },
+  {
+    "case": "control_clip_06",
+    "manual": [
+      7,
+      0
+    ],
+    "camera": [
+      7,
+      0
+    ],
+    "excluded_frames": 0,
+    "cuts": 3
+  },
+  {
+    "case": "control_empty",
+    "manual": [
+      0,
+      0
+    ],
+    "camera": [
+      0,
+      0
+    ],
+    "excluded_frames": 0,
+    "cuts": 0
+  },
+  {
+    "case": "control_exit",
+    "manual": [
+      0,
+      1
+    ],
+    "camera": [
+      0,
+      1
+    ],
+    "excluded_frames": 0,
+    "cuts": 1
+  }
+]

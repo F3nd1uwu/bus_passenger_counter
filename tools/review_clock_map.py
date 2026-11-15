@@ -6,7 +6,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from core.camera_clock import ClockMap, sha256
+from core.camera_clock import ClockMap, sha256, write_json_atomic
 
 
 def review(source, map_path, output, *, accept=False, note=''):
@@ -15,22 +15,32 @@ def review(source, map_path, output, *, accept=False, note=''):
     if payload['source_sha256'] != sha256(source):
         raise ValueError('Review video differs from clock map')
     clock = ClockMap(payload, allow_unreviewed=True)
-    transitions = [s for s in clock.segments if 'excluded_transition_start' in s]
+    transitions = [s for s in clock.segments if 'excluded_transition_start' in s or s.get('evidence_review_required')]
     suspect = [r for r in payload.get('observations', []) if r.get('rejected_unconfirmed_jump') or r.get('chronology_review_required')]
     items = transitions + suspect
     if accept:
         if not note.strip():
             raise ValueError('Acceptance requires --note describing the visual review')
+        proof_path = output / 'review.json'
+        if items:
+            if not proof_path.is_file():
+                raise ValueError('Export contact sheets with the same --output before accepting this map')
+            proof = json.loads(proof_path.read_text(encoding='utf-8'))
+            if proof.get('map_sha256') != sha256(map_path):
+                raise ValueError('Clock map changed after contact-sheet export; export and inspect it again')
+            for sheet in proof.get('sheets', []):
+                if Path(sheet['file']).name != sheet['file'] or sha256(output / sheet['file']) != sheet['sha256']:
+                    raise ValueError('Review sheet changed or is missing; export again')
+            payload['review_record'] = dict(manifest_sha256=sha256(proof_path), before_map_sha256=proof['map_sha256'], note=note.strip())
         for segment in items:
             segment['reviewed'] = True
             segment['review_note'] = note.strip()
-        temporary = map_path.with_suffix(map_path.suffix + '.tmp')
-        temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-        temporary.replace(map_path)
+        ClockMap(payload)
+        write_json_atomic(map_path, payload)
         return len(items)
     output.mkdir(parents=True, exist_ok=True)
     cap = cv2.VideoCapture(str(source))
-    rows = []
+    rows, sheets = [], []
     try:
         for number, segment in enumerate(items):
             if 'excluded_transition_start' in segment:
@@ -42,7 +52,7 @@ def review(source, map_path, output, *, accept=False, note=''):
             if 'excluded_start_pts' in segment:
                 begin, finish = segment['excluded_start_pts'], segment['pts']
                 times = (max(0., begin - 1 / payload['fps']), (begin + finish) / 2, finish)
-            elif 'pts' in segment and 'text' in segment:
+            elif 'pts' in segment:
                 times = (max(0., segment['pts'] - 1), segment['pts'], segment['pts'] + 1)
             else:
                 times = (None, None, None)
@@ -68,8 +78,14 @@ def review(source, map_path, output, *, accept=False, note=''):
         for offset in range(0, len(rows), 5):
             if not cv2.imwrite(str(output / f'transitions-{offset // 5 + 1:02d}.jpg'), np.vstack(rows[offset:offset + 5])):
                 raise RuntimeError('Could not save transition contact sheet')
+            filename = f'transitions-{offset // 5 + 1:02d}.jpg'
+            sheets.append(dict(file=filename, sha256=sha256(output / filename)))
     finally:
         cap.release()
+    write_json_atomic(output / 'review.json', dict(format='clock_review_v1', map_sha256=sha256(map_path),
+                                                   source_sha256=payload['source_sha256'], sheets=sheets,
+                                                   items=[dict(frame=r['frame'], pts=r.get('pts'),
+                                                               excluded_start_pts=r.get('excluded_start_pts')) for r in items]))
     return len(items)
 
 
@@ -82,7 +98,7 @@ def main():
     parser.add_argument('--note', default='')
     args = parser.parse_args()
     count = review(args.source, args.map, args.output, accept=args.accept_transitions, note=args.note)
-    print(f'{count} transitions: ' + ('review recorded' if args.accept_transitions else f'contact sheets in {args.output}; inspect video if a crossing is visible'))
+    print(f'{count} review items: ' + ('review recorded' if args.accept_transitions else f'contact sheets in {args.output}; inspect video if a crossing is visible'))
 
 
 if __name__ == '__main__':

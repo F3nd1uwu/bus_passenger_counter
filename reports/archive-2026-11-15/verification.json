@@ -1,0 +1,55 @@
+{
+  "verified_at_utc": "2026-11-15T20:44:19.227136+00:00",
+  "full_suite": {
+    "discovered": 198,
+    "passed": 195,
+    "skipped": 3,
+    "failed": 0,
+    "seconds": 133.845,
+    "skipped_reason": "Three opt-in full-inference video regressions; earlier full run passed them",
+    "includes": "PostgreSQL, cached ML regressions, reviewed archive maps, camera dates, driver checks, media-cursor resume with skewed frame index and real MP4"
+  },
+  "earlier_full_inference_suite": {
+    "discovered": 189,
+    "passed": 189,
+    "skipped": 0,
+    "failed": 0,
+    "seconds": 332.45
+  },
+  "web": {
+    "passed": 25,
+    "failed": 0,
+    "seconds": 6.571
+  },
+  "new_real_pipeline_preview": {
+    "source": "test.mp4",
+    "profile": "test2",
+    "time_source": "camera",
+    "first_frame": 225350,
+    "frames": 1001,
+    "counted_in": 6,
+    "counted_out": 0,
+    "processing_fps_at_1000_frames": 15.68,
+    "cpu_threads": 2,
+    "postgres": false,
+    "annotated_video": true
+  },
+  "new_camera_ID_checks": {
+    "pairs": 5,
+    "tracker_correct": 5,
+    "identity_correct": 5,
+    "unresolved": 0
+  },
+  "server_package": "pending final package verification",
+  "linux_runtime_smoke": {
+    "passed": true,
+    "python": "3.12",
+    "network": "disabled",
+    "models": [
+      "person_test2_v2",
+      "person_reid",
+      "work_vest_v4",
+      "camera_clock"
+    ]
+  }
+}

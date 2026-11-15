@@ -1,0 +1,78 @@
+{
+  "files": [
+    {
+      "video": "test.mp4",
+      "map_file": "test.clock.json",
+      "map_sha256": "ebf792070a3c725167848d9d9c6b04f5545ab47d8f75039a82aaad3970d1dc3b",
+      "source_sha256": "274a702490bb00e61f624ecc77319810e99a06d65cf0f8c5de53d6783d86e281",
+      "frames": 488568,
+      "end_frame": 488101,
+      "excluded_tail_frames": 467,
+      "segments": 246,
+      "ocr_observations": 13006,
+      "short_exclusion_frame_bounds": 49,
+      "reviewed_items": 28,
+      "first_camera_time": "2026-11-01T05:39:57+04:00",
+      "last_mapped_camera_time": "2026-11-01T22:32:38.008000+04:00",
+      "timezone": "Europe/Saratov",
+      "decoder": "sequential_v2",
+      "review_manifest_sha256": "010f7c38371c241d53321388e638d9b04cbb954584dfd58f71a921552819cb5e"
+    },
+    {
+      "video": "test2.mp4",
+      "map_file": "test2.clock.json",
+      "map_sha256": "359c0a71c9e3a6c69061ab694a3cb5d2c109356c7090f93f82c617dd521fdddc",
+      "source_sha256": "1b4db7870b8f79138890199cb15f16e67f63f5d5e5ca6a3799331f1b1bd687e4",
+      "frames": 425194,
+      "end_frame": 425194,
+      "excluded_tail_frames": 0,
+      "segments": 298,
+      "ocr_observations": 13577,
+      "short_exclusion_frame_bounds": 11,
+      "reviewed_items": 18,
+      "first_camera_time": "2026-11-09T06:28:10+04:00",
+      "last_mapped_camera_time": "2026-11-09T23:34:56.723000+04:00",
+      "timezone": "Europe/Saratov",
+      "decoder": "sequential_v2",
+      "review_manifest_sha256": "641bf9b2dfe7a1a2948a0d1fc69f600e7f3ec77a540cac4515f584d001e5b85a"
+    }
+  ],
+  "regressions": {
+    "old_episodes": 25,
+    "manual_passages": 91,
+    "old_totals_preserved": 25,
+    "driver_checks_with_camera_time": 3,
+    "driver_checks_excluded": 3,
+    "P02_camera": {
+      "counted_in": 7,
+      "manual_in": 10,
+      "pairs": {
+        "tracker": {
+          "correct": 5,
+          "incorrect": 0,
+          "unresolved": 0
+        },
+        "identity": {
+          "correct": 5,
+          "incorrect": 0,
+          "unresolved": 0
+        }
+      }
+    }
+  },
+  "legacy_full_run": {
+    "status": "old model/time configuration, completed first file",
+    "counted_in": 305,
+    "counted_out": 300,
+    "traffic_date": "2026-11-14",
+    "camera_date": "2026-11-01",
+    "manual_estimate_in": 260,
+    "manual_estimate_status": "unverified; direction and driver pass directions not confirmed"
+  },
+  "limitations": [
+    "Known calibration/regression episodes; no new independent full-day accuracy claim",
+    "First file end_frame excludes a visually reviewed empty closed doorway tail and editor credits",
+    "Clock model confidence is uncalibrated; partial hints cannot confirm a new segment",
+    "Prepared maps and contact sheets remain private and must accompany the exact source videos"
+  ]
+}

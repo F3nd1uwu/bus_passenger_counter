@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 import re
 from zoneinfo import ZoneInfo
@@ -19,9 +20,24 @@ def sha256(path):
         return hashlib.file_digest(stream, 'sha256').hexdigest()
 
 
+DATE_PATTERN = re.compile(r'(?<!\d)(\d{2})[-./]?(\d{2})[-./]?([12]\d{3})')
+
+
+def write_json_atomic(path, payload):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(path.name + '.tmp')
+    with temporary.open('w', encoding='utf-8', newline='\n') as stream:
+        json.dump(payload, stream, ensure_ascii=False, indent=2)
+        stream.write('\n')
+        stream.flush()
+        os.fsync(stream.fileno())
+    temporary.replace(path)
+
+
 def parse_clock(text, timezone_name):
     # The weekday is deliberately ignored. Corrections apply only inside time.
-    date = re.search(r'(?<!\d)(\d{2})[-./]?(\d{2})[-./]?([12]\d{3})', text)
+    date = DATE_PATTERN.search(text)
     if not date:
         raise ValueError('Camera date is unreadable')
     tail = text[date.end():].translate(str.maketrans({'O': '0', 'o': '0', 'Z': '2', 'z': '2'}))
@@ -84,7 +100,7 @@ class ClockMap:
         for start, end in self.exclusions:
             if not 0 <= start < end < self.end_frame:
                 raise ValueError('Invalid excluded montage interval')
-        if not allow_unreviewed and any(s.get('reviewed') is not True for s in self.segments if 'excluded_transition_start' in s):
+        if not allow_unreviewed and any(s.get('reviewed') is not True for s in self.segments if 'excluded_transition_start' in s or s.get('evidence_review_required')):
             raise ValueError('Camera map contains unreviewed montage transitions; inspect tools.review_clock_map output first')
         self.excluded_starts = [a for a, _ in self.exclusions]
         if self.exclusions != sorted(self.exclusions):
