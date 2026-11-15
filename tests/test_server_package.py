@@ -22,10 +22,11 @@ class ServerPackageTests(unittest.TestCase):
         for name in names:
             self.write(name, b'fixture\n')
         self.write('Dockerfile', b'FROM python:3.12-slim\nCMD ["python", "main.py"]\n')
-        for stem in ['person_test2_v2', 'work_vest_v3']:
+        for stem in ['person_test2_v2', 'work_vest_v4']:
             data = ('model fixture ' + stem).encode()
             self.write(f'models/candidates/{stem}.onnx', data)
             self.write(f'models/candidates/{stem}.json', json.dumps({'onnx_sha256': hashlib.sha256(data).hexdigest()}).encode())
+        self.write('models/camera_clock.json', json.dumps({'onnx_sha256': hashlib.sha256(b'fixture\n').hexdigest()}).encode())
         self.write('models/cpu_models.json', json.dumps({'reid_onnx_sha256': hashlib.sha256(b'fixture\n').hexdigest()}).encode())
         self.command('init', '--quiet')
         self.command('-c', 'core.autocrlf=false', 'add', '.')

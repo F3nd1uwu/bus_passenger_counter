@@ -11,6 +11,10 @@ from core.person_detections import distinct_person_indices
 
 class PersonDetector:
     def __init__(self, cfg, detection_only=False):
+        # ONNX already owns a bounded thread pool; avoid a second OpenCV pool
+        # for the small crop/resize operations in each worker.
+        import cv2
+        cv2.setNumThreads(1)
         self.cfg = cfg
         path = cfg.path(cfg.MODEL_PATH)
         if not path.is_file():

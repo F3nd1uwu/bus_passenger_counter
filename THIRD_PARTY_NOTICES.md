@@ -41,3 +41,13 @@ MiVOLOv2: [проект авторов](https://github.com/WildChlamydia/MiVOLO)
 Age-only ONNX получен из отдельно указанной сторонней конвертации; официальный
 исторический LICENSE не является заявлением об условиях всех нынешних версий.
 Эти экспериментальные веса не включены в компактную серверную поставку.
+
+## OCR часов камеры
+
+Локальная модель PP-OCRv4 получена из опубликованного дистрибутива
+[RapidOCR 1.4.4](https://pypi.org/project/rapidocr-onnxruntime/1.4.4/).
+Хеш дистрибутива, имя файла и хеш ONNX: [models/camera_clock.json](models/camera_clock.json).
+Сохранён [Apache-2.0 LICENSE](third_party/CAMERA_CLOCK_LICENSE.txt) проекта
+[RapidAI/RapidOCR](https://github.com/RapidAI/RapidOCR).
+Используется только распознавание фиксированного участка часов через ONNX Runtime;
+пакет RapidOCR не устанавливается, кадры во внешние сервисы не передаются.

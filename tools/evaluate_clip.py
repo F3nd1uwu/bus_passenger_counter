@@ -73,11 +73,15 @@ def evaluate(cfg, start, end, output, *, video=False, compact=False):
             read_seconds = time.perf_counter() - tick
             if packet is None:
                 break
+            reset_events = []
+            if packet.time_discontinuity:
+                detector.reset()
+                reset_events = engine.reset_tracking()
             tick = time.perf_counter()
             detections = detector.detect(packet.image)
             detect_seconds = time.perf_counter() - tick
             tick = time.perf_counter()
-            events = engine.update(packet.image, detections, packet.timestamp,
+            events = reset_events + engine.update(packet.image, detections, packet.timestamp,
                                    child_observations=detector.child_observations)
             count_seconds = time.perf_counter() - tick
             row = {"frame": packet.index, "detections": [], "events": []}
@@ -160,7 +164,7 @@ def evaluate(cfg, start, end, output, *, video=False, compact=False):
               "association_similarity": cfg.TRACKER_IDENTITY_MIN_SIMILARITY,
               "drift_threshold": cfg.TRACKER_DRIFT_THRESHOLD,
               "source": cfg.VIDEO_SOURCE, "video_start": cfg.VIDEO_START,
-              "timestamp_basis": "file presentation time; burned-in clock edits are not decoded",
+              "timestamp_basis": cfg.TIME_SOURCE, "clock_map": cfg.CLOCK_MAP_PATH, "frame_stride": cfg.FRAME_STRIDE,
               "staff_mode": cfg.STAFF_MODE, "vest_model": cfg.VEST_MODEL_PATH,
               "child_mode": cfg.CHILD_MODE, "child_model": cfg.CHILD_MODEL_PATH if cfg.CHILD_MODE == 'model' else None,
               "child_analysis": dict(detector.child_observer.stats) if detector.child_observer is not None else None,
@@ -207,6 +211,9 @@ if __name__ == "__main__":
     parser.add_argument("--staff-decision-delay", type=float)
     parser.add_argument("--cpu-threads", type=int)
     parser.add_argument("--video-start")
+    parser.add_argument("--clock-map")
+    parser.add_argument("--time-source", choices=["camera", "pts"])
+    parser.add_argument("--frame-stride", type=int)
     parser.add_argument("--compact", action="store_true", help="Save events and totals without per-frame trace/features")
     parser.add_argument("--video", action="store_true")
     args = parser.parse_args()
@@ -222,7 +229,8 @@ if __name__ == "__main__":
                          ("CHILD_MODE", args.child_mode), ("CHILD_MODEL_PATH", args.child_model),
                          ("VEST_MODEL_PATH", args.vest_model), ("VEST_THRESHOLD", args.vest_threshold),
                          ("STAFF_DECISION_DELAY_SEC", args.staff_decision_delay),
-                         ("CPU_THREADS", args.cpu_threads), ("VIDEO_START", args.video_start)):
+                         ("CPU_THREADS", args.cpu_threads), ("VIDEO_START", args.video_start),
+                         ("CLOCK_MAP_PATH", args.clock_map), ("TIME_SOURCE", args.time_source), ("FRAME_STRIDE", args.frame_stride)):
         if value is not None:
             overrides[field] = value
     evaluate(replace(apply_profile(Settings.from_env(), args.profile), **overrides), args.start, args.end, args.output,

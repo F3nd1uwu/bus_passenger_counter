@@ -68,3 +68,15 @@ class Test2RegressionTests(unittest.TestCase):
         pair_result = evaluate_pairs(result['trace'], labels)
         for label in ['tracker', 'identity']:
             self.assertEqual(pair_result['summary'][label], {'correct': 5, 'incorrect': 0, 'unresolved': 0})
+
+    def test_reviewed_ordinary_coats_are_not_excluded_as_staff(self):
+        # N01/N06 are v4 training cases. N10 was withheld from fitting but
+        # inspected during development; these are regressions, not day accuracy.
+        cfg = replace(apply_profile(Settings(), 'test2'), CPU_THREADS=2)
+        for name, counts in [('N01', (2, 0)), ('N06', (1, 0)), ('N10', (1, 1))]:
+            with self.subTest(episode=name):
+                cache = ROOT / '.local/staff-consensus-20261115' / (name + '.npz')
+                self.assertTrue(cache.is_file(), f'Private ML cache required: {cache}')
+                result = replay_raw(cache, cfg, source='data/test.mp4')
+                self.assertEqual((result['in'], result['out']), counts)
+                self.assertFalse(any(e['reason'] == 'STAFF' for e in result['events']))

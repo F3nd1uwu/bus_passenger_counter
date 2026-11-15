@@ -13,8 +13,9 @@ FILES = {
     'docker-compose.yml', 'data/.gitkeep', 'tools/__init__.py', 'tools/setup_env.py',
     'tools/verify_release.py', 'models/person_reid.onnx', 'models/person_reid.json',
     'models/candidates/person_test2_v2.onnx', 'models/candidates/person_test2_v2.json',
-    'models/candidates/work_vest_v3.onnx', 'models/candidates/work_vest_v3.json',
-    'third_party/ULTRALYTICS_LICENSE.txt',
+    'models/candidates/work_vest_v4.onnx', 'models/candidates/work_vest_v4.json',
+    'third_party/ULTRALYTICS_LICENSE.txt', 'third_party/CAMERA_CLOCK_LICENSE.txt',
+    'models/camera_clock.onnx', 'models/camera_clock.json', 'tools/build_clock_map.py', 'tools/review_clock_map.py',
     'Dockerfile.web', 'Dockerfile.web.dockerignore', 'docker-compose.web.yml',
     'manage_web.py', 'requirements-web.txt', 'web.env.example',
     'tools/setup_web_env.py', 'tools/setup_web_database.py',
@@ -58,10 +59,13 @@ def build(ref, output):
         raise ValueError('Unexpected Docker CMD; review the server launch profile')
     payload['Dockerfile'] = payload['Dockerfile'].replace(old_cmd, b'CMD ["python", "main.py", "--profile", "test2"]')
     # Verify the deployed models against the committed provenance, not local weights.
-    for stem in ['person_test2_v2', 'work_vest_v3']:
+    for stem in ['person_test2_v2', 'work_vest_v4']:
         meta = json.loads(payload[f'models/candidates/{stem}.json'])
         if hashlib.sha256(payload[f'models/candidates/{stem}.onnx']).hexdigest() != meta['onnx_sha256']:
             raise ValueError('Server model differs from provenance: ' + stem)
+    clock = json.loads(payload['models/camera_clock.json'])
+    if hashlib.sha256(payload['models/camera_clock.onnx']).hexdigest() != clock['onnx_sha256']:
+        raise ValueError('Camera clock model differs from provenance')
     cpu = json.loads(git('show', f'{commit}:models/cpu_models.json'))
     if hashlib.sha256(payload['models/person_reid.onnx']).hexdigest() != cpu['reid_onnx_sha256']:
         raise ValueError('Server ReID differs from provenance')

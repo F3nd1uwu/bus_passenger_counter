@@ -10,8 +10,8 @@
   "Y_CABIN": 0.57,
   "CPU_THREADS": 4,
   "STAFF_MODE": "model",
-  "VEST_MODEL_PATH": "models/candidates/work_vest_v3.onnx",
+  "VEST_MODEL_PATH": "models/candidates/work_vest_v4.onnx",
   "VEST_THRESHOLD": 0.2,
   "VEST_CONFIRM_FRAMES": 2,
-  "STAFF_DECISION_DELAY_SEC": 10.0
+  "STAFF_DECISION_DELAY_SEC": 15.0
 }

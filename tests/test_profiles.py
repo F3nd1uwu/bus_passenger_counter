@@ -13,7 +13,7 @@ class ProfileTests(unittest.TestCase):
                          (cfg.VIDEO_SOURCE, cfg.STATE_PATH, cfg.DB_HOST))
         self.assertEqual(result.CONFIDENCE, .30)
         self.assertEqual(result.STAFF_MODE, "model")
-        self.assertEqual(result.STAFF_DECISION_DELAY_SEC, 10)
+        self.assertEqual(result.STAFF_DECISION_DELAY_SEC, 15)
         self.assertEqual((result.TRACKER_DRIFT_THRESHOLD, result.Y_CABIN), (.6, .57))
         self.assertEqual((cfg.TRACKER_DRIFT_THRESHOLD, cfg.Y_CABIN), (0, .60))
         self.assertEqual(replace(result, STAFF_MODE="disabled").STAFF_MODE, "disabled")

@@ -1,0 +1,142 @@
+{
+  "profile": "test2",
+  "decision_delay_seconds": 15,
+  "results": [
+    {
+      "case": "N01",
+      "counted_in": 2,
+      "counted_out": 0,
+      "events": [
+        {
+          "event_type": "IN",
+          "reason": "COUNTED",
+          "crossing_frame": 81351
+        },
+        {
+          "event_type": "IN",
+          "reason": "COUNTED",
+          "crossing_frame": 81396
+        }
+      ]
+    },
+    {
+      "case": "N06",
+      "counted_in": 1,
+      "counted_out": 0,
+      "events": [
+        {
+          "event_type": "IN",
+          "reason": "COUNTED",
+          "crossing_frame": 228431
+        }
+      ]
+    },
+    {
+      "case": "N10",
+      "counted_in": 1,
+      "counted_out": 1,
+      "events": [
+        {
+          "event_type": "OUT",
+          "reason": "COUNTED",
+          "crossing_frame": 342706
+        },
+        {
+          "event_type": "IN",
+          "reason": "COUNTED",
+          "crossing_frame": 342783
+        }
+      ]
+    },
+    {
+      "case": "V01",
+      "counted_in": 0,
+      "counted_out": 0,
+      "events": [
+        {
+          "event_type": "IN",
+          "reason": "STAFF",
+          "crossing_frame": 25395
+        }
+      ]
+    },
+    {
+      "case": "V03",
+      "counted_in": 0,
+      "counted_out": 0,
+      "events": [
+        {
+          "event_type": "OUT",
+          "reason": "STAFF",
+          "crossing_frame": 146768
+        }
+      ]
+    },
+    {
+      "case": "V05",
+      "counted_in": 0,
+      "counted_out": 0,
+      "events": [
+        {
+          "event_type": "IN",
+          "reason": "STAFF",
+          "crossing_frame": 395187
+        }
+      ]
+    },
+    {
+      "case": "P02",
+      "counted_in": 7,
+      "counted_out": 0,
+      "events": [
+        {
+          "event_type": "IN",
+          "reason": "COUNTED",
+          "crossing_frame": 262252
+        },
+        {
+          "event_type": "IN",
+          "reason": "COUNTED",
+          "crossing_frame": 262666
+        },
+        {
+          "event_type": "IN",
+          "reason": "COUNTED",
+          "crossing_frame": 262706
+        },
+        {
+          "event_type": "IN",
+          "reason": "COUNTED",
+          "crossing_frame": 262753
+        },
+        {
+          "event_type": "IN",
+          "reason": "COUNTED",
+          "crossing_frame": 262830
+        },
+        {
+          "event_type": "IN",
+          "reason": "COUNTED",
+          "crossing_frame": 263010
+        },
+        {
+          "event_type": "IN",
+          "reason": "COUNTED",
+          "crossing_frame": 263116
+        }
+      ]
+    },
+    {
+      "case": "control_clip_01",
+      "counted_in": 1,
+      "counted_out": 0,
+      "events": [
+        {
+          "event_type": "IN",
+          "reason": "COUNTED",
+          "crossing_frame": 26536
+        }
+      ]
+    }
+  ]
+}

@@ -15,11 +15,12 @@ from config.settings import ROOT
 
 
 PUBLIC_MODELS = {
+    "models/camera_clock.onnx",
     "models/yolo26n.onnx", "models/person_reid.onnx", "models/person_reid.torchscript",
     "models/candidates/person_manual_v1.onnx",
     "models/candidates/person_test2_v2.onnx", "models/candidates/work_vest_v2.onnx",
     "models/candidates/work_vest_v1.onnx",
-    "models/candidates/work_vest_v3.onnx",
+    "models/candidates/work_vest_v3.onnx", "models/candidates/work_vest_v4.onnx",
     "models/candidates/child_age_v1.onnx", "models/candidates/child_vision_v1.onnx",
 }
 SECRET_PATTERNS = [
@@ -108,7 +109,8 @@ def check_models():
         "models/person_reid.torchscript": reid["export_sha256"],
         "models/candidates/person_manual_v1.onnx": candidate["onnx_sha256"],
     }
-    for stem in ("person_test2_v2", "work_vest_v1", "work_vest_v2", "work_vest_v3"):
+    expected["models/camera_clock.onnx"] = read_json("models/camera_clock.json")["onnx_sha256"]
+    for stem in ("person_test2_v2", "work_vest_v1", "work_vest_v2", "work_vest_v3", "work_vest_v4"):
         metadata = read_json(f"models/candidates/{stem}.json")
         expected[f"models/candidates/{stem}.onnx"] = metadata["onnx_sha256"]
     child = read_json('models/candidates/child_filter_v1.json')

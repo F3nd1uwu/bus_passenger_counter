@@ -1,0 +1,327 @@
+[
+  {
+    "case": "old_A01",
+    "expected": [
+      1,
+      0
+    ],
+    "actual": [
+      1,
+      0
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 1
+  },
+  {
+    "case": "old_A02",
+    "expected": [
+      0,
+      1
+    ],
+    "actual": [
+      0,
+      1
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 1
+  },
+  {
+    "case": "old_A03",
+    "expected": [
+      4,
+      0
+    ],
+    "actual": [
+      4,
+      0
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 4
+  },
+  {
+    "case": "old_A04",
+    "expected": [
+      5,
+      3
+    ],
+    "actual": [
+      5,
+      3
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 8
+  },
+  {
+    "case": "old_A05",
+    "expected": [
+      1,
+      0
+    ],
+    "actual": [
+      1,
+      0
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 1
+  },
+  {
+    "case": "old_A06",
+    "expected": [
+      2,
+      5
+    ],
+    "actual": [
+      2,
+      5
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 6
+  },
+  {
+    "case": "old_A07",
+    "expected": [
+      1,
+      0
+    ],
+    "actual": [
+      1,
+      0
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 1
+  },
+  {
+    "case": "old_A08",
+    "expected": [
+      0,
+      1
+    ],
+    "actual": [
+      0,
+      1
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 1
+  },
+  {
+    "case": "old_A09",
+    "expected": [
+      1,
+      7
+    ],
+    "actual": [
+      1,
+      6
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 6
+  },
+  {
+    "case": "old_A10",
+    "expected": [
+      0,
+      1
+    ],
+    "actual": [
+      0,
+      1
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 1
+  },
+  {
+    "case": "old_A11",
+    "expected": [
+      0,
+      3
+    ],
+    "actual": [
+      0,
+      3
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 3
+  },
+  {
+    "case": "old_A12",
+    "expected": [
+      4,
+      4
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 8
+  },
+  {
+    "case": "old_A13",
+    "expected": [
+      2,
+      3
+    ],
+    "actual": [
+      2,
+      3
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 5
+  },
+  {
+    "case": "old_R01",
+    "expected": [
+      3,
+      0
+    ],
+    "actual": [
+      2,
+      0
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 2
+  },
+  {
+    "case": "old_R02",
+    "expected": [
+      0,
+      1
+    ],
+    "actual": [
+      0,
+      1
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 1
+  },
+  {
+    "case": "old_R03",
+    "expected": [
+      0,
+      0
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 0
+  },
+  {
+    "case": "control_boardings",
+    "expected": [
+      6,
+      0
+    ],
+    "actual": [
+      6,
+      0
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 6
+  },
+  {
+    "case": "control_clip_01",
+    "expected": [
+      1,
+      0
+    ],
+    "actual": [
+      1,
+      0
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 1
+  },
+  {
+    "case": "control_clip_02",
+    "expected": [
+      1,
+      5
+    ],
+    "actual": [
+      1,
+      5
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 6
+  },
+  {
+    "case": "control_clip_03",
+    "expected": [
+      0,
+      4
+    ],
+    "actual": [
+      0,
+      4
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 4
+  },
+  {
+    "case": "control_clip_04",
+    "expected": [
+      3,
+      2
+    ],
+    "actual": [
+      3,
+      2
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 5
+  },
+  {
+    "case": "control_clip_05",
+    "expected": [
+      8,
+      0
+    ],
+    "actual": [
+      8,
+      0
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 8
+  },
+  {
+    "case": "control_clip_06",
+    "expected": [
+      7,
+      0
+    ],
+    "actual": [
+      7,
+      0
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 7
+  },
+  {
+    "case": "control_empty",
+    "expected": [
+      0,
+      0
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 0
+  },
+  {
+    "case": "control_exit",
+    "expected": [
+      0,
+      1
+    ],
+    "actual": [
+      0,
+      1
+    ],
+    "suppressed": 0,
+    "distinct_event_identities": 1
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "format": "archive_pipeline_benchmark_v1",
+  "source_commit": "f1d37b92cf66199e8220e7c9a937c3b111b84663",
+  "runtime_diff_sha256": "20c5d1ee508c114fcdbe1537ae69adb2b4723f5350fe820ac27dc2ecd663650e",
+  "source_sha256": "274a702490bb00e61f624ecc77319810e99a06d65cf0f8c5de53d6783d86e281",
+  "start_frame": 81271,
+  "synthetic_identities": 128,
+  "result": {
+    "frames": 600,
+    "in": 1,
+    "out": 0
+  },
+  "elapsed_seconds": 61.51396330000716,
+  "processed_fps": 9.75388298545755,
+  "next_frame": 81871,
+  "final_identity_count": 141,
+  "checkpoints": 4,
+  "checkpoint_bytes": 50714619,
+  "local_saves": 3,
+  "local_save_seconds": 1.967684500006726
+}

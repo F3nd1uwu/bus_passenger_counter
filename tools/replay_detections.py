@@ -34,10 +34,11 @@ def replay_raw(path, cfg, *, output=None, tracker_class=AppearanceTracker, suppr
         boxes, features, valid = cache['boxes'], cache['features'], cache['valid']
         offsets, indices, timestamps = cache['offsets'], cache['frames'], cache['timestamps']
         shape = tuple(int(x) for x in cache['shape'])
+        cuts = cache['cuts'] if 'cuts' in cache else np.zeros(len(indices), bool)
     if (len(offsets) != len(indices) + 1 or len(indices) != len(timestamps)
             or offsets[0] != 0 or offsets[-1] != len(boxes)
             or np.any(np.diff(offsets) < 0) or len(features) != len(boxes) or len(valid) != len(boxes)
-            or len(shape) != 2 or min(shape) <= 0):
+            or len(cuts) != len(indices) or len(shape) != 2 or min(shape) <= 0):
         raise ValueError('Invalid raw detection cache dimensions')
     args = YAML.load(str(cfg.path(cfg.TRACKER_PATH)))
     args['with_reid'] = True
@@ -62,12 +63,13 @@ def replay_raw(path, cfg, *, output=None, tracker_class=AppearanceTracker, suppr
         from core.vest_classifier import VestClassifier
         vest = VestClassifier(cfg.path(cfg.VEST_MODEL_PATH), cfg.DEVICE, cfg.CPU_THREADS)
     if vest is not None or source is not None:
-        if source is None or not len(indices) or np.any(np.diff(indices) != 1):
-            raise ValueError('Visual replay requires source and consecutive frames')
+        if source is None or not len(indices) or np.any(np.diff(indices) < 1):
+            raise ValueError('Visual replay requires source and ordered frames')
         reader = cv2.VideoCapture(str(cfg.path(source)))
         if not reader.isOpened():
             raise ValueError('Cannot open visual replay source')
         reader.set(cv2.CAP_PROP_POS_FRAMES, int(indices[0]))
+    pending_cut = False
     try:
         for j, index in enumerate(indices):
             lo, hi = offsets[j:j + 2]
@@ -78,10 +80,20 @@ def replay_raw(path, cfg, *, output=None, tracker_class=AppearanceTracker, suppr
                 keep = distinct_person_indices(b, f)
                 b, f, source_indices = b[keep], f[keep], source_indices[keep]
             if reader is not None:
+                if j and indices[j] != indices[j-1] + 1:
+                    reader.set(cv2.CAP_PROP_POS_FRAMES, int(index))
                 ok, frame = reader.read()
                 if not ok or frame.shape[:2] != shape:
                     reader.release()
                     raise ValueError('Visual replay source ended or shape differs')
+            pending_cut = pending_cut or bool(cuts[j])
+            if int(index) % cfg.FRAME_STRIDE:
+                continue
+            if pending_cut:
+                pending_cut = False
+                tracker.reset()
+                ages.clear()
+                events.extend(event_record(e, int(index)) for e in engine.reset_tracking())
             tracked = tracker.update(Boxes(b, shape), img=frame if reader is not None else None, feats=f if len(f) else None)
             detections = [Detection(int(t[4]), tuple(b[int(t[-1]), :4].tolist()),
                                     float(b[int(t[-1]), 4]), f[int(t[-1])],
@@ -112,7 +124,7 @@ def replay_raw(path, cfg, *, output=None, tracker_class=AppearanceTracker, suppr
     finally:
         if reader is not None:
             reader.release()
-    report = {'cache': str(path), 'frames': len(indices), 'in': engine.total_in, 'out': engine.total_out,
+    report = {'cache': str(path), 'frames': int(np.count_nonzero(indices % cfg.FRAME_STRIDE == 0)), 'frame_stride': cfg.FRAME_STRIDE, 'in': engine.total_in, 'out': engine.total_out,
               'confidence': cfg.CONFIDENCE, 'anchor_y': cfg.ANCHOR_Y,
               'association_similarity': cfg.TRACKER_IDENTITY_MIN_SIMILARITY,
               'drift_threshold': cfg.TRACKER_DRIFT_THRESHOLD,

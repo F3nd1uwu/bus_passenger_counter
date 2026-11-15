@@ -22,6 +22,11 @@ class Settings:
     VIDEO_SOURCE: str = "data/test.mp4"
     SOURCE_KIND: str = "auto"
     VIDEO_START: str = ""
+    TIME_SOURCE: str = "camera"
+    CLOCK_MAP_PATH: str = ""
+    CLOCK_MODEL_PATH: str = "models/camera_clock.onnx"
+    CLOCK_ROI: str = "0.0125,0.0458333333333,0.2875,0.0875"
+    CLOCK_MIN_CONFIDENCE: float = 0.80
     MODEL_PATH: str = "models/yolo26n.onnx"
     REID_MODEL_PATH: str = "models/person_reid.onnx"
     VEST_MODEL_PATH: str = ""
@@ -61,12 +66,13 @@ class Settings:
     VEST_THRESHOLD: float = 0.90
     VEST_CONFIRM_FRAMES: int = 3
     STAFF_DECISION_DELAY_SEC: float = 10.0
+    FRAME_STRIDE: int = 1
     FEATURE_INTERVAL_FRAMES: int = 5
     RECONNECT_DELAY_SEC: float = 2.0
     OPEN_TIMEOUT_MS: int = 5000
     READ_TIMEOUT_MS: int = 5000
     SYNC_INTERVAL_SEC: float = 5.0
-    CHECKPOINT_INTERVAL_SEC: float = 1.0
+    CHECKPOINT_INTERVAL_SEC: float = 30.0
     REPLAY_FRAMES: int = 90
 
     @classmethod
@@ -113,12 +119,24 @@ class Settings:
                      "TRACK_TTL_SEC", "DUPLICATE_INTERVAL_SEC", "MAX_IDENTITIES",
                      "REID_GALLERY_SIZE",
                      "CPU_THREADS",
-                     "VEST_CONFIRM_FRAMES", "FEATURE_INTERVAL_FRAMES", "RECONNECT_DELAY_SEC",
+                     "VEST_CONFIRM_FRAMES", "FRAME_STRIDE", "FEATURE_INTERVAL_FRAMES", "RECONNECT_DELAY_SEC",
                      "OPEN_TIMEOUT_MS", "READ_TIMEOUT_MS", "SYNC_INTERVAL_SEC", "CHECKPOINT_INTERVAL_SEC", "REPLAY_FRAMES"):
             if getattr(self, name) <= 0:
                 raise ValueError(f"{name} must be positive")
-        if self.SOURCE_KIND not in {"auto", "file", "stream", "camera"}:
-            raise ValueError("SOURCE_KIND must be auto, file, stream or camera")
+        if self.FRAME_STRIDE > 4:
+            raise ValueError("FRAME_STRIDE must be 1..4; validate counting before increasing it")
+        if self.SOURCE_KIND not in {"auto", "file"}:
+            raise ValueError("Only local video files are supported (SOURCE_KIND=auto or file)")
+        if self.TIME_SOURCE not in {"camera", "pts"}:
+            raise ValueError("TIME_SOURCE must be camera or pts")
+        if not 0 < self.CLOCK_MIN_CONFIDENCE <= 1:
+            raise ValueError("CLOCK_MIN_CONFIDENCE must be in (0,1]")
+        try:
+            roi = tuple(map(float, self.CLOCK_ROI.split(",")))
+            if len(roi) != 4 or not (0 <= roi[0] < roi[2] <= 1 and 0 <= roi[1] < roi[3] <= 1):
+                raise ValueError()
+        except ValueError as exc:
+            raise ValueError("Invalid CLOCK_ROI: expected x1,y1,x2,y2 fractions") from exc
         if self.ENTER_FROM not in {"street", "cabin"}:
             raise ValueError("ENTER_FROM must be street or cabin")
         if self.STAFF_MODE not in {"disabled", "model"}:

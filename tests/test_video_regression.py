@@ -14,8 +14,8 @@ class VideoRegressionTests(unittest.TestCase):
     def check_interval(self, first, last):
         with tempfile.TemporaryDirectory(prefix="video-regression-", dir=ROOT / "data") as folder:
             report_path = Path(folder) / "report.json"
-            report = evaluate(Settings(), first, last, report_path)
-            return report, replay(report_path, Settings())
+            report = evaluate(Settings(TIME_SOURCE="pts"), first, last, report_path)
+            return report, replay(report_path, Settings(TIME_SOURCE="pts"))
 
     def test_six_boardings_and_no_exits(self):
         report, repetitions = self.check_interval(225350, 226350)

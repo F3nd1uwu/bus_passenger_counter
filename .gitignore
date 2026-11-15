@@ -62,6 +62,8 @@ credentials*.json
 # Keep only reproducible inference assets and their provenance
 /models/*
 !/models/README.md
+!/models/camera_clock.onnx
+!/models/camera_clock.json
 !/models/cpu_models.json
 !/models/person_reid.json
 !/models/yolo26n.onnx
@@ -80,6 +82,8 @@ credentials*.json
 !/models/candidates/work_vest_v1.json
 !/models/candidates/work_vest_ensemble.json
 !/models/candidates/work_vest_spatial.json
+!/models/candidates/work_vest_v4.onnx
+!/models/candidates/work_vest_v4.json
 !/models/candidates/work_vest_v3.onnx
 !/models/candidates/work_vest_v3.json
 !/models/candidates/child_age_v1.onnx

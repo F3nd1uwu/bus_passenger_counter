@@ -25,7 +25,7 @@ from database.local_store import LocalStore
 class PostgresTests(unittest.TestCase):
     def setUp(self):
         self.bus = "TEST_" + uuid4().hex[:20]
-        self.cfg = Settings(BUS_ID=self.bus)
+        self.cfg = Settings(TIME_SOURCE="pts", BUS_ID=self.bus)
         self.db = DatabaseClient("127.0.0.1", int(os.environ["TEST_DB_PORT"]),
                                  "bus_analytics", "bus_counter", "test-local-only")
         self.db.initialize()
@@ -190,7 +190,7 @@ class PostgresTests(unittest.TestCase):
 
             def detect(self, frame):
                 self.seen += 1
-                if self.seen == 4 and type(self).fail_once:
+                if self.seen == 6 and type(self).fail_once:
                     type(self).fail_once = False
                     raise RuntimeError('test process failure between checkpoints')
                 y = round(float(frame.mean()) / 10) * 10
@@ -202,6 +202,11 @@ class PostgresTests(unittest.TestCase):
             self.source_key = configuration_key(cfg)
             with self.assertRaisesRegex(RuntimeError, 'between checkpoints'):
                 run(cfg)
+            # The crossing already happened, but its event and cursor were
+            # not committed. Restart must recreate it exactly once.
+            with self.db.get_cursor() as cur:
+                cur.execute('SELECT COUNT(*) FROM raw_passenger_events WHERE bus_id=%s', (self.bus,))
+                self.assertEqual(cur.fetchone()[0], 0)
             store = LocalStore(cfg.STATE_PATH)
             try:
                 self.assertEqual(store.load()['payload']['next_frame'], 1)
@@ -240,3 +245,40 @@ class PostgresTests(unittest.TestCase):
             with self.db.get_cursor() as cur:
                 cur.execute("SELECT total_passengers FROM daily_passenger_traffic WHERE bus_id=%s", (self.bus,))
                 self.assertEqual(cur.fetchone()[0], 1)
+
+    def test_camera_clock_drives_event_date_and_ignores_legacy_video_start(self):
+        import json
+        from core.camera_clock import sha256
+        from core.service import configuration_key
+
+        class DetectorStub:
+            def __init__(self, *a, **kw):
+                pass
+
+            def reset(self):
+                pass
+
+            def detect(self, frame):
+                y = round(float(frame.mean()) / 10) * 10
+                return [Detection(1, (40, y - 10, 60, y + 10), 1, np.array([1, 0]), 0)]
+
+        with tempfile.TemporaryDirectory() as folder, patch('core.service.PersonDetector', DetectorStub):
+            cfg = self._service_config(folder)
+            clock_model = Path(folder) / 'clock.onnx'
+            clock_model.write_bytes(b'not loaded: map is already built')
+            clock_path = Path(folder) / 'clock.json'
+            start = datetime(2026, 11, 1, 1, 39, 57, tzinfo=timezone.utc)
+            payload = dict(format='camera_clock_map_v1', end_frame=6,
+                           segments=[dict(frame=0, pts=0., offset=start.timestamp())],
+                           source_sha256=sha256(cfg.VIDEO_SOURCE), model_sha256=sha256(clock_model),
+                           timezone=cfg.TIMEZONE, roi=list(map(float, cfg.CLOCK_ROI.split(','))))
+            clock_path.write_text(json.dumps(payload), encoding='utf-8')
+            cfg = replace(cfg, TIME_SOURCE='camera', CLOCK_MAP_PATH=str(clock_path),
+                          CLOCK_MODEL_PATH=str(clock_model), VIDEO_START='ignored-invalid-legacy-value')
+            self.source_key = configuration_key(cfg)
+            self.assertEqual(run(cfg)['in'], 1)
+            with self.db.get_cursor() as cur:
+                cur.execute('SELECT traffic_date::text, detected_at FROM raw_passenger_events WHERE bus_id=%s', (self.bus,))
+                day, stamp = cur.fetchone()
+            self.assertEqual(day, '2026-11-01')
+            self.assertAlmostEqual((stamp - start).total_seconds(), .4, places=2)

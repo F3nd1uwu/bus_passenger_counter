@@ -122,7 +122,7 @@ class PreviewSeekIntegrationTests(unittest.TestCase):
                 return frame
 
             mocks.enter_context(patch('core.service.draw_preview', side_effect=draw))
-            cfg = replace(Settings(), VIDEO_SOURCE=str(path), STAFF_MODE='model',
+            cfg = replace(Settings(TIME_SOURCE="pts", VIDEO_START="2026-11-01T05:40:00+04:00", ), VIDEO_SOURCE=str(path), STAFF_MODE='model',
                           VEST_CONFIRM_FRAMES=2, STAFF_DECISION_DELAY_SEC=10.)
             for show, limit in [(False, None), (True, None), (False, 5)]:
                 with self.subTest(show=show, max_frames=limit):
@@ -176,7 +176,7 @@ class PreviewSeekIntegrationTests(unittest.TestCase):
             mocks.enter_context(patch("cv2.setTrackbarPos", side_effect=set_position))
             mocks.enter_context(patch("cv2.waitKeyEx", side_effect=key))
             mocks.enter_context(patch("cv2.getWindowProperty", return_value=1))
-            cfg = replace(Settings(), VIDEO_SOURCE=str(path), STAFF_MODE="disabled")
+            cfg = replace(Settings(TIME_SOURCE="pts", VIDEO_START="2026-11-01T05:40:00+04:00", ), VIDEO_SOURCE=str(path), STAFF_MODE="disabled")
             result = run(cfg, preview=True, show=True, max_frames=10)
             self.assertEqual(frames, list(range(5)) * 2)
             self.assertEqual(result["in"], 1)

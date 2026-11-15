@@ -13,7 +13,7 @@
 из зафиксированного коммита полной версии; происхождение и хеши файлов входят
 в `release.json`. [Как обновлять обе ветки](docs/REPOSITORY.md).
 
-Подсчёт входящих и выходящих пассажиров по видеофайлу, RTSP-потоку или USB-камере.
+Подсчёт входящих и выходящих пассажиров по архивному видеофайлу рабочего дня.
 Система обнаруживает людей, сопровождает их через дверной проём, исключает повторные
 проходы одного направления в течение часа и сохраняет события и дневные итоги в PostgreSQL.
 
@@ -50,6 +50,12 @@ P02: 7/10 входов вместо 6/10; P04: 4/5 проходов вместо
 На шести проверенных фрагментах он сохранил прежние итоги, но **не исключил ни одного
 ребёнка**. Эффективность для этой камеры пока не подтверждена; по умолчанию режим
 отключён. [Как включить и что проверено](docs/CHILD_FILTER.md).
+
+**Архивное обновление 15 ноября:** сетевые источники отключены; правило часа
+переведено на проверяемую карту часов камеры. Снижен объём сохранений состояния,
+дообучена жилетка v4 и увеличено ожидание её подтверждения до 15 секунд.
+[Изменения, измерения и ограничения](reports/archive-2026-11-15/README.md),
+[как запустить архив](docs/ARCHIVE_PROCESSING.md).
 
 ## Возможности
 
@@ -109,7 +115,7 @@ py -3.12 -m venv .venv
 Поместите свою запись в `data/test.mp4` и запустите проверенный профиль:
 
 ```powershell
-.\.venv\Scripts\python.exe test_local.py --source data/test.mp4 --model models/candidates/person_manual_v1.onnx --confidence 0.35 --association-similarity 0.70 --show
+.\.venv\Scripts\python.exe test_local.py --source data/test.mp4 --clock-map data/test.clock.json --model models/candidates/person_manual_v1.onnx --confidence 0.35 --association-similarity 0.70 --show
 ```
 
 Если уже есть окружение `venv`, используйте `venv\Scripts\python.exe` вместо `.venv`.
@@ -139,7 +145,7 @@ py -3.12 -m venv .venv
 
 В окне `ID` обозначает траекторию, `P:` — запомненную личность. Серый бокс `WEAK`
 поддерживает сопровождение, но не подтверждает проход. `PENDING` означает, что решение
-ещё ожидает признаки жилетки или включённого возрастного фильтра: до 10 секунд видео, обычно до исчезновения человека
+ещё ожидает признаки жилетки или включённого возрастного фильтра: до 15 секунд видео в профиле test2, обычно до исчезновения человека
 и истечения срока жизни траектории. В журнал сохраняется время прохода, а не время
 принятия отложенного решения.
 
@@ -147,7 +153,7 @@ py -3.12 -m venv .venv
 На сервере без монитора используйте `--output` вместо `--show`:
 
 ```bash
-.venv/bin/python test_local.py --source data/test.mp4 --model models/candidates/person_manual_v1.onnx --confidence 0.35 --association-similarity 0.70 --output data/preview.mp4
+.venv/bin/python test_local.py --source data/test.mp4 --clock-map data/test.clock.json --model models/candidates/person_manual_v1.onnx --confidence 0.35 --association-similarity 0.70 --output data/preview.mp4
 ```
 
 Управление в окне:
@@ -160,20 +166,18 @@ py -3.12 -m venv .venv
 | Выход | Q, Esc или закрытие окна |
 
 После перемотки тестовые счётчики и память сбрасываются; `COUNT FROM` показывает
-начало текущего участка подсчёта. Для живого потока перемотка отключена.
+начало текущего участка подсчёта.
 При `--output` в файл записываются просмотренные участки в порядке воспроизведения.
 
 Дополнительные режимы:
 
 ```powershell
 # Только детекция, без ReID и подсчёта
-.\.venv\Scripts\python.exe test_local.py --source data/test.mp4 --detection-only --show
+.\.venv\Scripts\python.exe test_local.py --source data/test.mp4 --clock-map data/test.clock.json --detection-only --show
 
 # Ограниченный участок с сохранением результата
-.\.venv\Scripts\python.exe test_local.py --source data/test.mp4 --model models/candidates/person_manual_v1.onnx --confidence 0.35 --association-similarity 0.70 --start-frame 465750 --max-frames 1351 --output data/check_A12.mp4
+.\.venv\Scripts\python.exe test_local.py --source data/test.mp4 --clock-map data/test.clock.json --model models/candidates/person_manual_v1.onnx --confidence 0.35 --association-similarity 0.70 --start-frame 465750 --max-frames 1351 --output data/check_A12.mp4
 
-# USB-камера; для RTSP используйте --source-kind stream и URL своей камеры
-.\.venv\Scripts\python.exe test_local.py --source 0 --source-kind camera --model models/candidates/person_manual_v1.onnx --confidence 0.35 --association-similarity 0.70 --show
 ```
 
 ## Полный запуск через Docker
@@ -194,17 +198,15 @@ python -m tools.setup_env
 ```dotenv
 VIDEO_SOURCE=/app/data/test.mp4
 SOURCE_KIND=file
-# Реальное время первого кадра с часовым поясом; ниже только пример:
-VIDEO_START=2026-11-01T05:40:00+04:00
+TIME_SOURCE=camera
+CLOCK_MAP_PATH=/app/data/test.clock.json
+CHECKPOINT_INTERVAL_SEC=30
 ```
 
-Для камеры вместо этого:
-
-```dotenv
-VIDEO_SOURCE=rtsp://camera-host/stream
-SOURCE_KIND=stream
-VIDEO_START=
-```
+Сначала создайте карту времени с часов камеры и проверьте переходы монтажа:
+[порядок обработки архива](docs/ARCHIVE_PROCESSING.md). `VIDEO_START` используется
+только в явно выбранном режиме `--time-source pts`; он не восстанавливает
+вырезанные промежутки. Камеры и сетевые потоки в текущей версии отключены.
 
 После настройки источника и зон:
 
@@ -216,7 +218,7 @@ docker compose logs -f counter_service
 PostgreSQL в основном Compose не открывает порт наружу. Модели и видео монтируются
 только для чтения; состояние хранится в `counter_state`, PostgreSQL — в `pgdata`.
 Не удаляйте эти тома при перезапуске. После завершения файла служба успешно
-останавливается; поток работает постоянно. Полный порядок запуска, SQL-запросы,
+останавливается. Полный порядок запуска, SQL-запросы,
 локальная служба с БД и резервное копирование: [развёртывание](docs/DEPLOYMENT.md).
 
 ## Проверенное качество
@@ -265,20 +267,18 @@ YOLO mAP и точность боксов этим аудитом не изме�
 с ReID и записью визуализации: **20,50 FPS в среднем**, средние по эпизодам
 **18,52–22,36 FPS**. Это не минимальная мгновенная скорость и не замер сервера.
 
-При исходных 24,98 FPS каждый кадр обрабатывается примерно в **1,22 раза медленнее
-реального времени**. Для 60 FPS запаса нет: в зависимости от источника и буфера
-возникнут задержки или пропуски кадров. Скорость и качество при снижении частоты
-обработки нужно проверять отдельно на целевом сервере.
-
-Экранные часы внутри записи не равны скорости обработки. В предоставленном архиве
-они скачут относительно времени файла; для часового правила нужен исходный поток
-или достоверная временная шкала записи.
+Это исторический замер отдельных эпизодов без PostgreSQL и накопленной часовой
+памяти; он не предсказывает скорость полного рабочего дня. Новый архивный режим
+сохраняет состояние реже, не отправляет неизменённые checkpoint повторно и
+использует карту экранных часов. Скорость сравнивается на одинаковом фрагменте
+с настоящей PostgreSQL и синтетической накопленной памятью; детали в
+[инструкции архивного режима](docs/ARCHIVE_PROCESSING.md).
 
 ## Архитектура и хранение
 
 ```mermaid
 flowchart LR
-    V[Видео / RTSP / камера] --> D[Детектор людей]
+    V[Файл + карта часов камеры] --> D[Детектор людей]
     D --> T[BoT-SORT + OSNet]
     T --> C[Зоны двери и правила IN/OUT]
     C --> S[SQLite: состояние и очередь]

@@ -13,27 +13,18 @@ from core.video_source import VideoSource, parse_start, source_kind
 
 
 class VideoSourceTests(unittest.TestCase):
-    def test_stream_reconnect_marks_discontinuity_without_treating_it_as_eof(self):
-        capture = Mock()
-        capture.open.return_value = True
-        capture.get.return_value = 25
-        capture.read.side_effect = [(False, None), (True, np.zeros((64, 64, 3), np.uint8))]
-        cfg = replace(Settings(), VIDEO_SOURCE="rtsp://example.invalid/live")
-        reader = VideoSource(cfg)
-        with patch("core.video_source.cv2.VideoCapture", return_value=capture), patch.object(reader, "_retry_delay"):
-            try:
-                self.assertIsNone(reader.read())
-                self.assertFalse(reader.eof)
-                packet = reader.read()
-                self.assertTrue(packet.discontinuity)
-                self.assertEqual(capture.open.call_count, 2)
-                self.assertIsNotNone(packet.timestamp.tzinfo)
-            finally:
-                reader.close()
+    def test_network_sources_are_rejected_before_opening_capture(self):
+        for source in ("rtsp://user:secret@example.invalid/live", "https://example.invalid/a.mp4", "//server/share/a.mp4"):
+            with self.subTest(source=source), patch("core.video_source.cv2.VideoCapture") as capture:
+                with self.assertRaisesRegex(ValueError, "Only local") as error:
+                    VideoSource(replace(Settings(), VIDEO_SOURCE=source))
+                self.assertNotIn("secret", str(error.exception))
+                capture.assert_not_called()
 
     def test_source_types_and_timezone(self):
-        self.assertEqual(source_kind("0"), "camera")
-        self.assertEqual(source_kind("rtsp://user:secret@example.invalid/stream"), "stream")
+        self.assertEqual(source_kind("0"), "file")
+        with self.assertRaises(ValueError):
+            source_kind("rtsp://user:secret@example.invalid/stream")
         self.assertEqual(source_kind("D:/data/file.mp4"), "file")
         self.assertEqual(source_kind("0", "file"), "file")
         with self.assertRaises(ValueError):
@@ -48,7 +39,7 @@ class VideoSourceTests(unittest.TestCase):
                 writer.write(np.zeros((64, 64, 3), np.uint8))
             writer.release()
             start = datetime(2026, 11, 1, tzinfo=timezone.utc)
-            reader = VideoSource(replace(Settings(), VIDEO_SOURCE=str(path)), start, resume_frame=5)
+            reader = VideoSource(replace(Settings(TIME_SOURCE="pts"), VIDEO_SOURCE=str(path)), start, resume_frame=5)
             frames = []
             try:
                 while not reader.eof:

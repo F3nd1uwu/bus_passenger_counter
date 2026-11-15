@@ -31,7 +31,7 @@ def capture(cfg, start, end, output, confidence=.10):
     detector=PersonDetector(cfg)
     reader=VideoSource(cfg,parse_start(cfg.VIDEO_START) if cfg.VIDEO_START else
                        datetime(2026,11,9,tzinfo=timezone.utc),resume_frame=start)
-    boxes=[];features=[];valid=[];offsets=[0];indices=[];timestamps=[];shape=None;wall=time.perf_counter()
+    boxes=[];features=[];valid=[];offsets=[0];indices=[];timestamps=[];cuts=[];shape=None;wall=time.perf_counter()
     try:
         while reader.index<=end:
             packet=reader.read()
@@ -44,7 +44,7 @@ def capture(cfg, start, end, output, confidence=.10):
             for vector in vectors:
                 valid.append(vector is not None)
                 features.append(vector if vector is not None else np.zeros(detector.reid.dimension,np.float32))
-            offsets.append(len(boxes));indices.append(packet.index);timestamps.append(packet.timestamp.timestamp())
+            offsets.append(len(boxes));indices.append(packet.index);timestamps.append(packet.timestamp.timestamp());cuts.append(packet.time_discontinuity)
             if len(indices)%500==0:print(packet.index,'fps',round(len(indices)/(time.perf_counter()-wall),2),flush=True)
     finally:reader.close()
     if shape is None:
@@ -52,12 +52,12 @@ def capture(cfg, start, end, output, confidence=.10):
     np.savez_compressed(output,boxes=np.asarray(boxes,np.float32).reshape(-1,6),
                         features=np.asarray(features,np.float32).reshape(-1,detector.reid.dimension),
                         valid=np.asarray(valid,bool),offsets=np.asarray(offsets),frames=np.asarray(indices),
-                        timestamps=np.asarray(timestamps),shape=np.asarray(shape))
+                        timestamps=np.asarray(timestamps),cuts=np.asarray(cuts,bool),shape=np.asarray(shape))
     meta={'source':cfg.VIDEO_SOURCE,'start':start,'end':end,'frames':len(indices),'model':cfg.MODEL_PATH,
           'model_sha256':hashlib.sha256(cfg.path(cfg.MODEL_PATH).read_bytes()).hexdigest(),
           'reid_sha256':hashlib.sha256(cfg.path(cfg.REID_MODEL_PATH).read_bytes()).hexdigest(),
-          'confidence':confidence,'elapsed':time.perf_counter()-wall,'video_start':reader.start.isoformat(),
-          'timestamps':'file presentation time relative to video_start; source edits not recovered'}
+          'confidence':confidence,'elapsed':time.perf_counter()-wall,'video_start':reader.start.isoformat() if reader.start is not None else None,
+          'timestamps':cfg.TIME_SOURCE, 'clock_map':cfg.CLOCK_MAP_PATH}
     output.with_suffix('.json').write_text(json.dumps(meta,indent=2),encoding='utf-8')
     return meta
 
@@ -67,5 +67,8 @@ if __name__=='__main__':
     p.add_argument('--source',required=True);p.add_argument('--start',type=int,required=True);p.add_argument('--end',type=int,required=True)
     p.add_argument('--output',type=Path,required=True);p.add_argument('--model',default='models/candidates/person_manual_v1.onnx')
     p.add_argument('--threads',type=int,default=2)
+    p.add_argument('--time-source',choices=['camera','pts'],default='pts',help='PTS caches are diagnostic; camera mode requires --clock-map')
+    p.add_argument('--clock-map',default='')
+    p.add_argument('--video-start',default='2026-11-09T00:00:00+00:00')
     a=p.parse_args()
-    print(capture(replace(Settings(),VIDEO_SOURCE=a.source,MODEL_PATH=a.model,CPU_THREADS=a.threads),a.start,a.end,a.output))
+    print(capture(replace(Settings(),VIDEO_SOURCE=a.source,MODEL_PATH=a.model,CPU_THREADS=a.threads,TIME_SOURCE=a.time_source,CLOCK_MAP_PATH=a.clock_map,VIDEO_START=a.video_start),a.start,a.end,a.output))

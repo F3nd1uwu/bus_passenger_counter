@@ -1,0 +1,49 @@
+{
+  "format": "grayscale_garment_detection_v1",
+  "image_size": 320,
+  "source_sha256": "38fe81723b79472a5ae64b1bac0b3c6a9a040af1dfbb6c8387c342a9045b2497",
+  "onnx_sha256": "29f37aba282a726b1f3cf256958ff4d3a556d547a402267c5dc87c757cf0e7b2",
+  "input": "grayscale, square letterbox 114, three equal channels, float32 /255",
+  "classes": {
+    "0": "staff_vest"
+  },
+  "activated": true,
+  "status": "experimental_camera_specific",
+  "recommended_threshold": 0.2,
+  "confirm_frames": 2,
+  "decision_delay_seconds": 15,
+  "activation_scope": "Explicit test2 profile only; existing state must not be migrated to changed weights",
+  "training": {
+    "epochs_completed": 8,
+    "freeze": 10,
+    "learning_rate": 0.0001,
+    "added_hard_negative_crops": 22,
+    "annotations_sha256": "a7c8c15110577609c8506076fad4287b7613b1ba7ba503f276adb471b75ab85f",
+    "initial_weights_sha256": "d8dbc70ee7656d56d01fb947f19059995511daa803977b3f387be01f0efd2871",
+    "source_groups": [
+      "N01 white coat",
+      "N06 magenta coat"
+    ],
+    "test_used_for_fitting": false
+  },
+  "validation": {
+    "val": {
+      "positive": 4,
+      "negative": 77,
+      "true_positive": 2,
+      "false_positive": 0
+    },
+    "test": {
+      "positive": 21,
+      "negative": 129,
+      "true_positive": 9,
+      "false_positive": 0
+    }
+  },
+  "limitations": [
+    "Single camera/garment; confidence is not a calibrated probability",
+    "N01 and N06 are training, N10 inspected evaluation; none is a new independent full-day test",
+    "V05 delay was calibrated after a failed 10-second experiment; 15 seconds is archive latency, not a new ReID guarantee",
+    "A driver without visible garment is not reliably excluded"
+  ]
+}
