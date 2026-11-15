@@ -1,0 +1,12 @@
+FROM python:3.12-slim
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
+WORKDIR /app
+COPY requirements-web.txt .
+RUN pip install --no-cache-dir -r requirements-web.txt \
+    && useradd --create-home --uid 10001 console \
+    && mkdir -p /app/webstate && chown console:console /app/webstate
+COPY --chown=console:console manage_web.py .
+COPY --chown=console:console web ./web
+COPY --chown=console:console tools/__init__.py tools/setup_web_database.py ./tools/
+USER console
+CMD ["gunicorn", "web.config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "1", "--threads", "2", "--timeout", "30"]

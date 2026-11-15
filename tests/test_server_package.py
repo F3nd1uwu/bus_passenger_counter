@@ -16,7 +16,9 @@ class ServerPackageTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         names = package_server.FILES | set(package_server.TEMPLATES) | {'config/__init__.py', 'core/__init__.py',
-                'database/__init__.py', '.env', 'reports/private.json', 'models/candidates/extra.onnx', 'models/cpu_models.json'}
+                'database/__init__.py', '.env', 'reports/private.json', 'models/candidates/extra.onnx', 'models/cpu_models.json',
+                'web/config/settings.py', 'web/static/portal/app.css', 'web/templates/portal/base.html',
+                'web/portal/verification.py', 'web/portal/management/commands/seed_demo.py'}
         for name in names:
             self.write(name, b'fixture\n')
         self.write('Dockerfile', b'FROM python:3.12-slim\nCMD ["python", "main.py"]\n')
@@ -45,9 +47,12 @@ class ServerPackageTests(unittest.TestCase):
         self.write('core/__init__.py', b'uncommitted local changes')
         manifest = package_server.build('HEAD', self.root / 'release')
         self.assertEqual((self.root / 'release/core/__init__.py').read_bytes(), b'fixture\n')
-        for name in ['.env', 'reports/private.json', 'models/candidates/extra.onnx']:
+        for name in ['.env', 'reports/private.json', 'models/candidates/extra.onnx',
+                     'web/portal/verification.py', 'web/portal/management/commands/seed_demo.py']:
             self.assertNotIn(name, manifest['files'])
             self.assertFalse((self.root / 'release' / name).exists())
+        for name in ['web/config/settings.py', 'web/static/portal/app.css', 'web/templates/portal/base.html']:
+            self.assertIn(name, manifest['files'])
         self.assertEqual(verify(self.root / 'release')['source_commit'], manifest['source_commit'])
 
     def test_existing_output_is_preserved(self):

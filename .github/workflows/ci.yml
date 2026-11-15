@@ -49,6 +49,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install --no-deps --index-url https://download.pytorch.org/whl/cpu torch==2.15.0 torchvision==0.29.2
           python -m pip install -r requirements.txt
+          python -m pip install -r requirements-web.txt
       - name: Check dependencies and public files
         run: |
           python -m pip check
@@ -60,6 +61,34 @@ jobs:
           python -m tools.setup_env
           docker compose config --quiet
           docker compose -f docker-compose.yml -f docker-compose.local.yml config --quiet
+          python -m tools.setup_web_env
+          docker compose -f docker-compose.yml -f docker-compose.web.yml config --quiet
+
+  web:
+    name: Web console / isolated demo databases
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      WEB_DEMO: "1"
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install web dependencies
+        run: |
+          python -m pip install -r requirements-web.txt
+          python -m pip check
+          python -m tools.setup_web_env
+      - name: Check migrations and access boundaries
+        run: |
+          python manage_web.py makemigrations --check --dry-run
+          python manage_web.py test web.portal.verification --noinput
+      - name: Build isolated web image
+        run: docker build -f Dockerfile.web -t bus-passenger-counter-web:ci .
 
   windows:
     name: Windows / Python 3.14

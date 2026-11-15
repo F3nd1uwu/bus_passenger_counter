@@ -15,6 +15,9 @@ FILES = {
     'models/candidates/person_test2_v2.onnx', 'models/candidates/person_test2_v2.json',
     'models/candidates/work_vest_v3.onnx', 'models/candidates/work_vest_v3.json',
     'third_party/ULTRALYTICS_LICENSE.txt',
+    'Dockerfile.web', 'Dockerfile.web.dockerignore', 'docker-compose.web.yml',
+    'manage_web.py', 'requirements-web.txt', 'web.env.example',
+    'tools/setup_web_env.py', 'tools/setup_web_database.py',
 }
 TEMPLATES = {
     'deployment/server/README.md': 'README.md',
@@ -24,6 +27,7 @@ TEMPLATES = {
     'deployment/server/models.md': 'models/README.md',
     'deployment/server/ci.yml': '.github/workflows/ci.yml',
     'tools/vendor/OSNET_LICENSE.txt': 'third_party/OSNET_LICENSE.txt',
+    'docs/WEB.md': 'WEB.md',
 }
 
 
@@ -39,6 +43,9 @@ def build(ref, output):
     tracked = set(git('ls-tree', '-r', '--name-only', commit).decode().splitlines())
     selected = FILES | {name for name in tracked if name.startswith(('core/', 'config/', 'database/'))
                         and name.endswith(('.py', '.sql', '.json'))}
+    selected |= {name for name in tracked if name.startswith('web/')
+                 and name.endswith(('.py', '.html', '.css', '.js', '.svg'))
+                 and name not in {'web/portal/verification.py', 'web/portal/management/commands/seed_demo.py'}}
     required = selected | set(TEMPLATES)
     missing = required - tracked
     if missing:

@@ -1,0 +1,11 @@
+**
+!requirements-web.txt
+!manage_web.py
+!web/
+!web/**
+!tools/
+!tools/__init__.py
+!tools/setup_web_database.py
+web/**/__pycache__/
+web/portal/verification.py
+web/portal/management/commands/seed_demo.py
