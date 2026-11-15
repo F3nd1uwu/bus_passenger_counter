@@ -1,0 +1,40 @@
+{
+  "source_commit": "e1348395db3064c83cd00793eb2f2eeeddb57319",
+  "working_tree_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "benchmark_script_sha256": "c0784bd75e1b0f8fa4b2b399696435b232d9c282c98507eb0dfcf6611309c4e1",
+  "python": "3.14.7",
+  "platform": "Windows-11-10.0.28000-SP0",
+  "logical_cpus": 16,
+  "sqlite_version": "3.50.4",
+  "identities": 128,
+  "dimensions": 512,
+  "gallery_size": 8,
+  "iterations": 3,
+  "idle_syncs": 5,
+  "engine_state_sha256": "332c060511bd110add4f0a1f9db042db2abf8364ea11ad254b7a118c9bcf43f4",
+  "snapshot_seconds": [
+    0.06623029999900609,
+    0.07432689997949637,
+    0.07196699999622069
+  ],
+  "snapshot_median_seconds": 0.07196699999622069,
+  "save_seconds": [
+    0.6711817000177689,
+    0.7232699999876786,
+    0.6427245000086259
+  ],
+  "save_median_seconds": 0.6711817000177689,
+  "checkpoint_json_bytes": 12407208,
+  "sync_seconds": [
+    1.511258699989412,
+    1.5317321000038646,
+    1.5286214999796357
+  ],
+  "sync_median_seconds": 1.5286214999796357,
+  "idle_sync_seconds": 7.5282996999740135,
+  "idle_database_calls": 5,
+  "idle_checkpoints_sent": 5,
+  "idle_checkpoint_json_bytes": 64993615,
+  "idle_wal_bytes": 40637496,
+  "roundtrip_equal": true
+}

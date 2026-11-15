@@ -68,11 +68,17 @@ def synchronize(store, db):
         events = store.pending()
         # A remote checkpoint must never get ahead of its delivered events.
         finished = store.pending_count() <= len(events)
-        checkpoint = store.load() if finished else None
+        checkpoint = None
+        if finished:
+            header = store.checkpoint_header()
+            if header is not None and (events or not store.is_synchronized(db, header)):
+                checkpoint = store.load_for_delivery()
         if not events and checkpoint is None:
             return
         db.deliver(events, checkpoint)
         store.acknowledge(events)
+        if checkpoint is not None:
+            store.mark_synchronized(db, checkpoint)
         if finished:
             return
 

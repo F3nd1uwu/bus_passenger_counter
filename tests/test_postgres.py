@@ -96,6 +96,27 @@ class PostgresTests(unittest.TestCase):
         self.db.deliver([], {"source_key": self.source_key, "revision": 4, "payload": payload})
         self.assertEqual(self.db.load_checkpoint(self.source_key)["payload"]["next_frame"], 100)
 
+    def test_equal_revision_does_not_rewrite_runtime_or_heartbeat(self):
+        engine = PassengerCounterEngine(self.cfg)
+        engine.day = '2026-11-15'
+        payload = {"engine": engine.snapshot(), "bus_id": self.bus, "camera_id": self.cfg.CAMERA_ID,
+                   "next_frame": 100}
+        checkpoint = {"source_key": self.source_key, "revision": 5, "payload": payload}
+        self.db.deliver([], checkpoint)
+        with self.db.get_cursor() as cur:
+            cur.execute('SELECT xmin::text, updated_at FROM counter_runtime_state WHERE source_key=%s', (self.source_key,))
+            before = cur.fetchone()
+            cur.execute('SELECT updated_at FROM current_day_passenger_traffic WHERE bus_id=%s', (self.bus,))
+            heartbeat = cur.fetchone()
+        payload['next_frame'] = 200
+        self.db.deliver([], checkpoint)
+        with self.db.get_cursor() as cur:
+            cur.execute('SELECT xmin::text, updated_at FROM counter_runtime_state WHERE source_key=%s', (self.source_key,))
+            self.assertEqual(cur.fetchone(), before)
+            cur.execute('SELECT updated_at FROM current_day_passenger_traffic WHERE bus_id=%s', (self.bus,))
+            self.assertEqual(cur.fetchone(), heartbeat)
+        self.assertEqual(self.db.load_checkpoint(self.source_key)['payload']['next_frame'], 100)
+
     def test_schema_migration_can_run_repeatedly(self):
         self.db.initialized = False
         self.db.initialize()
@@ -155,6 +176,41 @@ class PostgresTests(unittest.TestCase):
             self.assertEqual(run(cfg)["frames"], 0)
             with self.db.get_cursor() as cur:
                 cur.execute("SELECT total_passengers FROM daily_passenger_traffic WHERE bus_id=%s", (self.bus,))
+                self.assertEqual(cur.fetchone()[0], 1)
+
+    def test_file_replays_unsaved_frames_with_long_checkpoint_interval(self):
+        class InterruptedDetector:
+            fail_once = True
+
+            def __init__(self, *args, **kwargs):
+                self.seen = 0
+
+            def reset(self):
+                pass
+
+            def detect(self, frame):
+                self.seen += 1
+                if self.seen == 4 and type(self).fail_once:
+                    type(self).fail_once = False
+                    raise RuntimeError('test process failure between checkpoints')
+                y = round(float(frame.mean()) / 10) * 10
+                return [Detection(1, (40, y - 10, 60, y + 10), 1, np.array([1, 0]), 0)]
+
+        with tempfile.TemporaryDirectory() as folder, patch('core.service.PersonDetector', InterruptedDetector):
+            cfg = replace(self._service_config(folder), CHECKPOINT_INTERVAL_SEC=10.0)
+            from core.service import configuration_key
+            self.source_key = configuration_key(cfg)
+            with self.assertRaisesRegex(RuntimeError, 'between checkpoints'):
+                run(cfg)
+            store = LocalStore(cfg.STATE_PATH)
+            try:
+                self.assertEqual(store.load()['payload']['next_frame'], 1)
+            finally:
+                store.close()
+            self.assertEqual(run(cfg)['in'], 1)
+            self.assertEqual(run(cfg)['frames'], 0)
+            with self.db.get_cursor() as cur:
+                cur.execute('SELECT COUNT(*) FROM raw_passenger_events WHERE bus_id=%s AND counted', (self.bus,))
                 self.assertEqual(cur.fetchone()[0], 1)
 
     def test_service_keeps_outbox_during_database_outage(self):

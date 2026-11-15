@@ -72,15 +72,24 @@ class DatabaseClient:
                            updated_at=CURRENT_TIMESTAMP""",
                         (event["traffic_date"], event["bus_id"], event["camera_id"], inc_in, inc_out))
             if checkpoint:
+                if "payload_json" in checkpoint:
+                    stored_payload = checkpoint["payload_json"]
+                    metadata = checkpoint["payload_meta"]
+                else:
+                    payload = checkpoint["payload"]
+                    stored_payload = Json(payload)
+                    metadata = {"day": payload["engine"]["day"], "bus_id": payload["bus_id"],
+                                "camera_id": payload["camera_id"]}
                 cur.execute(
                     """INSERT INTO counter_runtime_state (source_key,revision,payload) VALUES (%s,%s,%s)
                        ON CONFLICT (source_key) DO UPDATE SET revision=EXCLUDED.revision,
                        payload=EXCLUDED.payload,updated_at=CURRENT_TIMESTAMP
-                       WHERE counter_runtime_state.revision <= EXCLUDED.revision""",
-                    (checkpoint["source_key"], checkpoint["revision"], Json(checkpoint["payload"])))
-                payload = checkpoint["payload"]
-                day = payload["engine"]["day"]
-                if day:
+                       WHERE counter_runtime_state.revision < EXCLUDED.revision
+                       RETURNING source_key""",
+                    (checkpoint["source_key"], checkpoint["revision"], stored_payload))
+                advanced = cur.fetchone() is not None
+                day = metadata["day"]
+                if advanced and day:
                     for query in (
                         """INSERT INTO daily_passenger_traffic (traffic_date,bus_id) VALUES (%s,%s)
                            ON CONFLICT DO NOTHING""",
@@ -88,7 +97,7 @@ class DatabaseClient:
                            VALUES (%s,%s,%s) ON CONFLICT (traffic_date,bus_id,camera_id)
                            DO UPDATE SET updated_at=CURRENT_TIMESTAMP""",
                     ):
-                        params = (day, payload["bus_id"], payload["camera_id"])
+                        params = (day, metadata["bus_id"], metadata["camera_id"])
                         cur.execute(query, params if "camera_id" in query else params[:2])
 
     def close(self):
