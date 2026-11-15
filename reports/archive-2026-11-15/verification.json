@@ -1,5 +1,5 @@
 {
-  "verified_at_utc": "2026-11-15T20:44:19.227136+00:00",
+  "verified_at_utc": "2026-11-15T20:45:32.217821+00:00",
   "full_suite": {
     "discovered": 198,
     "passed": 195,
@@ -40,7 +40,20 @@
     "identity_correct": 5,
     "unresolved": 0
   },
-  "server_package": "pending final package verification",
+  "server_package": {
+    "passed": true,
+    "source_commit": "abb7a23701815a0d1b16d99074a4ecd3d7b91072",
+    "files_including_manifest": 110,
+    "payload_bytes": 31930471,
+    "manifest_sha256": "c469d312348b695529042a8d4f4335e1499d21f487796101961db6e9c3c95e07",
+    "host_checksum_verification": true,
+    "linux_checksum_and_model_smoke": true,
+    "docker_image_build": true,
+    "built_image_model_smoke": true,
+    "runtime_python": "3.12",
+    "smoke_network": "disabled",
+    "deployment_status": "Prepared locally; production server and remote Git branches unchanged"
+  },
   "linux_runtime_smoke": {
     "passed": true,
     "python": "3.12",
