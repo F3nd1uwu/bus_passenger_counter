@@ -1,0 +1,54 @@
+# Add only the web service; existing counter containers do not need recreation.
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    image: bus-passenger-counter-web:local
+    env_file: .env.web
+    environment:
+      WEB_STATE_DIR: /app/webstate
+      WEB_ANALYTICS_DB_HOST: postgres
+    command: ["sh", "-c", "python manage_web.py migrate --noinput && python manage_web.py collectstatic --noinput && exec gunicorn web.config.wsgi:application --bind 0.0.0.0:8000 --workers 1 --threads 2 --timeout 30"]
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - web_state:/app/webstate
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 384m
+    cpus: 0.5
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/', timeout=3)"]
+      start_period: 30s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"
+  web_setup:
+    profiles: ["tools"]
+    image: bus-passenger-counter-web:local
+    env_file:
+      - .env
+      - .env.web
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+    command: ["python", "-m", "tools.setup_web_database"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+volumes:
+  web_state:

@@ -1,6 +1,6 @@
 {
   "format": "server_distribution_v1",
-  "source_commit": "c40e3ffef8557d3421708aadbe276d5149000a74",
+  "source_commit": "e1348395db3064c83cd00793eb2f2eeeddb57319",
   "source_branch": "diploma",
   "deployment_branch": "server",
   "source_repository": "https://github.com/F3nd1uwu/bus_passenger_counter",
@@ -8,8 +8,8 @@
   "child_filter": "disabled; experimental model assets omitted",
   "files": {
     ".dockerignore": {
-      "sha256": "64384ca96671469dde7e8ae4bed72bc9bf040893c9e92eaffc264e9ec50356d7",
-      "bytes": 143
+      "sha256": "b36ea907dab9a1e97144e316d3a9374688aef3c1cb75d0db3d28259cceeafa7e",
+      "bytes": 237
     },
     ".editorconfig": {
       "sha256": "d2c034664ed4a0c92b58d4a7e4b68eef7c7a76b07012d799138293eab5f752de",
@@ -35,13 +35,25 @@
       "sha256": "72665946e94cca2477d44f23ca71696f7df0bb81c393c74cee377b8099456a4c",
       "bytes": 848
     },
+    "Dockerfile.web": {
+      "sha256": "cec7dd96c5df177b107911ee25e83ebbb7638c399446f5f6c918e2811a7f3dc5",
+      "bytes": 599
+    },
+    "Dockerfile.web.dockerignore": {
+      "sha256": "d3fba3c08c33dbbbedadb4f3c3baaf3500384ed0ecdbc183d51c29ee61686bc8",
+      "bytes": 201
+    },
     "README.md": {
-      "sha256": "0746172ee17721f5d1af16ac2cb84732afc1acb879b8c9e1fae04d1fb91c0609",
-      "bytes": 10242
+      "sha256": "7690c14a0c7b63c54316a3776c5ca80ff06d158f0a4300c09439121f2e50ed1e",
+      "bytes": 11081
     },
     "THIRD_PARTY_NOTICES.md": {
-      "sha256": "9e66a3d5f91d5ce4a5de1b926ddc368556031c6f9b68bc908c4b6d273d20443d",
-      "bytes": 1235
+      "sha256": "b538b811611eaeb02d75a44c203e5807a3ffa6fa786e5b190682270f0ed3ebfe",
+      "bytes": 1631
+    },
+    "WEB.md": {
+      "sha256": "9f2033cd2aec4d9619869f7c691360ce234be91c7956af70574fcff400be5feb",
+      "bytes": 16975
     },
     "botsort_reid.yaml": {
       "sha256": "b9feabb2b69700f4995ff8ac39db935d4db7f295850301d43232d939cb545e43",
@@ -151,6 +163,10 @@
       "sha256": "f870ac2cac51d8ab52eea6847c5c8b5d36b73f0e375deec6cacf17f52ce5ccee",
       "bytes": 2313
     },
+    "docker-compose.web.yml": {
+      "sha256": "8dc87ef0ebd242c7c6bc21fa033b5214b3f6d61c43af3cc36fd5cd3bc3d46de8",
+      "bytes": 1518
+    },
     "docker-compose.yml": {
       "sha256": "fc24184a10a2987b4576c5e53c5456ae2db6775b110f117cc435aad857555e0e",
       "bytes": 1172
@@ -158,6 +174,10 @@
     "main.py": {
       "sha256": "d6b7bc164c391e2b69814227902734ca404d89f9afb3c2b1a07b6fe9af18a914",
       "bytes": 64
+    },
+    "manage_web.py": {
+      "sha256": "029070ef9b599cf7e3a625282e0989b25261315d53d01edb23401099531eb449",
+      "bytes": 291
     },
     "models/README.md": {
       "sha256": "c7c81a6e772dd580fa9a4999a5669b890a23ade41342a79218583e0053afb100",
@@ -187,6 +207,10 @@
       "sha256": "38b3dd2c2acb0bd191d27eff6707dc5428de63fc7395a6f4ae0cb6392ef2acfa",
       "bytes": 873975
     },
+    "requirements-web.txt": {
+      "sha256": "7ff58d3af76f7f1e88592c74987d378fc7c26e9f6f408120c1c25db4937db8de",
+      "bytes": 143
+    },
     "requirements.txt": {
       "sha256": "0e2713c8de506481bd0d4f2a810c85f0417950e9e8c623f91d761f3d5bb6ecd8",
       "bytes": 181
@@ -211,9 +235,189 @@
       "sha256": "4b138ce943242e022bea687b19b439b35010035f6c054880cc56e58787ae6eaf",
       "bytes": 648
     },
+    "tools/setup_web_database.py": {
+      "sha256": "96aa85f28de104a9176c1df23a03a0bb487f3724b72fa9a17010539f13d00ae8",
+      "bytes": 3667
+    },
+    "tools/setup_web_env.py": {
+      "sha256": "12eb503c9b640cc4cc86ebd03f732f0d3b89e0b53ddcdcba920d9156f512cf27",
+      "bytes": 806
+    },
     "tools/verify_release.py": {
       "sha256": "33512c85448f853a96973eefda8910970a2cd1388667ac6dce207f88dffce620",
       "bytes": 3519
+    },
+    "web.env.example": {
+      "sha256": "f55d137765d27daff01496a5c0c4bf42bbe35944cb8dd17f36710f94c5afaf52",
+      "bytes": 391
+    },
+    "web/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "web/analytics/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "web/analytics/migrations/0001_initial.py": {
+      "sha256": "33d8a827dd933df8b14c832e4dd08dda7f4379c26e9dde89b282aa8642d9afca",
+      "bytes": 1864
+    },
+    "web/analytics/migrations/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "web/analytics/models.py": {
+      "sha256": "2d6c0ecfda7dff1f77f2c2836c940ba07971b3e49b7872a25d004bf671c2b16a",
+      "bytes": 1087
+    },
+    "web/analytics/router.py": {
+      "sha256": "5e652a2dc936817934bb7228e7d3df7daae66d7f1e714ea16d903f1dcb099a38",
+      "bytes": 514
+    },
+    "web/config/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "web/config/settings.py": {
+      "sha256": "65d2c344216c37d4049e55bea8a3c2fe69ba3661f8699392b1919732e1b28e0f",
+      "bytes": 5085
+    },
+    "web/config/urls.py": {
+      "sha256": "5c68c3a9ea1e2bf3d5aae20645423f81a783286c061fbc00f6eef8e4ea0d76cd",
+      "bytes": 92
+    },
+    "web/config/wsgi.py": {
+      "sha256": "06ff1047f703906fd49f465c1defb2f762c9b8fa11029394134717526ad16e00",
+      "bytes": 169
+    },
+    "web/portal/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "web/portal/auth.py": {
+      "sha256": "90ea412d361e345f98b55ea30d81acfdf2d3376d20c98002296e2402dbaf8fbb",
+      "bytes": 3176
+    },
+    "web/portal/context_processors.py": {
+      "sha256": "297af0767a9edd071f087e95864fc55d7faa53c0f764ea4f50140ba03f27c4ba",
+      "bytes": 145
+    },
+    "web/portal/forms.py": {
+      "sha256": "a8030823cd433c9d429af1e8a520a2b82a04665030c8d2bb00a81e77da0abdff",
+      "bytes": 5041
+    },
+    "web/portal/management/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "web/portal/management/commands/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "web/portal/middleware.py": {
+      "sha256": "fb25dbb5aab54342d5361f5b8b7749a93df56e0867da2a0bb855d7aeb1795ca9",
+      "bytes": 615
+    },
+    "web/portal/migrations/0001_initial.py": {
+      "sha256": "0cb1aa8e27a123c98a3f4363c0312eb8237f5e295aec65cf6a7a578fe26f4404",
+      "bytes": 5781
+    },
+    "web/portal/migrations/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "web/portal/models.py": {
+      "sha256": "3b2d2f96272e7c65855b7550d5eb3d49d947958e78fe46991206ae2808d9ee5b",
+      "bytes": 2501
+    },
+    "web/portal/services.py": {
+      "sha256": "d315bdba688a375f8c83e248650de3653d030c34dba9dc41a6dfcc55e4c7bbcf",
+      "bytes": 4327
+    },
+    "web/portal/templatetags/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "web/portal/templatetags/console.py": {
+      "sha256": "267c42b8c1b17212eed38093b33318eec46fee77b8f84d62e50e8a20c61869f5",
+      "bytes": 711
+    },
+    "web/portal/urls.py": {
+      "sha256": "99d01fc933fa69f14f7581274cec95217d098dfdf08cccfe62c843ea48a54552",
+      "bytes": 1087
+    },
+    "web/portal/views.py": {
+      "sha256": "6df910ce824e26d6d0ba6dd3d52bd6478171f11a4facf480f30f03d63a56e868",
+      "bytes": 11634
+    },
+    "web/static/portal/app.css": {
+      "sha256": "bfe3a0cea6fec4eb1b4b8b3b4733ff3831c48d40f3210a00be0d65203df1e63c",
+      "bytes": 22434
+    },
+    "web/static/portal/app.js": {
+      "sha256": "c7ab3aba53760e0c3095764dd456e3daaf2024c395240abc7beefeecb50a4709",
+      "bytes": 913
+    },
+    "web/static/portal/favicon.svg": {
+      "sha256": "a251e36d87c808518af9a8636e58738fccb5e340366814c25f25a79ea853c6a5",
+      "bytes": 242
+    },
+    "web/templates/403.html": {
+      "sha256": "3b6bb4a7a20a95bb7573c762d907863e7fa7fabd8b1eaa9e2414c0db9abca5a1",
+      "bytes": 344
+    },
+    "web/templates/404.html": {
+      "sha256": "1674d3bc1ae33ee36f4ff77fdde8e16347cdd32f0eaa120d57b12975eddc2fea",
+      "bytes": 335
+    },
+    "web/templates/portal/audit.html": {
+      "sha256": "d4944bafceafc41b15273f297307b90bef8703b7d910fcd09fd9809ec273cd14",
+      "bytes": 835
+    },
+    "web/templates/portal/base.html": {
+      "sha256": "b33840adc8e29fc0c0feac02548a644738e283245475735f05b8071b6c63c78f",
+      "bytes": 5138
+    },
+    "web/templates/portal/buses.html": {
+      "sha256": "16fbd903f99b812254bb7e2862f200ed07366f41a0d615703d23f9c6e90129ab",
+      "bytes": 1639
+    },
+    "web/templates/portal/events.html": {
+      "sha256": "79540b01bd6e27a40ef90f4fdeca770b14cac634e5b4e509d13900d4a914f724",
+      "bytes": 2546
+    },
+    "web/templates/portal/exports.html": {
+      "sha256": "0c9097dda08878a3aec36ded24c7937f47f37063fef8f4d46292371b3899fee2",
+      "bytes": 2077
+    },
+    "web/templates/portal/filters.html": {
+      "sha256": "e8c0c0fad36e9453b6d8931359ebe6c695dabe567bb0bddf861665ecf8f97817",
+      "bytes": 1257
+    },
+    "web/templates/portal/form.html": {
+      "sha256": "24b52c486c3824484e4bcaddd007d5081da7b3e929ae21ecd58b01254133fed6",
+      "bytes": 827
+    },
+    "web/templates/portal/login.html": {
+      "sha256": "0f30f2ad410c139b10aac7144593553d10e80326ddccfbd5ee8744ed430e6aa5",
+      "bytes": 2944
+    },
+    "web/templates/portal/overview.html": {
+      "sha256": "415f88be1542cf2f2ba26a1b2916876c3413617178932f6f7fb56390a9033993",
+      "bytes": 5291
+    },
+    "web/templates/portal/pagination.html": {
+      "sha256": "fcfdbb677e8c453b74bb8aad9edcc8800ff0ccd6c779e2ddeef4fdb8fb76d622",
+      "bytes": 520
+    },
+    "web/templates/portal/reports.html": {
+      "sha256": "89fd14ac5f9a438632adf77d4a454bc1942efeecfe1acc79950f4802c893df67",
+      "bytes": 2137
+    },
+    "web/templates/portal/users.html": {
+      "sha256": "78549f24f769a745bd37095c10bc53436e923c29d0ba2d55c8902d7458cc2c79",
+      "bytes": 1572
     }
   }
 }

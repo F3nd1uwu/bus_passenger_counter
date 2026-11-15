@@ -1,0 +1,12 @@
+{% load static %}<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Вход · Поток</title><link rel="icon" href="{% static 'portal/favicon.svg' %}" type="image/svg+xml"><link rel="stylesheet" href="{% static 'portal/app.css' %}"></head>
+<body class="login-page">
+<section class="login-story"><div class="brand"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 24V8h6m4 16V8h6M4 16h8m8 0h8M8 27h16"/></svg></span><span>Поток<small>Учёт пассажиропотока</small></span></div>
+<div class="login-story-main"><p class="eyebrow light">Рабочее пространство</p><h1>Каждый проход.<br>Понятный результат.</h1><p>Результаты обработки видео, проверка событий и отчёты по автобусам — в одном кабинете.</p>
+<svg class="door-art" viewBox="0 0 440 180" role="img" aria-label="Схема входа и выхода через дверь автобуса"><path class="art-frame" d="M40 150V25h150v125m15 0V25h150v125M40 75h150m15 0h150M115 25v125m165-125v125M20 155h360"/><path class="art-in" d="M80 108h68m-14-14 14 14-14 14"/><path class="art-out" d="M310 108h-68m14-14-14 14 14 14"/><circle cx="400" cy="44" r="5"/><circle cx="400" cy="68" r="5"/></svg>
+<div class="story-features"><span>Отчёты за период</span><span>Разделение прав</span><span>История выгрузок</span></div></div><p class="login-footnote">Доступ только для авторизованных сотрудников</p></section>
+<main class="login-panel"><div class="login-box">{% if demo_mode %}<span class="badge test">Изолированный демостенд</span>{% endif %}<p class="eyebrow">Личный кабинет</p><h2>Войти в систему</h2><p class="muted">Используйте учётную запись, которую выдал администратор.</p>
+<form method="post" class="stack-form">{% csrf_token %}<input type="hidden" name="next" value="{{ next }}">{{ form.non_field_errors }}
+<div class="field"><label for="id_username">Логин</label><input type="text" name="username" id="id_username" value="{{ form.username.value|default:'' }}" autocomplete="username" maxlength="150" required autofocus>{{ form.username.errors }}</div>
+<div class="field"><label for="id_password">Пароль</label><input type="password" name="password" id="id_password" autocomplete="current-password" required>{{ form.password.errors }}</div>
+<button class="button primary full" type="submit">Войти в кабинет <span aria-hidden="true">→</span></button></form><p class="login-help">Нет доступа? Обратитесь к администратору вашей организации.</p></div></main>
+</body></html>

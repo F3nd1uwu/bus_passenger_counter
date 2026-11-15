@@ -1,0 +1,48 @@
+{% load static %}<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page_title|default:'Личный кабинет' }} · Поток</title>
+  <link rel="icon" href="{% static 'portal/favicon.svg' %}" type="image/svg+xml">
+  <link rel="stylesheet" href="{% static 'portal/app.css' %}">
+  <script src="{% static 'portal/app.js' %}" defer></script>
+</head>
+<body>
+<a href="#content" class="skip-link">Перейти к содержимому</a>
+<aside class="sidebar" id="sidebar">
+  <button type="button" class="menu-close icon-button" data-menu-close aria-label="Закрыть меню">×</button>
+  <a href="{% url 'overview' %}" class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 24V8h6m4 16V8h6M4 16h8m8 0h8M8 27h16"/></svg></span><span>Поток<small>Учёт пассажиропотока</small></span></a>
+  <div class="nav-caption">Рабочее пространство</div>
+  <nav aria-label="Основная навигация">
+    <a class="nav-item {% if nav == 'overview' %}active{% endif %}" href="{% url 'overview' %}" {% if nav == 'overview' %}aria-current="page"{% endif %}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm11 0h7v7h-7z"/></svg>Обзор</a>
+    <a class="nav-item {% if nav == 'reports' %}active{% endif %}" href="{% url 'reports' %}" {% if nav == 'reports' %}aria-current="page"{% endif %}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM9 11h6m-6 4h6m-6 3h4"/></svg>Отчёты</a>
+    <a class="nav-item {% if nav == 'events' %}active{% endif %}" href="{% url 'events' %}" {% if nav == 'events' %}aria-current="page"{% endif %}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h1M3 12h1M3 18h1"/></svg>Журнал событий</a>
+    <a class="nav-item {% if nav == 'exports' %}active{% endif %}" href="{% url 'exports' %}" {% if nav == 'exports' %}aria-current="page"{% endif %}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 15v6h16v-6"/></svg>Выгрузки</a>
+    {% if user.is_console_admin %}
+    <div class="nav-caption secondary">Администрирование</div>
+    <a class="nav-item {% if nav == 'buses' %}active{% endif %}" href="{% url 'buses' %}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17V5c0-2 14-2 14 0v12H5zm0-8h14M7 17v3m10-3v3M8 13h1m6 0h1"/></svg>Автобусы</a>
+    <a class="nav-item {% if nav == 'users' %}active{% endif %}" href="{% url 'users' %}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m1-17a3 3 0 0 1 0 6m3 5a5 5 0 0 1 2 4v2"/></svg>Пользователи</a>
+    <a class="nav-item {% if nav == 'audit' %}active{% endif %}" href="{% url 'audit' %}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6zM8 12l3 3 5-6"/></svg>Журнал действий</a>
+    {% endif %}
+  </nav>
+  <div class="sidebar-footer"><span class="tiny-mark" aria-hidden="true"></span><div>Данные обработки<small>Время отчётов: {{ console_timezone }}</small></div></div>
+</aside>
+<div class="workspace">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" data-menu aria-label="Открыть меню" aria-controls="sidebar" aria-expanded="false">☰</button>
+    <span class="breadcrumb">Личный кабинет <span>/</span> {{ page_title }}</span>
+    <div class="account-area">{% if demo_mode %}<span class="badge test">Демостенд</span>{% endif %}
+      <details class="account-menu"><summary><span class="avatar">{{ user.username|first|upper }}</span><span>{{ user.get_full_name|default:user.username }}<small>{% if user.is_console_admin %}Администратор{% else %}Сотрудник{% endif %}</small></span><span aria-hidden="true">⌄</span></summary>
+        <div class="account-popover"><a href="{% url 'password' %}">Сменить пароль</a><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit">Выйти из кабинета</button></form></div>
+      </details>
+    </div>
+  </header>
+  <main id="content" tabindex="-1">
+    {% if demo_mode %}<div class="demo-notice">Демонстрационные данные. Этот стенд не подключён к рабочей обработке видео.</div>{% endif %}
+    <div class="page-heading"><div><p class="eyebrow">{{ eyebrow|default:'Рабочее пространство' }}</p><h1>{{ page_title }}</h1></div>{% block heading_actions %}{% endblock %}</div>
+    {% for message in messages %}<div class="notice {{ message.tags }}" role="status">{{ message }}</div>{% endfor %}
+    {% block content %}{% endblock %}
+    <footer class="page-footer">Поток · Входы и выходы с часовым исключением повторов <span>Данные доступны в пределах ваших прав</span></footer>
+  </main>
+</div>
+</body></html>
