@@ -2,11 +2,14 @@
 from ultralytics import YOLO
 import numpy as np
 from types import SimpleNamespace
+import logging
 
 from core.reid import ReIDEncoder
 from core.types import Detection
 from core.vest_classifier import VestClassifier
 from core.person_detections import distinct_person_indices
+
+log = logging.getLogger(__name__)
 
 
 class PersonDetector:
@@ -43,7 +46,7 @@ class PersonDetector:
             from core.child_filter import ChildClassifier, ChildObserver
             self.child_observer = ChildObserver(ChildClassifier(cfg.path(cfg.CHILD_MODEL_PATH)))
         self._configured_backend = None
-        if cfg.DEVICE == "cpu" and path.suffix == ".onnx":
+        if cfg.DEVICE == "cpu" and path.suffix.lower() == ".onnx":
             self.model.add_callback("on_predict_start", self._configure_onnx_cpu)
         self.appearance_tracker = None
         if cfg.TRACKING_MODE == "appearance":
@@ -65,9 +68,15 @@ class PersonDetector:
             raise RuntimeError("CPU ONNX profile unexpectedly enabled GPU IO bindings")
         import onnxruntime as ort
         from core.onnx_runtime import cpu_options
-        backend.session = ort.InferenceSession(str(self.cfg.path(self.cfg.MODEL_PATH)),
-                                                sess_options=cpu_options(self.cfg.CPU_THREADS),
-                                                providers=["CPUExecutionProvider"])
+        threads = self.cfg.DETECTOR_CPU_THREADS or self.cfg.CPU_THREADS
+        if self.cfg.CPU_DETECTOR_BACKEND == 'openvino':
+            from core.openvino_session import OpenVINOSession
+            backend.session = OpenVINOSession(self.cfg.path(self.cfg.MODEL_PATH), threads)
+            log.info('Person detector: OpenVINO FP32, %s threads; ReID and vest remain ONNX CPU', threads)
+        else:
+            backend.session = ort.InferenceSession(str(self.cfg.path(self.cfg.MODEL_PATH)),
+                                                  sess_options=cpu_options(threads),
+                                                  providers=["CPUExecutionProvider"])
         self._configured_backend = backend
 
     def reset(self):

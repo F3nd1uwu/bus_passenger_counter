@@ -1,0 +1,4 @@
+[
+  {"source": "data/test.mp4", "clock_map": "data/test.clock.json", "start": 81271, "end": 81520},
+  {"source": "data/test2.mp4", "clock_map": "data/test2.clock.json", "start": 262000, "end": 262249}
+]

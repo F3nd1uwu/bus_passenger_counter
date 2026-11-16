@@ -42,6 +42,8 @@ class Settings:
     STATE_PATH: str = "data/runtime.sqlite3"
     DEVICE: str = "cpu"
     CPU_THREADS: int = 4
+    CPU_DETECTOR_BACKEND: str = 'onnx'
+    DETECTOR_CPU_THREADS: int = 0  # 0 inherits CPU_THREADS; scheduling only
     PERSON_CLASS_ID: int = 0
     CONFIDENCE: float = 0.10
     IMAGE_SIZE: int = 640
@@ -125,6 +127,12 @@ class Settings:
                 raise ValueError(f"{name} must be positive")
         if self.FRAME_STRIDE > 4:
             raise ValueError("FRAME_STRIDE must be 1..4; validate counting before increasing it")
+        if self.CPU_DETECTOR_BACKEND not in {'onnx', 'openvino'}:
+            raise ValueError('CPU_DETECTOR_BACKEND must be onnx or openvino')
+        if self.DETECTOR_CPU_THREADS < 0:
+            raise ValueError('DETECTOR_CPU_THREADS must be nonnegative')
+        if self.CPU_DETECTOR_BACKEND == 'openvino' and (self.DEVICE != 'cpu' or self.path(self.MODEL_PATH).suffix.lower() != '.onnx'):
+            raise ValueError('OpenVINO person detection requires DEVICE=cpu and local ONNX weights')
         if self.SOURCE_KIND not in {"auto", "file"}:
             raise ValueError("Only local video files are supported (SOURCE_KIND=auto or file)")
         if self.TIME_SOURCE not in {"camera", "pts"}:

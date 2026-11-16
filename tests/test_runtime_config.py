@@ -7,6 +7,22 @@ from core.service import configuration_key
 
 
 class RuntimeConfigurationTests(unittest.TestCase):
+    def test_default_detector_backend_preserves_old_checkpoint_key(self):
+        from dataclasses import asdict
+        cfg = Settings(TIME_SOURCE='pts', VIDEO_SOURCE='data/test.mp4', SOURCE_KIND='file')
+        previous = asdict(cfg)
+        previous.pop('CPU_DETECTOR_BACKEND')
+        previous.pop('DETECTOR_CPU_THREADS')
+        current = configuration_key(cfg)
+        with patch('core.service.asdict', return_value=previous):
+            self.assertEqual(configuration_key(cfg), current)
+
+    def test_backend_change_requires_new_state_but_thread_count_does_not(self):
+        cfg = Settings(TIME_SOURCE='pts', VIDEO_SOURCE='data/test.mp4', SOURCE_KIND='file',
+                       MODEL_PATH='models/candidates/person_test2_v2.onnx')
+        self.assertEqual(configuration_key(cfg), configuration_key(replace(cfg, DETECTOR_CPU_THREADS=2)))
+        self.assertNotEqual(configuration_key(cfg), configuration_key(replace(cfg, CPU_DETECTOR_BACKEND='openvino')))
+
     def test_camera_file_rename_and_review_note_do_not_reset_hourly_memory(self):
         import json
         from pathlib import Path

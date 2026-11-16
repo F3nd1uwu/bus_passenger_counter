@@ -20,6 +20,8 @@ def cli(preview=False):
     parser.add_argument("--drift-threshold", type=float, help="Merged-crop identity guard; 0 disables it")
     parser.add_argument("--device", help="cpu, cuda:0 or Ultralytics GPU index 0")
     parser.add_argument("--cpu-threads", type=int)
+    parser.add_argument('--cpu-detector-backend', choices=['onnx', 'openvino'], help='Optional CPU detector engine; ReID/vest remain unchanged')
+    parser.add_argument('--detector-cpu-threads', type=int, help='Detector threads only; 0 inherits --cpu-threads')
     parser.add_argument("--staff-mode", choices=["disabled", "model"])
     parser.add_argument("--child-mode", choices=["disabled", "model"], help="Approximate small-child filter; unknown passengers are counted")
     parser.add_argument("--child-model", help="Local child ensemble manifest")
@@ -43,6 +45,7 @@ def cli(preview=False):
             ("VIDEO_START", args.video_start), ("MODEL_PATH", args.model), ("DEVICE", args.device),
             ("CONFIDENCE", args.confidence),
             ("FRAME_STRIDE", args.frame_stride), ("CPU_THREADS", args.cpu_threads), ("STAFF_MODE", args.staff_mode),
+            ('CPU_DETECTOR_BACKEND', args.cpu_detector_backend), ('DETECTOR_CPU_THREADS', args.detector_cpu_threads),
             ("CHILD_MODE", args.child_mode), ("CHILD_MODEL_PATH", args.child_model),
             ("VEST_MODEL_PATH", args.vest_model), ("VEST_THRESHOLD", args.vest_threshold),
             ("STAFF_DECISION_DELAY_SEC", args.staff_decision_delay),

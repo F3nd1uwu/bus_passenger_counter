@@ -137,6 +137,13 @@ SELECT reason, counted, COUNT(*) FROM raw_passenger_events GROUP BY reason, coun
 
 ## Локальная диагностика без БД
 
+По умолчанию детектор использует ONNX Runtime. Опциональный OpenVINO требует
+отдельного образа с `openvino==2026.4.1` и явных параметров запуска
+`--cpu-detector-backend openvino --detector-cpu-threads 4 --cpu-threads 2`.
+Эта настройка не включена автоматически: сравните скорость и качество на своём
+процессоре. Для смены движка нужны отдельные тестовый BUS_ID и STATE_PATH;
+старые checkpoints несовместимы с другим движком. ReID и жилетка остаются ONNX.
+
 Python 3.12 и CPU-зависимости устанавливаются командами:
 
 ```bash

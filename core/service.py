@@ -29,8 +29,10 @@ def configuration_key(cfg):
     # Fingerprint models as well as thresholds so incompatible state is never reused.
     values = asdict(cfg)
     for key in list(values):
-        if key.startswith("DB_") or key in {"STATE_PATH", "SYNC_INTERVAL_SEC", "CHECKPOINT_INTERVAL_SEC", "DEVICE", "CPU_THREADS"}:
+        if key.startswith("DB_") or key in {"STATE_PATH", "SYNC_INTERVAL_SEC", "CHECKPOINT_INTERVAL_SEC", "DEVICE", "CPU_THREADS", "DETECTOR_CPU_THREADS"}:
             del values[key]
+    if cfg.CPU_DETECTOR_BACKEND == 'onnx':
+        values.pop('CPU_DETECTOR_BACKEND', None)
     if cfg.TRACKING_MODE == "iou":
         values.pop("TRACKING_MODE", None)
         values.pop("TRACKER_IDENTITY_MIN_SIMILARITY", None)
