@@ -1,0 +1,55 @@
+{
+  "verified_at_utc": "2026-11-16T01:34:31.076183+00:00",
+  "runtime_source_commit": "696400ef2f1466da60a5b8919596555ba3cd6106",
+  "server_commit": "a3622c03e8e4ae0ef4aef017f6f65d3c772898d4",
+  "clean_checkout": {
+    "platform": "Linux / Python 3.12",
+    "private_recordings_present": false,
+    "discovered": 205,
+    "passed": 193,
+    "skipped": 12,
+    "failed": 0,
+    "seconds": 16.567,
+    "postgres": true
+  },
+  "windows_focused": {
+    "tests": 22,
+    "passed": 22,
+    "failed": 0,
+    "seconds": 10.468
+  },
+  "web": {
+    "tests": 25,
+    "passed": 25,
+    "failed": 0,
+    "seconds": 2.923,
+    "migrations_unchanged": true
+  },
+  "server": {
+    "file_count": 112,
+    "manifest_sha256": "786f02e861a1f7e924c938327db2d686b4d7c919a9e220eb7fb708057b6f4c6e",
+    "payload_bytes": 31944642,
+    "models": [
+      "models/camera_clock.onnx",
+      "models/candidates/person_test2_v2.onnx",
+      "models/candidates/work_vest_v4.onnx",
+      "models/person_reid.onnx"
+    ],
+    "host_integrity": true,
+    "linux_integrity_and_model_smoke": true,
+    "docker_build": true,
+    "compose_with_web": true
+  },
+  "privacy": {
+    "recordings_datasets_states_secrets_excluded": true,
+    "terminology_reviewed": true
+  },
+  "deployment": "Publication only; rented server and its database not modified",
+  "known_limitations": [
+    "24/25 old control totals in fresh OpenVINO video pipeline",
+    "The remaining 7-vs-6 boarding discrepancy is reproduced by fresh ONNX on the same frames and IDs, also with vest filtering",
+    "Hourly person recognition is not validated on an independent real shift",
+    "INT8 candidate rejected; ONNX remains default; OpenVINO is optional",
+    "Web has no upload or worker controls; CSV is not an agreed 1C integration"
+  ]
+}
