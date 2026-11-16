@@ -29,6 +29,7 @@ TEMPLATES = {
     'deployment/server/ci.yml': '.github/workflows/ci.yml',
     'tools/vendor/OSNET_LICENSE.txt': 'third_party/OSNET_LICENSE.txt',
     'docs/WEB.md': 'WEB.md',
+    'docs/SERVER_UPDATE.md': 'UPDATE.md',
 }
 
 

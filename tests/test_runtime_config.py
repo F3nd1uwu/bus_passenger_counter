@@ -1,4 +1,6 @@
 from dataclasses import replace
+from pathlib import Path
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -7,9 +9,15 @@ from core.service import configuration_key
 
 
 class RuntimeConfigurationTests(unittest.TestCase):
+    def setUp(self):
+        folder = tempfile.TemporaryDirectory()
+        self.addCleanup(folder.cleanup)
+        self.source = str(Path(folder.name) / 'recording.mp4')
+        Path(self.source).write_bytes(b'configuration fingerprint fixture; no video decoding')
+
     def test_default_detector_backend_preserves_old_checkpoint_key(self):
         from dataclasses import asdict
-        cfg = Settings(TIME_SOURCE='pts', VIDEO_SOURCE='data/test.mp4', SOURCE_KIND='file')
+        cfg = Settings(TIME_SOURCE='pts', VIDEO_SOURCE=self.source, SOURCE_KIND='file')
         previous = asdict(cfg)
         previous.pop('CPU_DETECTOR_BACKEND')
         previous.pop('DETECTOR_CPU_THREADS')
@@ -18,7 +26,7 @@ class RuntimeConfigurationTests(unittest.TestCase):
             self.assertEqual(configuration_key(cfg), current)
 
     def test_backend_change_requires_new_state_but_thread_count_does_not(self):
-        cfg = Settings(TIME_SOURCE='pts', VIDEO_SOURCE='data/test.mp4', SOURCE_KIND='file',
+        cfg = Settings(TIME_SOURCE='pts', VIDEO_SOURCE=self.source, SOURCE_KIND='file',
                        MODEL_PATH='models/candidates/person_test2_v2.onnx')
         self.assertEqual(configuration_key(cfg), configuration_key(replace(cfg, DETECTOR_CPU_THREADS=2)))
         self.assertNotEqual(configuration_key(cfg), configuration_key(replace(cfg, CPU_DETECTOR_BACKEND='openvino')))
@@ -47,21 +55,21 @@ class RuntimeConfigurationTests(unittest.TestCase):
             self.assertNotEqual(key, configuration_key(cfg))
 
     def test_cpu_worker_count_does_not_invalidate_hourly_state(self):
-        cfg = Settings(TIME_SOURCE="pts", VIDEO_SOURCE="data/test.mp4", SOURCE_KIND="file")
+        cfg = Settings(TIME_SOURCE="pts", VIDEO_SOURCE=self.source, SOURCE_KIND="file")
         self.assertEqual(configuration_key(cfg), configuration_key(replace(cfg, CPU_THREADS=1)))
 
     def test_changing_tracking_algorithm_changes_state_key(self):
-        cfg = Settings(TIME_SOURCE="pts", VIDEO_SOURCE="data/test.mp4", SOURCE_KIND="file")
+        cfg = Settings(TIME_SOURCE="pts", VIDEO_SOURCE=self.source, SOURCE_KIND="file")
         legacy = replace(cfg, TRACKING_MODE="iou", TRACKER_PATH="bytetrack_custom.yaml")
         self.assertNotEqual(configuration_key(cfg), configuration_key(legacy))
 
     def test_enabled_drift_guard_changes_state_key(self):
-        cfg = Settings(TIME_SOURCE="pts", VIDEO_SOURCE="data/test.mp4", SOURCE_KIND="file")
+        cfg = Settings(TIME_SOURCE="pts", VIDEO_SOURCE=self.source, SOURCE_KIND="file")
         self.assertNotEqual(configuration_key(cfg), configuration_key(replace(cfg, TRACKER_DRIFT_THRESHOLD=.6)))
 
     def test_disabled_drift_guard_preserves_the_previous_fingerprint(self):
         from dataclasses import asdict
-        cfg = Settings(TIME_SOURCE="pts", VIDEO_SOURCE="data/test.mp4", SOURCE_KIND="file")
+        cfg = Settings(TIME_SOURCE="pts", VIDEO_SOURCE=self.source, SOURCE_KIND="file")
         current = configuration_key(cfg)
         previous = asdict(cfg)
         previous.pop('TRACKER_DRIFT_THRESHOLD')
@@ -69,6 +77,6 @@ class RuntimeConfigurationTests(unittest.TestCase):
             self.assertEqual(configuration_key(cfg), current)
 
     def test_child_filter_changes_state_key_only_when_enabled(self):
-        cfg = Settings(TIME_SOURCE="pts", VIDEO_SOURCE="data/test.mp4", SOURCE_KIND="file")
+        cfg = Settings(TIME_SOURCE="pts", VIDEO_SOURCE=self.source, SOURCE_KIND="file")
         self.assertEqual(configuration_key(cfg), configuration_key(replace(cfg, CHILD_DECISION_DELAY_SEC=20.)))
         self.assertNotEqual(configuration_key(cfg), configuration_key(replace(cfg, CHILD_MODE='model')))

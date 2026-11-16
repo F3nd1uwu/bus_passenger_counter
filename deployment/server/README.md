@@ -11,6 +11,7 @@
 
 [Полная версия и аналитика](https://github.com/F3nd1uwu/bus_passenger_counter/tree/diploma).
 Исходный коммит и SHA-256 каждого файла поставки: [release.json](release.json).
+[Обновление существующего сервера, два видео и веб-кабинет](UPDATE.md).
 
 ## Быстрый запуск на Linux-сервере
 
