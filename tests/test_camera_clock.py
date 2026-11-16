@@ -52,7 +52,9 @@ class CameraClockTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             path = root / 'test.avi'
-            writer = cv2.VideoWriter(str(path), cv2.VideoWriter_fourcc(*'MJPG'), 10, (64, 64))
+            # Pixel values encode frame IDs for the recognizer stub. Lossy MJPG
+            # round-trips differently across FFmpeg builds; use exact pixels.
+            writer = cv2.VideoWriter(str(path), cv2.VideoWriter_fourcc(*'FFV1'), 10, (64, 64))
             self.assertTrue(writer.isOpened())
             # Visible values stand in for real clock text, including a montage at frame 15.
             for i in range(50):

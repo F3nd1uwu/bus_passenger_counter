@@ -20,6 +20,8 @@ class RuntimeUpgradeTests(unittest.TestCase):
         self.addCleanup(directory.cleanup)
         legacy_model = Path(directory.name) / "legacy-detector.pt"
         legacy_model.write_bytes(b"historical detector fingerprint fixture")
+        self.source = str(Path(directory.name) / 'recording.mp4')
+        Path(self.source).write_bytes(b'local source fingerprint fixture')
         original_path = Settings.path
 
         def fixture_path(cfg, value):
@@ -32,7 +34,7 @@ class RuntimeUpgradeTests(unittest.TestCase):
     def test_upgrade_preserves_cursor_identities_events_and_original_backup(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "runtime.sqlite3"
-            cfg = Settings(TIME_SOURCE="pts", STATE_PATH=str(path), VIDEO_SOURCE="data/test.mp4", SOURCE_KIND="file")
+            cfg = Settings(TIME_SOURCE="pts", STATE_PATH=str(path), VIDEO_SOURCE=self.source, SOURCE_KIND="file")
             legacy = replace(cfg, MODEL_PATH="models/yolo11n.pt",
                              REID_MODEL_PATH="models/person_reid.torchscript",
                              TRACKER_PATH="bytetrack_custom.yaml", TRACKING_MODE="iou",
@@ -71,7 +73,7 @@ class RuntimeUpgradeTests(unittest.TestCase):
     def test_unknown_configuration_is_left_intact(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "runtime.sqlite3"
-            cfg = Settings(TIME_SOURCE="pts", STATE_PATH=str(path), VIDEO_SOURCE="data/test.mp4", SOURCE_KIND="file")
+            cfg = Settings(TIME_SOURCE="pts", STATE_PATH=str(path), VIDEO_SOURCE=self.source, SOURCE_KIND="file")
             store = LocalStore(path)
             store.save("unrecognised", {"next_frame": 5673})
             store.close()
