@@ -1,0 +1,1470 @@
+{
+  "format": "cpu_optimization_report_v1",
+  "reported_at_utc": "2026-11-16T00:48:00.726471+00:00",
+  "source_commit": "d39923abb3a0c03c9d6b7d8564ae5c665c73c04f",
+  "environment": {
+    "python": "3.12.16",
+    "os": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+    "cpu": "AMD Ryzen 7 5700U with Radeon Graphics",
+    "logical_cpus": 16,
+    "versions": {
+      "numpy": "2.5.4",
+      "onnxruntime": "1.31.1",
+      "openvino": "2026.4.1",
+      "opencv-python": "5.0.0.93",
+      "ultralytics": "8.4.203",
+      "torch": "2.15.0+cpu"
+    },
+    "commit": null,
+    "cpu_quota": "400000 100000",
+    "code_sha256": {
+      "tools/benchmark_cpu.py": "dac3241b2c6c9aede2ba7c24e73b20aa2bd645730a07833bbbb26058c81d58b9",
+      "tools/cpu_backends.py": "3631959026eb1660523a40294b6f3b8e24a2e99d65dd1bcaae935356299cb814",
+      "core/detector.py": "42f2b4664b011855af7705a9a2b2ca8c31dc58464a77b85d708831ea68c51d99",
+      "core/reid.py": "55b519eda16eea9f85ec5a8f122b2decc185de057a8f84b86934f36369eb32da",
+      "core/counter_engine.py": "a8fe5da9a21da9792910786033d830394b201cc97dc9a12d24b0443e9a0f87b5",
+      "core/service.py": "8b8e015e4388c45d3bf5b8c9ca82fab0fffe672a704116c5d5fc5d2e315d2c7c",
+      "core/openvino_session.py": "a85ce1018726250f1c95fda9013e313c618aaf11df091dbe241870d47e43d141"
+    },
+    "recorded_at_utc": "2026-11-16T00:14:31.375094+00:00"
+  },
+  "active_default": "ONNX FP32; default profile and working weights retained",
+  "detector_probes": [
+    {
+      "case": "probe-onnx-fp32-t2-r1",
+      "backend": "onnx",
+      "threads": 2,
+      "iterations": 80,
+      "mean_ms": 57.157309200022155,
+      "median_ms": 55.925875999946584,
+      "p95_ms": 63.990446200432416,
+      "model_sha256": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+      "input_sha256": "c7839a31e51538ddbf6aa33a7e5c257affd5adc1412d75ebd05555a51b97b974"
+    },
+    {
+      "case": "probe-onnx-fp32-t2-r2",
+      "backend": "onnx",
+      "threads": 2,
+      "iterations": 80,
+      "mean_ms": 56.73110408752109,
+      "median_ms": 54.744252000091365,
+      "p95_ms": 65.66595204963049,
+      "model_sha256": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+      "input_sha256": "c7839a31e51538ddbf6aa33a7e5c257affd5adc1412d75ebd05555a51b97b974"
+    },
+    {
+      "case": "probe-onnx-fp32-t4-r1",
+      "backend": "onnx",
+      "threads": 4,
+      "iterations": 80,
+      "mean_ms": 60.74323178747818,
+      "median_ms": 58.31921900016823,
+      "p95_ms": 74.84430230038015,
+      "model_sha256": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+      "input_sha256": "c7839a31e51538ddbf6aa33a7e5c257affd5adc1412d75ebd05555a51b97b974"
+    },
+    {
+      "case": "probe-onnx-int8-t2-r1",
+      "backend": "onnx",
+      "threads": 2,
+      "iterations": 80,
+      "mean_ms": 113.98298876245008,
+      "median_ms": 113.12213199971666,
+      "p95_ms": 133.68350859955171,
+      "model_sha256": "f3c6d5fd6743a19a61291962f135890cbdbd2b2a443c80644ebb9a443d2ed954",
+      "input_sha256": "c7839a31e51538ddbf6aa33a7e5c257affd5adc1412d75ebd05555a51b97b974"
+    },
+    {
+      "case": "probe-openvino-fp32-t2-r1",
+      "backend": "openvino",
+      "threads": 2,
+      "iterations": 80,
+      "mean_ms": 44.58568485000569,
+      "median_ms": 42.548059499949886,
+      "p95_ms": 54.30783974957192,
+      "model_sha256": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+      "input_sha256": "c7839a31e51538ddbf6aa33a7e5c257affd5adc1412d75ebd05555a51b97b974"
+    },
+    {
+      "case": "probe-openvino-fp32-t2-r2",
+      "backend": "openvino",
+      "threads": 2,
+      "iterations": 80,
+      "mean_ms": 46.606511287598096,
+      "median_ms": 44.56607749989416,
+      "p95_ms": 67.57937289980873,
+      "model_sha256": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+      "input_sha256": "c7839a31e51538ddbf6aa33a7e5c257affd5adc1412d75ebd05555a51b97b974"
+    },
+    {
+      "case": "probe-openvino-fp32-t4-r1",
+      "backend": "openvino",
+      "threads": 4,
+      "iterations": 80,
+      "mean_ms": 34.931426999980886,
+      "median_ms": 33.25585899983707,
+      "p95_ms": 49.14368099989587,
+      "model_sha256": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+      "input_sha256": "c7839a31e51538ddbf6aa33a7e5c257affd5adc1412d75ebd05555a51b97b974"
+    },
+    {
+      "case": "probe-openvino-int8-t2-r1",
+      "backend": "openvino",
+      "threads": 2,
+      "iterations": 80,
+      "mean_ms": 45.16490696249775,
+      "median_ms": 44.786807500258874,
+      "p95_ms": 51.66685429981044,
+      "model_sha256": "f3c6d5fd6743a19a61291962f135890cbdbd2b2a443c80644ebb9a443d2ed954",
+      "input_sha256": "c7839a31e51538ddbf6aa33a7e5c257affd5adc1412d75ebd05555a51b97b974"
+    }
+  ],
+  "pipeline": [
+    {
+      "case": "P02-onnx-fp32-t2",
+      "backend": "onnx",
+      "threads": 2,
+      "detector_threads": 2,
+      "frames": 1201,
+      "counted_in": 7,
+      "counted_out": 0,
+      "pipeline_seconds": 111.97024032100035,
+      "inclusive_wall_seconds": 127.47146778000024,
+      "fps": 10.726064323492828,
+      "stages": {
+        "counter_inclusive": {
+          "seconds": 0.8988403619960081,
+          "calls": 1201
+        },
+        "detect_inclusive": {
+          "seconds": 109.7592435200113,
+          "calls": 1201
+        },
+        "identity_inclusive": {
+          "seconds": 0.07869182299691602,
+          "calls": 2453
+        },
+        "person_predict_inclusive": {
+          "seconds": 78.07447237598171,
+          "calls": 1201
+        },
+        "read_inclusive": {
+          "seconds": 1.2020261510078853,
+          "calls": 1201
+        },
+        "reid_inclusive": {
+          "seconds": 17.56741106899608,
+          "calls": 1201
+        },
+        "tracker_inclusive": {
+          "seconds": 1.4578042900084256,
+          "calls": 1201
+        },
+        "vest_inclusive": {
+          "seconds": 12.257048885999211,
+          "calls": 504
+        }
+      }
+    },
+    {
+      "case": "P02-openvino-fp32-t4",
+      "backend": "openvino",
+      "threads": 4,
+      "detector_threads": 4,
+      "frames": 1201,
+      "counted_in": 7,
+      "counted_out": 0,
+      "pipeline_seconds": 89.8960812560008,
+      "inclusive_wall_seconds": 101.41425944999901,
+      "fps": 13.359870455085384,
+      "stages": {
+        "counter_inclusive": {
+          "seconds": 0.938495388987576,
+          "calls": 1201
+        },
+        "detect_inclusive": {
+          "seconds": 87.65335507798864,
+          "calls": 1201
+        },
+        "identity_inclusive": {
+          "seconds": 0.07997414098826994,
+          "calls": 2453
+        },
+        "person_predict_inclusive": {
+          "seconds": 47.52478829299798,
+          "calls": 1201
+        },
+        "read_inclusive": {
+          "seconds": 1.191446102012378,
+          "calls": 1201
+        },
+        "reid_inclusive": {
+          "seconds": 24.069799656029318,
+          "calls": 1201
+        },
+        "tracker_inclusive": {
+          "seconds": 1.5100345160044526,
+          "calls": 1201
+        },
+        "vest_inclusive": {
+          "seconds": 14.121172566014138,
+          "calls": 504
+        }
+      }
+    },
+    {
+      "case": "P02-openvino-d4-rest2",
+      "backend": "openvino",
+      "threads": 2,
+      "detector_threads": 4,
+      "frames": 1201,
+      "counted_in": 7,
+      "counted_out": 0,
+      "pipeline_seconds": 81.7148264239986,
+      "inclusive_wall_seconds": 93.07603622899842,
+      "fps": 14.697455193361112,
+      "stages": {
+        "counter_inclusive": {
+          "seconds": 0.9177749869813852,
+          "calls": 1201
+        },
+        "detect_inclusive": {
+          "seconds": 79.5127831280206,
+          "calls": 1201
+        },
+        "identity_inclusive": {
+          "seconds": 0.08101494799120701,
+          "calls": 2453
+        },
+        "person_predict_inclusive": {
+          "seconds": 47.28049332104638,
+          "calls": 1201
+        },
+        "read_inclusive": {
+          "seconds": 1.1722591600118903,
+          "calls": 1201
+        },
+        "reid_inclusive": {
+          "seconds": 18.241696684006456,
+          "calls": 1201
+        },
+        "tracker_inclusive": {
+          "seconds": 1.4820883789925574,
+          "calls": 1201
+        },
+        "vest_inclusive": {
+          "seconds": 12.098170004977874,
+          "calls": 504
+        }
+      }
+    },
+    {
+      "case": "P02-openvino-int8-t2",
+      "backend": "openvino",
+      "threads": 2,
+      "detector_threads": 2,
+      "frames": 1201,
+      "counted_in": 0,
+      "counted_out": 0,
+      "pipeline_seconds": 124.1145798460002,
+      "inclusive_wall_seconds": 135.2509087950002,
+      "fps": 9.676542445619086,
+      "stages": {
+        "counter_inclusive": {
+          "seconds": 0.0473909039847058,
+          "calls": 1201
+        },
+        "detect_inclusive": {
+          "seconds": 122.82137525694634,
+          "calls": 1201
+        },
+        "person_predict_inclusive": {
+          "seconds": 64.90289332600332,
+          "calls": 1201
+        },
+        "read_inclusive": {
+          "seconds": 1.207724554960805,
+          "calls": 1201
+        },
+        "reid_inclusive": {
+          "seconds": 56.15213182102343,
+          "calls": 1201
+        },
+        "tracker_inclusive": {
+          "seconds": 0.6259419379966857,
+          "calls": 1201
+        }
+      }
+    },
+    {
+      "case": "P02-final-onnx",
+      "backend": "onnx",
+      "threads": 2,
+      "detector_threads": 2,
+      "frames": 1201,
+      "counted_in": 7,
+      "counted_out": 0,
+      "pipeline_seconds": 116.57051256299928,
+      "inclusive_wall_seconds": 128.17529018499954,
+      "fps": 10.3027770367822,
+      "stages": {
+        "counter_inclusive": {
+          "seconds": 0.9647092590184911,
+          "calls": 1201
+        },
+        "detect_inclusive": {
+          "seconds": 114.24042297898086,
+          "calls": 1201
+        },
+        "identity_inclusive": {
+          "seconds": 0.08689413102183607,
+          "calls": 2453
+        },
+        "person_predict_inclusive": {
+          "seconds": 80.68768173100216,
+          "calls": 1201
+        },
+        "read_inclusive": {
+          "seconds": 1.2468219860311365,
+          "calls": 1201
+        },
+        "reid_inclusive": {
+          "seconds": 18.756676144977973,
+          "calls": 1201
+        },
+        "tracker_inclusive": {
+          "seconds": 1.5537837980209588,
+          "calls": 1201
+        },
+        "vest_inclusive": {
+          "seconds": 12.807615919016826,
+          "calls": 504
+        }
+      }
+    },
+    {
+      "case": "P02-final-openvino",
+      "backend": "openvino",
+      "threads": 2,
+      "detector_threads": 4,
+      "frames": 1201,
+      "counted_in": 7,
+      "counted_out": 0,
+      "pipeline_seconds": 82.64670950100117,
+      "inclusive_wall_seconds": 93.47120999400067,
+      "fps": 14.531734018829283,
+      "stages": {
+        "counter_inclusive": {
+          "seconds": 0.9118983689968445,
+          "calls": 1201
+        },
+        "detect_inclusive": {
+          "seconds": 80.42167531701853,
+          "calls": 1201
+        },
+        "identity_inclusive": {
+          "seconds": 0.08306189602626546,
+          "calls": 2453
+        },
+        "person_predict_inclusive": {
+          "seconds": 48.42078490301901,
+          "calls": 1201
+        },
+        "read_inclusive": {
+          "seconds": 1.1989916860329686,
+          "calls": 1201
+        },
+        "reid_inclusive": {
+          "seconds": 18.038061051987825,
+          "calls": 1201
+        },
+        "tracker_inclusive": {
+          "seconds": 1.4728650509841827,
+          "calls": 1201
+        },
+        "vest_inclusive": {
+          "seconds": 12.06931826699838,
+          "calls": 504
+        }
+      }
+    }
+  ],
+  "final_pipeline_speedup": 1.4104676794372215,
+  "batch_matrices": [
+    {
+      "case": "matrix-onnx-w1-t2",
+      "workers": 1,
+      "threads_per_worker": 2,
+      "detector_threads": 2,
+      "elapsed_seconds": 104.21682770500047,
+      "aggregate_fps": 4.797689691873142,
+      "frames": 500,
+      "results": [
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "case": "matrix-onnx-w1-t4",
+      "workers": 1,
+      "threads_per_worker": 4,
+      "detector_threads": 4,
+      "elapsed_seconds": 102.52720195899929,
+      "aggregate_fps": 4.8767545631446225,
+      "frames": 500,
+      "results": [
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "case": "matrix-onnx-w2-t2",
+      "workers": 2,
+      "threads_per_worker": 2,
+      "detector_threads": 2,
+      "elapsed_seconds": 59.0680817149987,
+      "aggregate_fps": 8.464808496955792,
+      "frames": 500,
+      "results": [
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "case": "matrix-openvino-w1-d4-rest2",
+      "workers": 1,
+      "threads_per_worker": 2,
+      "detector_threads": 4,
+      "elapsed_seconds": 87.86436889800098,
+      "aggregate_fps": 5.690588873180601,
+      "frames": 500,
+      "results": [
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "case": "matrix-openvino-w2-d2-rest2",
+      "workers": 2,
+      "threads_per_worker": 2,
+      "detector_threads": 2,
+      "elapsed_seconds": 56.32709833300032,
+      "aggregate_fps": 8.876722124829664,
+      "frames": 500,
+      "results": [
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "identity_pairs": {
+    "P02-final-onnx": {
+      "pairs": [
+        {
+          "left": "boy_140",
+          "right": "boy_200",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "boy_200",
+          "right": "boy_252",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "green_800",
+          "right": "green_830",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "checked_913",
+          "right": "checked_920",
+          "same_person": true,
+          "tracker": "unresolved",
+          "identity": "unresolved"
+        },
+        {
+          "left": "green_830",
+          "right": "checked_920",
+          "same_person": false,
+          "tracker": "correct",
+          "identity": "correct"
+        }
+      ],
+      "summary": {
+        "tracker": {
+          "correct": 4,
+          "incorrect": 0,
+          "unresolved": 1
+        },
+        "identity": {
+          "correct": 4,
+          "incorrect": 0,
+          "unresolved": 1
+        }
+      }
+    },
+    "P02-final-openvino": {
+      "pairs": [
+        {
+          "left": "boy_140",
+          "right": "boy_200",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "boy_200",
+          "right": "boy_252",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "green_800",
+          "right": "green_830",
+          "same_person": true,
+          "tracker": "correct",
+          "identity": "correct"
+        },
+        {
+          "left": "checked_913",
+          "right": "checked_920",
+          "same_person": true,
+          "tracker": "unresolved",
+          "identity": "unresolved"
+        },
+        {
+          "left": "green_830",
+          "right": "checked_920",
+          "same_person": false,
+          "tracker": "correct",
+          "identity": "correct"
+        }
+      ],
+      "summary": {
+        "tracker": {
+          "correct": 4,
+          "incorrect": 0,
+          "unresolved": 1
+        },
+        "identity": {
+          "correct": 4,
+          "incorrect": 0,
+          "unresolved": 1
+        }
+      }
+    }
+  },
+  "persistence": {
+    "format": "cpu_persistent_profile_v1",
+    "result": {
+      "frames": 600,
+      "in": 2,
+      "out": 0
+    },
+    "elapsed_seconds": 53.69594259999576,
+    "synthetic_identities": 128,
+    "stages": {
+      "counter_inclusive": {
+        "seconds": 0.4850440999143757,
+        "calls": 600
+      },
+      "detect_inclusive": {
+        "seconds": 46.14680600044085,
+        "calls": 690
+      },
+      "identity_inclusive": {
+        "seconds": 0.29538330022478476,
+        "calls": 472
+      },
+      "local_save_inclusive": {
+        "seconds": 1.3506661000137683,
+        "calls": 3
+      },
+      "person_predict_inclusive": {
+        "seconds": 40.4037210996903,
+        "calls": 690
+      },
+      "postgres_deliver_inclusive": {
+        "seconds": 2.9569472999719437,
+        "calls": 4
+      },
+      "read_inclusive": {
+        "seconds": 0.6065597998385783,
+        "calls": 690
+      },
+      "reid_inclusive": {
+        "seconds": 3.409647199441679,
+        "calls": 690
+      },
+      "snapshot_inclusive": {
+        "seconds": 0.022540399979334325,
+        "calls": 3
+      },
+      "tracker_inclusive": {
+        "seconds": 0.43141190032474697,
+        "calls": 690
+      },
+      "vest_inclusive": {
+        "seconds": 1.7484736000187695,
+        "calls": 95
+      }
+    },
+    "backend": "onnx",
+    "threads": 2,
+    "detector_threads": 2,
+    "environment": {
+      "python": "3.14.7",
+      "os": "Windows-11-10.0.28000-SP0",
+      "cpu": "AMD64 Family 23 Model 104 Stepping 1, AuthenticAMD",
+      "logical_cpus": 16,
+      "versions": {
+        "numpy": "2.5.4",
+        "onnxruntime": "1.31.1",
+        "opencv-python": "5.0.0.93",
+        "ultralytics": "8.4.203",
+        "torch": "2.15.0"
+      },
+      "commit": "cc050e689004a128f7a917ef17d551120203a76d",
+      "cpu_quota": null,
+      "code_sha256": {
+        "tools/benchmark_cpu.py": "4e04130683acaa5022124b1fb9d8a67aa8164d3987cd671ed15eb0eef3d30e97",
+        "tools/cpu_backends.py": "fd97c590b114d7eded3d453333f9957f4b4fc4cf1b21571baeeb38d33fa5b6c1",
+        "core/detector.py": "cfb3942a35419206f7c1e81fa00d5f1ca21c3b8e9d1997fd1293d9df5067aaae",
+        "core/reid.py": "55b519eda16eea9f85ec5a8f122b2decc185de057a8f84b86934f36369eb32da",
+        "core/counter_engine.py": "a8fe5da9a21da9792910786033d830394b201cc97dc9a12d24b0443e9a0f87b5",
+        "core/service.py": "138047fe08e86b069fb29ffe9688b1968f0038bfa4b47aad266b90f73fb4177c"
+      },
+      "recorded_at_utc": "2026-11-15T23:58:15.945650+00:00"
+    },
+    "model_sha256": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+    "source_sha256": "274a702490bb00e61f624ecc77319810e99a06d65cf0f8c5de53d6783d86e281",
+    "clock_sha256": "ebf792070a3c725167848d9d9c6b04f5545ab47d8f75039a82aaad3970d1dc3b",
+    "start": 81271,
+    "postgres": true,
+    "scope": "Actual archive pipeline + isolated PostgreSQL; synthetic gallery, no independent accuracy claim"
+  },
+  "int8_candidate": {
+    "status": "rejected; not activated",
+    "calibration_count": 128,
+    "calibration_split": "train",
+    "precision": "INT8 QDQ Conv, per-channel reduced-range",
+    "source_sha256": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+    "candidate_sha256": "f3c6d5fd6743a19a61291962f135890cbdbd2b2a443c80644ebb9a443d2ed954",
+    "metadata_sha256": "dc2f2beb73259dcbdd92e1aaea7b54f48b699abf5b7fd1f0d01ad9cc5469a289",
+    "result_P02": [
+      0,
+      0
+    ],
+    "reference_P02": [
+      7,
+      0
+    ]
+  },
+  "affinity": {
+    "observed_original_main_cpu_masks": [
+      8,
+      8
+    ],
+    "observed_after_fix_all_threads": "0-15 (24 threads in verification process)",
+    "fix": "ENABLE_CPU_PINNING=False",
+    "reference": "https://www.intel.com/content/www/us/en/support/articles/000058227.html"
+  },
+  "verification": {
+    "discovered": 205,
+    "passed": 202,
+    "skipped": 3,
+    "failed": 0,
+    "seconds": 262.73,
+    "skipped_reason": "Three opt-in full-video tests passed in earlier archive work; current new backend is exercised separately",
+    "production_cli_P02": {
+      "frames": 1201,
+      "counted_in": 7,
+      "counted_out": 0,
+      "annotated_video": true,
+      "throughput_claim": false
+    },
+    "server_package": {
+      "source_commit": "d39923abb3a0c03c9d6b7d8564ae5c665c73c04f",
+      "file_count": 111,
+      "manifest_sha256": "24d133482c8bc9dbb9296e1a70de5afe0ae41ffc6077a9495af4760b5eebd6a5",
+      "default_image_smoke": true,
+      "openvino_image_smoke": true,
+      "network_disabled": true,
+      "caller_affinity_preserved": true
+    },
+    "full_suite_python": "3.14.7 on Windows; actual Linux/Python 3.12 models, CLI and quality checks also exercised"
+  },
+  "limitations": [
+    "Ryzen 7 5700U/WSL2 with Docker CPU quota 4, not the rented Intel server",
+    "Single paired final P02 run; background load and thermal state are not controlled",
+    "Two 250-frame jobs include process startup and diagnostic report overhead; not a workday throughput forecast",
+    "Inclusive stage times overlap and must not be summed",
+    "Known calibration/regression episodes; no independent full-day or one-hour ReID accuracy claim",
+    "INT8 rejection applies to this calibrated candidate, not every INT8 implementation",
+    "Quality runs reuse models; some were paused/restarted; their FPS is not a performance comparison"
+  ],
+  "quality_controls": {
+    "total": 25,
+    "matched": 24,
+    "staff_mode": "disabled (same as original cached controls)",
+    "results": [
+      {
+        "case": "old_A01",
+        "expected": [
+          1,
+          0
+        ],
+        "actual": [
+          1,
+          0
+        ],
+        "passed": true,
+        "frames": 1601,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_A02",
+        "expected": [
+          0,
+          1
+        ],
+        "actual": [
+          0,
+          1
+        ],
+        "passed": true,
+        "frames": 1351,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_A03",
+        "expected": [
+          4,
+          0
+        ],
+        "actual": [
+          4,
+          0
+        ],
+        "passed": true,
+        "frames": 1351,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_A04",
+        "expected": [
+          5,
+          3
+        ],
+        "actual": [
+          5,
+          3
+        ],
+        "passed": true,
+        "frames": 1351,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_A05",
+        "expected": [
+          1,
+          0
+        ],
+        "actual": [
+          1,
+          0
+        ],
+        "passed": true,
+        "frames": 1351,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_A06",
+        "expected": [
+          2,
+          5
+        ],
+        "actual": [
+          2,
+          5
+        ],
+        "passed": true,
+        "frames": 1726,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_A07",
+        "expected": [
+          1,
+          0
+        ],
+        "actual": [
+          1,
+          0
+        ],
+        "passed": true,
+        "frames": 1351,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_A08",
+        "expected": [
+          0,
+          1
+        ],
+        "actual": [
+          0,
+          1
+        ],
+        "passed": true,
+        "frames": 1351,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_A09",
+        "expected": [
+          1,
+          7
+        ],
+        "actual": [
+          1,
+          7
+        ],
+        "passed": true,
+        "frames": 1726,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_A10",
+        "expected": [
+          0,
+          1
+        ],
+        "actual": [
+          0,
+          1
+        ],
+        "passed": true,
+        "frames": 1351,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_A11",
+        "expected": [
+          0,
+          3
+        ],
+        "actual": [
+          0,
+          3
+        ],
+        "passed": true,
+        "frames": 1351,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_A12",
+        "expected": [
+          4,
+          4
+        ],
+        "actual": [
+          4,
+          4
+        ],
+        "passed": true,
+        "frames": 1350,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_A13",
+        "expected": [
+          2,
+          3
+        ],
+        "actual": [
+          2,
+          3
+        ],
+        "passed": true,
+        "frames": 1601,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_R01",
+        "expected": [
+          3,
+          0
+        ],
+        "actual": [
+          3,
+          0
+        ],
+        "passed": true,
+        "frames": 747,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_R02",
+        "expected": [
+          0,
+          1
+        ],
+        "actual": [
+          0,
+          1
+        ],
+        "passed": true,
+        "frames": 749,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "old_R03",
+        "expected": [
+          0,
+          0
+        ],
+        "actual": [
+          0,
+          0
+        ],
+        "passed": true,
+        "frames": 751,
+        "reasons": []
+      },
+      {
+        "case": "control_boardings",
+        "expected": [
+          6,
+          0
+        ],
+        "actual": [
+          7,
+          0
+        ],
+        "passed": false,
+        "frames": 1001,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "control_clip_01",
+        "expected": [
+          1,
+          0
+        ],
+        "actual": [
+          1,
+          0
+        ],
+        "passed": true,
+        "frames": 1601,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "control_clip_02",
+        "expected": [
+          1,
+          5
+        ],
+        "actual": [
+          1,
+          5
+        ],
+        "passed": true,
+        "frames": 1401,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "control_clip_03",
+        "expected": [
+          0,
+          4
+        ],
+        "actual": [
+          0,
+          4
+        ],
+        "passed": true,
+        "frames": 1601,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "control_clip_04",
+        "expected": [
+          3,
+          2
+        ],
+        "actual": [
+          3,
+          2
+        ],
+        "passed": true,
+        "frames": 1601,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "control_clip_05",
+        "expected": [
+          8,
+          0
+        ],
+        "actual": [
+          8,
+          0
+        ],
+        "passed": true,
+        "frames": 1501,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "control_clip_06",
+        "expected": [
+          7,
+          0
+        ],
+        "actual": [
+          7,
+          0
+        ],
+        "passed": true,
+        "frames": 1451,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "control_empty",
+        "expected": [
+          0,
+          0
+        ],
+        "actual": [
+          0,
+          0
+        ],
+        "passed": true,
+        "frames": 150,
+        "reasons": []
+      },
+      {
+        "case": "control_exit",
+        "expected": [
+          0,
+          1
+        ],
+        "actual": [
+          0,
+          1
+        ],
+        "passed": true,
+        "frames": 600,
+        "reasons": [
+          "COUNTED"
+        ]
+      }
+    ],
+    "checked_frames": 31966,
+    "affinity_note": "First 8 completed before CPU pinning fix; remaining 17 restarted with pinning disabled. Same FP32 weights, no quality timing claim.",
+    "failed": 1
+  },
+  "garment_controls": {
+    "total": 6,
+    "matched": 6,
+    "staff_mode": "model",
+    "results": [
+      {
+        "case": "V01",
+        "expected": [
+          0,
+          0
+        ],
+        "actual": [
+          0,
+          0
+        ],
+        "passed": true,
+        "frames": 851,
+        "reasons": [
+          "STAFF"
+        ]
+      },
+      {
+        "case": "V05",
+        "expected": [
+          0,
+          0
+        ],
+        "actual": [
+          0,
+          0
+        ],
+        "passed": true,
+        "frames": 1201,
+        "reasons": [
+          "STAFF"
+        ]
+      },
+      {
+        "case": "N06",
+        "expected": [
+          1,
+          0
+        ],
+        "actual": [
+          1,
+          0
+        ],
+        "passed": true,
+        "frames": 426,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "V03",
+        "expected": [
+          0,
+          0
+        ],
+        "actual": [
+          0,
+          0
+        ],
+        "passed": true,
+        "frames": 751,
+        "reasons": [
+          "STAFF"
+        ]
+      },
+      {
+        "case": "N01",
+        "expected": [
+          2,
+          0
+        ],
+        "actual": [
+          2,
+          0
+        ],
+        "passed": true,
+        "frames": 426,
+        "reasons": [
+          "COUNTED"
+        ]
+      },
+      {
+        "case": "N10",
+        "expected": [
+          1,
+          1
+        ],
+        "actual": [
+          1,
+          1
+        ],
+        "passed": true,
+        "frames": 426,
+        "reasons": [
+          "COUNTED"
+        ]
+      }
+    ]
+  },
+  "fresh_boarding_reference": {
+    "staff_mode": "disabled",
+    "expected": [
+      6,
+      0
+    ],
+    "onnx": {
+      "in_count": 7,
+      "out_count": 0,
+      "crossings": [
+        {
+          "track": 7,
+          "frame": 225600,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 13,
+          "frame": 225665,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 19,
+          "frame": 225748,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 18,
+          "frame": 225758,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 21,
+          "frame": 225794,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 29,
+          "frame": 226108,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 36,
+          "frame": 226171,
+          "direction": "IN",
+          "reason": "COUNTED"
+        }
+      ]
+    },
+    "openvino": {
+      "in_count": 7,
+      "out_count": 0,
+      "crossings": [
+        {
+          "track": 7,
+          "frame": 225600,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 13,
+          "frame": 225665,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 19,
+          "frame": 225748,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 18,
+          "frame": 225758,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 21,
+          "frame": 225794,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 29,
+          "frame": 226108,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 36,
+          "frame": 226171,
+          "direction": "IN",
+          "reason": "COUNTED"
+        }
+      ]
+    },
+    "conclusion": "Identical seven crossings on identical frames and track IDs; mismatch with old six-crossing cache is shared by both backends",
+    "source": "test.mp4",
+    "start": 225350,
+    "end": 226350
+  },
+  "excluded_detector_probes": [
+    {
+      "case": "probe-onnx-int8-t2-r2",
+      "reason": "Overlapped a separate adapter smoke test; excluded from speed conclusions"
+    }
+  ],
+  "fresh_boarding_production": {
+    "staff_mode": "model",
+    "expected": [
+      6,
+      0
+    ],
+    "onnx": {
+      "in_count": 7,
+      "out_count": 0,
+      "crossings": [
+        {
+          "track": 7,
+          "frame": 225600,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 19,
+          "frame": 225748,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 13,
+          "frame": 225665,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 18,
+          "frame": 225758,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 21,
+          "frame": 225794,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 29,
+          "frame": 226108,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 36,
+          "frame": 226171,
+          "direction": "IN",
+          "reason": "COUNTED"
+        }
+      ]
+    },
+    "openvino": {
+      "in_count": 7,
+      "out_count": 0,
+      "crossings": [
+        {
+          "track": 7,
+          "frame": 225600,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 19,
+          "frame": 225748,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 13,
+          "frame": 225665,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 18,
+          "frame": 225758,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 21,
+          "frame": 225794,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 29,
+          "frame": 226108,
+          "direction": "IN",
+          "reason": "COUNTED"
+        },
+        {
+          "track": 36,
+          "frame": 226171,
+          "direction": "IN",
+          "reason": "COUNTED"
+        }
+      ]
+    },
+    "conclusion": "Same seven crossings in the normal vest-enabled profile too; shared counting discrepancy remains"
+  },
+  "status": "Experiments completed; optional OpenVINO available, ONNX remains default; shared live counting discrepancy documented"
+}
