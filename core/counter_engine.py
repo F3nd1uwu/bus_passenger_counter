@@ -26,6 +26,13 @@ class Identity:
     staff: bool = False
     gallery: list[list[float]] = field(default_factory=list)
 
+    def snapshot(self):
+        # Floats are immutable. Copy the lists in C instead of recursively
+        # deep-copying every feature coordinate through dataclasses.asdict.
+        return {"identity_id": self.identity_id, "embedding": self.embedding.copy(),
+                "last_seen": self.last_seen, "last_in": self.last_in, "last_out": self.last_out,
+                "staff": self.staff, "gallery": [vector.copy() for vector in self.gallery]}
+
 
 @dataclass
 class Track:
@@ -89,7 +96,7 @@ class PassengerCounterEngine:
             if track.identity_id is None and track.pending:
                 orphaned_pending.append({"track_id": tid,
                                          "pending": [(d, t.isoformat()) for d, t in track.pending]})
-        return {"version": 1, "identities": {key: asdict(value) for key, value in self.identities.items()},
+        return {"version": 1, "identities": {key: value.snapshot() for key, value in self.identities.items()},
                 "day": self.day, "total_in": self.total_in, "total_out": self.total_out,
                 "total_suppressed": self.total_suppressed, "last_timestamp": self.last_timestamp,
                 "continuity": continuity, "orphaned_pending": orphaned_pending, "deferred": deferred}

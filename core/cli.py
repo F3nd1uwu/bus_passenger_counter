@@ -10,7 +10,9 @@ def cli(preview=False):
     parser = argparse.ArgumentParser(description="Bus passenger counter" + (" preview (no database writes)" if preview else ""))
     parser.add_argument("--source")
     parser.add_argument("--profile", choices=PROFILE_NAMES, help="Explicit camera-specific vision preset; CLI flags override it")
-    parser.add_argument("--source-kind", choices=["auto", "file", "stream", "camera"])
+    parser.add_argument("--source-kind", choices=["auto", "file"])
+    parser.add_argument("--time-source", choices=["camera", "pts"], help="Camera clock map (default), or explicit PTS compatibility mode")
+    parser.add_argument("--clock-map", help="Verified JSON from tools.build_clock_map")
     parser.add_argument("--video-start", help="ISO 8601 recording start, including timezone")
     parser.add_argument("--model", help="Full-person YOLO weights")
     parser.add_argument("--confidence", type=float, help="Person detection confidence threshold")
@@ -18,12 +20,15 @@ def cli(preview=False):
     parser.add_argument("--drift-threshold", type=float, help="Merged-crop identity guard; 0 disables it")
     parser.add_argument("--device", help="cpu, cuda:0 or Ultralytics GPU index 0")
     parser.add_argument("--cpu-threads", type=int)
+    parser.add_argument('--cpu-detector-backend', choices=['onnx', 'openvino'], help='Optional CPU detector engine; ReID/vest remain unchanged')
+    parser.add_argument('--detector-cpu-threads', type=int, help='Detector threads only; 0 inherits --cpu-threads')
     parser.add_argument("--staff-mode", choices=["disabled", "model"])
     parser.add_argument("--child-mode", choices=["disabled", "model"], help="Approximate small-child filter; unknown passengers are counted")
     parser.add_argument("--child-model", help="Local child ensemble manifest")
     parser.add_argument("--vest-model", help="Trained garment model; does not filter by colour")
     parser.add_argument("--vest-threshold", type=float)
     parser.add_argument("--staff-decision-delay", type=float, help="Seconds of video to wait for garment evidence")
+    parser.add_argument("--frame-stride", type=int, help="1 = all frames; 2 = every second frame; validate on camera before increasing")
     parser.add_argument("--max-frames", type=int)
     if preview:
         parser.add_argument("--detection-only", action="store_true", help="Draw boxes without ReID, vest classification or counting")
@@ -36,9 +41,11 @@ def cli(preview=False):
         cfg = apply_profile(Settings.from_env(), args.profile)
         overrides = {field: value for field, value in (
             ("VIDEO_SOURCE", args.source), ("SOURCE_KIND", args.source_kind),
+            ("TIME_SOURCE", args.time_source), ("CLOCK_MAP_PATH", args.clock_map),
             ("VIDEO_START", args.video_start), ("MODEL_PATH", args.model), ("DEVICE", args.device),
             ("CONFIDENCE", args.confidence),
-            ("CPU_THREADS", args.cpu_threads), ("STAFF_MODE", args.staff_mode),
+            ("FRAME_STRIDE", args.frame_stride), ("CPU_THREADS", args.cpu_threads), ("STAFF_MODE", args.staff_mode),
+            ('CPU_DETECTOR_BACKEND', args.cpu_detector_backend), ('DETECTOR_CPU_THREADS', args.detector_cpu_threads),
             ("CHILD_MODE", args.child_mode), ("CHILD_MODEL_PATH", args.child_model),
             ("VEST_MODEL_PATH", args.vest_model), ("VEST_THRESHOLD", args.vest_threshold),
             ("STAFF_DECISION_DELAY_SEC", args.staff_decision_delay),

@@ -1,6 +1,6 @@
 {
   "format": "server_distribution_v1",
-  "source_commit": "e1348395db3064c83cd00793eb2f2eeeddb57319",
+  "source_commit": "696400ef2f1466da60a5b8919596555ba3cd6106",
   "source_branch": "diploma",
   "deployment_branch": "server",
   "source_repository": "https://github.com/F3nd1uwu/bus_passenger_counter",
@@ -16,8 +16,8 @@
       "bytes": 213
     },
     ".env.example": {
-      "sha256": "452bb3c5f1bd86f410a033c9c8642f3f5c94cede6bff2ce1f421feb443445672",
-      "bytes": 952
+      "sha256": "d2ea1f99070d48fa2797230cec666f7606b5a84f9f633336a6203fa5f1187f6c",
+      "bytes": 1187
     },
     ".gitattributes": {
       "sha256": "6dcacd31b9bf1c4509c241e3c74041a4670bd597fa02b5451403910702d5168c",
@@ -44,12 +44,16 @@
       "bytes": 201
     },
     "README.md": {
-      "sha256": "7690c14a0c7b63c54316a3776c5ca80ff06d158f0a4300c09439121f2e50ed1e",
-      "bytes": 11081
+      "sha256": "75199acf7f0f38675ae18ad214cb25f9baf4a4e76e375ca42999933fd5de1ed1",
+      "bytes": 14920
     },
     "THIRD_PARTY_NOTICES.md": {
-      "sha256": "b538b811611eaeb02d75a44c203e5807a3ffa6fa786e5b190682270f0ed3ebfe",
-      "bytes": 1631
+      "sha256": "4c049c0c1e61181958f2923e5a3fe7b4a4e8e70384f81a30c78dd881c896fa50",
+      "bytes": 2399
+    },
+    "UPDATE.md": {
+      "sha256": "1edfa07bb2980e434b10674065bc0e23d19703d3563e2e0d4f5c941dfd2e6f83",
+      "bytes": 10019
     },
     "WEB.md": {
       "sha256": "9f2033cd2aec4d9619869f7c691360ce234be91c7956af70574fcff400be5feb",
@@ -68,12 +72,12 @@
       "bytes": 1106
     },
     "config/profiles/test2.json": {
-      "sha256": "fbfa7ec60bb97a077c760f9be420389af5e3aa1199f0c60401958aa36b2ed249",
+      "sha256": "5948f0befe104925f74b0f128e12e955245f27d64e0c399b20c0aeb1749d7f24",
       "bytes": 512
     },
     "config/settings.py": {
-      "sha256": "0fc5e2d0e58ca73ce0095af0b3409f1579de66e5fb8ee405eb94087c2ad86567",
-      "bytes": 5884
+      "sha256": "f5c60063fb62c17a04b95418420a7bb5e160db7d2aa971692edd49c0061cf5f4",
+      "bytes": 7452
     },
     "core/__init__.py": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -83,21 +87,25 @@
       "sha256": "0e03516752097b189bebb4fc508118f6ec06b0d0230bc4c4a57ab3609af39cfd",
       "bytes": 12482
     },
+    "core/camera_clock.py": {
+      "sha256": "95bb80eda19e932c8ead4d46f0d9773103757fdbc3bf4ffddc724dead7b7f6ec",
+      "bytes": 9059
+    },
     "core/child_filter.py": {
       "sha256": "4d74b05495533dbda2909978344afe847d0f21ad26b8fecf0e2da5692ebe10a1",
       "bytes": 12596
     },
     "core/cli.py": {
-      "sha256": "f455d267e552893b47d9bc2a84dccb5232ed9db8b63805bbf3fc91ec8fcefa43",
-      "bytes": 3850
+      "sha256": "43bd52ef1e271479b0deb1af4c967b9699bee1d0fa3e5f274d793a0db731847b",
+      "bytes": 4693
     },
     "core/counter_engine.py": {
-      "sha256": "ca890a952aaf85ccfeaf0c096e93390cf70dabbcddc8e97d2028f77ed6af2b33",
-      "bytes": 21634
+      "sha256": "9011f25888b91c81e6c8a6577b2e3f255891a96602072ff91843729217da8fe4",
+      "bytes": 22087
     },
     "core/detector.py": {
-      "sha256": "879f3d6b3df869961d6c9c89215c7118a453d04b08b575facd214232ab7b1d4d",
-      "bytes": 10055
+      "sha256": "1a70018c89d484ac32e323a90317062d2efaba5c582a673ea01c2e97876cdeb1",
+      "bytes": 10699
     },
     "core/door_sensor.py": {
       "sha256": "4ebe17bfe708aad12bf75facdca79c859888d5243cd28c114dc85a8099f2bcc8",
@@ -106,6 +114,10 @@
     "core/onnx_runtime.py": {
       "sha256": "cd584343ef384416ff19e70a8bf9e359309af51eec3035b7538f4758c80aa984",
       "bytes": 509
+    },
+    "core/openvino_session.py": {
+      "sha256": "a85ce1018726250f1c95fda9013e313c618aaf11df091dbe241870d47e43d141",
+      "bytes": 1715
     },
     "core/person_detections.py": {
       "sha256": "6692ef5ad5ed99db07db72ff563f3a7c1d85a5c2bc7e437c4d9a6a0bf4fe55f2",
@@ -120,8 +132,8 @@
       "bytes": 3748
     },
     "core/service.py": {
-      "sha256": "9d62a70e9b8972fe72bdf3c9faf283e4c4e867caa0efac69f8e755d1746d6ef1",
-      "bytes": 14221
+      "sha256": "c673e7bd27b5838db7ca9ca4aacee391e156dabc61d8358e2f2a37e3ccfc0031",
+      "bytes": 18389
     },
     "core/staff_manager.py": {
       "sha256": "ea78b3651a3313351794069880a14311332e0f9ff5640b601f3b3f2284426fa3",
@@ -136,8 +148,8 @@
       "bytes": 9925
     },
     "core/video_source.py": {
-      "sha256": "5dcf91d692c333816821b56c5e4fd01bf089685c65977fc8c52f0671b58aa294",
-      "bytes": 5658
+      "sha256": "7ca79affbd6b8321b8051ed6a24fb5718b74a66ebe73161f63ac40e8f362198a",
+      "bytes": 6906
     },
     "core/visualization.py": {
       "sha256": "976c2acec653b30459b7a1fc5460fccf9484a692a1e07e477a24a841a36bcea5",
@@ -152,12 +164,12 @@
       "bytes": 0
     },
     "database/db_client.py": {
-      "sha256": "2bc35181ee53080947a8a5828f4bc3695a96da10c3ba71202b5c3f57649fdfbd",
-      "bytes": 5219
+      "sha256": "0c47c933facfc54dee46b33da2c2b060984a016a051e3de0f484bf39853a86e2",
+      "bytes": 5718
     },
     "database/local_store.py": {
-      "sha256": "be4673670a597d1de5a5766c92625b31115771e0c4958771d317e673e2807826",
-      "bytes": 3313
+      "sha256": "e30b5a3dcfd94e0450b9f52132f62e4f77e24bc1d4749ec305a3d5a4f88cce3a",
+      "bytes": 5031
     },
     "database/schema.sql": {
       "sha256": "f870ac2cac51d8ab52eea6847c5c8b5d36b73f0e375deec6cacf17f52ce5ccee",
@@ -180,8 +192,16 @@
       "bytes": 291
     },
     "models/README.md": {
-      "sha256": "c7c81a6e772dd580fa9a4999a5669b890a23ade41342a79218583e0053afb100",
-      "bytes": 1436
+      "sha256": "aad8c1e425650301f89690f021cf13f1f24e6ff34d813f16ea21215baba50860",
+      "bytes": 1802
+    },
+    "models/camera_clock.json": {
+      "sha256": "26ee27d35c40e1ed9649a9dee49f2380dffdcece1d48893bd986b37ed51ed650",
+      "bytes": 899
+    },
+    "models/camera_clock.onnx": {
+      "sha256": "48fc40f24f6d2a207a2b1091d3437eb3cc3eb6b676dc3ef9c37384005483683b",
+      "bytes": 10857958
     },
     "models/candidates/person_test2_v2.json": {
       "sha256": "820206c8cffb1394b58da83be372da65beb1a41ade8206bebeed68e5f350f734",
@@ -191,13 +211,13 @@
       "sha256": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
       "bytes": 10097840
     },
-    "models/candidates/work_vest_v3.json": {
-      "sha256": "4cc87b69af3878326ce7085c91ba05830c271fa71a62021bc15761eb9bafb27c",
-      "bytes": 1617
+    "models/candidates/work_vest_v4.json": {
+      "sha256": "ee046d7c39a27e2ef6ea1ccb87803ed4c27b1a5e18606781be037e468168a49f",
+      "bytes": 1705
     },
-    "models/candidates/work_vest_v3.onnx": {
-      "sha256": "a26aaf018050308298469d40aca831df602251ca6b14a87562d7f6ffdbf90671",
-      "bytes": 9726342
+    "models/candidates/work_vest_v4.onnx": {
+      "sha256": "29f37aba282a726b1f3cf256958ff4d3a556d547a402267c5dc87c757cf0e7b2",
+      "bytes": 9726344
     },
     "models/person_reid.json": {
       "sha256": "56d1a2cbacee9929c8f63719072d9b7d40a1e51f775bc5960855e82a081a9627",
@@ -219,6 +239,10 @@
       "sha256": "47ee9143969c2618107cf3b77bd2ab9e82f95b08d8aff84eab3259a4b6041fa8",
       "bytes": 157
     },
+    "third_party/CAMERA_CLOCK_LICENSE.txt": {
+      "sha256": "3e0af25fdd06aa9586ae97adb00ea927ebe5a3805ac77d2d3a81ce5f55693333",
+      "bytes": 11422
+    },
     "third_party/OSNET_LICENSE.txt": {
       "sha256": "3ac8ce2a83d170cb1c7c84152e0c1faca1f187794303514383960d2441716247",
       "bytes": 1069
@@ -230,6 +254,14 @@
     "tools/__init__.py": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "bytes": 0
+    },
+    "tools/build_clock_map.py": {
+      "sha256": "d5e47316ce69c28de4d36839f2a78be61c066b55fa88eea2cbc83633d9c6f764",
+      "bytes": 25476
+    },
+    "tools/review_clock_map.py": {
+      "sha256": "4f09c8907e946463a6b87a1ffbc0b40e2f203539a8b25919ec0a0663eab8965a",
+      "bytes": 5791
     },
     "tools/setup_env.py": {
       "sha256": "4b138ce943242e022bea687b19b439b35010035f6c054880cc56e58787ae6eaf",
@@ -244,8 +276,8 @@
       "bytes": 806
     },
     "tools/verify_release.py": {
-      "sha256": "33512c85448f853a96973eefda8910970a2cd1388667ac6dce207f88dffce620",
-      "bytes": 3519
+      "sha256": "2e7599c9dd76eb9fb78bccbc7589dd41979b6a517f5e09df3b7f1702d3c71230",
+      "bytes": 3652
     },
     "web.env.example": {
       "sha256": "f55d137765d27daff01496a5c0c4bf42bbe35944cb8dd17f36710f94c5afaf52",

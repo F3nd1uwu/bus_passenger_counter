@@ -1,10 +1,10 @@
 """Application loop, recovery, graceful shutdown and outbox synchronisation."""
 from dataclasses import asdict
 from collections import deque
-from datetime import datetime, timezone
 import hashlib
 import json
 import logging
+import math
 import signal
 from threading import Event
 import time
@@ -12,6 +12,7 @@ import time
 import cv2
 import psycopg2
 
+from core.camera_clock import ClockMap
 from core.counter_engine import PassengerCounterEngine
 from core.detector import PersonDetector
 from core.preview_player import PreviewPlayer
@@ -28,8 +29,10 @@ def configuration_key(cfg):
     # Fingerprint models as well as thresholds so incompatible state is never reused.
     values = asdict(cfg)
     for key in list(values):
-        if key.startswith("DB_") or key in {"STATE_PATH", "SYNC_INTERVAL_SEC", "CHECKPOINT_INTERVAL_SEC", "DEVICE", "CPU_THREADS"}:
+        if key.startswith("DB_") or key in {"STATE_PATH", "SYNC_INTERVAL_SEC", "CHECKPOINT_INTERVAL_SEC", "DEVICE", "CPU_THREADS", "DETECTOR_CPU_THREADS"}:
             del values[key]
+    if cfg.CPU_DETECTOR_BACKEND == 'onnx':
+        values.pop('CPU_DETECTOR_BACKEND', None)
     if cfg.TRACKING_MODE == "iou":
         values.pop("TRACKING_MODE", None)
         values.pop("TRACKER_IDENTITY_MIN_SIMILARITY", None)
@@ -43,7 +46,28 @@ def configuration_key(cfg):
     if cfg.POSE_ANCHOR == "bbox":
         values.pop("POSE_ANCHOR", None)
         values.pop("POSE_ANCHOR_CONFIDENCE", None)
+    if cfg.FRAME_STRIDE == 1:
+        values.pop("FRAME_STRIDE", None)
+    if cfg.TIME_SOURCE == "pts":
+        for key in list(values):
+            if key == "TIME_SOURCE" or key.startswith("CLOCK_"):
+                values.pop(key)
+    else:
+        values.pop("VIDEO_START", None)
+        if not cfg.CLOCK_MAP_PATH:
+            raise ValueError("Camera time requires CLOCK_MAP_PATH / --clock-map")
+        clock_payload = json.loads(cfg.path(cfg.CLOCK_MAP_PATH).read_text(encoding='utf-8'))
+        semantic_clock = {name: clock_payload.get(name) for name in
+                          ('source_sha256', 'model_sha256', 'timezone', 'roi', 'end_frame')}
+        semantic_clock['segments'] = [{name: segment.get(name) for name in
+                                      ('frame', 'pts', 'offset', 'excluded_transition_start', 'excluded_start_pts', 'reviewed')}
+                                     for segment in clock_payload['segments']]
+        values['CLOCK_MAP_PATH'] = hashlib.sha256(json.dumps(semantic_clock, sort_keys=True).encode()).hexdigest()
+        values['VIDEO_SOURCE'] = clock_payload['source_sha256']
+        values['SOURCE_KIND'] = 'file'
     model_names = ["MODEL_PATH", "REID_MODEL_PATH", "TRACKER_PATH"]
+    if cfg.TIME_SOURCE == "camera":
+        model_names.append("CLOCK_MODEL_PATH")
     if cfg.CHILD_MODE == "model":
         model_names.append('CHILD_MODEL_PATH')
     if cfg.STAFF_MODE == "model":
@@ -58,8 +82,8 @@ def configuration_key(cfg):
     if source_kind(cfg.VIDEO_SOURCE, cfg.SOURCE_KIND) == "file":
         path = cfg.path(cfg.VIDEO_SOURCE).resolve()
         stat = path.stat()
-        values["file"] = [str(path), stat.st_size, stat.st_mtime_ns]
-    # Source URLs can contain credentials: persist only the digest.
+        values["file"] = [clock_payload["source_sha256"]] if cfg.TIME_SOURCE == "camera" else [str(path), stat.st_size, stat.st_mtime_ns]
+    # Persist only the fingerprint, not the full source configuration.
     return hashlib.sha256(json.dumps(values, sort_keys=True).encode()).hexdigest()
 
 
@@ -68,11 +92,17 @@ def synchronize(store, db):
         events = store.pending()
         # A remote checkpoint must never get ahead of its delivered events.
         finished = store.pending_count() <= len(events)
-        checkpoint = store.load() if finished else None
+        checkpoint = None
+        if finished:
+            header = store.checkpoint_header()
+            if header is not None and (events or not store.is_synchronized(db, header)):
+                checkpoint = store.load_for_delivery()
         if not events and checkpoint is None:
             return
         db.deliver(events, checkpoint)
         store.acknowledge(events)
+        if checkpoint is not None:
+            store.mark_synchronized(db, checkpoint)
         if finished:
             return
 
@@ -87,10 +117,17 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
     if start_frame < 0 or (start_frame and not preview):
         raise ValueError("start-frame is available only in preview and must be nonnegative")
     kind = source_kind(cfg.VIDEO_SOURCE, cfg.SOURCE_KIND)
-    if not preview and kind == "file" and not cfg.VIDEO_START:
+    if not cfg.path(cfg.VIDEO_SOURCE).is_file():
+        raise ValueError("Local video file does not exist")
+    if cfg.TIME_SOURCE == "pts" and not cfg.VIDEO_START:
         raise ValueError("Set VIDEO_START / --video-start to the recording start time including timezone")
     if output and kind == "file" and cfg.path(cfg.VIDEO_SOURCE).resolve() == cfg.path(output).resolve():
         raise ValueError("Preview output must differ from the input video")
+    clock_map = None
+    if cfg.TIME_SOURCE == "camera":
+        if not cfg.CLOCK_MAP_PATH:
+            raise ValueError("Build camera time first with tools.build_clock_map and supply --clock-map")
+        clock_map = ClockMap.load(cfg.path(cfg.CLOCK_MAP_PATH), cfg)
     detector = PersonDetector(cfg, detection_only=detection_only)
     if not detection_only and cfg.STAFF_MODE == "disabled":
         log.warning("STAFF_MODE=disabled: staff are counted as passengers until the vest model is configured")
@@ -111,8 +148,11 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
     preview_packet = None
     segment_start = start_frame
     frame_times = deque(maxlen=30)
+    buffered_events = []
+    last_media_seconds = resume_media_seconds = None
+    align_resume_cursor = False
     try:
-        start = parse_start(cfg.VIDEO_START) if cfg.VIDEO_START else datetime.now(timezone.utc)
+        start = parse_start(cfg.VIDEO_START) if cfg.TIME_SOURCE == "pts" else None
         if not preview:
             source_key = configuration_key(cfg)
             store = LocalStore(cfg.path(cfg.STATE_PATH))
@@ -141,12 +181,29 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
                     synchronize(store, db)
                     log.info("Recording already completed; pending events delivered")
                     return {"frames": 0, "in": engine.total_in, "out": engine.total_out}
+                resume_media_seconds = saved['payload'].get('last_media_seconds')
+                if resume_media_seconds is None and engine.last_timestamp is not None:
+                    if cfg.TIME_SOURCE == 'pts':
+                        resume_media_seconds = engine.last_timestamp - start.timestamp()
+                    else:
+                        for i, segment in enumerate(clock_map.segments):
+                            media = engine.last_timestamp - segment['offset']
+                            lo = clock_map.pts_starts[i]
+                            hi = clock_map.pts_starts[i + 1] if i + 1 < len(clock_map.segments) else float('inf')
+                            if lo <= media < hi:
+                                resume_media_seconds = media
+                                break
+                if resume_media_seconds is not None:
+                    if not isinstance(resume_media_seconds, (int, float)) or not math.isfinite(resume_media_seconds) or resume_media_seconds < 0:
+                        raise ValueError('Invalid saved media cursor; restore a consistent checkpoint')
+                    last_media_seconds = resume_media_seconds
+                    align_resume_cursor = True
                 log.info("Restored checkpoint revision %s; queued events %s", saved["revision"], store.pending_count())
         resume_at = max(0, next_frame - cfg.REPLAY_FRAMES) if kind == "file" and not preview else next_frame
-        reader = VideoSource(cfg, start=start, resume_frame=resume_at, stop=stop)
+        reader = VideoSource(cfg, start=start, resume_frame=resume_at, stop=stop, clock_map=clock_map)
         last_sync = -float("inf")
         last_checkpoint = -float("inf")
-        retrying = False
+        loop_started = time.monotonic()
         while not stop.is_set():
             if player:
                 while player.paused and player.seek_request is None and not stop.is_set():
@@ -187,30 +244,35 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
                         continue
                     completed = True
                     break
-                if not retrying:
-                    log.warning("Live source unavailable; reconnecting")
-                    retrying = True
                 continue
-            if retrying:
-                log.info("Live source reconnected")
-                retrying = False
+            warmup = not preview and (packet.media_seconds <= resume_media_seconds + 1e-7
+                                      if resume_media_seconds is not None else packet.index < next_frame)
+            if align_resume_cursor and not warmup:
+                # MP4 random seeks may report a frame index a few frames off.
+                # Decode through the saved PTS, then restore the logical cursor.
+                packet.index = next_frame + (-next_frame % cfg.FRAME_STRIDE)
+                reader.index = packet.index + 1
+                align_resume_cursor = False
             reset_events = []
-            if packet.discontinuity:
+            if packet.discontinuity or packet.time_discontinuity:
                 detector.reset()
-                if engine and (kind != "file" or preview):
+                if engine and not warmup and (preview or packet.time_discontinuity):
                     reset_events = engine.reset_tracking()
             detections = detector.detect(packet.image)
-            warmup = kind == "file" and not preview and packet.index < next_frame
             if warmup:
                 continue
             events = reset_events + (engine.update(packet.image, detections, packet.timestamp,
                                      child_observations=getattr(detector, 'child_observations', ())) if engine else [])
             next_frame = packet.index + 1
-            if store and (events or packet.timestamp.timestamp() - last_checkpoint >= cfg.CHECKPOINT_INTERVAL_SEC):
+            last_media_seconds = packet.media_seconds
+            if store:
+                buffered_events.extend(events)
+            if store and (time.monotonic() - last_checkpoint >= cfg.CHECKPOINT_INTERVAL_SEC or len(buffered_events) >= 500):
                 store.save(source_key, {"bus_id": cfg.BUS_ID, "camera_id": cfg.CAMERA_ID,
                                         "engine": engine.snapshot(), "next_frame": next_frame,
-                                        "completed": False}, events)
-                last_checkpoint = packet.timestamp.timestamp()
+                                        "completed": False, "last_media_seconds": last_media_seconds}, buffered_events)
+                buffered_events.clear()
+                last_checkpoint = time.monotonic()
             for event in events:
                 log.info("%s track=%s counted=%s reason=%s", event.event_type, event.track_id,
                          event.counted, event.reason)
@@ -219,13 +281,13 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
                 elapsed = sum(frame_times)
                 metrics = {"processing_fps": len(frame_times) / elapsed if elapsed else None,
                            "source_fps": reader.fps, "frame_index": packet.index,
-                           "media_seconds": (packet.timestamp - start).total_seconds() if kind == "file" else None,
+                           "media_seconds": packet.media_seconds,
                            "segment_start": segment_start}
                 image = draw_preview(packet.image, detections, cfg, engine, events, metrics=metrics)
                 if output:
                     if writer is None:
                         height, width = image.shape[:2]
-                        writer = PreviewWriter(cfg.path(output), reader.fps, (width, height))
+                        writer = PreviewWriter(cfg.path(output), reader.fps / cfg.FRAME_STRIDE, (width, height))
                     writer.write(image)
                 if show:
                     if player is None:
@@ -236,8 +298,10 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
                 stop.set()
             processed += 1
             if processed % 1000 == 0:
-                log.info("Processed %s frames; IN=%s OUT=%s", processed,
-                         engine.total_in if engine else "disabled", engine.total_out if engine else "disabled")
+                log.info("Processed %s frames; IN=%s OUT=%s; %.2f FPS; source_frame=%s time=%s (%s)", processed,
+                         engine.total_in if engine else "disabled", engine.total_out if engine else "disabled",
+                         processed / max(1e-9, time.monotonic() - loop_started), packet.index,
+                         packet.timestamp.isoformat(), cfg.TIME_SOURCE)
             if max_frames is not None and processed >= max_frames:
                 break
         if engine:
@@ -246,7 +310,7 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
             unresolved = engine.finish() if completed else []
             store.save(source_key, {"bus_id": cfg.BUS_ID, "camera_id": cfg.CAMERA_ID,
                                     "engine": engine.snapshot(), "next_frame": next_frame,
-                                    "completed": completed}, unresolved)
+                                    "completed": completed, "last_media_seconds": last_media_seconds}, buffered_events + unresolved)
         elif preview and engine:
             # A preview stopped by max-frames/Q has no persistent checkpoint.
             # Resolve ready delayed crossings before returning its final totals.

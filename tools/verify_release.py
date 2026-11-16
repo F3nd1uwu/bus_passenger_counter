@@ -29,7 +29,7 @@ def verify(root):
         if relative.suffix == '.onnx':
             model_names.add(name)
     if model_names != {'models/person_reid.onnx', 'models/candidates/person_test2_v2.onnx',
-                       'models/candidates/work_vest_v3.onnx'}:
+                       'models/candidates/work_vest_v4.onnx', 'models/camera_clock.onnx'}:
         raise ValueError('Unexpected server model set')
     from urllib.parse import unquote
     for name in manifest['files']:
@@ -46,7 +46,7 @@ def verify(root):
 
 
 def smoke(root):
-    # A synthetic black frame exercises all three local models, no camera or DB.
+    # Synthetic frame exercises local models without video or database.
     sys.path.insert(0, str(Path(root).resolve()))
     import numpy as np
     from config.settings import Settings
@@ -63,6 +63,8 @@ def smoke(root):
             raise RuntimeError('Synthetic ReID or vest inference failed')
     finally:
         detector.close()
+    from core.camera_clock import ClockRecognizer
+    ClockRecognizer(cfg.path(cfg.CLOCK_MODEL_PATH)).read(frame)
     print('Local model smoke passed; staff model enabled, child filter disabled')
 
 
