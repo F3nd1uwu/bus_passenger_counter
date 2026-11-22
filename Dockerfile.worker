@@ -11,6 +11,6 @@ COPY --chown=counter:counter database /app/database
 COPY --chown=counter:counter web /app/web
 COPY --chown=counter:counter manage_web.py /app/manage_web.py
 COPY --chown=counter:counter tools/__init__.py tools/archive_resources.py tools/archive_protocol.py tools/archive_worker.py tools/build_clock_map.py tools/review_clock_map.py /app/tools/
-RUN mkdir -p /app/webstate /app/state && chown counter:counter /app/webstate /app/state
+RUN mkdir -p /app/webstate /app/state /app/uploads && chown counter:counter /app/webstate /app/state /app/uploads
 USER counter
 CMD ["python", "manage_web.py", "run_archive_scheduler"]

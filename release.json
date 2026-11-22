@@ -1,6 +1,6 @@
 {
   "format": "server_distribution_v1",
-  "source_commit": "9679ed5a72e621c80cb53d323e9d457503178424",
+  "source_commit": "24cbb35c8a9b07ed1d22e915ff84f80c6edaa20a",
   "source_branch": "diploma",
   "deployment_branch": "server",
   "source_repository": "https://github.com/F3nd1uwu/bus_passenger_counter",
@@ -32,16 +32,16 @@
       "bytes": 201
     },
     "ARCHIVE_QUEUE.md": {
-      "sha256": "98cfb057375ceb3375d1807a445cbd5c45a41f306f074122845136f298eeadde",
-      "bytes": 20444
+      "sha256": "e25bd2cf9e3047962cc98f85d36a97e137adb9a5c49e48780f13b642084a2e00",
+      "bytes": 20439
     },
     "CUSTOMER_DEMO.md": {
       "sha256": "300229051ff5e283309c7f8a540fbcf76e9bd9fb8f69016485947d7b17d7001f",
       "bytes": 8944
     },
     "Dockerfile": {
-      "sha256": "72665946e94cca2477d44f23ca71696f7df0bb81c393c74cee377b8099456a4c",
-      "bytes": 848
+      "sha256": "f1795bf96ba90814685a2ede5fe7f1cd172c187cf7d30e24c96c14241d373371",
+      "bytes": 861
     },
     "Dockerfile.web": {
       "sha256": "a6056474781160593f3e98c477c2566db32524d25072e4944a5abc84d79e0099",
@@ -52,8 +52,8 @@
       "bytes": 321
     },
     "Dockerfile.worker": {
-      "sha256": "edc06ad86f8f31d787bccc1b5a3508aca225e5f0534d312a59062ee1f40915c5",
-      "bytes": 911
+      "sha256": "f42b17693f58e16c1baf836e5aa4840ae879cda4e043848afc9a5046194053b8",
+      "bytes": 937
     },
     "Dockerfile.worker.dockerignore": {
       "sha256": "e606da0c4617514b9df8c8fa4a6d02f9e0432315f597d160dd1dc70d1d0640e6",
@@ -72,8 +72,8 @@
       "bytes": 10019
     },
     "WEB.md": {
-      "sha256": "48e35f61c5054ff2a6b4e2ccf3d6e9e7752c05f39d02fe9f2dce41a64eeb1fd5",
-      "bytes": 29814
+      "sha256": "0d5a121f1b4d4c208dd0705a66508a81bb8e729ba318bce118e9a4ca0db4193b",
+      "bytes": 29809
     },
     "botsort_reid.yaml": {
       "sha256": "b9feabb2b69700f4995ff8ac39db935d4db7f295850301d43232d939cb545e43",
@@ -196,16 +196,16 @@
       "bytes": 76
     },
     "docker-compose.archive.yml": {
-      "sha256": "2b50bb329846d219ad7959edf08931d972ba1ecc16f34677fb2d0fdfcbc44dc0",
-      "bytes": 2009
+      "sha256": "228e6ae26bb580076fa1dfa3b70af01ced2b2abc1657ca13f66faf1617b710ec",
+      "bytes": 1999
     },
     "docker-compose.https.yml": {
       "sha256": "60ff9db5090d36a850649a14bbe3754df95959794172365f14dabf6899ce0391",
       "bytes": 1021
     },
     "docker-compose.web.yml": {
-      "sha256": "ca8a97b7c6401df5f82364943871ee5b49ba1881889628afc3d12b0e479d2549",
-      "bytes": 1693
+      "sha256": "8f6b4891d298072e778271c393ec2b0b90999a3478d5551b11b23891955d7e7e",
+      "bytes": 1688
     },
     "docker-compose.yml": {
       "sha256": "fc24184a10a2987b4576c5e53c5456ae2db6775b110f117cc435aad857555e0e",
