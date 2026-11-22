@@ -158,7 +158,7 @@ UUID загрузки и номер задания видны администр
 
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.web.yml -f docker-compose.archive.yml exec archive_scheduler \
-  python -m tools.review_clock_map --source /app/data/uploads/UUID.mp4 \
+  python -m tools.review_clock_map --source /app/uploads/UUID.mp4 \
   --map /app/state/jobs/НОМЕР/clock.json --output /app/state/jobs/НОМЕР/clock-review
 ```
 

@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir --no-deps --index-url https://download.pytorch.or
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 RUN useradd --create-home --uid 10001 counter \
-    && mkdir -p /app/state /app/data /app/models \
+    && mkdir -p /app/state /app/data /app/models /app/uploads \
     && chown -R counter:counter /app
 COPY --chown=counter:counter . .
 ENV OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 YOLO_AUTOINSTALL=false

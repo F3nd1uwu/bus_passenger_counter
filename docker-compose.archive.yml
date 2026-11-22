@@ -13,7 +13,7 @@ services:
       - .env.web
     environment:
       WEB_STATE_DIR: /app/webstate
-      WEB_UPLOAD_DIR: /app/data/uploads
+      WEB_UPLOAD_DIR: /app/uploads
       WEB_ANALYTICS_DB_HOST: postgres
       DB_HOST: postgres
       DB_PORT: 5432
@@ -28,7 +28,7 @@ services:
     volumes:
       - ./models:/app/models:ro
       - ./data:/app/data:ro
-      - video_uploads:/app/data/uploads:ro
+      - video_uploads:/app/uploads:ro
       - web_state:/app/webstate
       - archive_state:/app/state
     depends_on:
