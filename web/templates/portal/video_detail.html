@@ -1,0 +1,25 @@
+{% extends 'portal/base.html' %}{% load static %}
+{% block heading_actions %}<a class="button" href="{% url 'videos' %}">Все видеозаписи</a>{% endblock %}
+{% block content %}
+<section class="panel upload-card">
+  <h2 class="upload-name">{{ upload.original_name }}</h2>
+  <p>Автобус: {{ upload.bus.name }} · Камера: {{ upload.camera_id }}</p>
+  <p class="muted">Размер: {{ upload.size|filesizeformat }}{% if upload.duration_seconds %} · Длительность: {{ upload.duration_seconds|floatformat:0 }} с · {{ upload.width }} × {{ upload.height }}{% endif %}</p>
+  <p class="muted" data-dispatcher-state>{% if dispatcher.online %}Служба обработки работает.{% else %}Служба обработки пока недоступна. Состояние записи сохранено.{% endif %}</p>
+  <div data-jobs-url="{% url 'video_status' %}"><div data-upload-id="{{ upload.pk }}">
+    {% if upload.job %}
+    <p><strong data-job-label>{{ upload.job.get_status_display }}</strong></p>
+    <p data-job-phase>{{ upload.job.phase_label }}</p>
+    <progress data-job-progress max="100" value="{{ upload.job.progress_percent }}" aria-label="Прогресс обработки" {% if upload.job.total_frames == 0 %}hidden{% endif %}></progress>
+    <h2 data-job-counts>Входы: {{ upload.job.counted_in }} · Выходы: {{ upload.job.counted_out }}</h2>
+    <p data-job-error>{{ upload.job.error }}</p>
+    <a data-job-download class="button primary" href="{% url 'video_result' upload.pk %}" {% if upload.job.status != 'succeeded' %}hidden{% endif %}>Скачать результат CSV</a>
+    {% if user.is_console_admin %}<form data-job-retry method="post" action="{% url 'video_retry' upload.pk %}" {% if upload.job.status != 'review' and upload.job.status != 'failed' %}hidden{% endif %}>{% csrf_token %}<button type="submit" class="button">Повторить обработку</button></form>
+    <p class="muted">Задание №{{ upload.job.pk }} · {{ upload.id }}</p>{% endif %}
+    {% else %}<p>{{ upload.get_status_display }}. {{ upload.error }}</p>{% endif %}
+  </div></div>
+  <p class="muted">Итог относится к этой записи. До завершения числа предварительные. Дневная статистика всех обработанных записей доступна в разделе «Отчёты».</p>
+  <p class="muted">CSV — проверочный результат обработки, формат обмена с 1С пока не согласован.</p>
+</section>
+<script src="{% static 'portal/jobs.js' %}" defer></script>
+{% endblock %}

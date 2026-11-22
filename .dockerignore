@@ -21,6 +21,10 @@ manage_web.py
 requirements-web.txt
 Dockerfile.web*
 docker-compose.web.yml
+docker-compose.https.yml
+docker-compose.archive.yml
+Dockerfile.worker*
+deploy
 web.env.example
 *.log
 *.zip

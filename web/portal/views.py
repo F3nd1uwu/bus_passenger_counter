@@ -1,22 +1,28 @@
 from functools import wraps
 import hashlib
 import logging
+import json
+import csv
+import io
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.core.exceptions import RequestDataTooBig
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.db import DatabaseError, transaction
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 
 from web.analytics.models import PassengerEvent
 from .forms import BusForm, ConsoleUserCreateForm, ConsoleUserEditForm, period_form
-from .models import AuditEntry, Bus, ReportExport, User
+from .models import AuditEntry, Bus, ReportExport, User, ProcessingJob
 from . import services
+from . import uploads
 
 log = logging.getLogger(__name__)
 
@@ -226,3 +232,144 @@ def audit_log(request):
 
 def health(request):
     return JsonResponse({'status': 'ok'})
+
+
+@login_required
+def videos(request):
+    from .scheduler import dispatcher_status
+    buses = Bus.objects.all() if request.user.is_console_admin else request.user.buses.all()
+    rows = uploads.visible(request.user)
+    return render(request, 'portal/videos.html', {
+        'page_title': 'Видеозаписи', 'eyebrow': 'Загрузка архива', 'nav': 'videos',
+        'bus_choices': buses, 'page_obj': Paginator(rows, 20).get_page(request.GET.get('page')),
+        'max_upload_gb': settings.VIDEO_UPLOAD_MAX_BYTES // 1024 ** 3, 'dispatcher': dispatcher_status()})
+
+
+@login_required
+@require_GET
+def video_status(request):
+    from .scheduler import dispatcher_status
+    keys = request.GET.get('ids', '').split(',')[:20]
+    from uuid import UUID
+    try:
+        keys = [UUID(key) for key in keys if key]
+    except ValueError:
+        return JsonResponse({'error': 'Некорректный список записей.'}, status=400)
+    data = []
+    for upload in uploads.visible(request.user).filter(pk__in=keys):
+        job = getattr(upload, 'job', None)
+        if job:
+            data.append(dict(id=str(upload.pk), status=job.status, label=job.get_status_display(),
+                phase=job.phase_label, phase_code=job.phase, percent=job.progress_percent, error=job.error,
+                counted_in=job.counted_in, counted_out=job.counted_out, fps=round(job.processing_fps, 1)))
+    dispatcher = dispatcher_status()
+    if not request.user.is_console_admin:
+        dispatcher = {'online': dispatcher['online']}
+    return JsonResponse({'jobs': data, 'dispatcher': dispatcher})
+
+
+@login_required
+@require_GET
+def video_detail(request, pk):
+    from .scheduler import dispatcher_status
+    upload = uploads.accessible(request.user, pk)
+    return render(request, 'portal/video_detail.html', dict(page_title='Результат записи',
+        eyebrow='Видеоархив', nav='videos', upload=upload, dispatcher=dispatcher_status()))
+
+
+@login_required
+@require_GET
+def video_result(request, pk):
+    upload = uploads.accessible(request.user, pk)
+    job = getattr(upload, 'job', None)
+    if job is None or job.status != ProcessingJob.Status.SUCCEEDED:
+        return HttpResponse('Результат доступен после завершения обработки.', status=409)
+    def safe(value):
+        value = str(value)
+        return "'" + value if value.lstrip().startswith(('=', '+', '-', '@', '\t', '\r')) else value
+    stream = io.StringIO(newline='')
+    writer = csv.writer(stream, delimiter=';', lineterminator='\r\n')
+    writer.writerow(['Запись', 'Файл', 'Код автобуса', 'Камера', 'Входы', 'Выходы', 'Завершено'])
+    writer.writerow([safe(v) for v in [upload.pk, upload.original_name, job.bus_id_snapshot, job.camera_id_snapshot,
+                      job.counted_in, job.counted_out, timezone.localtime(job.finished_at).isoformat() if job.finished_at else '']])
+    services.audit(request.user, 'Скачан результат видеозаписи', upload.pk)
+    response = HttpResponse(stream.getvalue().encode('utf-8-sig'), content_type='text/csv; charset=utf-8')
+    response['Content-Disposition'] = f'attachment; filename="video_{upload.pk}.csv"'
+    return response
+
+
+@admin_required
+@require_POST
+def video_retry(request, pk):
+    upload = uploads.accessible(request.user, pk)
+    with transaction.atomic():
+        changed = ProcessingJob.objects.filter(upload=upload, status__in=['failed', 'review', 'retry']).update(
+            status='queued', phase='waiting', available_at=timezone.now(), attempts=0, token=None,
+            error='', finished_at=None)
+        if not changed:
+            return HttpResponse('Эту запись сейчас нельзя поставить повторно.', status=409)
+        services.audit(request.user, 'Повторная постановка видео в очередь', upload.pk)
+    messages.success(request, 'Запись поставлена в очередь. Сохранённое состояние будет использовано для продолжения.')
+    return redirect('videos')
+
+
+def upload_response(view):
+    @wraps(view)
+    @login_required
+    @require_POST
+    def checked(request, *args, **kwargs):
+        try:
+            return JsonResponse(uploads.payload(view(request, *args, **kwargs)))
+        except uploads.UploadError as error:
+            return JsonResponse({'error': str(error)}, status=error.status)
+        except RequestDataTooBig:
+            return JsonResponse({'error': 'Слишком большая часть файла.'}, status=413)
+        except DatabaseError:
+            log.warning('Video upload database temporarily unavailable')
+            return JsonResponse({'error': 'Сервер занят. Повторите загрузку через несколько секунд; принятые части сохранены.'}, status=503)
+        except OSError:
+            log.exception('Video upload storage unavailable')
+            return JsonResponse({'error': 'Хранилище временно недоступно. Загрузка сохранена до последней подтверждённой части.'}, status=503)
+    return checked
+
+
+@upload_response
+def video_create(request):
+    if request.content_type != 'application/json' or int(request.META.get('CONTENT_LENGTH') or 0) > 4096:
+        raise uploads.UploadError('Некорректные параметры загрузки.')
+    try:
+        data = json.loads(request.body)
+        if not isinstance(data, dict):
+            raise ValueError
+    except (ValueError, UnicodeDecodeError):
+        raise uploads.UploadError('Некорректные параметры загрузки.')
+    return uploads.create(request.user, data)
+
+
+@upload_response
+def video_chunk(request, pk):
+    # Check access and size before materializing a bounded binary request.
+    uploads.accessible(request.user, pk)
+    try:
+        size = int(request.META.get('CONTENT_LENGTH') or 0)
+        offset = int(request.headers.get('Upload-Offset', '-1'))
+    except ValueError:
+        raise uploads.UploadError('Некорректная часть файла.')
+    if request.content_type != 'application/octet-stream' or not 0 < size <= settings.VIDEO_UPLOAD_CHUNK_SIZE:
+        raise uploads.UploadError('Некорректный размер части файла.', 413)
+    return uploads.append(request.user, pk, offset, request.body)
+
+
+@upload_response
+def video_finish(request, pk):
+    try:
+        return uploads.finish(request.user, pk)
+    except uploads.UploadError as error:
+        if error.status == 422:
+            uploads.visible(request.user).filter(pk=pk, status='uploading').update(error=str(error))
+        raise
+
+
+@upload_response
+def video_cancel(request, pk):
+    return uploads.cancel(request.user, pk)
