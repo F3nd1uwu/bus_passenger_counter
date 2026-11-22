@@ -76,6 +76,15 @@ CSRF_TRUSTED_ORIGINS = [item for item in os.environ.get('WEB_CSRF_ORIGINS', '').
 if os.environ.get('WEB_TRUST_PROXY', '0') == '1':
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 FILE_UPLOAD_MAX_MEMORY_SIZE = DATA_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024
+# Binary chunk requests stay bounded in RAM; full recordings are never request bodies.
+VIDEO_UPLOAD_CHUNK_SIZE = 4 * 1024 * 1024
+DATA_UPLOAD_MAX_MEMORY_SIZE = VIDEO_UPLOAD_CHUNK_SIZE + 65536
+VIDEO_UPLOAD_DIR = Path(os.environ.get('WEB_UPLOAD_DIR', str(BASE_DIR / 'data' / 'uploads'))).resolve()
+VIDEO_UPLOAD_MAX_BYTES = int(os.environ.get('WEB_UPLOAD_MAX_GB', '20')) * 1024 ** 3
+VIDEO_UPLOAD_QUOTA_BYTES = int(os.environ.get('WEB_UPLOAD_QUOTA_GB', '40')) * 1024 ** 3
+VIDEO_UPLOAD_MIN_FREE_BYTES = int(os.environ.get('WEB_UPLOAD_MIN_FREE_GB', '2')) * 1024 ** 3
+VIDEO_UPLOAD_MAX_ACTIVE = int(os.environ.get('WEB_UPLOAD_MAX_ACTIVE', '3'))
+VIDEO_FFPROBE = os.environ.get('WEB_FFPROBE', 'ffprobe')
 CACHES = {'default': {'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
                       'LOCATION': str(STATE_DIR / 'cache')}}
 LOGGING = {'version': 1, 'disable_existing_loggers': False,

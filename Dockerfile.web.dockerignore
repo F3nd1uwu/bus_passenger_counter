@@ -6,6 +6,10 @@
 !tools/
 !tools/__init__.py
 !tools/setup_web_database.py
+!tools/archive_resources.py
+!tools/archive_protocol.py
 web/**/__pycache__/
 web/portal/verification.py
+web/portal/upload_verification.py
+web/portal/job_verification.py
 web/portal/management/commands/seed_demo.py

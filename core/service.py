@@ -8,6 +8,7 @@ import math
 import signal
 from threading import Event
 import time
+from zoneinfo import ZoneInfo
 
 import cv2
 import psycopg2
@@ -23,6 +24,33 @@ from database.local_store import LocalStore
 
 log = logging.getLogger(__name__)
 TRANSIENT_DB_ERRORS = (psycopg2.OperationalError, psycopg2.InterfaceError)
+
+
+class RecordingTotals:
+    """File-wide totals committed with the cursor, independent of daily resets."""
+    def __init__(self):
+        self.incoming = self.outgoing = 0
+        self.complete = True
+
+    def restore(self, payload, cfg, clock_map=None):
+        saved = payload.get('record_totals')
+        if saved is not None:
+            if (not isinstance(saved, dict) or any(type(saved.get(k)) is not int or saved[k] < 0 for k in ('in', 'out'))
+                    or type(saved.get('complete')) is not bool):
+                raise ValueError('Invalid recording totals in checkpoint')
+            self.incoming, self.outgoing, self.complete = saved['in'], saved['out'], saved['complete']
+            return
+        engine = payload['engine']
+        self.incoming, self.outgoing = engine['total_in'], engine['total_out']
+        first = clock_map.at(0, 0)[0] if clock_map else parse_start(cfg.VIDEO_START)
+        self.complete = engine['day'] in (None, first.astimezone(ZoneInfo(cfg.TIMEZONE)).date().isoformat())
+
+    def add(self, events):
+        self.incoming += sum(e.counted and e.event_type == 'IN' for e in events)
+        self.outgoing += sum(e.counted and e.event_type == 'OUT' for e in events)
+
+    def snapshot(self):
+        return {'in': self.incoming, 'out': self.outgoing, 'complete': self.complete}
 
 
 def configuration_key(cfg):
@@ -108,7 +136,7 @@ def synchronize(store, db):
 
 
 def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
-        max_frames=None, start_frame=0):
+        max_frames=None, start_frame=0, on_progress=None):
     cfg.validate()
     if detection_only and not preview:
         raise ValueError("Detection-only mode is available only in the preview module")
@@ -151,6 +179,7 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
     buffered_events = []
     last_media_seconds = resume_media_seconds = None
     align_resume_cursor = False
+    record_totals = RecordingTotals()
     try:
         start = parse_start(cfg.VIDEO_START) if cfg.TIME_SOURCE == "pts" else None
         if not preview:
@@ -175,10 +204,15 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
                 saved = store.load()
             ready_to_sync = True
             if saved:
+                record_totals.restore(saved['payload'], cfg, clock_map)
                 engine = PassengerCounterEngine(cfg, saved["payload"]["engine"])
                 next_frame = saved["payload"]["next_frame"] if kind == "file" else 0
                 if saved["payload"].get("completed"):
                     synchronize(store, db)
+                    if on_progress:
+                        on_progress(dict(processed_frame=next_frame, total_frames=next_frame,
+                                         counted_in=record_totals.incoming, counted_out=record_totals.outgoing,
+                                         totals_complete=record_totals.complete, processing_fps=0))
                     log.info("Recording already completed; pending events delivered")
                     return {"frames": 0, "in": engine.total_in, "out": engine.total_out}
                 resume_media_seconds = saved['payload'].get('last_media_seconds')
@@ -204,6 +238,7 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
         last_sync = -float("inf")
         last_checkpoint = -float("inf")
         loop_started = time.monotonic()
+        last_progress = loop_started
         while not stop.is_set():
             if player:
                 while player.paused and player.seek_request is None and not stop.is_set():
@@ -263,6 +298,7 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
                 continue
             events = reset_events + (engine.update(packet.image, detections, packet.timestamp,
                                      child_observations=getattr(detector, 'child_observations', ())) if engine else [])
+            record_totals.add(events)
             next_frame = packet.index + 1
             last_media_seconds = packet.media_seconds
             if store:
@@ -270,7 +306,8 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
             if store and (time.monotonic() - last_checkpoint >= cfg.CHECKPOINT_INTERVAL_SEC or len(buffered_events) >= 500):
                 store.save(source_key, {"bus_id": cfg.BUS_ID, "camera_id": cfg.CAMERA_ID,
                                         "engine": engine.snapshot(), "next_frame": next_frame,
-                                        "completed": False, "last_media_seconds": last_media_seconds}, buffered_events)
+                                        "completed": False, "last_media_seconds": last_media_seconds,
+                                        "record_totals": record_totals.snapshot()}, buffered_events)
                 buffered_events.clear()
                 last_checkpoint = time.monotonic()
             for event in events:
@@ -297,6 +334,12 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
             if player and player.poll():
                 stop.set()
             processed += 1
+            if on_progress and time.monotonic() - last_progress >= 5:
+                on_progress(dict(processed_frame=next_frame, total_frames=reader.total_frames,
+                                 counted_in=record_totals.incoming, counted_out=record_totals.outgoing,
+                                 totals_complete=record_totals.complete,
+                                 processing_fps=processed / max(1e-9, time.monotonic() - loop_started)))
+                last_progress = time.monotonic()
             if processed % 1000 == 0:
                 log.info("Processed %s frames; IN=%s OUT=%s; %.2f FPS; source_frame=%s time=%s (%s)", processed,
                          engine.total_in if engine else "disabled", engine.total_out if engine else "disabled",
@@ -308,15 +351,22 @@ def run(cfg, *, preview=False, detection_only=False, output=None, show=False,
             engine.observe_children(getattr(detector, 'finish_children', lambda: [])())
         if store:
             unresolved = engine.finish() if completed else []
+            record_totals.add(unresolved)
             store.save(source_key, {"bus_id": cfg.BUS_ID, "camera_id": cfg.CAMERA_ID,
                                     "engine": engine.snapshot(), "next_frame": next_frame,
-                                    "completed": completed, "last_media_seconds": last_media_seconds}, buffered_events + unresolved)
+                                    "completed": completed, "last_media_seconds": last_media_seconds,
+                                    "record_totals": record_totals.snapshot()}, buffered_events + unresolved)
         elif preview and engine:
             # A preview stopped by max-frames/Q has no persistent checkpoint.
             # Resolve ready delayed crossings before returning its final totals.
             for event in engine.finish():
                 log.info("%s track=%s counted=%s reason=%s (preview end)",
                          event.event_type, event.track_id, event.counted, event.reason)
+        if on_progress:
+            on_progress(dict(processed_frame=next_frame, total_frames=reader.total_frames,
+                             counted_in=record_totals.incoming, counted_out=record_totals.outgoing,
+                             totals_complete=record_totals.complete,
+                             processing_fps=processed / max(1e-9, time.monotonic() - loop_started)))
         return {"frames": processed, "in": engine.total_in if engine else None,
                 "out": engine.total_out if engine else None}
     finally:

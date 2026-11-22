@@ -23,6 +23,32 @@ from database.local_store import LocalStore
 
 @unittest.skipUnless(os.getenv("TEST_DB_PORT"), "Set TEST_DB_PORT for disposable PostgreSQL tests")
 class PostgresTests(unittest.TestCase):
+    def test_parallel_initialization_of_fresh_schema(self):
+        from concurrent.futures import ThreadPoolExecutor
+        from threading import Barrier
+        from psycopg2 import sql
+        schema = 'counter_init_test_' + uuid4().hex
+        with self.db.get_cursor() as cursor:
+            cursor.execute(sql.SQL('CREATE SCHEMA {}').format(sql.Identifier(schema)))
+        clients = [DatabaseClient('127.0.0.1', int(os.environ['TEST_DB_PORT']),
+                                  'bus_analytics', 'bus_counter', 'test-local-only') for _ in range(4)]
+        barrier = Barrier(4)
+        def initialize(client):
+            client.params['options'] += ' -c search_path=' + schema
+            barrier.wait(timeout=10)
+            client.initialize()
+            with client.get_cursor() as cursor:
+                cursor.execute('SELECT COUNT(*) FROM counter_runtime_state')
+                return cursor.fetchone()[0]
+        try:
+            with ThreadPoolExecutor(max_workers=4) as pool:
+                self.assertEqual(list(pool.map(initialize, clients)), [0, 0, 0, 0])
+        finally:
+            for client in clients:
+                client.close()
+            with self.db.get_cursor() as cursor:
+                cursor.execute(sql.SQL('DROP SCHEMA {} CASCADE').format(sql.Identifier(schema)))
+
     def setUp(self):
         self.bus = "TEST_" + uuid4().hex[:20]
         self.cfg = Settings(TIME_SOURCE="pts", BUS_ID=self.bus)
@@ -177,6 +203,45 @@ class PostgresTests(unittest.TestCase):
             with self.db.get_cursor() as cur:
                 cur.execute("SELECT total_passengers FROM daily_passenger_traffic WHERE bus_id=%s", (self.bus,))
                 self.assertEqual(cur.fetchone()[0], 1)
+
+    def test_record_totals_cover_two_days_and_restart(self):
+        from datetime import timedelta
+        from core.video_source import VideoFrame
+        class Reader:
+            fps, total_frames = 10, 12
+            def __init__(self, cfg, start=None, resume_frame=0, **kwargs):
+                self.index, self.start, self.eof = resume_frame, start, False
+            def read(self):
+                i = self.index
+                if i >= 12:
+                    self.eof = True
+                    return None
+                self.index += 1
+                image = np.full((100,100,3), [20,20,50,80,80,80][i%6], np.uint8)
+                return VideoFrame(image, self.start+timedelta(days=i//6, seconds=i/10), i, i==0, i/10)
+            def close(self):
+                pass
+        class Detector:
+            def __init__(self, *args, **kwargs):pass
+            def reset(self):pass
+            def detect(self, frame):
+                y = float(frame.mean())
+                return [Detection(1, (40,y-10,60,y+10),1,np.array([1,0]),0)]
+        with tempfile.TemporaryDirectory() as folder, patch('core.service.PersonDetector', Detector), patch('core.service.VideoSource', Reader):
+            cfg = self._service_config(folder)
+            from core.service import configuration_key
+            self.source_key = configuration_key(cfg)
+            progress=[]
+            run(cfg, max_frames=8, on_progress=progress.append)
+            self.assertEqual(progress[-1]['counted_in'], 1)
+            run(cfg, on_progress=progress.append)
+            self.assertEqual(progress[-1]['counted_in'], 2)
+            self.assertTrue(progress[-1]['totals_complete'])
+            run(cfg, on_progress=progress.append)
+            self.assertEqual(progress[-1]['counted_in'], 2)
+            with self.db.get_cursor() as cur:
+                cur.execute('SELECT COUNT(*),SUM(total_passengers) FROM daily_passenger_traffic WHERE bus_id=%s',(self.bus,))
+                self.assertEqual(tuple(map(int,cur.fetchone())), (2,2))
 
     def test_file_replays_unsaved_frames_with_long_checkpoint_interval(self):
         class InterruptedDetector:

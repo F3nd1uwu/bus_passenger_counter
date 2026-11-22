@@ -1,0 +1,553 @@
+{
+  "date": "2026-11-22",
+  "scope": "Known calibration episodes; targeted approximate manual boxes, not independent holdout accuracy.",
+  "annotation_sha256": "1f3e57337c97fce44e5c6111ca5cb80f614f9a43787061431332fef0a0df01c6",
+  "frames": 85,
+  "target_observations": 108,
+  "manual_people": 9,
+  "manual_passages": 6,
+  "environment": {
+    "os": "Windows",
+    "backend": "ONNX Runtime CPU",
+    "cpu_threads": 1
+  },
+  "sources": {
+    "P02": {
+      "source": "data/test2.mp4",
+      "start": 262000,
+      "end": 263200,
+      "source_sha256": "1b4db7870b8f79138890199cb15f16e67f63f5d5e5ca6a3799331f1b1bd687e4"
+    },
+    "N06": {
+      "source": "data/test.mp4",
+      "start": 228306,
+      "end": 228731,
+      "source_sha256": "274a702490bb00e61f624ecc77319810e99a06d65cf0f8c5de53d6783d86e281"
+    },
+    "V05": {
+      "source": "data/test2.mp4",
+      "start": 395000,
+      "end": 396200,
+      "source_sha256": "1b4db7870b8f79138890199cb15f16e67f63f5d5e5ca6a3799331f1b1bd687e4"
+    }
+  },
+  "models": {
+    "person_test2_v2.onnx": "5ea2b8a05a30230e4574be7eae041de464db576ad9e076f699bc633bc5243e15",
+    "work_vest_v4.onnx": "29f37aba282a726b1f3cf256958ff4d3a556d547a402267c5dc87c757cf0e7b2",
+    "person_reid.onnx": "38b3dd2c2acb0bd191d27eff6707dc5428de63fc7395a6f4ae0cb6392ef2acfa",
+    "person_test2_expanded_v3.onnx": "c221594ead4f6dac28ab4903fb19bd5931d0923275ece0294995ec4d4d33b5e6",
+    "work_vest_test2_expanded_v5.onnx": "e328bf4056e4d1b4936ea0150ec89a2d5f23f73fecde25af958a0d72923934c5"
+  },
+  "runs": {
+    "baseline": {
+      "P02": {
+        "frames": 1201,
+        "counted_in": 7,
+        "counted_out": 0,
+        "processing_fps": 10.996188942484247,
+        "trace_sha256": "c41079ee686b1a8fb8b73f449450653af963945fd452c5fefd054ea571cbdffc",
+        "trace_resets": [
+          262600
+        ]
+      },
+      "N06": {
+        "frames": 426,
+        "counted_in": 1,
+        "counted_out": 0,
+        "processing_fps": 13.616047047137583,
+        "trace_sha256": "96c7307f45e219fcd71bb115f0d5dcd5b14d911f43a806f381808d4b6522f2f6",
+        "trace_resets": []
+      },
+      "V05": {
+        "frames": 1201,
+        "counted_in": 0,
+        "counted_out": 0,
+        "processing_fps": 13.635820242062918,
+        "trace_sha256": "1cdaf297104a3544e294b9507fb1dc23db50122b5954dc0078b732065daf3cdf",
+        "trace_resets": []
+      }
+    },
+    "candidate": {
+      "P02": {
+        "frames": 1201,
+        "counted_in": 6,
+        "counted_out": 0,
+        "processing_fps": 10.892159320740767,
+        "trace_sha256": "9e3837b9dc2aeee02516ac759d51db5c9bca8d26f451e3881ce4e304b4e91ab2",
+        "trace_resets": [
+          262600
+        ]
+      },
+      "N06": {
+        "frames": 426,
+        "counted_in": 1,
+        "counted_out": 0,
+        "processing_fps": 13.432770901954516,
+        "trace_sha256": "296499a731229f7101ce4a7b2ca87385aa19e843ab79ddb21b9e309bf3960f48",
+        "trace_resets": []
+      },
+      "V05": {
+        "frames": 1201,
+        "counted_in": 0,
+        "counted_out": 0,
+        "processing_fps": 13.763248047329009,
+        "trace_sha256": "29a51a68c404fee5aecf4594bfb337ab90e84fb46c6c4ff0d9d02056811084be",
+        "trace_resets": []
+      }
+    }
+  },
+  "temporal": {
+    "baseline": [
+      {
+        "sequence": "S01_entry_occlusion",
+        "verified_frames": 24,
+        "matched": 26,
+        "observations": 31,
+        "shared_track_groups": 0,
+        "shared_gallery_groups": 0,
+        "people": {
+          "A_gray_puffer": {
+            "samples": 11,
+            "matched": 11,
+            "unresolved": 0,
+            "track_ids": [
+              [
+                0,
+                4
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          },
+          "B_white_fur_collar": {
+            "samples": 12,
+            "matched": 7,
+            "unresolved": 5,
+            "track_ids": [
+              [
+                0,
+                15
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          },
+          "C_boundary_white_hood": {
+            "samples": 8,
+            "matched": 8,
+            "unresolved": 0,
+            "track_ids": [
+              [
+                0,
+                3
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          }
+        },
+        "passages": [
+          {
+            "person_id": "A_gray_puffer",
+            "direction": "IN",
+            "status": "correct",
+            "crossing_frame": 262252
+          },
+          {
+            "person_id": "B_white_fur_collar",
+            "direction": "IN",
+            "status": "unresolved",
+            "crossing_frame": null
+          }
+        ]
+      },
+      {
+        "sequence": "S02_reused_id",
+        "verified_frames": 29,
+        "matched": 54,
+        "observations": 57,
+        "shared_track_groups": 0,
+        "shared_gallery_groups": 0,
+        "people": {
+          "D_tan_coat": {
+            "samples": 11,
+            "matched": 9,
+            "unresolved": 2,
+            "track_ids": [
+              [
+                1,
+                5
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          },
+          "E_white_cap_bag": {
+            "samples": 14,
+            "matched": 13,
+            "unresolved": 1,
+            "track_ids": [
+              [
+                1,
+                12
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          },
+          "F_second_tan": {
+            "samples": 5,
+            "matched": 5,
+            "unresolved": 0,
+            "track_ids": [
+              [
+                1,
+                15
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          },
+          "R_boundary_white_coat": {
+            "samples": 27,
+            "matched": 27,
+            "unresolved": 0,
+            "track_ids": [
+              [
+                1,
+                1
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          }
+        },
+        "passages": [
+          {
+            "person_id": "D_tan_coat",
+            "direction": "IN",
+            "status": "correct",
+            "crossing_frame": 262666
+          },
+          {
+            "person_id": "E_white_cap_bag",
+            "direction": "IN",
+            "status": "correct",
+            "crossing_frame": 262706
+          }
+        ]
+      },
+      {
+        "sequence": "S03_passenger_coat",
+        "verified_frames": 16,
+        "matched": 5,
+        "observations": 5,
+        "shared_track_groups": 0,
+        "shared_gallery_groups": 0,
+        "people": {
+          "G_red_jacket": {
+            "samples": 5,
+            "matched": 5,
+            "unresolved": 0,
+            "track_ids": [
+              [
+                0,
+                2
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          }
+        },
+        "passages": [
+          {
+            "person_id": "G_red_jacket",
+            "direction": "IN",
+            "status": "correct",
+            "crossing_frame": 228431
+          }
+        ]
+      },
+      {
+        "sequence": "S04_visible_vest",
+        "verified_frames": 16,
+        "matched": 14,
+        "observations": 15,
+        "shared_track_groups": 0,
+        "shared_gallery_groups": 0,
+        "people": {
+          "H_visible_work_vest": {
+            "samples": 15,
+            "matched": 14,
+            "unresolved": 1,
+            "track_ids": [
+              [
+                0,
+                2
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          }
+        },
+        "passages": [
+          {
+            "person_id": "H_visible_work_vest",
+            "direction": "IN",
+            "status": "correct",
+            "crossing_frame": 395187
+          }
+        ]
+      }
+    ],
+    "candidate": [
+      {
+        "sequence": "S01_entry_occlusion",
+        "verified_frames": 24,
+        "matched": 25,
+        "observations": 31,
+        "shared_track_groups": 1,
+        "shared_gallery_groups": 1,
+        "people": {
+          "A_gray_puffer": {
+            "samples": 11,
+            "matched": 11,
+            "unresolved": 0,
+            "track_ids": [
+              [
+                0,
+                1
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          },
+          "B_white_fur_collar": {
+            "samples": 12,
+            "matched": 6,
+            "unresolved": 6,
+            "track_ids": [
+              [
+                0,
+                1
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          },
+          "C_boundary_white_hood": {
+            "samples": 8,
+            "matched": 8,
+            "unresolved": 0,
+            "track_ids": [
+              [
+                0,
+                4
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          }
+        },
+        "passages": [
+          {
+            "person_id": "A_gray_puffer",
+            "direction": "IN",
+            "status": "unresolved",
+            "crossing_frame": null
+          },
+          {
+            "person_id": "B_white_fur_collar",
+            "direction": "IN",
+            "status": "unresolved",
+            "crossing_frame": null
+          }
+        ]
+      },
+      {
+        "sequence": "S02_reused_id",
+        "verified_frames": 29,
+        "matched": 56,
+        "observations": 57,
+        "shared_track_groups": 0,
+        "shared_gallery_groups": 0,
+        "people": {
+          "D_tan_coat": {
+            "samples": 11,
+            "matched": 10,
+            "unresolved": 1,
+            "track_ids": [
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                1,
+                4
+              ]
+            ],
+            "track_changes": 2,
+            "gallery_changes": 1,
+            "staff_confirmed_samples": 0
+          },
+          "E_white_cap_bag": {
+            "samples": 14,
+            "matched": 14,
+            "unresolved": 0,
+            "track_ids": [
+              [
+                1,
+                6
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          },
+          "F_second_tan": {
+            "samples": 5,
+            "matched": 5,
+            "unresolved": 0,
+            "track_ids": [
+              [
+                1,
+                10
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          },
+          "R_boundary_white_coat": {
+            "samples": 27,
+            "matched": 27,
+            "unresolved": 0,
+            "track_ids": [
+              [
+                1,
+                1
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          }
+        },
+        "passages": [
+          {
+            "person_id": "D_tan_coat",
+            "direction": "IN",
+            "status": "unresolved",
+            "crossing_frame": null
+          },
+          {
+            "person_id": "E_white_cap_bag",
+            "direction": "IN",
+            "status": "correct",
+            "crossing_frame": 262707
+          }
+        ]
+      },
+      {
+        "sequence": "S03_passenger_coat",
+        "verified_frames": 16,
+        "matched": 5,
+        "observations": 5,
+        "shared_track_groups": 0,
+        "shared_gallery_groups": 0,
+        "people": {
+          "G_red_jacket": {
+            "samples": 5,
+            "matched": 5,
+            "unresolved": 0,
+            "track_ids": [
+              [
+                0,
+                1
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 0
+          }
+        },
+        "passages": [
+          {
+            "person_id": "G_red_jacket",
+            "direction": "IN",
+            "status": "correct",
+            "crossing_frame": 228431
+          }
+        ]
+      },
+      {
+        "sequence": "S04_visible_vest",
+        "verified_frames": 16,
+        "matched": 14,
+        "observations": 15,
+        "shared_track_groups": 0,
+        "shared_gallery_groups": 0,
+        "people": {
+          "H_visible_work_vest": {
+            "samples": 15,
+            "matched": 14,
+            "unresolved": 1,
+            "track_ids": [
+              [
+                0,
+                1
+              ]
+            ],
+            "track_changes": 0,
+            "gallery_changes": 0,
+            "staff_confirmed_samples": 4
+          }
+        },
+        "passages": [
+          {
+            "person_id": "H_visible_work_vest",
+            "direction": "IN",
+            "status": "correct",
+            "crossing_frame": 395186
+          }
+        ]
+      }
+    ]
+  },
+  "vest_only_N06": {
+    "person_model": "person_test2_v2.onnx",
+    "vest_model": "work_vest_test2_expanded_v5.onnx",
+    "frames": 426,
+    "counted_in": 0,
+    "counted_out": 0,
+    "processing_fps": 13.503247250438793,
+    "verified_frames": 16,
+    "matched": 5,
+    "observations": 5,
+    "passages": [
+      {
+        "person_id": "G_red_jacket",
+        "status": "wrong_exclusion",
+        "reason": "STAFF"
+      }
+    ],
+    "trace_sha256": "d97b98cfce6723f75648dc010b07100fa6173da6a94ff8ecc16c25fe01c5c31d"
+  },
+  "decision": "Keep existing production weights and profiles; candidates not promoted; temporal labels used only for diagnosis."
+}

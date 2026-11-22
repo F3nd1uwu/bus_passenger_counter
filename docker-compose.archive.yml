@@ -1,0 +1,61 @@
+# One scheduler per host/project. No Docker socket or public management port.
+services:
+  archive_scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+      args:
+        COUNTER_IMAGE: ${ARCHIVE_COUNTER_IMAGE:-bus-passenger-counter:archive-base}
+        INSTALL_OPENVINO: ${ARCHIVE_INSTALL_OPENVINO:-0}
+    image: bus-passenger-counter-archive:local
+    env_file:
+      - .env
+      - .env.web
+    environment:
+      WEB_STATE_DIR: /app/webstate
+      WEB_UPLOAD_DIR: /app/data/uploads
+      WEB_ANALYTICS_DB_HOST: postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
+      ARCHIVE_STATE_DIR: /app/state/jobs
+      ARCHIVE_MAX_WORKERS: ${ARCHIVE_MAX_WORKERS:-2}
+      ARCHIVE_THREADS_PER_WORKER: ${ARCHIVE_THREADS_PER_WORKER:-1}
+      ARCHIVE_MEMORY_PER_WORKER_MB: ${ARCHIVE_MEMORY_PER_WORKER_MB:-1400}
+      ARCHIVE_CPU_BUDGET: ${ARCHIVE_CPU_BUDGET:-3}
+      ARCHIVE_PROFILE: test2
+      ARCHIVE_DETECTOR_BACKEND: ${ARCHIVE_DETECTOR_BACKEND:-onnx}
+      ARCHIVE_CLOCK_LIBRARY: /app/data
+    volumes:
+      - ./models:/app/models:ro
+      - ./data:/app/data:ro
+      - video_uploads:/app/data/uploads:ro
+      - web_state:/app/webstate
+      - archive_state:/app/state
+    depends_on:
+      web:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 70s
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m
+    cpus: ${ARCHIVE_CPU_BUDGET:-3}
+    mem_limit: ${ARCHIVE_POOL_MEMORY:-4g}
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "python", "-c", "import json,time; from pathlib import Path; p=Path('/app/webstate/dispatcher.json'); d=json.loads(p.read_text()) if p.exists() else {}; exit(0 if 0 <= time.time()-d.get('updated',0) < 30 else 1)"]
+      start_period: 45s
+      interval: 15s
+      timeout: 3s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+volumes:
+  archive_state:

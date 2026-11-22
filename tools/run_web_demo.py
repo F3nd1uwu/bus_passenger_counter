@@ -29,6 +29,7 @@ def main():
                                           'password': password}, indent=2) + '\n', encoding='utf-8')
         access_file.chmod(0o600)
     env = dict(os.environ, WEB_DEMO='1', WEB_STATE_DIR=str(state), WEB_DEBUG='0',
+               WEB_UPLOAD_DIR=str(state / 'uploads'),
                WEB_ALLOWED_HOSTS='localhost,127.0.0.1,[::1]', WEB_REQUIRE_HTTPS='0',
                WEB_SECURE_COOKIES='0', WEB_DEMO_PASSWORD=password)
     command = [sys.executable, '-B', str(root / 'manage_web.py')]

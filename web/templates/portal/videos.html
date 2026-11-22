@@ -1,0 +1,48 @@
+{% extends 'portal/base.html' %}
+{% load static %}
+{% block content %}
+<section class="panel upload-card" aria-labelledby="upload-title">
+  <div class="panel-heading"><h2 id="upload-title">Загрузить записи</h2></div>
+  <p>Выберите один или несколько MP4, до {{ max_upload_gb }} ГБ каждый. Записи загружаются по очереди.</p>
+  <p class="muted">При обрыве соединения выберите те же файлы, автобус и камеру — загрузка продолжится. После загрузки запись автоматически попадёт в очередь обработки.</p>
+  {% if bus_choices %}
+  <form id="video-upload-form" method="post" action="{% url 'video_create' %}" data-create-url="{% url 'video_create' %}">
+    {% csrf_token %}
+    <div class="upload-fields">
+      <label class="field">Автобус<select name="bus" required>{% for bus in bus_choices %}<option value="{{ bus.pk }}">{{ bus }}</option>{% endfor %}</select></label>
+      <label class="field">Код камеры<input name="camera_id" value="CAM_DOOR_01" pattern="[A-Za-z0-9_-]{1,32}" maxlength="32" required></label>
+    </div>
+    <label class="upload-file">Видеозаписи<input name="videos" type="file" accept=".mp4,video/mp4" multiple required></label>
+    <div class="upload-actions"><button type="submit" class="button primary">Загрузить видео</button><button type="button" class="button" id="upload-pause" hidden>Приостановить</button></div>
+    <p class="muted">До завершения загрузки оставьте вкладку открытой. Уже загруженные записи останутся на сервере после выключения компьютера.</p>
+  </form>
+  <noscript><p class="notice">Для загрузки частями включите JavaScript в браузере.</p></noscript>
+  <div id="upload-progress" class="upload-progress" role="status" aria-live="polite"></div>
+  {% else %}<p class="notice">Для загрузки администратор должен назначить вам автобус.</p>{% endif %}
+</section>
+<section class="panel upload-list" aria-labelledby="videos-title">
+  <p class="muted" data-dispatcher-state>{% if dispatcher.online %}Служба обработки работает.{% if user.is_console_admin %} Обработчиков занято: {{ dispatcher.active }} из {{ dispatcher.capacity }}.{% endif %}{% else %}Служба обработки пока недоступна. Загруженные записи сохранятся в очереди.{% endif %}</p>
+  <div class="panel-heading"><h2 id="videos-title">Загруженные записи</h2><a href="{% url 'videos' %}">Обновить список</a></div>
+  <div class="table-wrap"><table><thead><tr><th>Запись</th><th>Автобус / камера</th><th>Размер</th><th>Состояние</th><th>Дата загрузки</th><th></th></tr></thead>
+  <tbody data-jobs-url="{% url 'video_status' %}">{% for upload in page_obj %}<tr data-upload-id="{{ upload.id }}">
+    <td class="upload-name"><a href="{% url 'video_detail' upload.pk %}">{{ upload.original_name }}</a>{% if user.is_console_admin %}<small>{{ upload.id }} · {{ upload.owner.username }}</small>{% endif %}</td>
+    <td>{{ upload.bus.name }}<small>{{ upload.camera_id }}</small></td>
+    <td>{{ upload.received|filesizeformat }} / {{ upload.size|filesizeformat }}</td>
+    <td>{% if upload.job %}
+      <span class="badge" data-job-label>{{ upload.job.get_status_display }}</span>
+      <small data-job-phase>{{ upload.job.phase_label }}</small>
+      {% if user.is_console_admin %}<small>Задание №{{ upload.job.pk }}</small>{% endif %}
+      <progress data-job-progress max="100" value="{{ upload.job.progress_percent }}" aria-label="Прогресс обработки" {% if upload.job.total_frames == 0 %}hidden{% endif %}></progress>
+      <small data-job-counts>Входы: {{ upload.job.counted_in }} · Выходы: {{ upload.job.counted_out }}</small>
+      <small data-job-error>{{ upload.job.error }}</small>
+      {% else %}<span class="badge">{% if upload.error %}Ошибка проверки{% else %}{{ upload.get_status_display }}{% endif %}</span>{% if upload.error %}<small>{{ upload.error }}</small>{% endif %}{% endif %}</td>
+    <td>{{ upload.created_at|date:'d.m.Y H:i' }}</td>
+    <td>{% if upload.status == 'uploading' %}<button type="button" class="button small" data-upload-cancel="{% url 'video_cancel' upload.pk %}">Отменить загрузку</button>{% endif %}
+      {% if user.is_console_admin and upload.job %}<form data-job-retry method="post" action="{% url 'video_retry' upload.pk %}" {% if upload.job.status != 'review' and upload.job.status != 'failed' %}hidden{% endif %}>{% csrf_token %}<button type="submit" class="button small">Повторить обработку</button></form>{% endif %}
+    </td>
+  </tr>{% empty %}<tr><td colspan="6" class="empty-state">Здесь появятся ваши видеозаписи.</td></tr>{% endfor %}</tbody></table></div>
+  {% include 'portal/pagination.html' %}
+</section>
+<script src="{% static 'portal/uploads.js' %}" defer></script>
+<script src="{% static 'portal/jobs.js' %}" defer></script>
+{% endblock %}

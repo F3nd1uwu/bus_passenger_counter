@@ -3,10 +3,13 @@ ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
 WORKDIR /app
 COPY requirements-web.txt .
 RUN pip install --no-cache-dir -r requirements-web.txt \
+    && apt-get update && apt-get install -y --no-install-recommends ffmpeg \
+    && rm -rf /var/lib/apt/lists/* \
     && useradd --create-home --uid 10001 console \
-    && mkdir -p /app/webstate && chown console:console /app/webstate
+    && mkdir -p /app/webstate /app/uploads && chown console:console /app/webstate /app/uploads
 COPY --chown=console:console manage_web.py .
 COPY --chown=console:console web ./web
-COPY --chown=console:console tools/__init__.py tools/setup_web_database.py ./tools/
+COPY --chown=console:console tools/__init__.py tools/setup_web_database.py tools/archive_resources.py tools/archive_protocol.py ./tools/
+ENV GUNICORN_CMD_ARGS="--no-control-socket"
 USER console
 CMD ["gunicorn", "web.config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "1", "--threads", "2", "--timeout", "30"]

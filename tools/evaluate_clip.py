@@ -1,5 +1,6 @@
 """Reproducible, database-free diagnosis of a source frame interval."""
 import argparse
+import hashlib
 from collections import defaultdict
 from dataclasses import replace
 from datetime import datetime, timezone
@@ -18,7 +19,7 @@ from core.video_source import VideoSource, source_kind, parse_start
 from core.visualization import draw_preview, PreviewWriter
 
 
-def evaluate(cfg, start, end, output, *, video=False, compact=False):
+def evaluate(cfg, start, end, output, *, video=False, compact=False, frame_hashes=False):
     cfg.validate()
     if source_kind(cfg.VIDEO_SOURCE, cfg.SOURCE_KIND) != "file" or start < 0 or end < start:
         raise ValueError("Evaluation requires a file and 0 <= start <= end")
@@ -64,6 +65,7 @@ def evaluate(cfg, start, end, output, *, video=False, compact=False):
     processed = 0
     last_frame = None
     pending_frames = {}
+    tracker_epoch = 0
     wall = time.perf_counter()
     try:
         while reader.index <= end:
@@ -75,6 +77,7 @@ def evaluate(cfg, start, end, output, *, video=False, compact=False):
                 break
             reset_events = []
             if packet.time_discontinuity:
+                tracker_epoch += 1
                 detector.reset()
                 reset_events = engine.reset_tracking()
             tick = time.perf_counter()
@@ -84,7 +87,11 @@ def evaluate(cfg, start, end, output, *, video=False, compact=False):
             events = reset_events + engine.update(packet.image, detections, packet.timestamp,
                                    child_observations=detector.child_observations)
             count_seconds = time.perf_counter() - tick
-            row = {"frame": packet.index, "detections": [], "events": []}
+            row = {"frame": packet.index, "camera_time": packet.timestamp.isoformat(),
+                   "time_discontinuity": packet.time_discontinuity,
+                   "tracker_epoch": tracker_epoch, "detections": [], "events": []}
+            if frame_hashes:
+                row["decoded_sha256"] = hashlib.sha256(packet.image.tobytes()).hexdigest()
             for detection in detections:
                 x1, y1, x2, y2 = detection.bbox
                 anchor = (detection.anchor[1] if detection.anchor is not None else
@@ -215,6 +222,7 @@ if __name__ == "__main__":
     parser.add_argument("--time-source", choices=["camera", "pts"])
     parser.add_argument("--frame-stride", type=int)
     parser.add_argument("--compact", action="store_true", help="Save events and totals without per-frame trace/features")
+    parser.add_argument("--frame-hashes", action="store_true", help="Record decoded image hashes for temporal annotation verification")
     parser.add_argument("--video", action="store_true")
     args = parser.parse_args()
     if args.start < 0 or args.end < args.start:
@@ -234,4 +242,4 @@ if __name__ == "__main__":
         if value is not None:
             overrides[field] = value
     evaluate(replace(apply_profile(Settings.from_env(), args.profile), **overrides), args.start, args.end, args.output,
-             video=args.video, compact=args.compact)
+             video=args.video, compact=args.compact, frame_hashes=args.frame_hashes)

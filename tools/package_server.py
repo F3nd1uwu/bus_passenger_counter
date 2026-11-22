@@ -17,8 +17,12 @@ FILES = {
     'third_party/ULTRALYTICS_LICENSE.txt', 'third_party/CAMERA_CLOCK_LICENSE.txt',
     'models/camera_clock.onnx', 'models/camera_clock.json', 'tools/build_clock_map.py', 'tools/review_clock_map.py',
     'Dockerfile.web', 'Dockerfile.web.dockerignore', 'docker-compose.web.yml',
+    'docker-compose.https.yml', 'deploy/Caddyfile',
+    'Dockerfile.worker', 'Dockerfile.worker.dockerignore', 'docker-compose.archive.yml',
+    'tools/archive_protocol.py', 'tools/archive_resources.py', 'tools/archive_worker.py',
     'manage_web.py', 'requirements-web.txt', 'web.env.example',
     'tools/setup_web_env.py', 'tools/setup_web_database.py',
+    'tools/start_portal.py',
 }
 TEMPLATES = {
     'deployment/server/README.md': 'README.md',
@@ -29,6 +33,8 @@ TEMPLATES = {
     'deployment/server/ci.yml': '.github/workflows/ci.yml',
     'tools/vendor/OSNET_LICENSE.txt': 'third_party/OSNET_LICENSE.txt',
     'docs/WEB.md': 'WEB.md',
+    'docs/ARCHIVE_QUEUE.md': 'ARCHIVE_QUEUE.md',
+    'docs/CUSTOMER_DEMO.md': 'CUSTOMER_DEMO.md',
     'docs/SERVER_UPDATE.md': 'UPDATE.md',
 }
 
@@ -47,7 +53,8 @@ def build(ref, output):
                         and name.endswith(('.py', '.sql', '.json'))}
     selected |= {name for name in tracked if name.startswith('web/')
                  and name.endswith(('.py', '.html', '.css', '.js', '.svg'))
-                 and name not in {'web/portal/verification.py', 'web/portal/management/commands/seed_demo.py'}}
+                 and name not in {'web/portal/verification.py', 'web/portal/upload_verification.py', 'web/portal/job_verification.py',
+                                  'web/portal/management/commands/seed_demo.py'}}
     required = selected | set(TEMPLATES)
     missing = required - tracked
     if missing:

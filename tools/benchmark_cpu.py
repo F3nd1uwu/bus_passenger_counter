@@ -167,6 +167,8 @@ def evaluate(args):
                   CPU_THREADS=args.threads, TIME_SOURCE='camera', FRAME_STRIDE=1,
                   STAFF_MODE=args.staff_mode, CPU_DETECTOR_BACKEND=args.backend,
                   DETECTOR_CPU_THREADS=args.detector_threads or 0)
+    if getattr(args, 'vest_model', None):
+        cfg = replace(cfg, VEST_MODEL_PATH=str(args.vest_model.resolve()))
     timings = Timings()
     with instrument(args.backend, timings, args.detector_threads):
         tick = time.perf_counter()
@@ -316,6 +318,8 @@ def controls(args):
     cfg = replace(apply_profile(Settings(), 'test2'), MODEL_PATH=str(args.model.resolve()),
                   CPU_THREADS=args.threads, FRAME_STRIDE=1, TIME_SOURCE='camera', STAFF_MODE=args.staff_mode,
                   CPU_DETECTOR_BACKEND=args.backend, DETECTOR_CPU_THREADS=args.detector_threads or 0)
+    if getattr(args, 'vest_model', None):
+        cfg = replace(cfg, VEST_MODEL_PATH=str(args.vest_model.resolve()))
     detector = detector_factory(args.backend, detector_threads=args.detector_threads)(cfg)
     folder = args.output.parent / args.output.stem
     folder.mkdir(parents=True, exist_ok=False)
@@ -359,6 +363,7 @@ def controls(args):
                           backend=args.backend, detector_threads=args.detector_threads or args.threads,
                           other_model_threads=args.threads, staff_mode=args.staff_mode,
                           plan_sha256=digest(args.plan), model_sha256=digest(args.model),
+                          vest_model_sha256=digest(cfg.path(cfg.VEST_MODEL_PATH)) if cfg.STAFF_MODE == 'model' else None,
                           shard_index=args.shard_index, shards=args.shards, results=results,
                           scope='Quality only; models reused, engine and tracker reset between episodes')
             write_json_atomic(args.output, report)
@@ -408,6 +413,8 @@ def main():
     for name, p in commands.choices.items():
         p.add_argument('--model', type=Path, default=ROOT / 'models/candidates/person_test2_v2.onnx')
         p.add_argument('--output', type=Path, required=True)
+        if name in {'controls', 'evaluate'}:
+            p.add_argument('--vest-model', type=Path, help='Separate candidate vest; never changes a runtime profile')
         if name != 'prepare':
             p.add_argument('--backend', choices=['onnx', 'openvino'], default='onnx')
             p.add_argument('--threads', type=int, choices=[1, 2, 4], default=2)

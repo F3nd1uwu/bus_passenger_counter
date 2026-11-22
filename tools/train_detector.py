@@ -73,6 +73,9 @@ if __name__ == "__main__":
     if not Path(args.weights).is_file() or Path(args.weights).suffix.lower() != ".pt":
         parser.error("Weights must be an existing local pretrained .pt file")
     dataset = args.dataset.resolve()
+    if (dataset / "sampling_plan.json").is_file():
+        from tools.prepare_archive_dataset import verify_reviewed_dataset
+        print("Verified archive review and source splits:", verify_reviewed_dataset(dataset))
     if (dataset / "baseline_protection.json").is_file():
         from tools.prepare_countpeople import verify
         verify(dataset)

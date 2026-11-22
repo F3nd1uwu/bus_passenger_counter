@@ -18,6 +18,7 @@
     <a class="nav-item {% if nav == 'reports' %}active{% endif %}" href="{% url 'reports' %}" {% if nav == 'reports' %}aria-current="page"{% endif %}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM9 11h6m-6 4h6m-6 3h4"/></svg>Отчёты</a>
     <a class="nav-item {% if nav == 'events' %}active{% endif %}" href="{% url 'events' %}" {% if nav == 'events' %}aria-current="page"{% endif %}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h1M3 12h1M3 18h1"/></svg>Журнал событий</a>
     <a class="nav-item {% if nav == 'exports' %}active{% endif %}" href="{% url 'exports' %}" {% if nav == 'exports' %}aria-current="page"{% endif %}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 15v6h16v-6"/></svg>Выгрузки</a>
+    <a class="nav-item {% if nav == 'videos' %}active{% endif %}" href="{% url 'videos' %}" {% if nav == 'videos' %}aria-current="page"{% endif %}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h13v14H3zM16 10l5-4v12l-5-4M7 12h5m-2-2 2 2-2 2"/></svg>Видеозаписи</a>
     {% if user.is_console_admin %}
     <div class="nav-caption secondary">Администрирование</div>
     <a class="nav-item {% if nav == 'buses' %}active{% endif %}" href="{% url 'buses' %}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17V5c0-2 14-2 14 0v12H5zm0-8h14M7 17v3m10-3v3M8 13h1m6 0h1"/></svg>Автобусы</a>

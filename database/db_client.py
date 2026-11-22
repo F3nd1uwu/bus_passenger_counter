@@ -29,6 +29,9 @@ class DatabaseClient:
     def initialize(self):
         if not self.initialized:
             with self.get_cursor() as cur:
+                # IF NOT EXISTS alone does not serialize concurrent PostgreSQL DDL
+                # (including implicit pg_type entries on a fresh database).
+                cur.execute('SELECT pg_advisory_xact_lock(812341, 1)')
                 cur.execute(Path(__file__).with_name("schema.sql").read_text(encoding="utf-8"))
             self.initialized = True
 

@@ -28,6 +28,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install --no-deps --index-url https://download.pytorch.org/whl/cpu torch==2.15.0 torchvision==0.29.2
           python -m pip install -r requirements.txt
+          python -m pip install -r requirements-web.txt
           python -m pip check
       - name: Check local inference and configuration
         run: |
@@ -35,3 +36,8 @@ jobs:
           python main.py --help
           python -m tools.setup_env
           docker compose config --quiet
+          python -m tools.setup_web_env
+          WEB_DEMO=1 python manage_web.py makemigrations --check --dry-run
+          docker compose -f docker-compose.yml -f docker-compose.web.yml -f docker-compose.archive.yml config --quiet
+          WEB_DOMAIN=panel.example.com docker compose -f docker-compose.yml -f docker-compose.web.yml -f docker-compose.archive.yml -f docker-compose.https.yml config --quiet
+          python -m tools.start_portal --help

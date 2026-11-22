@@ -63,6 +63,8 @@ jobs:
           docker compose -f docker-compose.yml -f docker-compose.local.yml config --quiet
           python -m tools.setup_web_env
           docker compose -f docker-compose.yml -f docker-compose.web.yml config --quiet
+          WEB_DOMAIN=panel.example.com docker compose -f docker-compose.yml -f docker-compose.web.yml -f docker-compose.https.yml config --quiet
+          docker compose -f docker-compose.yml -f docker-compose.web.yml -f docker-compose.archive.yml config --quiet
 
   web:
     name: Web console / isolated demo databases
@@ -86,9 +88,15 @@ jobs:
       - name: Check migrations and access boundaries
         run: |
           python manage_web.py makemigrations --check --dry-run
-          python manage_web.py test web.portal.verification --noinput
+          python manage_web.py test web.portal.verification web.portal.upload_verification web.portal.job_verification --noinput
       - name: Build isolated web image
         run: docker build -f Dockerfile.web -t bus-passenger-counter-web:ci .
+      - name: Check web process on read-only filesystem
+        run: >-
+          docker run --rm --read-only --tmpfs /tmp
+          -e WEB_SECRET_KEY=isolated-ci-web-only-key-not-for-production
+          -e WEB_DEMO=1 -e WEB_STATE_DIR=/tmp/webstate
+          bus-passenger-counter-web:ci gunicorn --check-config web.config.wsgi:application
 
   windows:
     name: Windows / Python 3.14
