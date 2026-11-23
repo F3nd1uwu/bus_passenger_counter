@@ -1,6 +1,6 @@
 {
   "format": "server_distribution_v1",
-  "source_commit": "24cbb35c8a9b07ed1d22e915ff84f80c6edaa20a",
+  "source_commit": "d9e54a422a4f5cacb1787d39e8b70a6faa56962e",
   "source_branch": "diploma",
   "deployment_branch": "server",
   "source_repository": "https://github.com/F3nd1uwu/bus_passenger_counter",
@@ -72,8 +72,8 @@
       "bytes": 10019
     },
     "WEB.md": {
-      "sha256": "0d5a121f1b4d4c208dd0705a66508a81bb8e729ba318bce118e9a4ca0db4193b",
-      "bytes": 29809
+      "sha256": "17479b454500442255b30d0c1ab89a31b6cb3fc7a867dc20c04a7d0924f4ee06",
+      "bytes": 30111
     },
     "botsort_reid.yaml": {
       "sha256": "b9feabb2b69700f4995ff8ac39db935d4db7f295850301d43232d939cb545e43",
