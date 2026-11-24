@@ -1,6 +1,6 @@
 {
   "format": "server_distribution_v1",
-  "source_commit": "ff719261afa747d77ca55503b01656f447b36e28",
+  "source_commit": "919a9b971234fbe310f9b5fcdc5aa0974c80b461",
   "source_branch": "diploma",
   "deployment_branch": "server",
   "source_repository": "https://github.com/F3nd1uwu/bus_passenger_counter",
