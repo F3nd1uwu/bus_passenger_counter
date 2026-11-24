@@ -36,6 +36,13 @@ def freeze_recipe(cfg, path):
 def prepare_clock(cfg, output, library):
     from core.camera_clock import ClockMap, sha256
     from tools.build_clock_map import build
+    def build_current():
+        try:
+            build(cfg, output, allow_media_fallback=True)
+        except (ValueError, RuntimeError) as error:
+            logging.exception('Camera clock preparation rejected: %s', error)
+            raise ReviewRequired('Не удалось подтвердить начальное время записи. Нужна проверка часов камеры.') from error
+
     if not output.exists():
         digest = sha256(cfg.path(cfg.VIDEO_SOURCE))
         candidates = list(Path(library).glob('*.clock.json')) if library else []
@@ -49,13 +56,25 @@ def prepare_clock(cfg, output, library):
             except ValueError:
                 continue
         if not output.exists():
-            try:
-                build(cfg, output)
-            except (ValueError, RuntimeError) as error:
-                raise ReviewRequired('Не удалось подтвердить экранное время. Нужна проверка часов или склеек записи.') from error
+            build_current()
     try:
         return ClockMap.load(output, cfg)
     except ValueError as error:
+        # Upgrade only unstarted jobs rejected by an older strict builder.
+        # Preserve the old map, OCR cache and every existing counter checkpoint.
+        metadata = protocol.read(output)
+        if ('unreviewed' in str(error) and not cfg.path(cfg.STATE_PATH).exists()
+                and metadata.get('builder_sha256') != sha256(Path(__file__).with_name('build_clock_map.py'))):
+            backup = output.with_name(f'{output.stem}.before-media-fallback-{time.time_ns()}.json')
+            output.rename(backup)
+            logging.info('Rebuilding unstarted job clock with media fallback; previous map saved as %s', backup.name)
+            build_current()
+            try:
+                return ClockMap.load(output, cfg)
+            except ValueError as rebuilt_error:
+                logging.exception('Rebuilt camera clock map rejected: %s', rebuilt_error)
+                raise ReviewRequired('Новая карта времени требует проверки.') from rebuilt_error
+        logging.exception('Camera clock map rejected: %s', error)
         raise ReviewRequired('Карта экранного времени требует проверки. Подсчёт не начат.') from error
 
 
@@ -122,7 +141,9 @@ def execute(spec):
         clock = prepare_clock(cfg, root / 'clock.json', spec.get('clock_library'))
         if lease_lost.is_set():
             raise InterruptedError
-        publish(phase='processing', total_frames=clock.end_frame)
+        publish(phase='processing', total_frames=clock.end_frame,
+                clock_note=('Время камеры восстанавливается по времени видео между читаемыми отметками. На склейках возможна погрешность.'
+                            if clock.payload.get('clock_policy') == 'camera_with_media_fallback_v1' else ''))
         from core.service import run
         def report(values):
             if values.get('totals_complete') is False:

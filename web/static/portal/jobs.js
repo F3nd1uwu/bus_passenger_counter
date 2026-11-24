@@ -22,6 +22,8 @@
         row.querySelector('[data-job-phase]').textContent = job.phase +
           (job.phase_code === 'processing' ? ` · ${job.percent}% · ${job.fps} кадр/с` : '');
         row.querySelector('[data-job-error]').textContent = job.error;
+        const clockNote = row.querySelector('[data-job-clock-note]');
+        if (clockNote) clockNote.textContent = job.clock_note || '';
         row.querySelector('[data-job-counts]').textContent = `Входы: ${job.counted_in} · Выходы: ${job.counted_out}`;
         const progress = row.querySelector('[data-job-progress]');
         progress.value = job.percent;

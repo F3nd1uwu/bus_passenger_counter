@@ -35,6 +35,7 @@
       <progress data-job-progress max="100" value="{{ upload.job.progress_percent }}" aria-label="Прогресс обработки" {% if upload.job.total_frames == 0 %}hidden{% endif %}></progress>
       <small data-job-counts>Входы: {{ upload.job.counted_in }} · Выходы: {{ upload.job.counted_out }}</small>
       <small data-job-error>{{ upload.job.error }}</small>
+      <small class="muted" data-job-clock-note>{{ upload.job.clock_note }}</small>
       {% else %}<span class="badge">{% if upload.error %}Ошибка проверки{% else %}{{ upload.get_status_display }}{% endif %}</span>{% if upload.error %}<small>{{ upload.error }}</small>{% endif %}{% endif %}</td>
     <td>{{ upload.created_at|date:'d.m.Y H:i' }}</td>
     <td>{% if upload.status == 'uploading' %}<button type="button" class="button small" data-upload-cancel="{% url 'video_cancel' upload.pk %}">Отменить загрузку</button>{% endif %}

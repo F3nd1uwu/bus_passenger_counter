@@ -18,6 +18,121 @@ from core.camera_clock import ClockMap, ClockRecognizer, DATE_PATTERN, parse_clo
 from core.video_source import source_kind
 
 log = logging.getLogger(__name__)
+MEDIA_CLOCK_POLICY = 'camera_with_media_fallback_v1'
+
+
+def filter_clock_anchors(anchors, *, window=12, max_reset_seconds=None, require_end=True):
+    """Reject isolated OCR digits without deleting recurring valid readings.
+
+    A sustained negative offset starts a separate reviewable clock epoch. An
+    offset LIS across epochs would discard hours after a short recorder overlap.
+    Alternating digit mistakes have no stable run and stay in their own epoch.
+    """
+    import numpy as np
+
+    original = [dict(row) for row in anchors]
+    for i in range(1, len(anchors) - 1):
+        row = original[i]
+        if row['offset'] is None:
+            continue
+        before = [r for r in original[max(0, i - window):i] if r['offset'] is not None]
+        after = [r for r in original[i + 1:i + window + 1] if r['offset'] is not None]
+        # Repeatedly supported readings are not isolated outliers. In particular,
+        # a recurring 7/2 confusion must not make both alternating groups vanish.
+        if any(abs(r['offset'] - row['offset']) <= 1.5 for r in before + after):
+            continue
+        if any(abs(a['offset'] - b['offset']) <= 1.5
+               and abs(row['offset'] - a['offset']) > 1.5
+               and abs(row['offset'] - b['offset']) > 1.5 for a in before for b in after):
+            anchors[i]['timestamp'] = anchors[i]['offset'] = None
+            anchors[i]['rejected_ocr_outlier'] = True
+
+    readable = [row for row in anchors if row['offset'] is not None]
+    boundaries = [0]
+    for i in range(3, len(readable) - 2):
+        before, after = readable[i - 3:i], readable[i:i + 3]
+        if (readable[i]['offset'] - readable[i - 1]['offset'] < -1.5
+                and (max_reset_seconds is None or readable[i - 1]['offset'] - readable[i]['offset'] <= max_reset_seconds)
+                and max(r['offset'] for r in before) - min(r['offset'] for r in before) <= 1.5
+                and max(r['offset'] for r in after) - min(r['offset'] for r in after) <= 1.5
+                and after[-1]['pts'] - before[0]['pts'] <= 60):
+            boundaries.append(i)
+            readable[i]['clock_reset_candidate'] = True
+    boundaries.append(len(readable))
+    selected = set()
+    for lo, hi in zip(boundaries, boundaries[1:]):
+        values = np.asarray([row['offset'] for row in readable[lo:hi]], dtype=np.float64)
+        lengths = np.full(len(values), -100000, dtype=np.int32)
+        parents = np.full(len(values), -1, dtype=np.int32)
+        lengths[0] = 1
+        for i in range(1, len(values)):
+            scores = np.where(values[:i] <= values[i] + 1.5, lengths[:i], -100000)
+            parent = int(scores.argmax())
+            if scores[parent] > 0:
+                lengths[i] = scores[parent] + 1
+                parents[i] = parent
+        if require_end and lengths[-1] <= 0:
+            raise ValueError('Start/end camera clocks are inconsistent')
+        cursor = len(values) - 1 if require_end else int(lengths.argmax())
+        while cursor >= 0:
+            selected.add(lo + cursor)
+            cursor = int(parents[cursor])
+    rejected = []
+    for i, row in enumerate(readable):
+        if i not in selected:
+            row['rejected_chronology_outlier'] = True
+            row['timestamp'] = row['offset'] = None
+            rejected.append(row['frame'])
+    return rejected
+
+
+def media_clock_segments(anchors, *, interval=5.):
+    """Calibrate to camera readings; extrapolate by media PTS between them.
+
+    Repeated camera time holds the logical clock temporarily, without dropping
+    images or moving passenger timestamps backwards. No server clock is used.
+    """
+    readable = [row for row in anchors if row['timestamp'] is not None]
+    if not readable:
+        raise ValueError('No readable camera date/time; cannot establish recording time')
+    origin = readable[0]['timestamp']
+    for row in readable:
+        if not -1 <= row['timestamp'] - origin <= 172800:
+            row['timestamp'] = row['offset'] = None
+            row['rejected_date_outlier'] = True
+    filter_clock_anchors(anchors, window=max(1, round(60 / interval)),
+                         max_reset_seconds=60, require_end=False)
+    readable = [row for row in anchors if row['timestamp'] is not None]
+    if not readable or readable[0]['pts'] > 300:
+        raise ValueError('No reliable camera date/time near the start of recording')
+    first = readable[0]
+    segments = [dict(frame=0, pts=0., offset=first['offset'], observed_frame=first['frame'])]
+    for row in readable[1:]:
+        previous = segments[-1]
+        if abs(row['offset'] - previous['offset']) <= 1.5:
+            continue
+        current = max(row['pts'] + previous['offset'], previous.get('clock_floor', -math.inf))
+        segment = dict(frame=row['frame'], pts=row['pts'], offset=row['offset'], observed_frame=row['frame'])
+        if row['timestamp'] < current:
+            segment['clock_floor'] = current
+            segment['overlap_seconds'] = current - row['timestamp']
+        segments.append(segment)
+    estimated = []
+    start = None
+    previous = anchors[0]
+    for row in anchors:
+        if row['timestamp'] is None:
+            if start is None:
+                start = previous
+        elif start is not None:
+            estimated.append(dict(start_frame=start['frame'], end_frame=row['frame'],
+                                  start_pts=start['pts'], end_pts=row['pts']))
+            start = None
+        previous = row
+    if start is not None:
+        estimated.append(dict(start_frame=start['frame'], end_frame=anchors[-1]['frame'],
+                              start_pts=start['pts'], end_pts=anchors[-1]['pts']))
+    return segments, estimated, len(readable)
 
 
 def scan_crops(source, ranges, end, fps, roi):
@@ -62,7 +177,7 @@ def scan_crops(source, ranges, end, fps, roi):
         cap.release()
 
 
-def build(cfg, output, *, interval=5.0, end_frame=None):
+def build(cfg, output, *, interval=5.0, end_frame=None, allow_media_fallback=False):
     source_kind(cfg.VIDEO_SOURCE, cfg.SOURCE_KIND)
     if not 0.25 <= interval <= 10:
         raise ValueError('Clock sampling interval must be 0.25..10 seconds')
@@ -210,6 +325,23 @@ def build(cfg, output, *, interval=5.0, end_frame=None):
                 log.info('Clock scan: %s/%s samples, frame %s', number + 1, len(indices), index)
         cache_path.parent.mkdir(parents=True, exist_ok=True)
         write_json_atomic(cache_path, dict(key=cache_key, observations=list(observations.values())))
+        if allow_media_fallback:
+            segments, estimated, verified = media_clock_segments(anchors, interval=interval)
+            payload = dict(format='camera_clock_map_v1', clock_policy=MEDIA_CLOCK_POLICY,
+                           builder_sha256=builder_hash, source_sha256=sha256(source),
+                           model_sha256=sha256(cfg.path(cfg.CLOCK_MODEL_PATH)), timezone=cfg.TIMEZONE,
+                           roi=list(map(float, cfg.CLOCK_ROI.split(','))), fps=fps, total_frames=total,
+                           end_frame=end, excluded_tail_frames=total - end, sample_interval_seconds=interval,
+                           uncertainty_seconds=None, estimated_time_ranges=estimated,
+                           bounded_camera_error=False, verified_anchor_count=verified, segments=segments,
+                           observations=sorted(observations.values(), key=lambda row: row['frame']))
+            ClockMap(payload)
+            Path(output).parent.mkdir(parents=True, exist_ok=True)
+            write_json_atomic(output, payload)
+            log.info('Saved media-fallback clock map: %s calibrations, %s verified anchors, %s estimated ranges, %.1fs; no frames excluded',
+                     len(segments), verified, len(estimated), time.monotonic() - started)
+            succeeded = True
+            return payload
         if anchors[0]['timestamp'] is None or anchors[-1]['timestamp'] is None:
             raise ValueError("Start/end camera clock unreadable: review ROI or explicitly exclude verified credits with --end-frame")
         for row in anchors:
@@ -437,11 +569,14 @@ def main():
     parser.add_argument('--roi', default=Settings().CLOCK_ROI)
     parser.add_argument('--interval', type=float, default=5)
     parser.add_argument('--end-frame', type=int, help='Exclusive end; only exclude visually verified credits/non-camera tail')
+    parser.add_argument('--allow-media-fallback', action='store_true',
+                        help='Approximate camera time with media PTS across unreadable clocks; keep all frames')
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
     cfg = replace(Settings(), VIDEO_SOURCE=args.source, TIMEZONE=args.timezone, CLOCK_ROI=args.roi)
     try:
-        build(cfg, args.output, interval=args.interval, end_frame=args.end_frame)
+        build(cfg, args.output, interval=args.interval, end_frame=args.end_frame,
+              allow_media_fallback=args.allow_media_fallback)
     except (ValueError, RuntimeError, OSError, sqlite3.Error) as exc:
         parser.exit(2, f'Clock map error: {exc}\n')
 

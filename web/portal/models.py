@@ -127,6 +127,7 @@ class ProcessingJob(models.Model):
     counted_out = models.PositiveIntegerField(default=0)
     processing_fps = models.FloatField(default=0)
     error = models.CharField(max_length=300, blank=True)
+    clock_note = models.CharField(max_length=300, blank=True)
 
     @property
     def progress_percent(self):

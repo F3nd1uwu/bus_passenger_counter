@@ -59,11 +59,15 @@ CHECKPOINT_INTERVAL_SEC=30
 Перед подсчётом создайте карту времени:
 
 ```bash
-docker compose run --rm --no-deps -v "$PWD/data:/clock-output" counter_service python -m tools.build_clock_map --source /app/data/test2.mp4 --output /clock-output/test2.clock.json
+docker compose run --rm --no-deps -v "$PWD/data:/clock-output" counter_service python -m tools.build_clock_map --source /app/data/test2.mp4 --output /clock-output/test2.clock.json --allow-media-fallback
 ```
 
 Если в конце есть титры, задайте `--end-frame` с проверенной границей (не включительно).
-Если карта содержит нечитаемые монтажные переходы, сначала получите контактные листы:
+С этим флагом время между отметками камеры восстанавливается по PTS, кадры не
+исключаются. Небольшой возврат часов не блокирует файл; на склейках возможна
+погрешность более минуты. Веб-очередь использует этот режим автоматически.
+Для строгого построения уберите флаг. Если строгая карта содержит нечитаемые
+монтажные переходы, сначала получите контактные листы:
 
 ```bash
 docker compose run --rm --no-deps -v "$PWD/data:/clock-output" counter_service python -m tools.review_clock_map --source /app/data/test2.mp4 --map /clock-output/test2.clock.json --output /clock-output/clock_review

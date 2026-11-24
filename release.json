@@ -1,6 +1,6 @@
 {
   "format": "server_distribution_v1",
-  "source_commit": "d9e54a422a4f5cacb1787d39e8b70a6faa56962e",
+  "source_commit": "ff719261afa747d77ca55503b01656f447b36e28",
   "source_branch": "diploma",
   "deployment_branch": "server",
   "source_repository": "https://github.com/F3nd1uwu/bus_passenger_counter",
@@ -32,12 +32,12 @@
       "bytes": 201
     },
     "ARCHIVE_QUEUE.md": {
-      "sha256": "e25bd2cf9e3047962cc98f85d36a97e137adb9a5c49e48780f13b642084a2e00",
-      "bytes": 20439
+      "sha256": "ba65a6e757f502a916b977fd5b09a0db3a7b1dec990c53cb76b79b8d8f6b2582",
+      "bytes": 23150
     },
     "CUSTOMER_DEMO.md": {
-      "sha256": "300229051ff5e283309c7f8a540fbcf76e9bd9fb8f69016485947d7b17d7001f",
-      "bytes": 8944
+      "sha256": "363af3a3d6a37995e6a9f309751d38a19d4997051eaa133eeaea0eba9cf8e8bc",
+      "bytes": 11124
     },
     "Dockerfile": {
       "sha256": "f1795bf96ba90814685a2ede5fe7f1cd172c187cf7d30e24c96c14241d373371",
@@ -60,20 +60,20 @@
       "bytes": 362
     },
     "README.md": {
-      "sha256": "a7feb1f2695fd3c929c176070b4d2ded4e7500a1ca3cd12a6eb9b0d43118cd60",
-      "bytes": 15160
+      "sha256": "88eb533644da471521f8c77aaca737ecf5d968e125f10d4f336b6209c4a9087c",
+      "bytes": 15689
     },
     "THIRD_PARTY_NOTICES.md": {
       "sha256": "4c049c0c1e61181958f2923e5a3fe7b4a4e8e70384f81a30c78dd881c896fa50",
       "bytes": 2399
     },
     "UPDATE.md": {
-      "sha256": "1edfa07bb2980e434b10674065bc0e23d19703d3563e2e0d4f5c941dfd2e6f83",
-      "bytes": 10019
+      "sha256": "9763f7dc3f6aef566aa5277c02b8c21f3ec986bf6fecbf85644accb9e3c6dddb",
+      "bytes": 12208
     },
     "WEB.md": {
-      "sha256": "17479b454500442255b30d0c1ab89a31b6cb3fc7a867dc20c04a7d0924f4ee06",
-      "bytes": 30111
+      "sha256": "fb60a875e8908b6d64343e7a7091368faf1815212db8e4cbf3aaa81dd9534478",
+      "bytes": 30134
     },
     "botsort_reid.yaml": {
       "sha256": "b9feabb2b69700f4995ff8ac39db935d4db7f295850301d43232d939cb545e43",
@@ -104,8 +104,8 @@
       "bytes": 12482
     },
     "core/camera_clock.py": {
-      "sha256": "95bb80eda19e932c8ead4d46f0d9773103757fdbc3bf4ffddc724dead7b7f6ec",
-      "bytes": 9059
+      "sha256": "c80f7a37f14a75cc795beec4e3f10b0cdce2f5f7054efe404577e7966c4d8240",
+      "bytes": 10270
     },
     "core/child_filter.py": {
       "sha256": "4d74b05495533dbda2909978344afe847d0f21ad26b8fecf0e2da5692ebe10a1",
@@ -148,8 +148,8 @@
       "bytes": 3748
     },
     "core/service.py": {
-      "sha256": "27ab2f351403877b9550798fed9bea99e88c5782681b3e462ff7e860a2839c5e",
-      "bytes": 21374
+      "sha256": "650cbd5cd4d2b432efa6cfb856c520ec0c8cfe9be713d22ef1e098f8c0eda0be",
+      "bytes": 21695
     },
     "core/staff_manager.py": {
       "sha256": "ea78b3651a3313351794069880a14311332e0f9ff5640b601f3b3f2284426fa3",
@@ -292,12 +292,12 @@
       "bytes": 3775
     },
     "tools/archive_worker.py": {
-      "sha256": "2f13ef95b8b1587fdc8822ba03c8f5ef0ef627c31f9a0132b4e71b87294a63bf",
-      "bytes": 7141
+      "sha256": "ce8662a1a5df7bdfc7c6a01ce05037168a0fefa1755d76140d118ad4ee0a8d5c",
+      "bytes": 8691
     },
     "tools/build_clock_map.py": {
-      "sha256": "d5e47316ce69c28de4d36839f2a78be61c066b55fa88eea2cbc83633d9c6f764",
-      "bytes": 25476
+      "sha256": "6ec190d51663d21348bd6dda88af5b19ac87c1b80d50091362f53b3d8bd7f204",
+      "bytes": 32794
     },
     "tools/review_clock_map.py": {
       "sha256": "4f09c8907e946463a6b87a1ffbc0b40e2f203539a8b25919ec0a0663eab8965a",
@@ -415,17 +415,21 @@
       "sha256": "1fbdd860e41c7b7342769ddb161823b7616ed37e565e21575387755b90e1e8c6",
       "bytes": 2186
     },
+    "web/portal/migrations/0004_processingjob_clock_note.py": {
+      "sha256": "7a4e3ccff9306b8cb64a946cf0a7c87a2b19caf56320c46ddc226a05f11cba18",
+      "bytes": 300
+    },
     "web/portal/migrations/__init__.py": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "bytes": 0
     },
     "web/portal/models.py": {
-      "sha256": "518298b0f99f4c5589274e72068c6d189c50d9c478c77f62b6f736c2b2791810",
-      "bytes": 6133
+      "sha256": "5e0dcff1759e99e2f0080d8497fbd8cebea761c4132781a0bc99f83ea9ddab6d",
+      "bytes": 6195
     },
     "web/portal/scheduler.py": {
-      "sha256": "29cb15fa36cdcf10c8a326c38d18461b95f4e65d554656b99a75bfc4055be1a3",
-      "bytes": 10196
+      "sha256": "155b2239465f19fffd22b7be230df6a994962e188a57000d163e0969d0b3f2bd",
+      "bytes": 10332
     },
     "web/portal/services.py": {
       "sha256": "d315bdba688a375f8c83e248650de3653d030c34dba9dc41a6dfcc55e4c7bbcf",
@@ -448,8 +452,8 @@
       "bytes": 1739
     },
     "web/portal/views.py": {
-      "sha256": "eb95c3af5619a5f153abc8a49f8c2c266af6fa938e51cf6fe0bf69ed7b18af1e",
-      "bytes": 18744
+      "sha256": "c70733805de404a7c8683361bcc914ca6ca9fb499d9b381ece0f48385135b4bc",
+      "bytes": 18787
     },
     "web/static/portal/app.css": {
       "sha256": "22e9b658076c76854c19d51b4c81ae1ea780fd613e759a4c4777cddec41ffed8",
@@ -464,8 +468,8 @@
       "bytes": 242
     },
     "web/static/portal/jobs.js": {
-      "sha256": "d4c73405405607ad579c54f159c7d7adb645fce392dce41595b80be5e47d8020",
-      "bytes": 2283
+      "sha256": "d68eba44af726ac2df6149349dd977a65245d979122e70530db694e43d26fe03",
+      "bytes": 2422
     },
     "web/static/portal/uploads.js": {
       "sha256": "eb76c5433fe63d367f1b4723a62aac0089b8a8e7883b50172089e4c7d8fadf46",
@@ -528,12 +532,12 @@
       "bytes": 1572
     },
     "web/templates/portal/video_detail.html": {
-      "sha256": "1513a9a5c6f057bd8f4691c210f01909c02793ae50a5d4b4c700ae371f525c2d",
-      "bytes": 2693
+      "sha256": "47822edd3a7699d78f66d5d15c2f383a22502ea13399ba8c3465e6665fdeae57",
+      "bytes": 2766
     },
     "web/templates/portal/videos.html": {
-      "sha256": "447402880040459cd589a8c5827e930925eca08aa2c16c8ecb37a3ee8f3d1994",
-      "bytes": 5424
+      "sha256": "9fbb1c177c869da77668200441c4869385c43e910df7003d7e2c16816ffb8644",
+      "bytes": 5507
     }
   }
 }

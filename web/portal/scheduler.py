@@ -84,6 +84,8 @@ class Scheduler:
                     fields['processing_fps'] = value
                 if progress.get('phase') in ('starting', 'clock', 'processing', 'syncing'):
                     fields['phase'] = progress['phase']
+                if isinstance(progress.get('clock_note'), str):
+                    fields['clock_note'] = progress['clock_note'][:300]
             jobs.update(job, heartbeat=timezone.now(), **fields)
             if process.poll() is None:
                 timeout = self.clock_timeout if fields.get('phase') == 'clock' else self.stall_timeout
