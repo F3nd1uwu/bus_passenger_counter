@@ -103,7 +103,7 @@ class MediaClockFallbackTests(unittest.TestCase):
             clock, _, _ = self.clock(self.rows([0] * 20 + [-14] * 20))
             payload = clock.payload
             payload['source_sha256'] = 'isolated-source'
-            cfg = replace(Settings(), CLOCK_MAP_PATH=str(output), MODEL_PATH=str(asset),
+            cfg = replace(Settings(), VIDEO_SOURCE=str(asset), CLOCK_MAP_PATH=str(output), MODEL_PATH=str(asset),
                           REID_MODEL_PATH=str(asset), TRACKER_PATH=str(asset), CLOCK_MODEL_PATH=str(asset))
             output.write_text(json.dumps(payload), encoding='utf-8')
             first = configuration_key(cfg)
