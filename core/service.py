@@ -90,6 +90,11 @@ def configuration_key(cfg):
         semantic_clock['segments'] = [{name: segment.get(name) for name in
                                       ('frame', 'pts', 'offset', 'excluded_transition_start', 'excluded_start_pts', 'reviewed')}
                                      for segment in clock_payload['segments']]
+        for original, semantic in zip(clock_payload['segments'], semantic_clock['segments']):
+            if 'clock_floor' in original:
+                semantic['clock_floor'] = original['clock_floor']
+        if 'clock_policy' in clock_payload:
+            semantic_clock['clock_policy'] = clock_payload['clock_policy']
         values['CLOCK_MAP_PATH'] = hashlib.sha256(json.dumps(semantic_clock, sort_keys=True).encode()).hexdigest()
         values['VIDEO_SOURCE'] = clock_payload['source_sha256']
         values['SOURCE_KIND'] = 'file'

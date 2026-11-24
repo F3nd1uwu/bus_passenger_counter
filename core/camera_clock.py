@@ -119,14 +119,35 @@ class ClockMap:
         if any(not math.isfinite(a) or not math.isfinite(b) or a > b for a,b in self.time_exclusions):
             raise ValueError('Invalid camera clock PTS exclusion')
         offsets = [float(s['offset']) for s in self.segments]
-        if any(not math.isfinite(v) for v in offsets) or any(b < a for a, b in zip(offsets, offsets[1:])):
+        if any(not math.isfinite(v) for v in offsets):
             raise ValueError('Camera clock cannot run backwards')
+        for i, segment in enumerate(self.segments):
+            floor = segment.get('clock_floor')
+            if floor is not None:
+                if (payload.get('clock_policy') != 'camera_with_media_fallback_v1'
+                        or self.pts_starts is None or type(floor) not in (float, int)
+                        or not math.isfinite(floor) or floor < offsets[i] + self.pts_starts[i]):
+                    raise ValueError('Invalid logical camera clock floor')
+            if i:
+                if self.pts_starts is None:
+                    if offsets[i] < offsets[i - 1]:
+                        raise ValueError('Camera clock cannot run backwards')
+                    continue
+                boundary = self.pts_starts[i]
+                before = max(offsets[i - 1] + boundary, self.segments[i - 1].get('clock_floor', -math.inf))
+                after = max(offsets[i] + boundary, floor if floor is not None else -math.inf)
+                if after + 1e-6 < before:
+                    raise ValueError('Camera clock cannot run backwards')
 
     def at(self, index, pts):
         if not 0 <= index < self.end_frame or not math.isfinite(pts) or pts < 0:
             raise ValueError('Frame outside verified camera clock map')
         segment = bisect_right(self.pts_starts, pts) - 1 if self.pts_starts is not None else bisect_right(self.starts, index) - 1
-        return (datetime.fromtimestamp(self.segments[segment]['offset'], timezone.utc) + timedelta(seconds=pts),
+        stamp = datetime.fromtimestamp(self.segments[segment]['offset'], timezone.utc) + timedelta(seconds=pts)
+        floor = self.segments[segment].get('clock_floor')
+        if floor is not None and stamp.timestamp() < floor:
+            stamp = datetime.fromtimestamp(floor, timezone.utc)
+        return (stamp,
                 (segment > 0 and abs(pts - self.pts_starts[segment]) < 1e-8) if self.pts_starts is not None else index in self.cut_frames)
 
     def excluded_until(self, index):

@@ -261,7 +261,8 @@ def video_status(request):
         if job:
             data.append(dict(id=str(upload.pk), status=job.status, label=job.get_status_display(),
                 phase=job.phase_label, phase_code=job.phase, percent=job.progress_percent, error=job.error,
-                counted_in=job.counted_in, counted_out=job.counted_out, fps=round(job.processing_fps, 1)))
+                counted_in=job.counted_in, counted_out=job.counted_out, fps=round(job.processing_fps, 1),
+                clock_note=job.clock_note))
     dispatcher = dispatcher_status()
     if not request.user.is_console_admin:
         dispatcher = {'online': dispatcher['online']}

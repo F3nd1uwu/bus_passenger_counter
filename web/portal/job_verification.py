@@ -118,6 +118,17 @@ class QueueTests(TestCase):
         self.assertEqual(self.client.get(url).json()['jobs'], [])
         self.assertEqual(self.client.get('/videos/status/?ids=not-a-uuid').status_code, 400)
 
+    def test_clock_estimation_note_is_visible_on_owned_record_and_status(self):
+        upload = self.upload()
+        job = jobs.enqueue(upload)
+        job.clock_note = 'Время восстановлено по видео; на склейках возможна погрешность.'
+        job.save()
+        status = self.client.get(f'/videos/status/?ids={upload.pk}').json()['jobs'][0]
+        self.assertEqual(status['clock_note'], job.clock_note)
+        self.assertContains(self.client.get(f'/videos/{upload.pk}/'), job.clock_note)
+        self.client.force_login(self.other)
+        self.assertEqual(self.client.get(f'/videos/status/?ids={upload.pk}').json()['jobs'], [])
+
     def test_only_admin_can_retry_and_running_completed_jobs_are_protected(self):
         upload = self.upload()
         job = jobs.enqueue(upload)

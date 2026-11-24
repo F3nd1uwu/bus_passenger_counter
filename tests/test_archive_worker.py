@@ -7,10 +7,50 @@ from unittest.mock import Mock, patch
 
 from config.settings import Settings
 from tools import archive_protocol as protocol
-from tools.archive_worker import ReviewRequired, deliver_completed, execute, freeze_recipe
+from tools.archive_worker import ReviewRequired, deliver_completed, execute, freeze_recipe, prepare_clock
 
 
 class ArchiveWorkerTests(unittest.TestCase):
+    def test_unstarted_old_review_map_is_backed_up_and_rebuilt(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            output, state = root/'clock.json', root/'counter.sqlite3'
+            protocol.write(output, dict(builder_sha256='previous-builder'))
+            cfg = replace(Settings(), STATE_PATH=str(state))
+            expected = object()
+            with patch('core.camera_clock.sha256', return_value='current-builder'), \
+                 patch('core.camera_clock.ClockMap.load', side_effect=[ValueError('unreviewed montage transitions'), expected]), \
+                 patch('tools.build_clock_map.build', side_effect=lambda cfg, out, **kwargs: protocol.write(out, {'new': True})) as build:
+                self.assertIs(prepare_clock(cfg, output, ''), expected)
+            build.assert_called_once_with(cfg, output, allow_media_fallback=True)
+            self.assertEqual(len(list(root.glob('clock.before-media-fallback-*.json'))), 1)
+            self.assertEqual(protocol.read(output), {'new': True})
+
+    def test_clock_upgrade_never_rewrites_an_existing_counter_checkpoint(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            output, state = root/'clock.json', root/'counter.sqlite3'
+            protocol.write(output, dict(builder_sha256='previous-builder'))
+            state.write_bytes(b'existing durable counter state')
+            cfg = replace(Settings(), STATE_PATH=str(state))
+            with patch('core.camera_clock.ClockMap.load', side_effect=ValueError('unreviewed montage transitions')), \
+                 patch('tools.build_clock_map.build') as build, self.assertLogs(level='ERROR'):
+                with self.assertRaises(ReviewRequired):
+                    prepare_clock(cfg, output, '')
+            build.assert_not_called()
+            self.assertEqual(state.read_bytes(), b'existing durable counter state')
+            self.assertEqual(protocol.read(output), dict(builder_sha256='previous-builder'))
+
+    def test_clock_builder_failure_keeps_the_original_reason_in_private_logs(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            with patch('core.camera_clock.sha256', return_value='source'), \
+                 patch('tools.build_clock_map.build', side_effect=ValueError('No readable camera date/time at frame 0')), \
+                 self.assertLogs(level='ERROR') as captured:
+                with self.assertRaises(ReviewRequired):
+                    prepare_clock(Settings(), root/'clock.json', '')
+            self.assertIn('No readable camera date/time at frame 0', '\n'.join(captured.output))
+
     def test_recipe_freezes_assets_but_never_writes_database_credentials(self):
         with tempfile.TemporaryDirectory() as folder:
             asset = Path(folder)/'model.bin'
